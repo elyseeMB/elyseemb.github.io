@@ -1,0 +1,46 @@
+h1,
+h2,
+h3 {
+  font-family: "Vollkorn" !important;
+  color: var(--color-primary);
+}
+
+h1 {
+  letter-spacing: -5px;
+  font-size: 8.5rem;
+}
+
+h2 {
+  font-size: 4rem;
+  letter-spacing: -2px;
+}
+
+h3 > * {
+  font-family: "JetBrains Mono" !important;
+}
+
+h3 {
+  font-family: "JetBrains Mono" !important;
+  font-size: 2rem;
+  letter-spacing: -3px;
+  font-weight: 500;
+}
+
+p {
+  color: var(--color-secondary);
+}
+
+h4,
+h5,
+h6,
+*,
+body {
+  font-family: "Inter" !important;
+  color: var(--color-primary);
+}
+
+p {
+  font-size: var(--size);
+  letter-spacing: var(--letter-spacing);
+  line-height: var(--line-height);
+}

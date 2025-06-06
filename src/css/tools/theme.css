@@ -1,0 +1,18 @@
+:root {
+  --contrast: rgb(141, 0, 236);
+  --bg-color: #f7f7f7;
+  --color-secondary: #7a7a7a;
+  --color-primary: rgb(57, 55, 55);
+  --space: 1rem;
+  --space-2: calc(2 * var(--space));
+  --space-3: calc(4 * var(--space));
+  --space-4: calc(6.8 * var(--space));
+  --space-5: calc(8 * var(--space));
+
+  --size: 18px;
+  --letter-spacing: -0.5px;
+  --line-height: 130%;
+
+  --rounded: 8px;
+  --rounded-2: 16px;
+}
