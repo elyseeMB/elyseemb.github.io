@@ -31,7 +31,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
-        run: pnpm install --immutable
+        run: pnpm install
 
       - name: Build Vite site
         run: pnpm build
