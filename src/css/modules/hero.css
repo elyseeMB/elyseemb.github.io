@@ -11,18 +11,19 @@
 
 .hero::before {
   content: "";
-  background-image: radial-gradient(
-    circle,
-    rgba(159, 159, 159, 0.3) 1.4px,
-    transparent 1px
-  );
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.1) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
   background-size: 20px 20px;
   background-position: center;
   background-repeat: repeat;
-  mask-image: radial-gradient(circle at center, black 0%, transparent 80%);
-  mask-repeat: no-repeat;
-  mask-size: cover;
 
+  mask-image: radial-gradient(circle at center, black 0%, transparent 70%);
+  mask-size: cover;
+  mask-repeat: no-repeat;
   inset: 0;
   overflow: hidden;
   position: absolute;
