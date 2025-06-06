@@ -1,0 +1,50 @@
+.header {
+  background: white;
+  border-radius: var(--rounded-2);
+  padding: 1rem;
+  margin: 0 auto;
+  margin-top: 1rem;
+  font-weight: 500;
+  width: max-content;
+}
+
+.header ul {
+  display: flex;
+  align-items: center;
+  gap: var(--space);
+}
+
+.header ul li {
+  padding: 0.5rem 0.5rem;
+  cursor: pointer;
+}
+
+.header ul li:hover {
+  border-radius: var(--rounded);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.header.is-fixed {
+  position: fixed;
+  background: white;
+  border-radius: var(--rounded-2);
+  padding: 1rem;
+  font-weight: 500;
+  left: 50%;
+  top: 10px;
+  transform: translateX(-50%);
+  transition: opacity 0.3s;
+  opacity: 1;
+  z-index: 10;
+
+  &::after {
+    max-width: 100%;
+    background: var(--border-light);
+  }
+}
+
+.header.is-hidden {
+  opacity: 0;
+}
+.header.is-fixed.is-inversed {
+}

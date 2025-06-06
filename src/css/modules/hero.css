@@ -36,10 +36,35 @@
 }
 
 .hero .wrapper {
-  padding-top: var(--space-2);
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-2);
+}
+
+.hero .wrapper::before,
+.hero .wrapper::after {
+  --contrast: rgba(39, 0, 155, 0.167);
+  /* background: url("/shape.png"); */
+  content: "";
+  position: absolute;
+  width: 38px;
+  aspect-ratio: 1 / 1;
+  z-index: -100;
+  inset: 0;
+  animation: spin 15s linear infinite normal;
+  background: var(--contrast);
+  box-shadow: inset 0 0px 4.8px -3px #ffffff;
+  border-radius: var(--rounded-2);
+}
+
+.hero .wrapper::before {
+  left: 200px;
+}
+
+.hero .wrapper::after {
+  left: 900px;
+  top: 262px;
+  animation: moveY 25s linear infinite alternate;
 }
 
 .hero .description,
@@ -90,4 +115,23 @@
 .hero .header ul li:hover {
   border-radius: var(--rounded);
   background-color: rgba(0, 0, 0, 0.05);
+}
+
+@keyframes moveY {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(-1turn);
+  }
 }

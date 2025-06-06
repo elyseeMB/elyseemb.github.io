@@ -9,6 +9,8 @@
 /* MODULES */
 @import "./css/modules/hero.css";
 @import "./css/modules/mark.css";
+@import "./css/modules/header.css";
+@import "./css/modules/split.css";
 
 /* BLOCKS */
 @import "./css/blocks/presentation.css";
