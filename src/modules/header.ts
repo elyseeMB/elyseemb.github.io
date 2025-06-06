@@ -1,10 +1,11 @@
 /**
  * Throttle un callback
  */
-export function throttle(callback, delay) {
-  let last;
-  let timer;
+export function throttle(callback: Function, delay: number) {
+  let last: number;
+  let timer: number;
   return function () {
+    // @ts-ignore
     let context = this;
     let now = +new Date();
     let args = arguments;
