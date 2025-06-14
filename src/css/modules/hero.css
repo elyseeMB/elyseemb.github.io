@@ -30,6 +30,10 @@
   z-index: -1000;
 }
 
+.hero h1 span {
+  color: black;
+}
+
 .hero span {
   color: var(--color-secondary);
   font-weight: 500;
@@ -43,7 +47,7 @@
 
 .hero .wrapper::before,
 .hero .wrapper::after {
-  --contrast: rgba(39, 0, 155, 0.167);
+  --contrast: #007aec94;
   /* background: url("/shape.png"); */
   content: "";
   position: absolute;
@@ -53,8 +57,8 @@
   inset: 0;
   animation: spin 15s linear infinite normal;
   background: var(--contrast);
-  box-shadow: inset 0 0px 4.8px -3px #ffffff;
-  border-radius: var(--rounded-2);
+  box-shadow: inset 0 0px 5px -3px #6b6b6b;
+  border-radius: var(--rounded);
 }
 
 .hero .wrapper::before {
@@ -89,7 +93,31 @@
 }
 
 .hero .description {
-  max-width: 500px;
+  max-width: 600px;
+}
+
+@media screen and (min-width: 1350px) {
+  .hero h1 span {
+    font-size: inherit;
+  }
+
+  .hero span {
+    font-size: 24px;
+  }
+
+  .hero .description {
+    max-width: 800px;
+  }
+
+  .hero .wrapper {
+    gap: var(--space-3);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .hero .wrapper {
+    gap: var(--space);
+  }
 }
 
 /* HEADER */
