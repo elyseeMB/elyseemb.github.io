@@ -71,18 +71,19 @@
   animation: moveY 25s linear infinite alternate;
 }
 
-.hero .description,
-.hero h1 {
-  text-align: center;
-}
-
 .hero img {
   display: flex;
   width: 150px;
 }
 
 .hero h1 {
-  max-width: 100%;
+  width: 100%;
+}
+
+@media screen and (min-width: 1350px) {
+  .hero h1 {
+    max-width: 100%;
+  }
 }
 
 .hero h3 {
@@ -93,7 +94,8 @@
 }
 
 .hero .description {
-  max-width: 600px;
+  width: 100%;
+  /* max-width: 600px; */
 }
 
 @media screen and (min-width: 1350px) {
@@ -117,6 +119,10 @@
 @media screen and (max-width: 900px) {
   .hero .wrapper {
     gap: var(--space);
+  }
+
+  .hero .description {
+    width: 100%;
   }
 }
 

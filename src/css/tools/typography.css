@@ -7,9 +7,9 @@ h3 {
 }
 
 h1 {
-  letter-spacing: -5px;
-  font-size: 7rem;
-  line-height: 0.85;
+  letter-spacing: -3px;
+  font-size: 5rem;
+  line-height: 0.8;
   font-weight: 700;
 }
 
@@ -23,7 +23,7 @@ h1 {
 
 @media screen and (min-width: 1350px) {
   h1 {
-    font-size: 9rem;
+    font-size: 7rem;
   }
 }
 
