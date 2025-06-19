@@ -1,4 +1,5 @@
 ---
+import Scripts from "../components/Scripts.astro";
 import Seo from "../components/Seo.astro";
 import "../css/index.css";
 
@@ -23,10 +24,9 @@ console.log(image);
       image={image}
       url={url}
     />
+    <Scripts />
   </head>
   <body>
     <slot />
-
-    <script is:inline type="module" src="/src/main.tsx" defer></script>
   </body>
 </html>
