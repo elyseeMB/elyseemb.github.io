@@ -1,19 +1,19 @@
 /* LAYOUT */
-@import "./css/layout/layout.css";
+@import "./layout/layout.css";
 
 /* TOOLS */
-@import "./css/tools/reset.css";
-@import "./css/tools/typography.css";
-@import "./css/tools/theme.css";
+@import "./tools/reset.css";
+@import "./tools/typography.css";
+@import "./tools/theme.css";
 
 /* MODULES */
-@import "./css/modules/hero.css";
-@import "./css/modules/mark.css";
-@import "./css/modules/header.css";
-@import "./css/modules/split.css";
+@import "./modules/hero.css";
+@import "./modules/mark.css";
+@import "./modules/header.css";
+@import "./modules/split.css";
 
 /* BLOCKS */
-@import "./css/blocks/presentation.css";
+@import "./blocks/presentation.css";
 
 :root {
   line-height: 1.5;

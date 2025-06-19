@@ -1,0 +1,32 @@
+---
+import Seo from "../components/Seo.astro";
+import "../css/index.css";
+
+const {
+  title,
+  description,
+  image,
+  url = Astro.url.href,
+  typeContent,
+} = Astro.props;
+
+console.log(image);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <Seo
+      title={title}
+      description={description}
+      typeContent={typeContent}
+      image={image}
+      url={url}
+    />
+  </head>
+  <body>
+    <slot />
+
+    <script is:inline type="module" src="/src/main.tsx" defer></script>
+  </body>
+</html>

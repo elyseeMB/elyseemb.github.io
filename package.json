@@ -1,21 +1,24 @@
 {
-  "name": "exemplewebsite2",
-  "private": true,
+  "name": "portfolio",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/markdoc": "^0.15.0",
+    "@astrojs/preact": "^4.1.0",
+    "@astrojs/sitemap": "^3.4.1",
+    "astro": "^5.10.0",
     "gsap": "^3.13.0",
-    "preact": "^10.26.5"
+    "preact": "^10.26.9"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.1",
-    "typescript": "~5.8.3",
-    "vite": "^6.3.5"
+    "typescript": "~5.8.3"
   },
   "packageManager": "pnpm@9.15.2+sha1.0ffb02f94047016ec7e088030337455b4c94bb34"
 }
