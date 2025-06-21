@@ -11,7 +11,7 @@
 
   --size: 18px;
   --letter-spacing: -0.5px;
-  --line-height: 130%;
+  --line-height: calc(1.4 * var(--size));
 
   --rounded: 8px;
   --rounded-2: 16px;

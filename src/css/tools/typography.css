@@ -1,15 +1,18 @@
 /* TYPOGRAPHIE */
 h1,
 h2,
-h3 {
+h3,
+h1 span,
+h2 span,
+h3 span {
   font-family: "JetBrains Mono" !important;
   color: var(--color-primary);
 }
 
 h1 {
-  letter-spacing: -3px;
-  font-size: 5rem;
-  line-height: 0.8;
+  letter-spacing: -5px;
+  font-size: 6rem;
+  line-height: 0.9;
   font-weight: 700;
 }
 
@@ -17,7 +20,7 @@ h1 {
   h1 {
     letter-spacing: -2.5px;
     line-height: 1;
-    font-size: 3rem;
+    font-size: 4rem;
   }
 }
 
@@ -58,6 +61,5 @@ body {
 
 p {
   font-size: var(--size);
-  letter-spacing: var(--letter-spacing);
   line-height: var(--line-height);
 }
