@@ -1,12 +1,19 @@
 :root {
-  --container-padding: 32px;
+  --container-padding: 1rem;
   --container-width: calc(100vw - var(--container-padding) * 2);
 }
 
-.container {
-  width: 100%;
-  height: auto;
-  padding-inline: calc(50% - var(--container-width) / 2);
+.container > * {
+  box-sizing: border-box;
+  max-width: min(
+    var(--container-width),
+    calc(100% - 2 * var(--container-padding))
+  );
+  margin-inline: auto;
+}
+
+.container-narrow {
+  --container-width: 800px;
 }
 
 .page-wrapper {
@@ -24,4 +31,11 @@
     calc(100% - 2 * var(--container-padding))
   );
   margin-inline: auto;
+}
+
+.stack {
+  padding-block: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 1.5rem;
 }

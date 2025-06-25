@@ -1,0 +1,145 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection("blog", ({ data }) => {
+    return import.meta.env.PROD ? data.isDraft !== true : true;
+  });
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+
+const { Content, headings } = await render(post);
+
+const {
+  seo: seoProps,
+  title,
+  summary,
+  taxonomies,
+  thumbnail,
+  author,
+  pubDate,
+} = post.data;
+
+const getTaxonomies = await Promise.all(
+  taxonomies
+    ? taxonomies?.map(
+        async (taxonomy) => await getEntry(taxonomy.collection, taxonomy.id)
+      )
+    : []
+);
+
+const formatDate = Intl.DateTimeFormat(undefined, {
+  dateStyle: "long",
+}).format(pubDate);
+const writer = await getEntry(author.collection, author.id);
+
+const metaData = {
+  title: post.data.title,
+  description: post.data.summary,
+  image: post.data.thumbnail,
+  url: Astro.url.href,
+};
+const seo = seoProps ? seoProps : metaData;
+---
+
+<Layout {...seo}>
+  <div class="container">
+    <div class="container-narrow">
+      <div class="info">
+        <h1>{title}</h1>
+        <hr />
+        <div class="tags">
+          {
+            getTaxonomies.map((taxonomy) => (
+              <div class="tag"> {taxonomy?.data.name} </div>
+            ))
+          }
+        </div>
+        <div class="meta">
+          Posté le {formatDate.toString()} - Par {writer?.data.name}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {
+    summary && (
+      <div class="container">
+        <div class="container-narrow description">
+          <blockquote>
+            <p>{summary}</p>
+          </blockquote>
+        </div>
+      </div>
+    )
+  }
+
+  <div class="container">
+    <div class="container-narrow">
+      <div class="heading">
+        <div class="cover">
+          <img src={thumbnail} alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="container-narrow">
+      <div class="content">
+        <Content />
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  h1 {
+    letter-spacing: -3px;
+    white-space: normal;
+    word-break: break-word;
+    font-size: 4rem !important;
+  }
+
+  hr {
+    border: 1.5px solid black;
+  }
+
+  .cover {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 590px) {
+    .container-narrow .info .tags {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  @media screen and (min-width: 1300px) {
+    .heading {
+      img {
+        max-height: 500px;
+      }
+    }
+  }
+</style>

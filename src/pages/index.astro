@@ -1,29 +1,22 @@
 ---
+import Hero from "../components/Hero.astro";
+import Blog from "../components/Blog.astro";
+import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+import type { CollectionEntry } from "astro:content";
 
-console.log("This runs in your terminal, not the browser!");
+export type PropsBlog = CollectionEntry<"blog">;
+
+const articles = await getCollection("blog");
+
+console.log(articles);
 ---
 
 <Layout>
   <div class="page-wrapper">
     <div class="container">
-      <section class="hero">
-        <div class="wrapper">
-          <div class="description">
-            <h1 class="split">See you soon. Great things are coming.</h1>
-            <p>
-              <span
-                >I’m a web developer passionate about crafting sustainable and
-              </span>
-              <span><mark>human-centered experiences.</mark></span>
-              <span
-                >I bring adaptable, thoughtful solutions to a constantly
-                evolving digital world.</span
-              >
-            </p>
-          </div>
-        </div>
-      </section>
+      <Hero />
+      <Blog />
     </div>
   </div>
 </Layout>

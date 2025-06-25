@@ -5,7 +5,7 @@ h3,
 h1 span,
 h2 span,
 h3 span {
-  font-family: "JetBrains Mono" !important;
+  font-family: "Bricolage Grotesque" !important;
   color: var(--color-primary);
 }
 
@@ -35,14 +35,10 @@ h2 {
   letter-spacing: -2px;
 }
 
-h3 > * {
-  font-family: "JetBrains Mono" !important;
-}
-
 h3 {
-  font-family: "JetBrains Mono" !important;
-  font-size: 2rem;
-  letter-spacing: -3px;
+  font-family: "Bricolage Grotesque" !important;
+  font-size: 3rem;
+  letter-spacing: -2px;
   font-weight: 500;
 }
 

@@ -11,6 +11,9 @@
 @import "./modules/mark.css";
 @import "./modules/header.css";
 @import "./modules/split.css";
+@import "./modules/dock.css";
+@import "./modules/card.css";
+@import "./modules/tag.css";
 
 /* BLOCKS */
 @import "./blocks/presentation.css";

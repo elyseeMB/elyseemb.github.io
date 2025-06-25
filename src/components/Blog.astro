@@ -1,0 +1,48 @@
+---
+import { getCollection } from "astro:content";
+
+const articles = await getCollection("blog");
+
+console.log(articles);
+---
+
+<section class="blog">
+  <h3>Mes derniers articles</h3>
+  <div class="stack">
+    {
+      articles.map((article, index) => (
+        <a href={`/blog/${article.id}`}>
+          <article class="card">
+            <div class="card__header">
+              <div class="card__header-number">
+                {index.toString().padStart(2, "0")}
+              </div>
+              <div class="card__header-icon">&DownArrow;</div>
+            </div>
+            <div class="card__bottom">
+              <div class="card__title">
+                <h3>{article.data.title}</h3>
+              </div>
+              <div class="card__img">
+                <img
+                  src="https://media.beehiiv.com/cdn-cgi/image/format=auto,fit=scale-down,onerror=redirect/uploads/asset/file/c5bb5b7a-e623-4fcd-94ef-523eb4885450/Western_vs_Asian_Product_Design_RedNote_Instagram.png"
+                  alt=""
+                />
+              </div>
+            </div>
+          </article>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .blog a {
+    display: inline-flex;
+  }
+  .blog h3 {
+    font-weight: 900;
+    font-size: 5rem;
+  }
+</style>
