@@ -1,0 +1,38 @@
+:root {
+  --primary: rgb(255, 14, 14);
+}
+
+.btn {
+  border: 2px solid black;
+  padding: 0.8rem 1rem;
+  box-shadow: 3px 3px 0px black;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  transition: box-shadow 0.1s;
+  color: white;
+}
+
+.btn:hover {
+  filter: brightness(1.4);
+  box-shadow: 3px 3px 0px black, 8px 8px 0px var(--primary);
+}
+
+.btn .icon svg {
+  fill: white;
+  transform-origin: center;
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s;
+}
+
+.btn-primary {
+  background-color: var(--contrast);
+}
+
+.btn:hover .icon svg {
+  transform-origin: center;
+  transform: rotate(45deg);
+}

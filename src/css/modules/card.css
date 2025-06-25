@@ -17,8 +17,19 @@
   padding-bottom: 3rem;
 }
 
+.card__header-icon {
+  transition: transform 0.2s;
+}
+
+.card:hover .card__header-icon {
+  transform: rotate(45deg);
+}
+
+.card:hover h3 {
+  color: var(--contrast);
+}
+
 .card h3 {
-  /* text-transform: uppercase; */
   font-size: 2.4rem !important;
   white-space: normal;
   word-break: break-word;

@@ -43,7 +43,9 @@ h3 {
 }
 
 p {
-  color: var(--color-secondary);
+  color: var(--color-primary);
+  font-size: var(--size);
+  line-height: var(--line-height);
 }
 
 h4,
@@ -55,7 +57,6 @@ body {
   color: var(--color-primary);
 }
 
-p {
-  font-size: var(--size);
-  line-height: var(--line-height);
+button {
+  font-family: "Bricolage Grotesque" !important;
 }
