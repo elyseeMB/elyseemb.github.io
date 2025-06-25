@@ -15,6 +15,6 @@ console.log(articles);
 <Layout>
   <div class="container">
     <Hero />
-    <Blog />
+    {articles.length >= 1 && <Blog />}
   </div>
 </Layout>

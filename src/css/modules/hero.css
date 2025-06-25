@@ -3,10 +3,10 @@
   position: relative;
   display: grid;
   place-items: center;
-  padding-block: var(--space-2);
   min-height: 100vh;
   font-size: var(--size);
   z-index: 1;
+  padding-bottom: 5rem;
 }
 
 .hero::before {
@@ -28,21 +28,6 @@
   overflow: hidden;
   position: absolute;
   z-index: -1000;
-}
-
-.hero h1 span {
-  color: black;
-}
-
-.hero span {
-  color: var(--color-secondary);
-  font-weight: 500;
-}
-
-.hero .description {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-2);
 }
 
 .hero .wrapper::before,
@@ -69,57 +54,6 @@
   left: 900px;
   top: 262px;
   animation: moveY 25s linear infinite alternate;
-}
-
-.hero img {
-  display: flex;
-  width: 150px;
-}
-
-.hero h1 {
-  /* text-transform: uppercase; */
-  width: 100%;
-}
-
-.hero p {
-  width: 400px;
-  line-height: 1.6;
-}
-
-.hero h3 {
-  max-width: 100%;
-  font-size: var(--size);
-  line-height: 1.6;
-  letter-spacing: -0.8px;
-}
-
-.hero .description {
-  width: 100%;
-}
-
-/* HEADER */
-
-.hero .header {
-  background: white;
-  border-radius: var(--rounded-2);
-  padding: 1rem;
-  font-weight: 500;
-}
-
-.hero .header ul {
-  display: flex;
-  align-items: center;
-  gap: var(--space);
-}
-
-.hero .header ul li {
-  padding: 0.5rem 0.5rem;
-  cursor: pointer;
-}
-
-.hero .header ul li:hover {
-  border-radius: var(--rounded);
-  background-color: rgba(0, 0, 0, 0.05);
 }
 
 @keyframes moveY {
