@@ -37,18 +37,16 @@
 <style>
   .wrapper {
     display: grid;
-    /* grid-template-columns: repeat(auto-fill, minmax(500px, 1fr)); */
-    /* gap: 4rem; */
-    place-items: center;
-    text-align: center;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    place-items: flex-end;
+    gap: 4rem;
   }
 
   .left {
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    place-items: center;
     gap: 1rem;
-    max-width: 500px;
   }
 
   form.label input {
@@ -65,9 +63,5 @@
   .icon {
     width: 24px;
     height: 24px;
-  }
-
-  .hero .btn-secondary {
-    padding: 1rem;
   }
 </style>
