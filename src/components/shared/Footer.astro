@@ -64,28 +64,27 @@
     background-color: #000;
   }
 
-  @media only screen and (min-width: 500px) {
-    .grid {
-      display: flex !important;
-      align-items: flex-start !important;
-      flex-direction: column !important;
-      gap: 3rem;
-    }
-  }
-
   footer p {
     color: white;
   }
 
   .grid {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-    align-content: space-between;
-    place-items: flex-end;
-    place-content: center;
-    gap: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3rem;
+    padding-block: 5rem;
+  }
+
+  @media only screen and (min-width: 769px) {
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+      align-content: space-between;
+      place-items: flex-end;
+      place-content: center;
+      gap: 4rem;
+    }
   }
 
   .newsletter {

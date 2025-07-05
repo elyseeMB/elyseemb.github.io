@@ -3,7 +3,7 @@
   --container-width: calc(100vw - var(--container-padding) * 2);
 }
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 500px) and (max-width: 1024px) {
   :root {
     --container-padding: 32px;
   }

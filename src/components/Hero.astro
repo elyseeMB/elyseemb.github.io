@@ -1,7 +1,7 @@
 <section class="hero">
   <div class="wrapper">
     <div class="left">
-      <h1 class="split">Hello | Hola | Bonjour | こんにちは | 안녕하세요</h1>
+      <h1 class="split">Hello, Hola, Bonjour, こんにちは, 안녕하세요</h1>
       <p>
         <!-- Design. Code. Science. Une fois par mois, une sélection d’idées et
         d’articles pour nourrir ta curiosité et faire évoluer ta pratique.
@@ -44,23 +44,24 @@
 </section>
 
 <style>
-  @media only screen and (min-width: 500px) {
+  /* Mobile par défaut (styles de base) */
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    padding-block: 4rem;
+  }
+
+  /* Desktop (769px et plus) */
+  @media only screen and (min-width: 769px) {
     .wrapper {
-      padding-block: 2rem;
-      display: flex !important;
-      align-items: flex-start !important;
-      flex-direction: column !important;
-      gap: 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+      place-items: flex-end;
+      gap: 4rem;
     }
   }
-
-  .wrapper {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-    place-items: flex-end;
-    gap: 4rem;
-  }
-
   .left {
     width: 100%;
     display: grid;
