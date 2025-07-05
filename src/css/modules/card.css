@@ -6,7 +6,8 @@
   align-content: space-between;
   gap: 1.5rem;
   border: 3px solid black;
-  transition: all 0.2s;
+  transition: box-shadow 0.25s cubic-bezier(0.645, 0.045, 0.355, 1),
+    transform 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   padding: var(--gap);
   padding-bottom: 0;
 }
@@ -61,5 +62,7 @@
 
 .card:hover {
   box-shadow: 8px 8px 0px black;
+  transform: translate(-4px, -4px);
+
   /* border-color: var(--contrast); */
 }

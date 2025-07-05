@@ -10,26 +10,34 @@ console.log(articles);
   <h3>Mes derniers articles</h3>
   <div class="stack">
     {
-      articles.map((article, index) => (
-        <a href={`/blog/${article.id}`}>
-          <article class="card">
-            <div class="card__header">
-              <div class="card__header-number">
-                {index.toString().padStart(2, "0")}
+      articles
+        .filter((article) => article.data.isDraft !== true)
+        .sort((a, b) =>
+          new Date(a.data.pubDate!).getTime() <
+          new Date(b.data.pubDate!).getTime()
+            ? 1
+            : -1
+        )
+        .map((article, index) => (
+          <a href={`/blog/${article.id}`}>
+            <article class="card">
+              <div class="card__header">
+                <div class="card__header-number">
+                  {index.toString().padStart(2, "0")}
+                </div>
+                <div class="card__header-icon">&DownArrow;</div>
               </div>
-              <div class="card__header-icon">&DownArrow;</div>
-            </div>
-            <div class="card__bottom">
-              <div class="card__title">
-                <h3>{article.data.title}</h3>
+              <div class="card__bottom">
+                <div class="card__title">
+                  <h3>{article.data.title}</h3>
+                </div>
+                <div class="card__img">
+                  <img src={`${article.data.thumbnail}`} alt="" />
+                </div>
               </div>
-              <div class="card__img">
-                <img src={`${article.data.thumbnail}`} alt="" />
-              </div>
-            </div>
-          </article>
-        </a>
-      ))
+            </article>
+          </a>
+        ))
     }
   </div>
 </section>
