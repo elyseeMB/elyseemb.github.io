@@ -1,11 +1,4 @@
 
 export default new Map([
-["src/data/blog/7-erreurs-frequentes-dans-un-projet-de-construction-et-comment-les-viter.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fblog%2F7-erreurs-frequentes-dans-un-projet-de-construction-et-comment-les-viter.mdx&astroContentModuleFlag=true")],
-["src/data/blog/beton-bas-carbone-quelles-solutions-aujourdhui.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fblog%2Fbeton-bas-carbone-quelles-solutions-aujourdhui.mdx&astroContentModuleFlag=true")],
-["src/data/blog/histoire-du-design-graphique.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fblog%2Fhistoire-du-design-graphique.mdx&astroContentModuleFlag=true")],
-["src/data/blog/les-coulisses-dun-projet-de-la-maquette-au-permis-de-construire.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fblog%2Fles-coulisses-dun-projet-de-la-maquette-au-permis-de-construire.mdx&astroContentModuleFlag=true")],
-["src/data/blog/my-year-in-review.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fblog%2Fmy-year-in-review.mdx&astroContentModuleFlag=true")],
-["src/data/blog/pourquoi-choisir-un-site-statique.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fblog%2Fpourquoi-choisir-un-site-statique.mdx&astroContentModuleFlag=true")],
-["src/data/blog/renovation-dun-btiment-ancien-enjeux-et-solutions.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fblog%2Frenovation-dun-btiment-ancien-enjeux-et-solutions.mdx&astroContentModuleFlag=true")],
-["src/data/blog/retour-sur-notre-chantier-de-logements-collectifs-a-brazzaville.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fblog%2Fretour-sur-notre-chantier-de-logements-collectifs-a-brazzaville.mdx&astroContentModuleFlag=true")]]);
+["src/data/blog/histoire-du-design-graphique.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fblog%2Fhistoire-du-design-graphique.mdx&astroContentModuleFlag=true")]]);
 		
