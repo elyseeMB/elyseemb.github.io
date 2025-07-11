@@ -22,6 +22,9 @@
 /* BLOCKS */
 @import "./blocks/presentation.css";
 
+/* PAGES */
+@import "./pages/pattern.css";
+
 :root {
   line-height: 1.5;
   font-weight: 400;

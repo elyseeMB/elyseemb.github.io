@@ -23,7 +23,9 @@ console.log(articles);
             <article class="card">
               <div class="card__header">
                 <div class="card__header-number">
-                  {index.toString().padStart(2, "0")}
+                  {index.toString().padStart(2, "0").includes("00")
+                    ? "news"
+                    : index.toString().padStart(2, "0")}
                 </div>
                 <div class="card__header-icon">&DownArrow;</div>
               </div>

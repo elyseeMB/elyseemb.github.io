@@ -15,6 +15,7 @@
     "@astrojs/sitemap": "^3.4.1",
     "astro": "^5.10.0",
     "gsap": "^3.13.0",
+    "highlight.js": "^11.11.1",
     "preact": "^10.26.9"
   },
   "devDependencies": {
