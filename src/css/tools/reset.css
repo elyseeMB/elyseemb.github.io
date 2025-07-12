@@ -160,12 +160,14 @@ textarea {
   resize: none;
 }
 hr {
+  border: 1px solid rgba(0, 0, 0, 0.749);
   height: 1px;
   background: var(--border);
   margin: 0;
   padding: 0;
   border: none;
 }
+
 *:focus:not(:focus-visible) {
   outline: none;
 }

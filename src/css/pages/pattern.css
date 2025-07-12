@@ -1,3 +1,13 @@
+:root {
+  --singleton: rgb(120, 122, 239);
+  --facade: rgb(170, 255, 170);
+  --decorator: rgb(129, 255, 244);
+  --strategy: rgb(122, 123, 214);
+  --observer: rgb(154, 247, 154);
+  --builder: rgb(117, 188, 255);
+  --factory-method: rgb(92, 236, 191);
+}
+
 .stack__pattern {
   padding: 2rem;
   padding-block: 2rem;
@@ -14,6 +24,10 @@
     grid-template-columns: 1fr; /* Une seule colonne sur très petits écrans */
     gap: 1rem;
   }
+}
+
+.card {
+  background: var(--bg);
 }
 
 .pattern__list {
@@ -76,4 +90,11 @@ pre code.hljs {
 
 .copy-btn:hover {
   background: #f0f0f0;
+}
+
+pre {
+  padding: 1.5rem;
+  overflow: hidden;
+  line-height: 1.5;
+  border-radius: 1rem;
 }

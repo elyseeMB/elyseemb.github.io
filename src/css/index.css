@@ -18,6 +18,7 @@
 @import "./modules/input.css";
 @import "./modules/form.css";
 @import "./modules/article.css";
+@import "./modules/hr.css";
 
 /* BLOCKS */
 @import "./blocks/presentation.css";
