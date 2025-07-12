@@ -435,9 +435,7 @@ export function useAccount() {
   object et module est unique dans son contexte d'exécution.
 </p>
 
-<p class="blog-single__paragraph">
-  `/store/singleton.ts` **Singleton Pattern**
-</p>
+<p class="blog-single__paragraph"> — **Singleton Pattern**</p>
 <br />
 
 ```ts
@@ -521,9 +519,7 @@ export const createStore = (): Store => {
 
 ## factory
 
-<p class="blog-single__paragraph">
-  `factory.ts` — **Factory Pattern pour les clés**
-</p>
+<p class="blog-single__paragraph">— **Factory Pattern pour les clés**</p>
 <br />
 
 ```ts
@@ -546,7 +542,7 @@ export const getStateKey = <T extends ResourceKey>(type: T): keyof State => {
 
 ## Facade
 
-<p class="blog-single__paragraph">`hooks/account.ts` — **Facade Pattern**</p>
+<p class="blog-single__paragraph">— **Facade Pattern**</p>
 
 ```ts
 export const useAccount = () => {
