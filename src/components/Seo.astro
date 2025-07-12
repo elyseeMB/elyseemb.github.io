@@ -18,6 +18,8 @@ const {
 const typeWebsite = "Portfolio";
 const name = "Elysee-Mboussa";
 const fullTitle = `${title} | ${typeWebsite}`;
+
+console.log(Astro.url);
 ---
 
 <title>{fullTitle}</title>
@@ -34,8 +36,8 @@ const fullTitle = `${title} | ${typeWebsite}`;
 />
 <link rel="icon" type="image/svg+xml" href={`${Astro.url.href}favicon.svg`} />
 <link rel="apple-touch-icon" href={`${Astro.url.href}apple-touch-icon.png`} />
-<link rel="manifest" href={`${Astro.url.href}site.webmanifest`} />
-<link rel="sitemap" href={`${Astro.url.href}sitemap-index.xml`} />
+<link rel="manifest" href={`${Astro.url.origin}site.webmanifest`} />
+<link rel="sitemap" href={`${Astro.url.origin}sitemap-index.xml`} />
 <link
   rel="icon"
   type="image/png"
