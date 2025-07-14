@@ -41,8 +41,6 @@ const getTaxonomies = await Promise.all(
     : []
 );
 
-console.log(getTaxonomies);
-
 const formatDate = Intl.DateTimeFormat(undefined, {
   dateStyle: "long",
 }).format(pubDate);
