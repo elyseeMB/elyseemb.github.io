@@ -1,21 +1,18 @@
+---
+import { Image } from "astro:assets";
+import { Picture } from "astro:assets";
+import HeroImage from "../../public/hero.png";
+---
+
 <section class="hero">
   <div class="wrapper">
     <div class="left">
-      <h1 class="split">Hello, Hola, Bonjour, こんにちは, 안녕하세요</h1>
-      <p>
-        <!-- Design. Code. Science. Une fois par mois, une sélection d’idées et
-        d’articles pour nourrir ta curiosité et faire évoluer ta pratique.
-        Abonne-toi. -->
-
-        <!-- I’m a web developer passionate about crafting sustainable and
-        human-centered experiences. I bring adaptable, thoughtful solutions to a
-        constantly evolving digital world. -->
-
-        <strong>Ingénieur logiciel,</strong> je conçois des systèmes numériques robustes,
-        durables et centrés sur l’utilisateur.
-        <br />
-        J’allie <strong>exigence technique à l’expérience vécue,</strong> avec une
-        approche à la fois pragmatique et humaine.
+      <span>Je suis Elysee Mb.</span>
+      <h1 class="split">Code, Musique & Science.</h1>
+      <p class="description">
+        Curieux de sciences, développeur, compositeur et amateur d’art. Je
+        partage mes réflexions sur la programmation, la musique, la science ou
+        parfois des analyses originales sur la littérature.
       </p>
       <!-- <form class="label">
         <input
@@ -40,12 +37,27 @@
       </form> -->
     </div>
 
-    <div class="right"></div>
+    <div class="right">
+      <Image class="hero-img" src={HeroImage} alt="Hero image" />
+    </div>
   </div>
 </section>
 
 <style>
-  /* Mobile par défaut (styles de base) */
+  img.hero-img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  @media screen and (min-width: 1350px) {
+    .description {
+      max-width: 650px !important;
+    }
+  }
+
   .wrapper {
     display: flex;
     flex-direction: column;
@@ -63,8 +75,9 @@
     .wrapper {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-      place-items: flex-end;
-      gap: 4rem;
+      place-items: flex-start;
+      justify-items: anchor-center;
+      /* gap: 4rem; */
     }
   }
   .left {
