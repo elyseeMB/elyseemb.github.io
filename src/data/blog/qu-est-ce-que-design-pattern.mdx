@@ -603,7 +603,6 @@ class CourseBuilder {
   }
 }
 
-// Utilisation
 const course = new CourseBuilder().setName("React").setColor("blue").build();
 ```
 
@@ -647,13 +646,10 @@ function withLogger(fn) {
   };
 }
 
-function saveCourse(course) {
-  // logiquement enregistre le cours
-}
+function saveCourse(course) {}
 
 const loggedSaveCourse = withLogger(saveCourse);
 
-// Utilisation
 loggedSaveCourse({ name: "JS", color: "yellow" });
 ```
 
