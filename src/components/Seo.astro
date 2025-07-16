@@ -10,8 +10,8 @@ interface Props {
 const {
   title = "Emmanuelito elysee",
   description = "I’m a web developer passionate about crafting sustainable and human-centered experiences. I bring adaptable, thoughtful solutions to a constantly evolving digital world.",
-  image = `${Astro.url.href}og-image.jpg`,
-  url = "https://elyseemb.github.io/durand_construction/",
+  image = `${Astro.url.origin}/og-image.jpg`,
+  url = "https://eembouz.com",
   typeContent = "website",
 } = Astro.props;
 
@@ -29,27 +29,32 @@ const fullTitle = `${title} | ${typeWebsite}`;
 <link
   rel="icon"
   type="image/png"
-  href={`${Astro.url.href}favicon-512.png`}
+  href={`${Astro.url.origin}/favicon-512.png`}
   sizes="512x512"
 />
-<link rel="icon" type="image/svg+xml" href={`${Astro.url.href}favicon.svg`} />
-<link rel="apple-touch-icon" href={`${Astro.url.href}apple-touch-icon.png`} />
+<link
+  rel="icon"
+  type="image/svg+xml"
+  href={`${Astro.url.origin}/favicon.svg`}
+/>
+<link
+  rel="apple-touch-icon"
+  href={`${Astro.url.origin}/apple-touch-icon.png`}
+/>
 <link rel="manifest" href={`${Astro.url.origin}/site.webmanifest`} />
 <link rel="sitemap" href={`${Astro.url.origin}/sitemap-index.xml`} />
 <link
   rel="icon"
   type="image/png"
-  href={`${Astro.url.href}favicon-96x96.png`}
+  href={`${Astro.url.origin}/favicon-96x96.png`}
   sizes="96x96"
 />
 <link
   rel="apple-touch-icon"
   sizes="180x180"
-  href={`${Astro.url.href}apple-touch-icon.png`}
+  href={`${Astro.url.origin}/apple-touch-icon.png`}
 />
 <meta name="theme-color" content="#1e1e1e" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="shortcut icon" href="/favicon.ico" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -81,10 +86,10 @@ const fullTitle = `${title} | ${typeWebsite}`;
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Emmanuelito elysee",
-    "url": "https://elyseemb.github.io",
+    "url": "https://eembouz.com",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://elyseemb.github.io",
+      "target": "https://eembouz.com",
       "query-input": "required name=search_term_string"
     }
   }
@@ -95,7 +100,7 @@ const fullTitle = `${title} | ${typeWebsite}`;
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Emmanuelito Elysee",
-    "url": "https://elyseemb.github.io",
-    "logo": "https://elyseemb.github.io/favicon-512.png"
+    "url": "https://eembouz.com",
+    "logo": "https://eembouz.com/favicon-512.png"
   }
 </script>
