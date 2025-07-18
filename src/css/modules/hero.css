@@ -2,6 +2,7 @@
 .hero {
   position: relative;
   display: grid;
+  width: 100%;
   place-items: center;
   min-height: 100vh;
   font-size: var(--size);

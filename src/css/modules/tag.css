@@ -12,5 +12,5 @@
   color: black;
   font-size: 0.8rem;
   border-radius: 1rem;
-  border: 2px solid black;
+  border: var(--border);
 }

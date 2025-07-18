@@ -1,5 +1,5 @@
 .btn {
-  border: 2px solid black;
+  border: var(--border);
   padding: 0.8rem 1rem;
   box-shadow: 3px 3px 0px black;
   font-weight: 700;

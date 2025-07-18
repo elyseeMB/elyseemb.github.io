@@ -44,7 +44,7 @@ h3 {
 }
 
 p {
-  color: var(--color-primary);
+  color: var(--color-secondary);
   font-size: var(--size);
   line-height: var(--line-height);
 }
@@ -55,7 +55,7 @@ h6,
 *,
 body {
   font-family: "Inter" !important;
-  color: var(--color-primary);
+  color: var(--color-secondary);
 }
 
 button {

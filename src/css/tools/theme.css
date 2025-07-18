@@ -1,8 +1,8 @@
 :root {
   --contrast: rgb(0, 122, 236);
   --bg-color: #ffffff;
-  --color-secondary: #7a7a7a;
-  --color-primary: rgb(57, 55, 55);
+  --color-secondary: #c4c4c4;
+  --color-primary: white;
   --space: 1rem;
   --space-2: calc(2 * var(--space));
   --space-3: calc(4 * var(--space));
@@ -16,4 +16,6 @@
 
   --rounded: 8px;
   --rounded-2: 16px;
+
+  --border: 1.5px solid rgba(255, 255, 255, 0.126);
 }

@@ -5,7 +5,7 @@ form.label {
   box-shadow: 5px 5px 0px black;
   display: flex;
   align-items: center;
-  border: 3px solid black;
+  border: var(--border);
   gap: 1rem;
 }
 

@@ -4,9 +4,27 @@ import { Picture } from "astro:assets";
 import HeroImage from "../../public/hero.png";
 ---
 
-<section class="hero">
+<section class="hero container-narrow">
   <div class="wrapper">
-    <div class="left">
+    <div class="info">
+      <span>Je suis Elysee Mb.</span>
+      <h2 class="split">Code, Musique & Science.</h2>
+    </div>
+
+    <div class="bento">
+      {
+        Array.from({ length: 5 }, (_, k) => (
+          <div class="bento__item">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+            Perspiciatis tempora repudiandae velit voluptas quas itaque possimus
+            quisquam facere ratione quibusdam dicta, non dolorem inventore
+            voluptatum earum veniam et nihil hic!
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- <div class="left">
       <span>Je suis Elysee Mb.</span>
       <h1 class="split">Code, Musique & Science.</h1>
       <p class="description">
@@ -14,36 +32,22 @@ import HeroImage from "../../public/hero.png";
         partage mes réflexions sur la programmation, la musique, la science ou
         parfois des analyses originales sur la littérature.
       </p>
-      <!-- <form class="label">
-        <input
-          id="email"
-          name="email"
-          type="text"
-          placeholder="Entrez votre email"
-        />
-        <button class="btn btn-secondary">
-          <span class="icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              ><path
-                d="M13.0508 12.361L7.39395 18.0179L5.97974 16.6037L11.6366 10.9468L6.68684 5.99707H18.0006V17.3108L13.0508 12.361Z"
-              ></path></svg
-            >
-          </span>
-          Envoyer</button
-        >
-      </form> -->
     </div>
 
     <div class="right">
       <Image class="hero-img" src={HeroImage} alt="Hero image" />
-    </div>
+    </div> -->
   </div>
 </section>
 
 <style>
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+  }
+
   img.hero-img {
     width: 100%;
     max-width: 500px;
@@ -63,7 +67,6 @@ import HeroImage from "../../public/hero.png";
     flex-direction: column;
     gap: 2rem;
     width: 100%;
-    padding-block: 4rem;
   }
 
   strong {
@@ -74,7 +77,7 @@ import HeroImage from "../../public/hero.png";
   @media only screen and (min-width: 769px) {
     .wrapper {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(max(500px, 100%), 1fr));
       place-items: flex-start;
       justify-items: anchor-center;
       /* gap: 4rem; */
