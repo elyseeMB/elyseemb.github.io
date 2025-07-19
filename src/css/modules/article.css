@@ -28,7 +28,7 @@
 
 blockquote {
   margin-block: 2rem;
-  border-left: 4px solid black;
+  border-left: 4px solid var(--color-secondary);
   padding: 1em 1.5em;
   font-style: italic;
 }

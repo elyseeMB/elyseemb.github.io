@@ -1,7 +1,7 @@
 .btn {
   border: var(--border);
-  padding: 0.8rem 1rem;
-  box-shadow: 3px 3px 0px black;
+  padding: 0.4rem 0.5rem;
+  border-radius: var(--rounded);
   font-weight: 700;
   display: flex;
   justify-content: center;
@@ -26,12 +26,11 @@
 .btn-primary {
   transition: box-shadow 0.25s cubic-bezier(0.645, 0.045, 0.355, 1),
     transform 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-  background-color: var(--contrast);
+  border-color: var(--contrast);
 }
 
 .btn-primary:hover {
-  transform: translate(-4px, -4px);
-  box-shadow: 6px 6px 0 0 black;
+  background-color: var(--hover-primary);
 }
 
 .btn:hover .icon svg {

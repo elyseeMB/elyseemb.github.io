@@ -18,3 +18,69 @@
 .bento__item:last-child {
   grid-column: 2 / span 2;
 }
+
+.skills .bento {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.skills .bento .bento__item {
+  /* aspect-ratio: 1 / 1; */
+}
+
+.skills .bento .bento__item:nth-child(1) {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 1;
+}
+
+.skills .bento .bento__item:nth-child(2) {
+  grid-column: 2 / span 2;
+  grid-row: 1 / span 1;
+}
+
+.skills .bento .bento__item:last-child {
+  grid-column: 1 / span 4;
+}
+
+/* FRONTEND */
+
+.Frontend .bento {
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+.Frontend .bento .bento__item {
+}
+
+.Frontend .bento .bento__item:nth-child(1) {
+  grid-column: 1 / span 2;
+  grid-column: 1 / span 2;
+}
+
+.Frontend .bento .bento__item:nth-child(2) {
+  grid-column: 3 / span 1;
+}
+
+.Frontend .bento .bento__item:nth-child(3) {
+  grid-column: 3 / span 1;
+}
+
+/* Backend */
+
+.Backend .bento {
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+.Backend .bento .bento__item {
+}
+
+.Backend .bento .bento__item:nth-child(1) {
+  grid-column: 1 / span 2;
+  grid-column: 1 / span 2;
+}
+
+.Backend .bento .bento__item:nth-child(2) {
+  grid-column: 3 / span 1;
+}
+
+.Backend .bento .bento__item:nth-child(3) {
+  grid-column: 3 / span 1;
+}

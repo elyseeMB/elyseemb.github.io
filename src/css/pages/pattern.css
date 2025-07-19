@@ -1,11 +1,4 @@
 :root {
-  --singleton: rgb(120, 122, 239);
-  --facade: rgb(170, 255, 170);
-  --decorator: rgb(129, 255, 244);
-  --strategy: rgb(122, 123, 214);
-  --observer: rgb(154, 247, 154);
-  --builder: rgb(117, 188, 255);
-  --factory-method: rgb(92, 236, 191);
 }
 
 .stack__pattern {
@@ -27,7 +20,12 @@
 }
 
 .card {
+  transition: 0.3s;
   background: var(--bg);
+}
+
+.card:hover {
+  background: var(--hover-primary);
 }
 
 .pattern__list {
@@ -44,10 +42,6 @@
 
 .pattern__card:hover {
   text-decoration: underline;
-}
-
-.card {
-  align-content: flex-start;
 }
 
 .code-block {

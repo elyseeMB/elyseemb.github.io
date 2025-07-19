@@ -31,7 +31,8 @@
             </svg></a
           >
         </div>
-        <div class="action">
+        <div class="actions">
+          <button class="btn btn-primary">Blog</button>
           <div class="contact">
             <a href="mailto:mboussaemmanuelito@gmail.com">
               <svg
@@ -58,9 +59,13 @@
     position: relative;
     width: 100%;
     height: 87px;
+    color: var(--color-primary) !important;
   }
 
-  .contact {
+  header .actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
   .contact a {
