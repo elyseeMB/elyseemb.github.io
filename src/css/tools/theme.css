@@ -9,9 +9,9 @@
   --space-4: calc(6.8 * var(--space));
   --space-5: calc(8 * var(--space));
 
-  --size: 18px;
+  --size: 16px;
   --letter-spacing: -0.5px;
-  --line-height: calc(1.4 * var(--size));
+  --line-height: calc(1.8 * var(--size));
   --contrast-2: #ec7200;
 
   --rounded: 0.3rem;

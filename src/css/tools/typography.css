@@ -61,3 +61,7 @@ body {
 button {
   font-family: "Bricolage Grotesque" !important;
 }
+
+strong {
+  color: var(--color-primary);
+}
