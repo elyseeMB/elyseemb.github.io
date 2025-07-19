@@ -10,7 +10,7 @@
   padding-bottom: 5rem;
 }
 
-.hero::before {
+/* .hero::before {
   content: "";
   background-image: linear-gradient(
       to right,
@@ -28,7 +28,7 @@
   overflow: hidden;
   position: absolute;
   z-index: -1000;
-}
+} */
 
 .hero .wrapper::before,
 .hero .wrapper::after {

@@ -9,9 +9,28 @@ import HeroImage from "../../public/hero.png";
     <div class="info">
       <span>Je suis Elysee Mb.</span>
       <h2 class="split">Code, Musique & Science.</h2>
+      <p class="description">
+        Curieux de sciences, développeur, compositeur et amateur d’art. Je
+        partage mes réflexions sur la programmation, la musique, la science ou
+        parfois des analyses originales sur la littérature.
+      </p>
     </div>
 
-    <div class="bento">
+    <div class="left">
+      (scroll)
+      <div class="icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          ><path
+            d="M13.0001 1.99974L11.0002 1.9996L11.0002 18.1715L7.05044 14.2218L5.63623 15.636L12.0002 22L18.3642 15.636L16.9499 14.2218L13.0002 18.1716L13.0001 1.99974Z"
+          ></path></svg
+        >
+      </div>
+    </div>
+
+    <!-- <div class="bento">
       {
         Array.from({ length: 5 }, (_, k) => (
           <div class="bento__item">
@@ -22,7 +41,7 @@ import HeroImage from "../../public/hero.png";
           </div>
         ))
       }
-    </div>
+    </div> -->
 
     <!-- <div class="left">
       <span>Je suis Elysee Mb.</span>
@@ -46,6 +65,11 @@ import HeroImage from "../../public/hero.png";
     flex-direction: column;
     gap: 1.5rem;
     width: 100%;
+  }
+
+  .icon {
+    width: 25px;
+    height: 25px;
   }
 
   img.hero-img {
@@ -88,6 +112,7 @@ import HeroImage from "../../public/hero.png";
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
+    font-size: 0.9rem;
   }
 
   form.label input {
