@@ -55,58 +55,60 @@ const metaData = {
 const seo = seoProps ? seoProps : metaData;
 ---
 
-<Layout {...seo}>
-  <section>
-    <div class="container">
-      <div class="container-narrow">
-        <div class="info">
-          <h1>{title}</h1>
-          <hr />
-          <div class="tags">
-            {
-              getTaxonomies.map((taxonomy) => (
-                <div class="tag">{taxonomy?.data.name}</div>
-              ))
-            }
-          </div>
-          <div class="meta">
-            Posté le {formatDate.toString()} - Par {writer?.data.name}
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {
-      summary && (
-        <div class="container">
-          <div class="container-narrow description">
-            <blockquote>
-              <p>{summary}</p>
-            </blockquote>
-          </div>
-        </div>
-      )
-    }
-
-    <div class="container">
-      <div class="container-narrow">
-        <div class="heading">
-          <div class="cover">
-            <img src={thumbnail} alt="" />
+<div class="bg-noise">
+  <Layout {...seo}>
+    <section>
+      <div class="container">
+        <div class="container-narrow">
+          <div class="info">
+            <h1>{title}</h1>
+            <hr />
+            <div class="tags">
+              {
+                getTaxonomies.map((taxonomy) => (
+                  <div class="tag">{taxonomy?.data.name}</div>
+                ))
+              }
+            </div>
+            <div class="meta">
+              Posté le {formatDate.toString()} - Par {writer?.data.name}
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="container">
-      <div class="container-narrow">
-        <div class="content">
-          <Content />
+      {
+        summary && (
+          <div class="container">
+            <div class="container-narrow description">
+              <blockquote>
+                <p>{summary}</p>
+              </blockquote>
+            </div>
+          </div>
+        )
+      }
+
+      <div class="container">
+        <div class="container-narrow">
+          <div class="heading">
+            <div class="cover">
+              <img src={thumbnail} alt="" />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-</Layout>
+
+      <div class="container">
+        <div class="container-narrow">
+          <div class="content">
+            <Content />
+          </div>
+        </div>
+      </div>
+    </section>
+  </Layout>
+</div>
 
 <style>
   .article__paragraph {

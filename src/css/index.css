@@ -29,7 +29,7 @@
 
 :root {
   --url-image: url("/noise.png");
-  --background: #4b4b4b3d;
+  --background: #0f100e;
   line-height: 1.5;
   font-weight: 400;
 
@@ -57,10 +57,9 @@
   top: 0;
   left: 0;
   opacity: 0.2;
-  z-index: -1000;
+  z-index: 1;
 }
 
 body {
-  /* background-color: var(--bg-color); */
   background-color: var(--background);
 }

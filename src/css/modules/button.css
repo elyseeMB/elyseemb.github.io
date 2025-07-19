@@ -7,6 +7,7 @@
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+  box-shadow: 3px 3px #000;
   transition: box-shadow 0.1s;
   color: white;
 }
@@ -26,10 +27,14 @@
 .btn-primary {
   transition: box-shadow 0.25s cubic-bezier(0.645, 0.045, 0.355, 1),
     transform 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: box-shadow 0.25s cubic-bezier(0.645, 0.045, 0.355, 1),
+    transform 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   border-color: var(--contrast);
 }
 
 .btn-primary:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 6px 6px #000;
   background-color: var(--hover-primary);
 }
 
