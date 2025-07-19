@@ -11,7 +11,7 @@ const {
   title = "Emmanuelito elysee",
   description = "I’m a web developer passionate about crafting sustainable and human-centered experiences. I bring adaptable, thoughtful solutions to a constantly evolving digital world.",
   image = `${Astro.url.origin}/og-image.jpg`,
-  url = "https://eembouz.com",
+  url = Astro.url,
   typeContent = "website",
 } = Astro.props;
 
@@ -86,10 +86,10 @@ const fullTitle = `${title} | ${typeWebsite}`;
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Emmanuelito elysee",
-    "url": "https://eembouz.com",
+    "url": "https://elyseemb.github.io",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://eembouz.com",
+      "target": "https://elyseemb.github.io",
       "query-input": "required name=search_term_string"
     }
   }
@@ -100,7 +100,7 @@ const fullTitle = `${title} | ${typeWebsite}`;
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Emmanuelito Elysee",
-    "url": "https://eembouz.com",
-    "logo": "https://eembouz.com/favicon-512.png"
+    "url": "https://elyseemb.github.io/",
+    "logo": "https://elyseemb.github.io/favicon-512.png"
   }
 </script>
