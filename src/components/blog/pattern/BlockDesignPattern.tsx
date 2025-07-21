@@ -194,7 +194,6 @@ export function useCourses() {
   const setCourses = useStore((state) => state.setCourses);
   const addCourses = useStore((state) => state.addCourse);
 
-  console.log(list);
 
   return {
     list,
