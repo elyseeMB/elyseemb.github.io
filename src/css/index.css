@@ -20,6 +20,7 @@
 @import "./modules/article.css";
 @import "./modules/hr.css";
 @import "./modules/bento.css";
+@import "./modules/table.css";
 
 /* BLOCKS */
 @import "./blocks/presentation.css";
