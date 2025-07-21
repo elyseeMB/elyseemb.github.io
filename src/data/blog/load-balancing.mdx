@@ -101,7 +101,7 @@ Elle est facile à mettre en place via l’interface de gestion DNS de votre fou
 
 <br />
 
-### [Nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/):
+### [Nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/) :
 
 <br />
 
@@ -141,11 +141,11 @@ Par défaut, Nginx applique le **round robin**, mais il supporte aussi :
 - `least_conn` : vers le serveur avec le moins de connexions actives
 - `ip_hash` : pour garder la session sur le même serveur
 
-## choisir une méthode d’équilibrage de charge. [](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/#choosing-a-load-balancing-method "Choosing a Load Balancing Method") :
+## choisir une méthode d’équilibrage de charge:
 
 <p class="blog-single__paragraph">
     
-NGINX en charge quatre méthodes d'équilibrage de charge : Round Robin, Least Connections, IP Hash et Generic Hash.
+[NGINX](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/#choosing-a-load-balancing-method "Choosing a Load Balancing Method") en charge quatre méthodes d'équilibrage de charge : Round Robin, Least Connections, IP Hash et Generic Hash.
 
 > **Note:** Lors de la configuration d'une méthode autre que Round Robin, mettez la directive correspondante ([`hash`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#hash), [`ip_hash`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#ip_hash), [`least_conn`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_conn), [`least_time`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_time), ou [`random`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#random)) au-dessus de la liste de `server` directives dans le [`upstream {}`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#upstream) bloc.
 

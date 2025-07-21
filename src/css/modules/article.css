@@ -40,3 +40,8 @@ blockquote {
 .blog-single .blog-single__paragraph {
   padding-block: 1rem;
 }
+
+.blog-single a {
+  color: var(--contrast);
+  text-decoration: underline;
+}
