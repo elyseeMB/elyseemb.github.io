@@ -1,16 +1,17 @@
 .tags {
+  font-family: "JetBrains Mono" !important;
   display: flex;
   align-items: flex-start;
   gap: 1rem;
 }
 
 .tag {
-  padding: 0.5rem 0.5rem;
+  font-family: "JetBrains Mono" !important;
+  padding: 0.5rem 0.3rem;
   width: max-content;
-  font-weight: 700;
-  background-color: var(--contrast-2);
-  color: black;
+  background-color: var(--contrast);
+  color: white;
   font-size: 0.8rem;
-  border-radius: 1rem;
+  border-radius: 0.3rem;
   border: var(--border);
 }
