@@ -9,7 +9,7 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
-  site: "https://elyseemb.github.io/",
+  site: "https://eembouz.com/",
   image: {
     service: passthroughImageService(),
   },
