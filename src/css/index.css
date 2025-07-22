@@ -21,6 +21,7 @@
 @import "./modules/hr.css";
 @import "./modules/bento.css";
 @import "./modules/table.css";
+@import "./modules/item.css";
 
 /* BLOCKS */
 @import "./blocks/presentation.css";

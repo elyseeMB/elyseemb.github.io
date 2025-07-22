@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { undefined } from "astro:schema";
 
 const articles = await getCollection("blog");
 ---
@@ -18,25 +19,30 @@ const articles = await getCollection("blog");
         )
         .map((article, index) => (
           <a href={`/blog/${article.id}`}>
-            <article class="card">
-              <div class="card__header">
-                <div class="card__header-number">
+            <article class="item">
+              <div class="item__img">
+                <img src={`${article.data.thumbnail}`} alt="" />
+              </div>
+              <div class="item__info">
+                <div class="item__header-number">
                   {index.toString().padStart(2, "0").includes("00") ? (
                     <strong>news</strong>
                   ) : (
                     index.toString().padStart(2, "0")
                   )}
                 </div>
-                <div class="card__header-icon">&DownArrow;</div>
-              </div>
-              <div class="card__bottom">
-                <div class="card__title">
-                  <h3>{article.data.title}</h3>
+                <h3>{article.data.title}</h3>
+                <div class="meta">
+                  <span>
+                    {new Intl.DateTimeFormat(undefined, {
+                      dateStyle: "medium",
+                    }).format(article.data.pubDate)}
+                    · {article.data.author.id}
+                  </span>
                 </div>
-                <div class="card__img">
-                  <img src={`${article.data.thumbnail}`} alt="" />
-                </div>
+                <p class="item__description">{article.data.summary}</p>
               </div>
+              <div class="item__header-icon">&DownArrow;</div>
             </article>
           </a>
         ))
@@ -45,6 +51,10 @@ const articles = await getCollection("blog");
 </section>
 
 <style>
+  .blog {
+    padding-bottom: 5rem;
+  }
+
   .blog a {
     display: inline-flex;
   }
