@@ -49,3 +49,10 @@
   border-radius: var(--rounded);
   max-width: 200px;
 }
+
+/* petits écrans */
+@media only screen and (max-width: 800px) {
+  .item__img {
+    display: none;
+  }
+}
