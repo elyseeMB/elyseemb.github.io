@@ -41,7 +41,7 @@ const getTaxonomies = await Promise.all(
     : []
 );
 
-const formatDate = Intl.DateTimeFormat(undefined, {
+const formatDate = Intl.DateTimeFormat("fr", {
   dateStyle: "long",
 }).format(pubDate);
 const writer = await getEntry(author.collection, author.id);
@@ -53,7 +53,6 @@ const metaData = {
   url: Astro.url.href,
 };
 const seo = seoProps ? seoProps : metaData;
-
 ---
 
 <Layout {...seo}>

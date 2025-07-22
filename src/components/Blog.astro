@@ -34,7 +34,7 @@ const articles = await getCollection("blog");
                 <h3>{article.data.title}</h3>
                 <div class="meta">
                   <span>
-                    {new Intl.DateTimeFormat(undefined, {
+                    {new Intl.DateTimeFormat("fr", {
                       dateStyle: "medium",
                     }).format(article.data.pubDate)}
                     · {article.data.author.id}
