@@ -1,6 +1,7 @@
 export type Framework = {
   name: string;
   logo: string;
+  href?: string;
 };
 
 export type Techno = {
