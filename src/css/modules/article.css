@@ -26,13 +26,6 @@
   margin-left: 50px;
 }
 
-blockquote {
-  margin-block: 2rem;
-  border-left: 4px solid var(--color-secondary);
-  padding: 1em 1.5em;
-  font-style: italic;
-}
-
 .blog-single ul li {
   list-style: decimal;
 }
