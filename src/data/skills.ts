@@ -38,12 +38,7 @@ export const skills: Skill[] = [
             </defs>
             <style>
               g {
-                fill: #000;
-              }
-              @media (prefers-color-scheme: dark) {
-                g {
-                  fill: #FFF;
-                }
+                fill: #fff;
               }
             </style>
           </svg>
