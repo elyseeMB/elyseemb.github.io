@@ -1,0 +1,68 @@
+/* LAYOUT */
+@import "./layout/layout.css";
+
+/* TOOLS */
+@import "./tools/reset.css";
+@import "./tools/typography.css";
+@import "./tools/theme.css";
+
+/* MODULES */
+@import "./modules/hero.css";
+@import "./modules/mark.css";
+@import "./modules/header.css";
+@import "./modules/split.css";
+@import "./modules/dock.css";
+@import "./modules/card.css";
+@import "./modules/tag.css";
+@import "./modules/button.css";
+@import "./modules/input.css";
+@import "./modules/form.css";
+@import "./modules/article.css";
+@import "./modules/hr.css";
+@import "./modules/bento.css";
+@import "./modules/table.css";
+@import "./modules/blockquote.css";
+@import "./modules/item.css";
+
+/* BLOCKS */
+@import "./blocks/presentation.css";
+
+/* PAGES */
+@import "./pages/pattern.css";
+
+:root {
+  --url-image: url("/noise.png");
+  --background: #0f100e;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  /* background-color: #242424; */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bg-noise {
+  position: relative;
+}
+
+.bg-noise::before {
+  position: absolute;
+  content: "";
+  pointer-events: none;
+  background: var(--url-image);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.2;
+  z-index: 1;
+}
+
+body {
+  background-color: var(--background);
+}

@@ -1,0 +1,22 @@
+:root {
+  --contrast: rgb(0, 122, 236);
+  --bg-color: #ffffff;
+  --color-secondary: #c4c4c4;
+  --color-primary: white;
+  --space: 1rem;
+  --space-2: calc(2 * var(--space));
+  --space-3: calc(4 * var(--space));
+  --space-4: calc(6.8 * var(--space));
+  --space-5: calc(8 * var(--space));
+
+  --size: 16px;
+  --letter-spacing: -0.5px;
+  --line-height: calc(1.8 * var(--size));
+  --contrast-2: #ec7200;
+
+  --rounded: 0.3rem;
+  --rounded-2: 16px;
+
+  --hover-primary: rgba(0, 122, 236, 0.242);
+  --border: 1.5px solid rgba(255, 255, 255, 0.126);
+}

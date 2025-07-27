@@ -1,0 +1,40 @@
+.blog-single em {
+  font-style: italic;
+}
+
+.blog-single ul li {
+  line-height: 1.5;
+}
+
+.blog-single strong {
+  font-weight: 700;
+}
+
+.blog-single h2 {
+  padding-top: 3rem;
+}
+
+.blog-single h3 {
+  padding-block: 1rem;
+}
+
+.blog-single ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-block: 1rem;
+  margin-left: 50px;
+}
+
+.blog-single ul li {
+  list-style: decimal;
+}
+
+.blog-single .blog-single__paragraph {
+  padding-block: 1rem;
+}
+
+.blog-single a {
+  color: var(--contrast);
+  text-decoration: underline;
+}

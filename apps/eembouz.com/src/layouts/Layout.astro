@@ -1,0 +1,42 @@
+---
+import Scripts from "../components/Scripts.astro";
+import Seo from "../components/Seo.astro";
+import Footer from "../components/shared/Footer.astro";
+
+import Header from "@portfolio/ui/header";
+
+import "../css/index.css";
+
+const {
+  title,
+  description,
+  image,
+  url = Astro.url.href,
+  typeContent,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <Seo
+      title={title}
+      description={description}
+      typeContent={typeContent}
+      image={image}
+      url={url}
+    />
+    <Scripts />
+  </head>
+  <body>
+    <div class="bg-noise">
+      <div class="page-wrapper">
+        <div class="container-narrow">
+          <Header />
+          <slot />
+          <Footer />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

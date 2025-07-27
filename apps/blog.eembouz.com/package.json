@@ -1,0 +1,26 @@
+{
+  "name": "blog.eembouz.com",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/markdoc": "^0.15.0",
+    "@astrojs/mdx": "^4.3.0",
+    "@astrojs/preact": "^4.1.0",
+    "@astrojs/sitemap": "^3.4.1",
+    "astro": "^5.10.0",
+    "gsap": "^3.13.0",
+    "highlight.js": "^11.11.1",
+    "preact": "^10.26.9"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.10.1",
+    "typescript": "~5.8.3"
+  },
+  "packageManager": "pnpm@9.15.2+sha1.0ffb02f94047016ec7e088030337455b4c94bb34"
+}

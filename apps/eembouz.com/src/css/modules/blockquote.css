@@ -1,0 +1,7 @@
+blockquote {
+  background-color: var(--hover-primary);
+  margin-block: 2rem;
+  border-left: 4px solid var(--contrast);
+  padding: 1em 1.5em;
+  font-style: italic;
+}

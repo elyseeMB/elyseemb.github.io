@@ -1,0 +1,61 @@
+---
+import { getCollection } from "astro:content";
+
+const articles = await getCollection("blog");
+---
+
+<section class="blog">
+  <h3>Mes derniers articles</h3>
+  <div class="stack">
+    {
+      articles
+        .filter((article) => article.data.isDraft !== true)
+        .sort((a, b) =>
+          new Date(a.data.pubDate!).getTime() <
+          new Date(b.data.pubDate!).getTime()
+            ? 1
+            : -1
+        )
+        .map((article, index) => (
+          <a href={`/blog/${article.id}`}>
+            <article class="item">
+              <div class="item__info">
+                <div class="item__header-number">
+                  {index.toString().padStart(2, "0").includes("00") ? (
+                    <strong>news</strong>
+                  ) : (
+                    index.toString().padStart(2, "0")
+                  )}
+                </div>
+                <h3 class="item__title">{article.data.title}</h3>
+                <div class="meta">
+                  <span>
+                    {new Intl.DateTimeFormat("fr", {
+                      dateStyle: "medium",
+                    }).format(article.data.pubDate)}
+                    · {article.data.author.id}
+                  </span>
+                </div>
+                <p class="item__description">{article.data.summary}</p>
+              </div>
+              <div class="item__header-icon">&DownArrow;</div>
+            </article>
+          </a>
+        ))
+    }
+  </div>
+</section>
+
+<style>
+  .blog {
+    padding-bottom: 5rem;
+  }
+
+  .blog a {
+    display: inline-flex;
+  }
+  .blog h3 {
+    font-weight: 900;
+    font-size: 4rem;
+  }
+</style>
