@@ -19,9 +19,6 @@ const articles = await getCollection("blog");
         .map((article, index) => (
           <a href={`/blog/${article.id}`}>
             <article class="item">
-              <div class="item__img">
-                <img src={`${article.data.thumbnail}`} alt="" />
-              </div>
               <div class="item__info">
                 <div class="item__header-number">
                   {index.toString().padStart(2, "0").includes("00") ? (
@@ -30,7 +27,7 @@ const articles = await getCollection("blog");
                     index.toString().padStart(2, "0")
                   )}
                 </div>
-                <h3>{article.data.title}</h3>
+                <h3 class="item__title">{article.data.title}</h3>
                 <div class="meta">
                   <span>
                     {new Intl.DateTimeFormat("fr", {

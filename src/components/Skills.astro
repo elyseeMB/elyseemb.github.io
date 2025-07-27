@@ -9,7 +9,7 @@ import type { Skill } from "../types/skills";
     {
       skills.map((skill) => (
         <div class={skill.name}>
-          <h2> {skill.name} </h2>
+          <h2 class="techo__name"> {skill.name} </h2>
           <div>
             {skill.techno.map((techno) => (
                 <div class="skill__header">
@@ -38,12 +38,19 @@ import type { Skill } from "../types/skills";
   .skills__title {
     font-size: 4rem !important;
     padding-bottom: 2rem;
+    font-style: italic;
   }
 
   .skills {
     width: 100%;
     height: 100%;
     padding-bottom: 10rem;
+  }
+
+   .techo__name {
+    font-family: "Inter" !important;
+    letter-spacing: normal;
+    font-weight: 100 !important;
   }
 
   .logo {

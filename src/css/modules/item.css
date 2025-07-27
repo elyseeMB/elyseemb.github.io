@@ -4,8 +4,12 @@
   align-items: flex-start;
   justify-content: space-between;
   transition: background-color 0.3s;
-  padding: 1rem;
+  padding: 0.5rem;
   border-radius: var(--rounded);
+}
+
+.item__title {
+  font-family: "Inter" !important;
 }
 
 .item:hover {
@@ -24,7 +28,6 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   overflow: hidden;
-  max-width: 400px;
 }
 
 .item__info h3 {

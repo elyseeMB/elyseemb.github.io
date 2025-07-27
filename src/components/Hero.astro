@@ -7,8 +7,10 @@ import HeroImage from "../../public/hero.png";
 <section class="hero container-narrow">
   <div class="wrapper">
     <div class="info">
-      <span>Je suis Elysee Mb.</span>
-      <h2 class="split">Code, Musique & Science.</h2>
+      <div class="title">
+        <h1>Elysee Mboussa</h1>
+        <span> solfware engineer</span>
+      </div>
       <p class="description">
         Curieux de sciences, développeur, compositeur et amateur d’art. Je
         partage mes réflexions sur la programmation, la musique, la science ou
@@ -60,6 +62,24 @@ import HeroImage from "../../public/hero.png";
 </section>
 
 <style>
+  .title {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .title h1 {
+    text-align: left;
+    font-weight: 100;
+    font-size: 3.5rem;
+    font-style: italic;
+  }
+
+  .title span {
+    font-weight: 100 !important;
+    font-size: 1.5rem;
+  }
+
   .info {
     display: flex;
     flex-direction: column;
