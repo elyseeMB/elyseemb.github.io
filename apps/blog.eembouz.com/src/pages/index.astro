@@ -14,7 +14,6 @@ const articles = await getCollection("blog");
 <Layout>
   <div class="container">
     <Hero />
-    <Skills />
     {articles.length >= 1 && <Blog />}
   </div>
 </Layout>

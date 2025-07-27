@@ -1,104 +1,44 @@
-<header>
-  <div class="container">
-    <div class="wrapper">
-      <div class="flex">
-        <div class="logo">
-          <a href="/">
-            <svg
-              width="40"
-              height="40"
-              id="logo"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 12 12"
-            >
-              <defs>
-                <style>
-                  .cls-1,
-                  .cls-2 {
-                    stroke-width: 0px;
-                  }
+---
+import HeaderComponent from "@portfolio/ui/Header";
+---
 
-                  .cls-2 {
-                    fill: #007aec;
-                  }
-                </style>
-              </defs>
-              <circle class="cls-2" cx="6" cy="6" r="5.5"></circle>
-              <path
-                class="cls-1"
-                d="m6,1c2.76,0,5,2.24,5,5s-2.24,5-5,5S1,8.76,1,6,3.24,1,6,1m0-1C2.69,0,0,2.69,0,6s2.69,6,6,6,6-2.69,6-6S9.31,0,6,0h0Z"
-              ></path>
-            </svg></a
-          >
-        </div>
-        <div class="actions">
-          <button class="btn btn-primary" data-astro-cid-j2devmb2="">
-            <span class="icon" data-astro-cid-j2devmb2="">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                data-astro-cid-j2devmb2=""
-                ><path
-                  d="M13.0508 12.361L7.39395 18.0179L5.97974 16.6037L11.6366 10.9468L6.68684 5.99707H18.0006V17.3108L13.0508 12.361Z"
-                  data-astro-cid-j2devmb2=""></path></svg
-              >
-            </span>
-            <a
-              href="mailto:mboussaemmanuelito@gmail.com"
-              data-astro-cid-j2devmb2="">Me contactez</a
-            >
-          </button>
-        </div>
-      </div>
-    </div>
+<HeaderComponent>
+  <div class="actions">
+    <a class="link" href="#"
+      >rechercher
+      <svg
+        width="24"
+        height="24"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        ><path
+          d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748Z"
+        ></path></svg
+      >
+    </a>
   </div>
-</header>
+</HeaderComponent>
 
 <style>
-  header {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    width: 100%;
-    height: 80px;
-    color: var(--color-primary) !important;
-  }
-
-  header .actions {
+  .actions {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 2rem;
+    color: var(--color-primary);
   }
 
-  .contact a {
+  .link {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 25px;
-    height: 25px;
-    padding: 0.1rem;
-    transition: 0.3s;
+    gap: 0.5rem;
+    transition: background-color 0.3s;
+    border-radius: var(--rounded);
+    background-color: rgba(53, 53, 53, 0.249);
+    padding: 0.5rem 0.8rem;
   }
 
-  .contact:hover {
-    background: rgba(128, 128, 128, 0.123);
-  }
-
-  .contact svg {
-    fill: var(--color-secondary);
-  }
-
-  header .wrapper {
-    width: 100%;
-  }
-
-  header .flex {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 100%;
-    margin: 0;
+  .link:hover {
+    background-color: var(--hover-primary);
   }
 </style>

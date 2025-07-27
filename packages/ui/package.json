@@ -1,7 +1,9 @@
 {
   "name": "@portfolio/ui",
   "exports": {
-    "./header": "./src/components/shared/Header.astro"
+    "./Header": "./src/components/shared/Header.astro",
+    "./Layout": "./src/layouts/Layout.astro",
+    "./GlobalCSS": "./src/css/index.css"
   },
   "peerDependencies": {
     "@astrojs/preact": "^4.1.0",
