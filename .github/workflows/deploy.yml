@@ -42,7 +42,7 @@ jobs:
           cache: pnpm
 
       - name: 📦 Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: 🔨 Build main site
         run: pnpm turbo run build --filter=eembouz.com
@@ -77,7 +77,7 @@ jobs:
           cache: pnpm
 
       - name: 📦 Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: 🔨 Build blog
         run: pnpm turbo run build --filter=blog.eembouz.com
