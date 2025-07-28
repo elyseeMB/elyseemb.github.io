@@ -8,19 +8,19 @@ export const skills: Skill[] = [
         name: "React",
         href: "https://react.dev/",
         description:
-          "React est une bibliothèque JavaScript développée par Meta, utilisée pour créer des interfaces utilisateur réactives à l’aide de composants réutilisables.",
+          "Librairie JavaScript pour créer des interfaces avec des composants réutilisables.",
       },
       {
-        name: "vue",
+        name: "Vue",
         href: "https://vuejs.org/",
         description:
-          "Vue.js est un framework JavaScript progressif pour construire des interfaces utilisateur interactives, facile à intégrer dans des projets existants.",
+          "Framework simple et flexible pour construire des interfaces interactives.",
       },
       {
-        name: "astro",
+        name: "Astro",
         href: "https://astro.build/",
         description:
-          "Astro est un framework moderne permettant de construire des sites web statiques ultra rapides en combinant plusieurs technologies front-end comme React, Vue ou Svelte.",
+          "Framework orienté performance pour créer des sites statiques modernes.",
       },
     ],
   },
@@ -28,16 +28,15 @@ export const skills: Skill[] = [
     name: "Backend",
     frameworks: [
       {
-        name: "AdonisJs",
+        name: "AdonisJS",
         href: "https://adonisjs.com/",
         description:
-          "AdonisJS est un framework Node.js complet et structuré, inspiré de Laravel, idéal pour développer des API robustes avec une architecture MVC claire.",
+          "Framework Node.js complet, inspiré de Laravel, idéal pour les API.",
       },
       {
         name: "Fastify",
         href: "https://fastify.dev/",
-        description:
-          "Fastify est un framework backend Node.js ultra-rapide et extensible, optimisé pour la performance et idéal pour des applications web et API RESTful.",
+        description: "Framework backend rapide et léger pour Node.js.",
       },
     ],
   },
@@ -47,20 +46,17 @@ export const skills: Skill[] = [
       {
         name: "PostgreSQL",
         href: "https://www.postgresql.org/",
-        description:
-          "PostgreSQL est un système de gestion de base de données relationnelle open source puissant, reconnu pour sa fiabilité, sa robustesse et sa conformité aux standards SQL.",
+        description: "Base de données relationnelle robuste et open source.",
       },
       {
         name: "MySQL",
         href: "https://www.mysql.com/",
-        description:
-          "MySQL est un système de gestion de base de données populaire, connu pour sa rapidité et son intégration avec de nombreuses applications web.",
+        description: "SGBD populaire, rapide et facile à intégrer.",
       },
       {
         name: "SQLite",
         href: "https://www.sqlite.org/",
-        description:
-          "SQLite est une base de données légère, autonome et embarquée, parfaite pour les applications mobiles, embarquées ou les prototypes rapides.",
+        description: "Base de données légère et embarquée, sans serveur.",
       },
     ],
   },
@@ -70,26 +66,24 @@ export const skills: Skill[] = [
       {
         name: "Git",
         href: "https://git-scm.com/",
-        description:
-          "Git est un système de gestion de version distribué, indispensable pour suivre l’évolution du code, collaborer en équipe et gérer les branches de développement.",
+        description: "Système de versionnement pour collaborer efficacement.",
       },
       {
         name: "Docker",
         href: "https://www.docker.com/",
         description:
-          "Docker permet de créer, déployer et exécuter des applications dans des conteneurs, assurant une portabilité et une cohérence entre les environnements.",
+          "Conteneurisation d’applications pour une meilleure portabilité.",
       },
       {
         name: "Linux",
         href: "https://www.linux.org/",
         description:
-          "Linux est un système d'exploitation open source, stable et performant, très utilisé pour les serveurs, le développement et l'administration système.",
+          "Système d’exploitation stable, utilisé en développement et en production.",
       },
       {
         name: "Ansible",
         href: "https://docs.ansible.com/ansible/latest/index.html",
-        description:
-          "Ansible est un outil d'automatisation DevOps permettant de gérer la configuration, le déploiement et l’orchestration de serveurs via des scripts simples en YAML.",
+        description: "Outil d’automatisation pour la gestion des serveurs.",
       },
     ],
   },

@@ -1,56 +1,93 @@
-name: Deploy My Portfolio to GitHub Pages
+name: 🚀 Deploy Apps to Separate Repos
 
 on:
   push:
-    branches: [main]
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
+    branches: [feat/setup-monorepo]
+    # branches: [main]
 
 jobs:
-  build:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      main-site: ${{ steps.changes.outputs.main-site }}
+      blog: ${{ steps.changes.outputs.blog }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            main-site:
+              - 'apps/eembouz.com/**'
+            blog:
+              - 'apps/blog.eembouz.com/**'
+
+  deploy-main-site:
+    needs: changes
+    if: needs.changes.outputs.main-site == 'true'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: 📂 Checkout monorepo
         uses: actions/checkout@v4
 
-      - name: Enable Corepack
-        run: corepack enable
+      - name: ⚡ Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
 
-      - name: Use Node.js 18.x
+      - name: 🟢 Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
-          registry-url: "https://registry.npmjs.org"
+          node-version: 20
+          cache: pnpm
 
-      - name: Install dependencies
-        run: pnpm install
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      - name: Build Vite site
-        run: pnpm build
+      - name: 🔨 Build main site
+        run: pnpm turbo run build --filter=eembouz.com
 
-      - name: Add .nojekyll
-        run: touch dist/.nojekyll
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: 🌐 Deploy to elyseemb/eembouz.com
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: dist
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          external_repository: elyseemb/eembouz.com
+          publish_dir: apps/eembouz.com/dist
+          publish_branch: main
+          cname: eembouz.com
+          commit_message: "🚀 Deploy main site: ${{ github.sha }}"
 
-  deploy:
-    needs: build
+  deploy-blog:
+    needs: changes
+    if: needs.changes.outputs.blog == 'true'
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: 📂 Checkout monorepo
+        uses: actions/checkout@v4
+
+      - name: ⚡ Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: 🟢 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🔨 Build blog
+        run: pnpm turbo run build --filter=blog.eembouz.com
+
+      - name: 📝 Deploy to elyseemb/blog.eembouz.com
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          external_repository: elyseemb/blog.eembouz.com
+          publish_dir: apps/blog.eembouz.com/dist
+          publish_branch: main
+          cname: blog.eembouz.com
+          commit_message: "📝 Deploy blog: ${{ github.sha }}"
