@@ -50,7 +50,7 @@ jobs:
       - name: 🌐 Deploy to elyseemb/eembouz.com
         uses: peaceiris/actions-gh-pages@v4
         with:
-          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          personal_token: ${{ secrets.PERSONAL_TOKEN_PORTFOLIO }}
           external_repository: elyseemb/eembouz.com
           publish_dir: apps/eembouz.com/dist
           publish_branch: main
@@ -85,7 +85,7 @@ jobs:
       - name: 📝 Deploy to elyseemb/blog.eembouz.com
         uses: peaceiris/actions-gh-pages@v4
         with:
-          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          personal_token: ${{ secrets.PERSONAL_TOKEN_PORTFOLIO }}
           external_repository: elyseemb/blog.eembouz.com
           publish_dir: apps/blog.eembouz.com/dist
           publish_branch: main
