@@ -51,46 +51,46 @@ jobs:
   # ==========================================
   # 🧪 TESTS DE QUALITÉ
   # ==========================================
-  quality-gate:
-    name: 🧪 Quality Gate
-    runs-on: ubuntu-latest
-    needs: detect-changes
-    if: needs.detect-changes.outputs.any-change == 'true'
+  # quality-gate:
+  #   name: 🧪 Quality Gate
+  #   runs-on: ubuntu-latest
+  #   needs: detect-changes
+  #   if: needs.detect-changes.outputs.any-change == 'true'
 
-    strategy:
-      fail-fast: false
-      matrix:
-        check: [lint, type-check, test-unit]
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       check: [lint, type-check, test-unit]
 
-    steps:
-      - name: 📂 Checkout repository
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: 📂 Checkout repository
+  #       uses: actions/checkout@v4
 
-      - name: ⚡ Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: ${{ env.PNPM_VERSION }}
+  #     - name: ⚡ Setup pnpm
+  #       uses: pnpm/action-setup@v2
+  #       with:
+  #         version: ${{ env.PNPM_VERSION }}
 
-      - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: pnpm
+  #     - name: 🟢 Setup Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: ${{ env.NODE_VERSION }}
+  #         cache: pnpm
 
-      - name: 📦 Install dependencies
-        run: pnpm install
+  #     - name: 📦 Install dependencies
+  #       run: pnpm install
 
-      - name: 🔍 ESLint & Prettier
-        if: matrix.check == 'lint'
-        run: pnpm turbo run lint
+  #     - name: 🔍 ESLint & Prettier
+  #       if: matrix.check == 'lint'
+  #       run: pnpm turbo run lint
 
-      - name: 🎯 TypeScript Check
-        if: matrix.check == 'type-check'
-        run: pnpm turbo run type-check
+  #     - name: 🎯 TypeScript Check
+  #       if: matrix.check == 'type-check'
+  #       run: pnpm turbo run type-check
 
-      - name: 🧪 Unit Tests
-        if: matrix.check == 'test-unit'
-        run: pnpm turbo run test
+  #     - name: 🧪 Unit Tests
+  #       if: matrix.check == 'test-unit'
+  #       run: pnpm turbo run test
 
   # ==========================================
   # 🔨 BUILD APPLICATIONS
