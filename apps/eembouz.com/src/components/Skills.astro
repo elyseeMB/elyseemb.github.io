@@ -61,9 +61,22 @@ import { skills } from "../data/skills";
 
   .frameworks .link {
     font-style: italic;
-    display: flex;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    place-items: flex-start;
   }
+
+  @media only screen and (max-width: 499px) {
+    .frameworks .link {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* @media only screen and (min-width: 500px) and (max-width: 1024px) {
+    .frameworks .link {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  } */
 
   .frameworks .list li {
     display: flex;
