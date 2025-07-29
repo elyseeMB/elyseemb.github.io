@@ -148,7 +148,7 @@ jobs:
 
       - name: 📦 Install dependencies
         if: ${{ fromJson(matrix.condition) }}
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       - name: 🔨 Build application
         if: ${{ fromJson(matrix.condition) }}
