@@ -83,7 +83,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: elyseemb-github-io
+          projectName: eembouz-staging
           directory: ./apps/eembouz.com/dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
