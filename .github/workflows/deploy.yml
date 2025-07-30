@@ -124,13 +124,13 @@ jobs:
           server_address: smtp.gmail.com
           server_port: 465
           username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ sercrets.EMAIL_PASSWORD }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
           subject: Preview deployement
-          body: | 
-          La preview est en ligne !
-          Branche : ${{github.ref_name}}
-        to : mmboussaemmanuelito@gmail.com
-        from : 'Notification CI/CD'
+          body: |
+            La preview est en ligne !
+            Branche : ${{ github.ref_name }}
+          to: mmboussaemmanuelito@gmail.com
+          from: "Notification CI/CD"
 
       - name: ✅ Deployment completed
         run: |
