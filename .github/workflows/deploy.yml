@@ -134,6 +134,7 @@ jobs:
             📊 Commit : ${{ github.sha }}
             🔗 Repository : ${{ github.repository }}
             ⏰ Heure : ${{ github.event.head_commit.timestamp }}
+          to: mboussaemmanuelito@gmail.com
           from: ${{ secrets.EMAIL_USERNAME }}
 
       - name: ✅ Deployment completed
