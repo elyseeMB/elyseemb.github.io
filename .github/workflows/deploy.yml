@@ -119,19 +119,22 @@ jobs:
           branch: ${{ github.ref_name }}
 
       - name: Send Email Notification
+        if: startsWith(github.ref, 'refs/heads/feat/') || startsWith(github.ref, 'refs/heads/fix/')
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
-          server_port: 465
-          secure: true
+          server_port: 587
+          secure: false
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: Preview deployement
+          subject: Preview Deployment - ${{ github.ref_name }}
           body: |
-            La preview est en ligne !
-            Branche : ${{ github.ref_name }}
-          to: mmboussaemmanuelito@gmail.com
-          from: "Notification CI/CD"
+            🎉 La preview est en ligne !
+            📝 Branche : ${{ github.ref_name }}
+            📊 Commit : ${{ github.sha }}
+            🔗 Repository : ${{ github.repository }}
+            ⏰ Heure : ${{ github.event.head_commit.timestamp }}
+          from: ${{ secrets.EMAIL_USERNAME }}
 
       - name: ✅ Deployment completed
         run: |
