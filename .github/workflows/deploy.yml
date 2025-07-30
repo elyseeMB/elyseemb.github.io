@@ -85,7 +85,6 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: eembouz-staging
           directory: ./apps/eembouz.com/dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🚧 Deploy blog to staging
         if: github.ref == 'refs/heads/develop'
@@ -95,7 +94,6 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: blog-eembouz-staging
           directory: ./apps/blog.eembouz.com/blog-static
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       # ==========================================
       # 🔍 PREVIEW (feature branches)
@@ -106,9 +104,9 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: elyseemb-github-io
+          projectName: eembouz-staging
           directory: ./apps/eembouz.com/dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
           branch: ${{ github.ref_name }}
 
       - name: 🔍 Deploy blog preview
@@ -119,7 +117,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: blog-eembouz-staging
           directory: ./apps/blog.eembouz.com/blog-static
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
           branch: ${{ github.ref_name }}
 
       - name: ✅ Deployment completed
