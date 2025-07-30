@@ -70,7 +70,7 @@ jobs:
         with:
           personal_token: ${{ secrets.PERSONAL_TOKEN }}
           external_repository: elyseemb/blog.eembouz.com
-          publish_dir: ./apps/blog.eembouz.com/blog-static
+          publish_dir: ./apps/blog.eembouz.com/dist
           publish_branch: main
           cname: blog.eembouz.com
 
@@ -93,7 +93,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: blog-eembouz-staging
-          directory: ./apps/blog.eembouz.com/blog-static
+          directory: ./apps/blog.eembouz.com/dist
 
       # ==========================================
       # 🔍 PREVIEW (feature branches)
@@ -116,7 +116,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: blog-eembouz-staging
-          directory: ./apps/blog.eembouz.com/blog-static
+          directory: ./apps/blog.eembouz.com/dist
 
           branch: ${{ github.ref_name }}
 
