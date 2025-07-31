@@ -12,10 +12,13 @@
 
 .blog-single h2 {
   padding-top: 3rem;
+  font-weight: 900;
+  font-size: 3rem;
 }
 
 .blog-single h3 {
   padding-block: 1rem;
+  font-size: 2rem;
 }
 
 .blog-single ul {
