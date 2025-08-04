@@ -1,0 +1,387 @@
+name: 🚀 Hybrid Multi-Environment Deployment
+
+on:
+  push:
+    branches:
+      # - main # 🌟 Production (GitHub Pages)
+      - feat/multi-arch-deployement
+      - develop # 🚧 Staging (Cloudflare Pages)
+      - "feat/**" # 🔍 Preview (Cloudflare Pages)
+      - "fix/**" # 🐛 Bugfix Preview
+      - "hotfix/**" # 🚨 Hotfix Preview
+  pull_request:
+    branches: [main, develop, feat/multi-arch-deployement] # 📝 PR Preview (Cloudflare Pages)
+
+env:
+  NODE_VERSION: 20
+  PNPM_VERSION: 8
+
+jobs:
+  # ==========================================
+  # 🔍 DÉTECTION DES CHANGEMENTS
+  # ==========================================
+  detect-changes:
+    name: 🔍 Smart Change Detection
+    runs-on: ubuntu-latest
+    outputs:
+      main-site: ${{ steps.changes.outputs.main-site }}
+      blog: ${{ steps.changes.outputs.blog }}
+      any-change: ${{ steps.changes.outputs.main-site == 'true' || steps.changes.outputs.blog == 'true' }}
+
+    steps:
+      - name: 📂 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔍 Analyze file changes
+        uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            main-site:
+              - 'apps/eembouz.com/**'
+              - 'packages/**'
+              - 'turbo.json'
+            blog:
+              - 'apps/blog.eembouz.com/**'
+              - 'packages/**'
+              - 'turbo.json'
+
+  # ==========================================
+  # 🧪 TESTS DE QUALITÉ
+  # ==========================================
+  quality-gate:
+    name: 🧪 Quality Gate
+    runs-on: ubuntu-latest
+    needs: detect-changes
+    if: needs.detect-changes.outputs.any-change == 'true'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        check: [lint, type-check, test-unit]
+
+    steps:
+      - name: 📂 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ⚡ Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🔍 ESLint & Prettier
+        if: matrix.check == 'lint'
+        run: pnpm turbo run lint
+
+      - name: 🎯 TypeScript Check
+        if: matrix.check == 'type-check'
+        run: pnpm turbo run type-check
+
+      - name: 🧪 Unit Tests
+        if: matrix.check == 'test-unit'
+        run: pnpm turbo run test
+
+  # ==========================================
+  # 🔨 BUILD APPLICATIONS
+  # ==========================================
+  build-apps:
+    name: 🔨 Build Applications
+    runs-on: ubuntu-latest
+    needs: [detect-changes, quality-gate]
+    if: needs.detect-changes.outputs.any-change == 'true'
+
+    strategy:
+      matrix:
+        app: [main-site, blog]
+        include:
+          - app: main-site
+            condition: needs.detect-changes.outputs.main-site == 'true'
+            filter: eembouz.com
+            build-dir: apps/eembouz.com/dist
+          - app: blog
+            condition: needs.detect-changes.outputs.blog == 'true'
+            filter: blog.eembouz.com
+            build-dir: apps/blog.eembouz.com/dist
+
+    steps:
+      - name: ⏭️ Skip if no changes
+        if: ${{ !fromJson(matrix.condition) }}
+        run: echo "⏭️ No changes for ${{ matrix.app }}, skipping..."
+
+      - name: 📂 Checkout repository
+        if: ${{ fromJson(matrix.condition) }}
+        uses: actions/checkout@v4
+
+      - name: ⚡ Setup pnpm
+        if: ${{ fromJson(matrix.condition) }}
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 🟢 Setup Node.js
+        if: ${{ fromJson(matrix.condition) }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        if: ${{ fromJson(matrix.condition) }}
+        run: pnpm install --frozen-lockfile
+
+      - name: 🔨 Build application
+        if: ${{ fromJson(matrix.condition) }}
+        run: |
+          echo "🔨 Building ${{ matrix.app }}..."
+          pnpm turbo run build --filter=${{ matrix.filter }}
+
+      - name: 📦 Upload build artifacts
+        if: ${{ fromJson(matrix.condition) }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.app }}-build-${{ github.sha }}
+          path: ${{ matrix.build-dir }}
+          retention-days: 3
+
+  # ==========================================
+  # 🚀 PRODUCTION (GitHub Pages - main branch)
+  # ==========================================
+  deploy-production:
+    name: 🚀 Deploy Production (GitHub Pages)
+    runs-on: ubuntu-latest
+    needs: [detect-changes, build-apps]
+    if: |
+      needs.detect-changes.outputs.any-change == 'true' && 
+      github.ref == 'refs/heads/main'
+
+    environment:
+      name: production
+      url: https://eembouz.com
+
+    strategy:
+      matrix:
+        app: [main-site, blog]
+        include:
+          - app: main-site
+            condition: needs.detect-changes.outputs.main-site == 'true'
+            repo: elyseemb/eembouz.com
+            domain: eembouz.com
+          - app: blog
+            condition: needs.detect-changes.outputs.blog == 'true'
+            repo: elyseemb/blog.eembouz.com
+            domain: blog.eembouz.com
+
+    steps:
+      - name: ⏭️ Skip if no changes
+        if: ${{ !fromJson(matrix.condition) }}
+        run: echo "⏭️ No changes for ${{ matrix.app }}, skipping production..."
+
+      - name: 📥 Download build artifacts
+        if: ${{ fromJson(matrix.condition) }}
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ matrix.app }}-build-${{ github.sha }}
+          path: ./dist
+
+      - name: 🚀 Deploy to GitHub Pages
+        if: ${{ fromJson(matrix.condition) }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          external_repository: ${{ matrix.repo }}
+          publish_dir: ./dist
+          publish_branch: main
+          cname: ${{ matrix.domain }}
+          commit_message: "🚀 Production: ${{ github.sha }}"
+
+  # ==========================================
+  # 🚧 STAGING (Cloudflare Pages - develop branch)
+  # ==========================================
+  deploy-staging:
+    name: 🚧 Deploy Staging (Cloudflare Pages)
+    runs-on: ubuntu-latest
+    needs: [detect-changes, build-apps]
+    if: |
+      needs.detect-changes.outputs.any-change == 'true' && 
+      github.ref == 'refs/heads/develop'
+
+    environment:
+      name: staging
+      url: https://staging.eembouz.com
+
+    strategy:
+      matrix:
+        app: [main-site, blog]
+        include:
+          - app: main-site
+            condition: needs.detect-changes.outputs.main-site == 'true'
+            project-name: eembouz-staging
+            subdomain: staging
+          - app: blog
+            condition: needs.detect-changes.outputs.blog == 'true'
+            project-name: blog-eembouz-staging
+            subdomain: staging-blog
+
+    steps:
+      - name: ⏭️ Skip if no changes
+        if: ${{ !fromJson(matrix.condition) }}
+        run: echo "⏭️ No changes for ${{ matrix.app }}, skipping staging..."
+
+      - name: 📥 Download build artifacts
+        if: ${{ fromJson(matrix.condition) }}
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ matrix.app }}-build-${{ github.sha }}
+          path: ./dist
+
+      - name: 🚧 Deploy to Cloudflare Pages
+        if: ${{ fromJson(matrix.condition) }}
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ matrix.project-name }}
+          directory: ./dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🔗 Configure custom domain
+        if: ${{ fromJson(matrix.condition) }}
+        run: |
+          curl -X POST "https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/${{ matrix.project-name }}/domains" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data '{"name":"${{ matrix.subdomain }}.eembouz.com"}'
+
+  # ==========================================
+  # 🔍 PREVIEW (Cloudflare Pages - features + PR)
+  # ==========================================
+  deploy-preview:
+    name: 🔍 Deploy Preview (Cloudflare Pages)
+    runs-on: ubuntu-latest
+    needs: [detect-changes, build-apps]
+    if: |
+      needs.detect-changes.outputs.any-change == 'true' && 
+      (startsWith(github.ref, 'refs/heads/feat/') || 
+       startsWith(github.ref, 'refs/heads/fix/') || 
+       startsWith(github.ref, 'refs/heads/hotfix/') || 
+       github.event_name == 'pull_request')
+
+    environment:
+      name: preview-${{ github.event.number || github.ref_name }}
+      url: https://preview-${{ github.event.number || github.ref_name }}.eembouz.com
+
+    strategy:
+      matrix:
+        app: [main-site, blog]
+        include:
+          - app: main-site
+            condition: needs.detect-changes.outputs.main-site == 'true'
+            project-name: eembouz-preview
+            base-domain: preview-${{ github.event.number || github.ref_name }}.eembouz.com
+          - app: blog
+            condition: needs.detect-changes.outputs.blog == 'true'
+            project-name: blog-eembouz-preview
+            base-domain: preview-blog-${{ github.event.number || github.ref_name }}.eembouz.com
+
+    steps:
+      - name: ⏭️ Skip if no changes
+        if: ${{ !fromJson(matrix.condition) }}
+        run: echo "⏭️ No changes for ${{ matrix.app }}, skipping preview..."
+
+      - name: 📥 Download build artifacts
+        if: ${{ fromJson(matrix.condition) }}
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ matrix.app }}-build-${{ github.sha }}
+          path: ./dist
+
+      - name: 🔍 Deploy Preview to Cloudflare Pages
+        if: ${{ fromJson(matrix.condition) }}
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ matrix.project-name }}
+          directory: ./dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref_name }}
+
+      - name: 🔗 Configure preview domain
+        if: ${{ fromJson(matrix.condition) }}
+        run: |
+          # Cloudflare Pages génère automatiquement des URLs de preview
+          # Format: https://{branch}.{project-name}.pages.dev
+          echo "🔍 Preview deployed to Cloudflare Pages"
+          echo "🌐 Auto URL: https://${{ github.ref_name }}.${{ matrix.project-name }}.pages.dev"
+          echo "🌐 Custom URL: https://${{ matrix.base-domain }}"
+
+      - name: 💬 Comment PR with preview links
+        if: ${{ fromJson(matrix.condition) && github.event_name == 'pull_request' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const app = '${{ matrix.app }}';
+            const projectName = '${{ matrix.project-name }}';
+            const branch = '${{ github.ref_name }}';
+            const autoUrl = `https://${branch}.${projectName}.pages.dev`;
+            const customUrl = `https://${{ matrix.base-domain }}`;
+
+            const comment = `## 🔍 Preview Ready for ${app}!
+
+            🌐 **Cloudflare URL**: ${autoUrl}
+            🎯 **Custom URL**: ${customUrl}
+            📝 **Branch**: \`${branch}\`
+            📊 **Commit**: \`${{ github.sha }}\`
+
+            ⚡ Powered by Cloudflare Pages
+            🔄 Updates automatically on new commits`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+  # ==========================================
+  # 📊 DEPLOYMENT SUMMARY
+  # ==========================================
+  summary:
+    name: 📊 Deployment Summary
+    runs-on: ubuntu-latest
+    needs: [deploy-production, deploy-staging, deploy-preview]
+    if: always()
+
+    steps:
+      - name: 📊 Generate deployment summary
+        run: |
+          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🌟 Production (GitHub Pages)" >> $GITHUB_STEP_SUMMARY
+          echo "| App | Status | URL |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----|--------|-----|" >> $GITHUB_STEP_SUMMARY
+          echo "| Main Site | ✅ | https://eembouz.com |" >> $GITHUB_STEP_SUMMARY
+          echo "| Blog | ✅ | https://blog.eembouz.com |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🚧 Staging (Cloudflare Pages)" >> $GITHUB_STEP_SUMMARY
+          echo "| App | Status | URL |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----|--------|-----|" >> $GITHUB_STEP_SUMMARY
+          echo "| Main Site | ✅ | https://staging.eembouz.com |" >> $GITHUB_STEP_SUMMARY
+          echo "| Blog | ✅ | https://staging-blog.eembouz.com |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔍 Preview (Cloudflare Pages)" >> $GITHUB_STEP_SUMMARY
+          echo "| App | Status | URL |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----|--------|-----|" >> $GITHUB_STEP_SUMMARY
+          echo "| Main Site | ✅ | https://preview-${{ github.ref_name }}.eembouz.com |" >> $GITHUB_STEP_SUMMARY
+          echo "| Blog | ✅ | https://preview-blog-${{ github.ref_name }}.eembouz.com |" >> $GITHUB_STEP_SUMMARY

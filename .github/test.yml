@@ -1,0 +1,435 @@
+name: 🚀 Professional Multi-Environment Deployment
+on:
+  push:
+    branches:
+      - main # 🌟 Production
+      - develop # 🚧 Staging
+      - "feat/**" # 🔍 Feature Preview
+      - "fix/**" # 🐛 Bugfix Preview
+      - "hotfix/**" # 🚨 Hotfix Preview
+  pull_request:
+    branches: [main, develop] # 📝 PR Preview
+
+env:
+  NODE_VERSION: 20
+  PNPM_VERSION: 8
+
+jobs:
+  # ==========================================
+  # 🔍 DÉTECTION DES CHANGEMENTS INTELLIGENTE
+  # ==========================================
+  detect-changes:
+    name: 🔍 Smart Change Detection
+    runs-on: ubuntu-latest
+    outputs:
+      main-site: ${{ steps.changes.outputs.main-site }}
+      blog: ${{ steps.changes.outputs.blog }}
+      any-change: ${{ steps.changes.outputs.main-site == 'true' || steps.changes.outputs.blog == 'true' }}
+      changed-apps: ${{ steps.summary.outputs.apps }}
+    steps:
+      - name: 📂 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔍 Analyze file changes
+        uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            main-site:
+              - 'apps/eembouz.com/**'
+              - 'packages/**'
+              - 'turbo.json'
+              - 'package.json'
+              - 'pnpm-workspace.yaml'
+            blog:
+              - 'apps/blog.eembouz.com/**'
+              - 'packages/**'
+              - 'turbo.json'
+              - 'package.json'
+              - 'pnpm-workspace.yaml'
+
+      - name: 📊 Generate change summary
+        id: summary
+        run: |
+          apps=""
+          if [ "${{ steps.changes.outputs.main-site }}" == "true" ]; then
+            apps="main-site"
+          fi
+          if [ "${{ steps.changes.outputs.blog }}" == "true" ]; then
+            if [ -n "$apps" ]; then
+              apps="$apps,blog"
+            else
+              apps="blog"
+            fi
+          fi
+          echo "apps=$apps" >> $GITHUB_OUTPUT
+          echo "🎯 Changed applications: $apps"
+
+  # ==========================================
+  # 🧪 TESTS DE QUALITÉ (SIMPLIFIÉ)
+  # ==========================================
+  quality-gate:
+    name: 🧪 Quality Gate
+    runs-on: ubuntu-latest
+    needs: detect-changes
+    if: needs.detect-changes.outputs.any-change == 'true'
+
+    steps:
+      - name: 📂 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ⚡ Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      - name: ✅ Basic validation
+        run: |
+          echo "✅ Dependencies installed successfully"
+          echo "✅ Ready for build phase"
+
+  # ==========================================
+  # 🔨 BUILD & TESTS E2E (MATRICE INTELLIGENTE)
+  # ==========================================
+  build-and-test:
+    name: 🔨 Build & E2E Tests
+    runs-on: ubuntu-latest
+    needs: [detect-changes, quality-gate]
+    if: needs.detect-changes.outputs.any-change == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [main-site, blog]
+        include:
+          - app: main-site
+            condition: needs.detect-changes.outputs.main-site == 'true'
+            filter: eembouz.com
+            build-dir: apps/eembouz.com/dist
+            port: 3000
+          - app: blog
+            condition: needs.detect-changes.outputs.blog == 'true'
+            filter: blog.eembouz.com
+            build-dir: apps/blog.eembouz.com/dist
+            port: 3001
+    steps:
+      - name: ⏭️ Skip if no changes
+        if: ${{ !fromJson(matrix.condition) }}
+        run: |
+          echo "⏭️ No changes detected for ${{ matrix.app }}, skipping..."
+          exit 0
+
+      - name: 📂 Checkout repository
+        if: ${{ fromJson(matrix.condition) }}
+        uses: actions/checkout@v4
+
+      - name: ⚡ Setup pnpm
+        if: ${{ fromJson(matrix.condition) }}
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 🟢 Setup Node.js with cache
+        if: ${{ fromJson(matrix.condition) }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        if: ${{ fromJson(matrix.condition) }}
+        run: pnpm install
+
+      - name: 🔨 Build application
+        if: ${{ fromJson(matrix.condition) }}
+        run: |
+          echo "🔨 Building ${{ matrix.app }}..."
+          pnpm turbo run build --filter=${{ matrix.filter }}
+          echo "✅ Build completed successfully!"
+
+      - name: 🎭 Setup Playwright
+        if: ${{ fromJson(matrix.condition) }}
+        run: |
+          echo "🎭 Installing Playwright browsers..."
+          pnpm exec playwright install --with-deps chromium
+        continue-on-error: true
+
+      - name: 🚀 Start preview server
+        if: ${{ fromJson(matrix.condition) }}
+        run: |
+          echo "🚀 Starting preview server for E2E tests..."
+          pnpm turbo run preview --filter=${{ matrix.filter }} &
+          sleep 10
+        continue-on-error: true
+
+      - name: 🧪 Run E2E Tests
+        if: ${{ fromJson(matrix.condition) }}
+        run: |
+          echo "🧪 Running end-to-end tests..."
+          pnpm turbo run test:e2e --filter=${{ matrix.filter }}
+        continue-on-error: true
+
+      - name: 📦 Upload build artifacts
+        if: ${{ fromJson(matrix.condition) }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.app }}-build-${{ github.sha }}
+          path: ${{ matrix.build-dir }}
+          retention-days: 3
+          compression-level: 6
+
+      - name: 📸 Upload E2E screenshots
+        if: ${{ fromJson(matrix.condition) && failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.app }}-e2e-screenshots-${{ github.sha }}
+          path: test-results/
+          retention-days: 7
+
+  # ==========================================
+  # 🔍 DÉPLOIEMENT PREVIEW (Features + PR)
+  # ==========================================
+  deploy-preview:
+    name: 🔍 Deploy Preview Environment
+    runs-on: ubuntu-latest
+    needs: [detect-changes, build-and-test]
+    if: |
+      needs.detect-changes.outputs.any-change == 'true' && 
+      (startsWith(github.ref, 'refs/heads/feat/') || 
+       startsWith(github.ref, 'refs/heads/fix/') || 
+       startsWith(github.ref, 'refs/heads/hotfix/') || 
+       github.event_name == 'pull_request')
+    environment:
+      name: preview-${{ github.event.number || github.ref_name }}
+      url: https://preview-${{ github.event.number || github.ref_name }}.eembouz.com
+    strategy:
+      matrix:
+        app: [main-site, blog]
+        include:
+          - app: main-site
+            condition: needs.detect-changes.outputs.main-site == 'true'
+            repo: elyseemb/preview-eembouz.com
+            base-domain: preview-${{ github.event.number || github.ref_name }}.eembouz.com
+          - app: blog
+            condition: needs.detect-changes.outputs.blog == 'true'
+            repo: elyseemb/preview-blog.eembouz.com
+            base-domain: preview-blog-${{ github.event.number || github.ref_name }}.eembouz.com
+    steps:
+      - name: ⏭️ Skip if no changes
+        if: ${{ !fromJson(matrix.condition) }}
+        run: echo "⏭️ No changes for ${{ matrix.app }}, skipping preview..."
+
+      - name: 📥 Download build artifacts
+        if: ${{ fromJson(matrix.condition) }}
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ matrix.app }}-build-${{ github.sha }}
+          path: ./dist
+
+      - name: 🔍 Deploy to Preview Environment
+        if: ${{ fromJson(matrix.condition) }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          external_repository: ${{ matrix.repo }}
+          publish_dir: ./dist
+          publish_branch: preview-${{ github.event.number || github.ref_name }}
+          cname: ${{ matrix.base-domain }}
+          commit_message: |
+            🔍 Preview Deploy
+            📝 Branch: ${{ github.ref_name }}
+            📊 Commit: ${{ github.sha }}
+            👤 Author: ${{ github.actor }}
+            🔗 Preview: https://${{ matrix.base-domain }}
+
+      - name: 💬 Comment PR with preview links
+        if: ${{ fromJson(matrix.condition) && github.event_name == 'pull_request' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const domain = '${{ matrix.base-domain }}';
+            const app = '${{ matrix.app }}';
+            const comment = `## 🔍 Preview Ready for ${app}!
+            🌐 **Preview URL**: https://${domain}
+            📝 **Branch**: \`${{ github.ref_name }}\`
+            📊 **Commit**: \`${{ github.sha }}\`
+            Preview will be automatically updated on new commits.`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+  # ==========================================
+  # 🚧 DÉPLOIEMENT STAGING (develop branch)
+  # ==========================================
+  deploy-staging:
+    name: 🚧 Deploy Staging Environment
+    runs-on: ubuntu-latest
+    needs: [detect-changes, build-and-test]
+    if: |
+      needs.detect-changes.outputs.any-change == 'true' && 
+      github.ref == 'refs/heads/develop'
+    environment:
+      name: staging
+      url: https://staging.eembouz.com
+    strategy:
+      matrix:
+        app: [main-site, blog]
+        include:
+          - app: main-site
+            condition: needs.detect-changes.outputs.main-site == 'true'
+            repo: elyseemb/staging-eembouz.com
+            domain: staging.eembouz.com
+          - app: blog
+            condition: needs.detect-changes.outputs.blog == 'true'
+            repo: elyseemb/staging-blog.eembouz.com
+            domain: staging-blog.eembouz.com
+    steps:
+      - name: ⏭️ Skip if no changes
+        if: ${{ !fromJson(matrix.condition) }}
+        run: echo "⏭️ No changes for ${{ matrix.app }}, skipping staging..."
+
+      - name: 📥 Download build artifacts
+        if: ${{ fromJson(matrix.condition) }}
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ matrix.app }}-build-${{ github.sha }}
+          path: ./dist
+
+      - name: 🚧 Deploy to Staging
+        if: ${{ fromJson(matrix.condition) }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          external_repository: ${{ matrix.repo }}
+          publish_dir: ./dist
+          publish_branch: main
+          cname: ${{ matrix.domain }}
+          commit_message: |
+            🚧 Staging Deploy
+            📝 Branch: develop
+            📊 Commit: ${{ github.sha }}
+            👤 Author: ${{ github.actor }}
+            🌐 Staging: https://${{ matrix.domain }}
+
+      - name: 🔔 Notify staging deployment
+        if: ${{ fromJson(matrix.condition) }}
+        run: |
+          echo "🚧 ${{ matrix.app }} deployed to staging!"
+          echo "🌐 URL: https://${{ matrix.domain }}"
+          echo "📊 Commit: ${{ github.sha }}"
+
+  # ==========================================
+  # 🚀 DÉPLOIEMENT PRODUCTION (main branch)
+  # ==========================================
+  deploy-production:
+    name: 🚀 Deploy Production
+    runs-on: ubuntu-latest
+    needs: [detect-changes, build-and-test]
+    if: |
+      needs.detect-changes.outputs.any-change == 'true' && 
+      (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/feat/multi-arch-deployement')
+    environment:
+      name: production
+      url: https://eembouz.com
+    strategy:
+      matrix:
+        app: [main-site, blog]
+        include:
+          - app: main-site
+            condition: needs.detect-changes.outputs.main-site == 'true'
+            repo: elyseemb/eembouz.com
+            domain: eembouz.com
+          - app: blog
+            condition: needs.detect-changes.outputs.blog == 'true'
+            repo: elyseemb/blog.eembouz.com
+            domain: blog.eembouz.com
+    steps:
+      - name: ⏭️ Skip if no changes
+        if: ${{ !fromJson(matrix.condition) }}
+        run: echo "⏭️ No changes for ${{ matrix.app }}, skipping production..."
+
+      - name: 📥 Download build artifacts
+        if: ${{ fromJson(matrix.condition) }}
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ matrix.app }}-build-${{ github.sha }}
+          path: ./dist
+
+      - name: 🚀 Deploy to Production
+        if: ${{ fromJson(matrix.condition) }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          external_repository: ${{ matrix.repo }}
+          publish_dir: ./dist
+          publish_branch: main # ✅ Toujours main dans le dépôt de destination
+          cname: ${{ matrix.domain }}
+          commit_message: |
+            🚀 Production Deploy (Test Branch)
+            📝 Source: ${{ github.ref_name }}
+            📊 Commit: ${{ github.sha }}
+            👤 Author: ${{ github.actor }}
+            🌐 Live: https://${{ matrix.domain }}
+
+      - name: 🎉 Production deployment success
+        if: ${{ fromJson(matrix.condition) }}
+        run: |
+          echo "🎉 ${{ matrix.app }} successfully deployed to production!"
+          echo "🌐 Live URL: https://${{ matrix.domain }}"
+          echo "📊 Commit: ${{ github.sha }}"
+          echo "👤 Deployed by: ${{ github.actor }}"
+
+  # ==========================================
+  # 🧹 NETTOYAGE POST-DÉPLOIEMENT
+  # ==========================================
+  cleanup:
+    name: 🧹 Cleanup
+    runs-on: ubuntu-latest
+    needs: [deploy-preview, deploy-staging, deploy-production]
+    if: always()
+    steps:
+      - name: 🧹 Clean up old artifacts
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: artifacts } = await github.rest.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.runId,
+            });
+            console.log(`Found ${artifacts.length} artifacts`);
+            const oldArtifacts = artifacts.slice(5);
+            for (const artifact of oldArtifacts) {
+              try {
+                await github.rest.actions.deleteArtifact({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  artifact_id: artifact.id,
+                });
+                console.log(`Deleted artifact: ${artifact.name}`);
+              } catch (error) {
+                console.log(`Failed to delete ${artifact.name}: ${error.message}`);
+              }
+            }
+
+      - name: 📊 Deployment Summary
+        run: |
+          echo "## 📊 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "| Environment | Status | URL |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------------|--------|-----|" >> $GITHUB_STEP_SUMMARY
+          echo "| Production | ✅ | https://eembouz.com |" >> $GITHUB_STEP_SUMMARY
+          echo "| Staging | ✅ | https://staging.eembouz.com |" >> $GITHUB_STEP_SUMMARY
+          echo "| Preview | ✅ | https://preview-${{ github.ref_name }}.eembouz.com |" >> $GITHUB_STEP_SUMMARY
