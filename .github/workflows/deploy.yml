@@ -1,127 +1,93 @@
-name: Deployment
+name: 🚀 Deploy Apps to Separate Repos
 
 on:
   push:
-    branches:
-      - main
-      - feat/multi-arch-deployement
-      - develop
-      - "feat/**"
-      - "fix/**"
-  pull_request:
-    branches: [main, develop]
-
-env:
-  NODE_VERSION: 20
-  PNPM_VERSION: 8
+    branches: [feat/setup-monorepo]
+    # branches: [main]
 
 jobs:
-  # ==========================================
-  # 🔨 BUILD & DEPLOY
-  # ==========================================
-  deploy:
-    name: 🚀 Build & Deploy
+  changes:
     runs-on: ubuntu-latest
-
+    outputs:
+      main-site: ${{ steps.changes.outputs.main-site }}
+      blog: ${{ steps.changes.outputs.blog }}
     steps:
-      - name: 📂 Checkout repository
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            main-site:
+              - 'apps/eembouz.com/**'
+            blog:
+              - 'apps/blog.eembouz.com/**'
+
+  deploy-main-site:
+    needs: changes
+    if: needs.changes.outputs.main-site == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📂 Checkout monorepo
         uses: actions/checkout@v4
 
       - name: ⚡ Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: ${{ env.PNPM_VERSION }}
+          version: 8
 
-      - name: 🟢 Setup Node.js
+      - name: 🟢 Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: 20
           cache: pnpm
 
       - name: 📦 Install dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: 🔨 Build main site
-        run: |
-          cd apps/eembouz.com
-          pnpm run build
+        run: pnpm turbo run build --filter=eembouz.com
 
-      - name: 🔨 Build blog
-        run: |
-          cd apps/blog.eembouz.com
-          pnpm run build
-
-      # ==========================================
-      # 🌟 PRODUCTION (main branch)
-      # ==========================================
-      - name: 🚀 Deploy main site to production
-        if: github.ref == 'refs/heads/main'
+      - name: 🌐 Deploy to elyseemb/eembouz.com
         uses: peaceiris/actions-gh-pages@v4
         with:
-          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          personal_token: ${{ secrets.PERSONAL_TOKEN_PORTFOLIO }}
           external_repository: elyseemb/eembouz.com
-          publish_dir: ./apps/eembouz.com/dist
+          publish_dir: apps/eembouz.com/dist
           publish_branch: main
           cname: eembouz.com
+          commit_message: "🚀 Deploy main site: ${{ github.sha }}"
 
-      - name: 🚀 Deploy blog to production
-        if: github.ref == 'refs/heads/main'
+  deploy-blog:
+    needs: changes
+    if: needs.changes.outputs.blog == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📂 Checkout monorepo
+        uses: actions/checkout@v4
+
+      - name: ⚡ Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: 🟢 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: 🔨 Build blog
+        run: pnpm turbo run build --filter=blog.eembouz.com
+
+      - name: 📝 Deploy to elyseemb/blog.eembouz.com
         uses: peaceiris/actions-gh-pages@v4
         with:
-          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          personal_token: ${{ secrets.PERSONAL_TOKEN_PORTFOLIO }}
           external_repository: elyseemb/blog.eembouz.com
-          publish_dir: ./apps/blog.eembouz.com/dist
+          publish_dir: apps/blog.eembouz.com/dist
           publish_branch: main
           cname: blog.eembouz.com
-
-      # ==========================================
-      # 🚧 STAGING (develop branch)
-      # ==========================================
-      - name: 🚧 Deploy main site to staging
-        if: github.ref == 'refs/heads/develop'
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: eembouz-staging
-          directory: ./apps/eembouz.com/dist
-
-      - name: 🚧 Deploy blog to staging
-        if: github.ref == 'refs/heads/develop'
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: blog-eembouz-staging
-          directory: ./apps/blog.eembouz.com/dist
-
-      # ==========================================
-      # 🔍 PREVIEW (feature branches)
-      # ==========================================
-      - name: 🔍 Deploy main site preview
-        if: startsWith(github.ref, 'refs/heads/feat/') || startsWith(github.ref, 'refs/heads/fix/')
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: eembouz-staging
-          directory: ./apps/eembouz.com/dist
-
-          branch: ${{ github.ref_name }}
-
-      - name: 🔍 Deploy blog preview
-        if: startsWith(github.ref, 'refs/heads/feat/') || startsWith(github.ref, 'refs/heads/fix/')
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: blog-eembouz-staging
-          directory: ./apps/blog.eembouz.com/dist
-
-          branch: ${{ github.ref_name }}
-
-      - name: ✅ Deployment completed
-        run: |
-          echo "🎉 Deployment completed!"
-          echo "📝 Branch: ${{ github.ref_name }}"
-          echo "📊 Commit: ${{ github.sha }}"
+          commit_message: "📝 Deploy blog: ${{ github.sha }}"
