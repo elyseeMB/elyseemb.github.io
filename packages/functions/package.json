@@ -1,0 +1,5 @@
+{
+  "name": "@portfolio/functions",
+  "description": "packages functions",
+  "main": "src/index.ts"
+}

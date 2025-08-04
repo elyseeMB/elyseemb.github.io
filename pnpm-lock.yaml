@@ -26,6 +26,9 @@ importers:
       '@astrojs/sitemap':
         specifier: ^3.4.1
         version: 3.4.1
+      '@portfolio/functions':
+        specifier: workspace:*
+        version: link:../../packages/functions
       '@portfolio/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -85,6 +88,8 @@ importers:
       typescript:
         specifier: ~5.8.3
         version: 5.8.3
+
+  packages/functions: {}
 
   packages/ui:
     dependencies:
