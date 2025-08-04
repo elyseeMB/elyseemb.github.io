@@ -17,7 +17,8 @@
     "gsap": "^3.13.0",
     "highlight.js": "^11.11.1",
     "preact": "^10.26.9",
-    "@portfolio/ui": "workspace:*"
+    "@portfolio/ui": "workspace:*",
+    "@portfolio/functions": "workspace:*"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.1",
