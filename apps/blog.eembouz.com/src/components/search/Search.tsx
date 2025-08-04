@@ -76,7 +76,7 @@ export function Search({ articles }: { articles: CollectionEntry<"blog">[] }) {
         onInput={handleSearch}
         className="search-input"
         type="text"
-        placeholder="Quel article rechercez vous ?"
+        placeholder="Quel article recherchez-vous ?"
       />
     </Wrapper>
   );
