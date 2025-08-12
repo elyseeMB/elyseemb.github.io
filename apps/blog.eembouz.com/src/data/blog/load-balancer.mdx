@@ -9,30 +9,26 @@ pubDate: 2025-07-21
 
 <div class="blog-single">
 
-<p class="blog-single__paragraph">
-  Chaque jour, des milliers d’utilisateurs se connectent pour consulter leurs
-  e-mails, échanger des messages ou travailler sur leurs projets. Un nombre
-  incalculable de paquets réseau transitent chaque seconde entre des milliers de
-  serveurs, tous optimisés pour répondre le plus rapidement possible et
-  distribuer efficacement les ressources.
-</p>
-<br />
+Chaque jour, des milliers d’utilisateurs se connectent pour consulter leurs
+e-mails, échanger des messages ou travailler sur leurs projets. Un nombre
+incalculable de paquets réseau transitent chaque seconde entre des milliers de
+serveurs, tous optimisés pour répondre le plus rapidement possible et
+distribuer efficacement les ressources.
+
 Mais qui dit **multiplication des utilisateurs**, dit aussi **requêtes
 simultanées**, risques de surcharge, lenteurs, voire pannes.
-<br />
+
 Dans cette course à la performance et à la réactivité, de nombreuses techniques
 sont mises en œuvre pour garantir une distribution fluide et équilibrée de la
 charge : **le load balancing** en est l’une des clés.
 
-<p class="blog-single__paragraph">
-  **Le Load Balancing** est un processus clé en informatique, souvent utilisé
-  dans l’architecture des systèmes distribués. Il permet de répartir un ensemble
-  de tâches ou de requêtes sur plusieurs ressources (comme des serveurs) afin de
-  **réduire la surcharge**, **améliorer les performances globales** et
-  **garantir une haute disponibilité**. Il s’applique principalement **au niveau
-  des protocoles d’application** tels que **HTTP/HTTPS, FTP, SMTP, DNS, SSH**,
-  etc., pour gérer efficacement le trafic réseau.
-</p>
+**Le Load Balancing** est un processus clé en informatique, souvent utilisé
+dans l’architecture des systèmes distribués. Il permet de répartir un ensemble
+de tâches ou de requêtes sur plusieurs ressources (comme des serveurs) afin de
+**réduire la surcharge**, **améliorer les performances globales** et
+**garantir une haute disponibilité**. Il s’applique principalement **au niveau
+des protocoles d’application** tels que **HTTP/HTTPS, FTP, SMTP, DNS, SSH**,
+etc., pour gérer efficacement le trafic réseau.
 
 <br />
 <img
@@ -40,22 +36,18 @@ charge : **le load balancing** en est l’une des clés.
   alt="Schéma d'un load balancer distribuant le trafic"
 />
 
-<p class="blog-single__paragraph">
-  Concrètement, au lieu que chaque client s’adresse directement à un serveur
-  donné, toutes les requêtes sont envoyées à une **adresse réseau centrale** —
-  celle du load balancer. Celui-ci se charge alors de **rediriger le trafic**
-  vers les serveurs disponibles, selon différents critères (algorithmes, charge
-  actuelle, disponibilité, etc.).
-</p>
-<br />
-Ce mécanisme permet d’éviter les surcharges, d’améliorer les performances
-globales du système et de garantir une haute disponibilité du service.
+Concrètement, au lieu que chaque client s’adresse directement à un serveur
+donné, toutes les requêtes sont envoyées à une **adresse réseau centrale** —
+celle du load balancer. Celui-ci se charge alors de **rediriger le trafic**
+vers les serveurs disponibles, selon différents critères (algorithmes, charge
+actuelle, disponibilité, etc.).
+
+Ce mécanisme permet d’éviter les surcharges, d’améliorer les performances globales du système et de garantir une haute disponibilité du service.
 
 ## Load Balancing : niveau 4 vs niveau 7
 
-<br />
-
-Il existe plusieurs types de load balancers, selon le niveau du **modèle OSI** sur lequel ils opèrent :
+Il existe plusieurs types de load balancers, selon le niveau du **modèle OSI** sur
+lequel ils opèrent :
 
 - **Niveau 4 (transport)** : l’équilibrage se fait sur la base des adresses IP, des ports TCP ou UDP. Le load balancer ne « voit » pas le contenu des requêtes, il se contente de router le trafic selon des règles de bas niveau.  
    Exemple : **HAProxy** ou **AWS Network Load Balancer**.
@@ -71,20 +63,15 @@ Ce choix dépend du type d’application, du besoin en personnalisation et des p
 <br />
 <img src="/load_balancer/round_robin.png" alt="round_rogin" />
 
-<p class="blog-single__paragraph">
-  Le **Round Robin DNS** est un algorithme d’équilibrage de charge qui permet de
-  répartir le trafic entre plusieurs serveurs en associant **plusieurs adresses
-  IP** à un **même nom de domaine**.
-</p>
+Le **Round Robin DNS** est un algorithme d’équilibrage de charge qui permet de
+répartir le trafic entre plusieurs serveurs en associant **plusieurs adresses
+IP** à un **même nom de domaine**.
 
-<p class="blog-single__paragraph">
-  Contrairement à d'autres méthodes, cette technique **ne nécessite aucun
-  équipement physique** dédié. Elle repose sur le fonctionnement du **serveur
-  DNS autoritaire** ([authoritative
-  nameserver](https://www.cloudflare.com/learning/dns/dns-server-types/#authoritative-nameserver)).
-</p>
+Contrairement à d'autres méthodes, cette technique **ne nécessite aucun
+équipement physique** dédié. Elle repose sur le fonctionnement du **serveur
+DNS autoritaire** ([authoritative
+nameserver](https://www.cloudflare.com/learning/dns/dns-server-types/#authoritative-nameserver)).
 
-<p class="blog-single__paragraph">
 Elle est facile à mettre en place via l’interface de gestion DNS de votre fournisseur :
 
 - en ajoutant **plusieurs enregistrements A** (pour IPv4),
@@ -92,8 +79,6 @@ Elle est facile à mettre en place via l’interface de gestion DNS de votre fou
 
 **Avantage** : simplicité de configuration.  
 **Limite** : pas de gestion intelligente de la charge réelle (le DNS ne “voit” pas si un serveur est saturé ou indisponible).
-
-</p>
 
 ## load balancers logiciels et matériels:
 
@@ -110,11 +95,7 @@ nginx est un logiciel open-source qui fait office de **serveur web**, de
 consommation mémoire** et sa **grande rapidité**, ce qui en fait un choix
 privilégié dans les environnements à fort trafic.
 
-<br />
-
 Pour configurer Nginx comme load balancer, on utilise la directive `upstream` dans le fichier de configuration, qui permet de déclarer plusieurs serveurs backend :
-
-<br />
 
 ```nginx
 http {
@@ -134,8 +115,6 @@ http {
 }
 ```
 
-<br />
-
 Par défaut, Nginx applique le **round robin**, mais il supporte aussi :
 
 - `least_conn` : vers le serveur avec le moins de connexions actives
@@ -143,17 +122,11 @@ Par défaut, Nginx applique le **round robin**, mais il supporte aussi :
 
 ## choisir une méthode d’équilibrage de charge:
 
-<p class="blog-single__paragraph">
-    
 [NGINX](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/#choosing-a-load-balancing-method "Choosing a Load Balancing Method") en charge quatre méthodes d'équilibrage de charge : Round Robin, Least Connections, IP Hash et Generic Hash.
 
 > **Note:** Lors de la configuration d'une méthode autre que Round Robin, mettez la directive correspondante ([`hash`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#hash), [`ip_hash`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#ip_hash), [`least_conn`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_conn), [`least_time`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_time), ou [`random`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#random)) au-dessus de la liste de `server` directives dans le [`upstream {}`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#upstream) bloc.
 
-</p>
-
 1- **Round Robin (Default)**
-
-<br />
 
 ```nginx
 upstream backend {
@@ -163,22 +136,14 @@ upstream backend {
 }
 ```
 
-<p class="blog-single__paragraph">
-
     Contrairement au Round Robin DNS, les reverse proxies comme **NGINX** permettent un équilibrage de charge **plus intelligent** et dynamique, avec prise en compte des connexions actives, de l’adresse IP du client, ou de la clé de hachage.
 
-</p>
-<br/>
-
-<p class="blog-single__paragraph">
-  2- **[Least
-  Connections](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_conn) –**
-   Une requête est envoyée au serveur avec le moins de connexions actives. Cette
-  méthode prend également [poids du
-  serveur](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/#weights) en
-  considération.
-</p>
-<br />
+2- **[Least
+Connections](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_conn) –**
+ Une requête est envoyée au serveur avec le moins de connexions actives. Cette
+méthode prend également [poids du
+serveur](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/#weights) en
+considération.
 
 ```nginx
 upstream backend {
@@ -188,16 +153,13 @@ upstream backend {
 }
 ```
 
-<p class="blog-single__paragraph">
-  3- **[IP
-  Hash](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#ip_hash) –**
-  Le serveur auquel une requête est envoyée est déterminé à partir de l'adresse
-  IP du client. Dans ce cas, soit les trois premiers octets de l'adresse IPv4,
-  soit l'adresse IPv6 entière sont utilisés pour calculer la valeur de hachage.
-  La méthode garantit que les requêtes provenant de la même adresse parviennent
-  au même serveur, sauf si celui-ci n'est pas disponible.
-</p>
-<br />
+3- **[IP
+Hash](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#ip_hash) –**
+Le serveur auquel une requête est envoyée est déterminé à partir de l'adresse
+IP du client. Dans ce cas, soit les trois premiers octets de l'adresse IPv4,
+soit l'adresse IPv6 entière sont utilisés pour calculer la valeur de hachage.
+La méthode garantit que les requêtes provenant de la même adresse parviennent
+au même serveur, sauf si celui-ci n'est pas disponible.
 
 ```nginx
 upstream backend {
@@ -207,12 +169,12 @@ upstream backend {
 }
 ```
 
-<p class="blog-single__paragraph">
-
-    Si l'un des serveurs doit être temporairement retiré de la rotation de chargement‑équilibrage, il peut être marqué avec le [down](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#down) paramètre. Cela préserve le hachage actuel des adresses IP des clients. Les requêtes qui devaient être traitées par ce serveur sont automatiquement envoyées au serveur suivant du groupe.
-
-</p>
-<br/>
+Si l'un des serveurs doit être temporairement retiré de la rotation de
+chargement‑équilibrage, il peut être marqué avec
+le [down](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#down) paramètre.
+Cela préserve le hachage actuel des adresses IP des clients. Les requêtes qui
+devaient être traitées par ce serveur sont automatiquement envoyées au serveur
+suivant du groupe.
 
 ```nginx
 upstream backend {
@@ -222,16 +184,11 @@ upstream backend {
 }
 ```
 
-<p class="blog-single__paragraph">
-  4.
-  **Generic [Hash](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#hash) –**
-  Le serveur auquel une requête est envoyée est déterminé à partir d'une clé
-  définie par l'utilisateur‑. Cette clé peut être une chaîne de texte, une
-  variable ou une combinaison. Par exemple, la clé peut être une adresse IP
-  source et un port appariés. Cet exemple utilise un URI :
-</p>
-
-<br />
+4- **Generic [Hash](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#hash) –**
+Le serveur auquel une requête est envoyée est déterminé à partir d'une clé
+définie par l'utilisateur‑. Cette clé peut être une chaîne de texte, une
+variable ou une combinaison. Par exemple, la clé peut être une adresse IP
+source et un port appariés. Cet exemple utilise un URI :
 
 ```nginx
 upstream backend {
@@ -241,21 +198,15 @@ upstream backend {
 }
 ```
 
-<p class="blog-single__paragraph">
-
     L'optionnel [cohérent](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#hash) paramètre au `hash` la directive permet [ketama](http://www.last.fm/user/RJ/journal/2007/04/10/rz_libketama_-_a_consistent_hashing_algo_for_memcache_clients) cohérent‑équilibrage de charge de hachage. Les requêtes sont réparties uniformément sur tous les serveurs en amont en fonction de la valeur de clé hachée définie par l'utilisateur‑. Si un serveur en amont est ajouté ou supprimé d'un groupe en amont, seules quelques clés sont remappées, ce qui minimise les échecs de cache. Ceci est utile pour équilibrer la charge des serveurs de cache ou d’autres applications qui accumulent de l’état.
-
-</p>
 
 ### [HAProxy](https://www.haproxy.com/blog/haproxy-configuration-basics-load-balance-your-servers):
 
 HAProxy est un logiciel gratuit et open source qui offre une haute disponibilité et un équilibrage de charge pour les applications basées sur TCP et HTTP. Il répartit le trafic réseau entrant sur plusieurs serveurs pour garantir une utilisation et une évolutivité optimales.
 
-<p class="blog-single__paragraph">
-  **HAProxy** et **NGINX** peuvent tous deux faire de l’équilibrage de charge,
-  mais ils ont des **différences importantes** dans leur conception, leur
-  comportement et leurs cas d’usage préférés.
-</p>
+**HAProxy** et **NGINX** peuvent tous deux faire de l’équilibrage de charge,
+mais ils ont des **différences importantes** dans leur conception, leur
+comportement et leurs cas d’usage préférés.
 
 ## NGINX vs HAProxy : Comparaison d’usage
 
@@ -277,10 +228,7 @@ HAProxy est un logiciel gratuit et open source qui offre une haute disponibilit�
 
 ## Load Balancer matériel
 
-<p class="blog-single__paragraph">
     En support physique, En version matérielle, ce sont des dispositifs physiques installés dans des datacenters spécifiques. Bien qu'il soient capable de gérer et dispatcher un grand volume de trafic sur différent réseau, Ils offrent moins de flexibilité et leurs coûts sont assez élevés.
-
-  </p>
 
 <div class="table-container">
 
