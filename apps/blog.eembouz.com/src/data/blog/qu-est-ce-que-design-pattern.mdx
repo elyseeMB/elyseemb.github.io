@@ -12,28 +12,24 @@ import DisplayList from "../../components/blog/pattern/DisplayList.tsx";
 
 <div class="blog-single">
 
-<p class="blog-single__paragraph">
-  Les **design patterns** sont des solutions éprouvées et validées par les
-  pionniers de l'informatique. Ils ont été conçus pour **structurer et organiser
-  le code** de manière claire, lisible et efficace. L’idée est de proposer des
-  **modèles génériques et réutilisables**, qui facilitent la **scalabilité** et
-  la **maintenance** des systèmes logiciels, tout en réduisant les erreurs
-  courantes.
-</p>
+Les **design patterns** sont des solutions éprouvées et validées par les
+pionniers de l'informatique. Ils ont été conçus pour **structurer et organiser
+le code** de manière claire, lisible et efficace. L’idée est de proposer des
+**modèles génériques et réutilisables**, qui facilitent la **scalabilité** et
+la **maintenance** des systèmes logiciels, tout en réduisant les erreurs
+courantes.
 
 ## histoire
 
-<p class="blog-single__paragraph">
-  Les **design patterns** sont nés de la volonté de produire du code
-  **scalable** et maintenable, même si cela signifiait, au départ, **sacrifier
-  un peu de confort de développement**. Lorsque les équipes techniques
-  remarquent qu’une même structure ou solution est **répétée plusieurs fois dans
-  le code** pour résoudre un même type de problème, elles finissent par lui
-  donner un **nom commun**. C’est ainsi qu’est née l’idée des **design
-  patterns** : des solutions **nommées, génériques et réutilisables**,
-  documentées pour faciliter la collaboration et la compréhension dans les
-  projets logiciels.
-</p>
+Les **design patterns** sont nés de la volonté de produire du code
+**scalable** et maintenable, même si cela signifiait, au départ, **sacrifier
+un peu de confort de développement**. Lorsque les équipes techniques
+remarquent qu’une même structure ou solution est **répétée plusieurs fois dans
+le code** pour résoudre un même type de problème, elles finissent par lui
+donner un **nom commun**. C’est ainsi qu’est née l’idée des **design
+patterns** : des solutions **nommées, génériques et réutilisables**,
+documentées pour faciliter la collaboration et la compréhension dans les
+projets logiciels.
 
 <blockquote>
   <p>
@@ -49,35 +45,27 @@ import DisplayList from "../../components/blog/pattern/DisplayList.tsx";
 
 ## Pourquoi devrais je apprendre des modèles ?
 
-<p class="blog-single__paragraph">
-  Dans la majorité des cas, vous avez probablement déjà **utilisé des design
-  patterns sans le savoir**. C’est exactement ce qui distingue souvent un
-  développeur junior d’un développeur senior : la capacité à reconnaître,
-  comprendre et appliquer consciemment ces structures. Par exemple, le **code
-  source des Framework** (comme React, Laravel, AdonisJS, etc.) en est truffé.
-</p>
+Dans la majorité des cas, vous avez probablement déjà **utilisé des design
+patterns sans le savoir**. C’est exactement ce qui distingue souvent un
+développeur junior d’un développeur senior : la capacité à reconnaître,
+comprendre et appliquer consciemment ces structures. Par exemple, le **code
+source des Framework** (comme React, Laravel, AdonisJS, etc.) en est truffé.
 
-<p class="blog-single__paragraph">
-  Une fois maîtrisés, les **design patterns** deviennent une véritable **boîte à
-  outils** pour résoudre efficacement des problèmes courants en développement.
-  Ils vous aideront à **penser autrement**, avec plus de structure et de recul.
-  Avec le temps, cette manière de réfléchir deviendra presque naturelle.
-</p>
+Une fois maîtrisés, les **design patterns** deviennent une véritable **boîte à
+outils** pour résoudre efficacement des problèmes courants en développement.
+Ils vous aideront à **penser autrement**, avec plus de structure et de recul.
+Avec le temps, cette manière de réfléchir deviendra presque naturelle.
 
 ## Classifications et Rôle:
 
-<p class="blog-single__paragraph">
-  Cette liste n’est pas exhaustive et ne couvre pas l’ensemble des design
-  patterns que vous pourriez rencontrer. Nous allons nous concentrer sur un type
-  particulier de modèles : les **modèles architecturaux**.
-</p>
+Cette liste n’est pas exhaustive et ne couvre pas l’ensemble des design
+patterns que vous pourriez rencontrer. Nous allons nous concentrer sur un type
+particulier de modèles : les **modèles architecturaux**.
 
-<p class="blog-single__paragraph">
-  Ces modèles peuvent être implémentés dans **n’importe quel langage de
-  programmation** et sont appelés **modèles universels** ou **patterns de haut
-  niveau**. Ils s’opposent aux **idiomes**, qui sont des solutions plus
-  spécifiques, propres à un langage particulier et souvent de bas niveau.
-</p>
+Ces modèles peuvent être implémentés dans **n’importe quel langage de
+programmation** et sont appelés **modèles universels** ou **patterns de haut
+niveau**. Ils s’opposent aux **idiomes**, qui sont des solutions plus
+spécifiques, propres à un langage particulier et souvent de bas niveau.
 
 <blockquote>
   <p>
@@ -101,35 +89,27 @@ import DisplayList from "../../components/blog/pattern/DisplayList.tsx";
 
 ## Cas concret : un store Zustand refactoré selon les Design Patterns
 
-<p class="blog-single__paragraph">
-  Pour illustrer concrètement l’intérêt des design patterns, prenons un
-  **exemple réel** rencontré lors de la construction de mon application.
-  J’utilise Zustand comme **solution de gestion d’état** globale. C’est un outil
-  simple, mais très puissant, qui permet de construire un store à la volée.
-</p>
+Pour illustrer concrètement l’intérêt des design patterns, prenons un
+**exemple réel** rencontré lors de la construction de mon application.
+J’utilise Zustand comme **solution de gestion d’état** globale. C’est un outil
+simple, mais très puissant, qui permet de construire un store à la volée.
 
-<p class="blog-single__paragraph">
-  Cependant, en avançant dans le développement, le store devient **complexe,
-  difficile à tester ou à maintenir**, et certaines logiques sont dupliquées.
-  C’est exactement le genre de situation où **les design patterns prennent tout
-  leur sens**.
-</p>
+Cependant, en avançant dans le développement, le store devient **complexe,
+difficile à tester ou à maintenir**, et certaines logiques sont dupliquées.
+C’est exactement le genre de situation où **les design patterns prennent tout
+leur sens**.
 
-<p class="blog-single__paragraph">
-  Dans cette section, nous allons **refactorer ce store pas à pas**, en
-  appliquant différents design patterns. Chaque refactor sera **associé à un
-  pattern précis** : Singleton, Factory, Observer, etc. Cela permettra de
-  comprendre **à la fois la théorie** derrière chaque modèle **et son
-  application pratique** dans un contexte moderne (React + Zustand).
-</p>
+Dans cette section, nous allons **refactorer ce store pas à pas**, en
+appliquant différents design patterns. Chaque refactor sera **associé à un
+pattern précis** : Singleton, Factory, Observer, etc. Cela permettra de
+comprendre **à la fois la théorie** derrière chaque modèle **et son
+application pratique** dans un contexte moderne (React + Zustand).
 
 ## Le code de base
 
-<p class="blog-single__paragraph">
-  Avant de commencer le refactor, voici **le store Zustand tel qu’il existait
-  initialement** dans mon projet. Il est fonctionnel, et implémentait
-  certainspattern partiellement
-</p>
+Avant de commencer le refactor, voici **le store Zustand tel qu’il existait
+initialement** dans mon projet. Il est fonctionnel, et implémentait
+certainspattern partiellement
 
 - Factory Method (partiellement)
 - Strategy
@@ -420,7 +400,6 @@ export function useAccount() {
 }
 ```
 
-<br />
 ### Objectifs de la version refactorée
 
 - Séparer les responsabilités.
@@ -429,15 +408,12 @@ export function useAccount() {
 
 ## Singleton:
 
-<p class="blog-single__paragraph">
-  Un singleton s'assure d'avoir qu'une seul instance d'un object (de préférence
-  une class) ne soit initialisé, offrant ainsi un seul point global
-  d'initialisation. Dans notre situation nous somme en javascript ou chaque
-  object et module est unique dans son contexte d'exécution.
-</p>
+Un singleton s'assure d'avoir qu'une seul instance d'un object (de préférence
+une class) ne soit initialisé, offrant ainsi un seul point global
+d'initialisation. Dans notre situation nous somme en javascript ou chaque
+object et module est unique dans son contexte d'exécution.
 
-<p class="blog-single__paragraph"> — **Singleton Pattern**</p>
-<br />
+— **Singleton Pattern**
 
 ```ts
 import { create } from "zustand";
@@ -504,24 +480,19 @@ export const createStore = (): Store => {
 };
 ```
 
-<p class="blog-single__paragraph">
-  Ici on assure qu’un seul store Zustand existe dans l’app, ce qui est important
-  pour éviter les incohérences ou re-rendu inutile dans React `createStore()`
-  dans le contexte React.
-</p>
+Ici on assure qu’un seul store Zustand existe dans l’app, ce qui est important
+pour éviter les incohérences ou re-rendu inutile dans React `createStore()`
+dans le contexte React.
 
-<p class="blog-single__paragraph">
-  je ne reviendrais pas sur l'utilisation de Zustand, dans un prochain article.
-  En bref :
-</p>
+je ne reviendrais pas sur l'utilisation de Zustand, dans un prochain article.
+En bref :
 
 - **Combine** : est un middleware qui permet de séparer le state et les actions.
 - **Persist** : est un middleware qui permet de faire de la persistance avec le local Storage.
 
 ## factory
 
-<p class="blog-single__paragraph">— **Factory Pattern pour les clés**</p>
-<br />
+— **Factory Pattern pour les clés**
 
 ```ts
 export const getStateKey = <T extends ResourceKey>(type: T): keyof State => {
@@ -536,14 +507,12 @@ export const getStateKey = <T extends ResourceKey>(type: T): keyof State => {
 };
 ```
 
-<p class="blog-single__paragraph">
-  On **abstrait la logique** de mappage `"accessLevel"` → `"accesslevels"` dans
-  un objet **déclaratif**, au lieu d’un `switch`.
-</p>
+On **abstrait la logique** de mappage `"accessLevel"` → `"accesslevels"` dans
+un objet **déclaratif**, au lieu d’un `switch`.
 
 ## Facade
 
-<p class="blog-single__paragraph">— **Facade Pattern**</p>
+— **Facade Pattern**
 
 ```ts
 export const useAccount = () => {
@@ -552,11 +521,7 @@ export const useAccount = () => {
 };
 ```
 
-<p class="blog-single__paragraph">
-  On caches la complexité du store et exposes une API simple.
-</p>
-
-<hr />
+On caches la complexité du store et exposes une API simple.
 
 ## Illustrations en pseudo-code
 
@@ -583,6 +548,8 @@ export const useAccount = () => {
 
 ### Builder (construire un objet étape par étape)
 
+<br />
+
 ```ts
 class CourseBuilder {
   name = "";
@@ -606,9 +573,9 @@ class CourseBuilder {
 const course = new CourseBuilder().setName("React").setColor("blue").build();
 ```
 
-<br />
-<br />
 ### Strategy (changer de comportement dynamiquement)
+
+<br />
 
 ```ts
 class ExportStrategy {
@@ -634,9 +601,9 @@ function exportData(data, strategy: ExportStrategy) {
 }
 ```
 
-<br />
-<br />
 ### Decorator (enrichir un comportement sans toucher au code source)
+
+<br />
 
 ```ts
 function withLogger(fn) {
@@ -657,23 +624,19 @@ loggedSaveCourse({ name: "JS", color: "yellow" });
 
 ## Conclusion
 
-<p class="blog-single__paragraph">
-  Les **design patterns** sont des outils puissants, à condition d’être utilisés
-  dans le **bon contexte** et de manière réfléchie. On peut y penser **en
-  amont**, lors de la conception, si l’on est à l’aise, ou bien **les introduire
-  progressivement** en refactorant le projet au fil du temps.
-  <br />
-  Ils permettent d’**éviter la répétition**, de **faire évoluer** le code plus
-  facilement, de **l’améliorer** et surtout de **mieux le tester**.
-</p>
+Les **design patterns** sont des outils puissants, à condition d’être utilisés
+dans le **bon contexte** et de manière réfléchie. On peut y penser **en
+amont**, lors de la conception, si l’on est à l’aise, ou bien **les introduire
+progressivement** en refactorant le projet au fil du temps.
 
-<p class="blog-single__paragraph">
-  Dans cet article, nous avons vu comment **certains modèles** comme le
-  **Singleton**, la **Factory Method**, ou la **Facade** peuvent s’appliquer
-  **directement** dans une architecture moderne comme React + Zustand. D’autres
-  patterns plus **conceptuels** (Builder, Strategy, Decorator) ont été illustrés
-  sous forme de **pseudo-code** afin de mieux saisir leur intention.
-</p>
+Ils permettent d’**éviter la répétition**, de **faire évoluer** le code plus
+facilement, de **l’améliorer** et surtout de **mieux le tester**.
+
+Dans cet article, nous avons vu comment **certains modèles** comme le
+**Singleton**, la **Factory Method**, ou la **Facade** peuvent s’appliquer
+**directement** dans une architecture moderne comme React + Zustand. D’autres
+patterns plus **conceptuels** (Builder, Strategy, Decorator) ont été illustrés
+sous forme de **pseudo-code** afin de mieux saisir leur intention.
 
 ### En bref :
 
