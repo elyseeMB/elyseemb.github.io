@@ -9,7 +9,7 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
-  site: "https://blog.eembouz.com/",
+  site: "https://eembouz.com/",
   image: {
     service: passthroughImageService(),
   },
@@ -18,6 +18,9 @@ export default defineConfig({
     mdx(),
     markdoc(),
     sitemap({
+      filter: (page) =>
+        page !== "https://eembouz.com/404/" &&
+        page !== "https://eembouz.com/505/",
       i18n: {
         defaultLocale: "fr",
         locales: {

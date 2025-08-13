@@ -9,13 +9,13 @@ interface Props {
 
 const {
   title = "Emmanuelito elysee",
-  description = "I’m a web developer passionate about crafting sustainable and human-centered experiences. I bring adaptable, thoughtful solutions to a constantly evolving digital world.",
+  description = `Curieux de sciences, développeur, compositeur et amateur d’art. Je partage mes réflexions sur la programmation, la musique, la science ou parfois des analyses originales sur la littérature.`,
   image = `${Astro.url.origin}/og-image.jpg`,
   url = Astro.url,
   typeContent = "website",
 } = Astro.props;
 
-const typeWebsite = "Portfolio";
+const typeWebsite = "Blog";
 const name = "Elysee-Mboussa";
 const fullTitle = `${title} | ${typeWebsite}`;
 ---
@@ -86,10 +86,10 @@ const fullTitle = `${title} | ${typeWebsite}`;
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Emmanuelito elysee",
-    "url": "https://eembouz.com",
+    "url": "https://blog.eembouz.com",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://eembouz.com",
+      "target": "https://blog.eembouz.com",
       "query-input": "required name=search_term_string"
     }
   }
@@ -100,7 +100,7 @@ const fullTitle = `${title} | ${typeWebsite}`;
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Emmanuelito Elysee",
-    "url": "https://eembouz.com/",
-    "logo": "https://eembouz.com/favicon-512.png"
+    "url": "https://blog.eembouz.com/",
+    "logo": "https://blog.eembouz.com/favicon-512.png"
   }
 </script>
