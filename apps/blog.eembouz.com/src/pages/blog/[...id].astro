@@ -61,7 +61,6 @@ const seo = seoProps ? seoProps : metaData;
       <div class="container-narrow">
         <div class="info">
           <h1>{title}</h1>
-          <hr />
           <div class="tags">
             {
               getTaxonomies.map((taxonomy) => (
@@ -80,7 +79,7 @@ const seo = seoProps ? seoProps : metaData;
       <div class="container-narrow">
         <div class="heading">
           <div class="cover">
-            <img src={thumbnail} alt="" />
+            <!-- <img src={thumbnail} alt="" /> -->
           </div>
         </div>
       </div>
@@ -118,12 +117,13 @@ const seo = seoProps ? seoProps : metaData;
   h1 {
     text-align: left;
     padding-top: 2rem;
-    letter-spacing: -1px;
+    letter-spacing: -5px;
     white-space: normal;
     word-break: break-word;
-    line-height: 1;
-    font-weight: 900;
-    font-size: 4rem;
+    line-height: 0.9;
+    font-weight: 100;
+    font-size: 5rem;
+    font-style: italic;
   }
 
   .cover {
