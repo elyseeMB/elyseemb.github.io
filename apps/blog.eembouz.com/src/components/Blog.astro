@@ -23,7 +23,7 @@ const { title, limit } = Astro.props;
             : -1
         )
         .map((article, index) => (
-          <a href={`/blog/${article.id}`}>
+          <a href={`/articles/${article.id}`}>
             <article class="item">
               <div class="item__info">
                 <div class="item__header-number">
