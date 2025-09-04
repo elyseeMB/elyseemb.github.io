@@ -38,6 +38,12 @@ export const skills: Skill[] = [
         href: "https://fastify.dev/",
         description: "Framework backend rapide et léger pour Node.js.",
       },
+      {
+        name: "Golang",
+        href: "https://go.dev/",
+        description:
+          "Langage compilé, rapide et concurrent, idéal pour les applications backend et systèmes distribués.",
+      },
     ],
   },
   {
