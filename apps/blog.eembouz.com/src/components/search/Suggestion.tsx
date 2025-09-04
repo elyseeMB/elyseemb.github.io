@@ -18,7 +18,7 @@ export function Suggestions({
       <div class="stack">
         {matches ? (
           matches.map((article) => (
-            <a href={`/blog/${article!.id}`}>
+            <a href={`/articles/${article!.id}`}>
               <article class="item">
                 <div class="item__info">
                   <h3 class="item__title">{article!.highlight}</h3>
