@@ -1,4 +1,4 @@
-name: 🚀 Deploy Apps to Separate Repos
+name: Deploy Apps to Separate Repos
 
 on:
   push:
@@ -27,27 +27,27 @@ jobs:
     if: needs.changes.outputs.main-site == 'true'
     runs-on: ubuntu-latest
     steps:
-      - name: 📂 Checkout monorepo
+      - name: Checkout monorepo
         uses: actions/checkout@v4
 
-      - name: ⚡ Setup pnpm
+      - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
 
-      - name: 🟢 Setup Node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
 
-      - name: 📦 Install dependencies
+      - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
-      - name: 🔨 Build main site
+      - name: Build main site
         run: pnpm turbo run build --filter=eembouz.com
 
-      - name: 🌐 Deploy to elyseemb/eembouz.com
+      - name: Deploy to elyseemb/eembouz.com
         uses: peaceiris/actions-gh-pages@v4
         with:
           personal_token: ${{ secrets.PERSONAL_TOKEN_PORTFOLIO }}
@@ -55,34 +55,34 @@ jobs:
           publish_dir: apps/eembouz.com/dist
           publish_branch: main
           cname: eembouz.com
-          commit_message: "🚀 Deploy main site: ${{ github.sha }}"
+          commit_message: "Deploy main site: ${{ github.sha }}"
 
   deploy-blog:
     needs: changes
     if: needs.changes.outputs.blog == 'true'
     runs-on: ubuntu-latest
     steps:
-      - name: 📂 Checkout monorepo
+      - name: Checkout monorepo
         uses: actions/checkout@v4
 
-      - name: ⚡ Setup pnpm
+      - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
 
-      - name: 🟢 Setup Node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
 
-      - name: 📦 Install dependencies
+      - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
-      - name: 🔨 Build blog
+      - name: Build blog
         run: pnpm turbo run build --filter=blog.eembouz.com
 
-      - name: 📝 Deploy to elyseemb/blog.eembouz.com
+      - name: Deploy to elyseemb/blog.eembouz.com
         uses: peaceiris/actions-gh-pages@v4
         with:
           personal_token: ${{ secrets.PERSONAL_TOKEN_PORTFOLIO }}
@@ -90,4 +90,4 @@ jobs:
           publish_dir: apps/blog.eembouz.com/dist
           publish_branch: main
           cname: blog.eembouz.com
-          commit_message: "📝 Deploy blog: ${{ github.sha }}"
+          commit_message: "Deploy blog: ${{ github.sha }}"
