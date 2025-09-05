@@ -9,10 +9,14 @@ import "../css/index.css";
 const {
   title,
   description,
+  author,
+  publishedDate,
   image,
   url = Astro.url.href,
   typeContent,
 } = Astro.props;
+
+console.log(Astro.props);
 ---
 
 <!doctype html>
@@ -20,6 +24,8 @@ const {
   <head>
     <Seo
       title={title}
+      author={author}
+      publishedDate={publishedDate}
       description={description}
       typeContent={typeContent}
       image={image}

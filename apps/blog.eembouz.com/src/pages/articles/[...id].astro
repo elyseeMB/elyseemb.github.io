@@ -23,15 +23,7 @@ const { post } = Astro.props;
 
 const { Content, headings } = await render(post);
 
-const {
-  seo: seoProps,
-  title,
-  summary,
-  taxonomies,
-  thumbnail,
-  author,
-  pubDate,
-} = post.data;
+const { seo: seoProps, title, taxonomies, author, pubDate } = post.data;
 
 const getTaxonomies = await Promise.all(
   taxonomies
@@ -51,7 +43,10 @@ const metaData = {
   description: post.data.summary,
   image: post.data.thumbnail,
   url: Astro.url.href,
+  author: author.id,
+  publishedDate: pubDate?.toISOString(),
 };
+
 const seo = seoProps ? seoProps : metaData;
 ---
 
