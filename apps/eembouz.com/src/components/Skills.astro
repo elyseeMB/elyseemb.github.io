@@ -13,7 +13,6 @@ import { skills } from "../data/skills";
             <ul class="list">
               {skill.frameworks?.map((framework) => (
                 <div class="link">
-                  {" "}
                   <a href={framework.href}>
                     <li class="framework">
                       <span class="framework__name"> {framework.name}</span>{" "}
@@ -43,6 +42,11 @@ import { skills } from "../data/skills";
     width: 100%;
     height: 100%;
     padding-bottom: 10rem;
+  }
+
+  .skills ul {
+    padding: 0;
+    margin: 0;
   }
 
   .techo__name {
@@ -104,6 +108,7 @@ import { skills } from "../data/skills";
   }
 
   .frameworks .framework__description {
+    color: var(--color-primary) !important;
     grid-column: 2 / span 4;
   }
 

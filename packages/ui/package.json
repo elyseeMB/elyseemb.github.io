@@ -2,6 +2,8 @@
   "name": "@portfolio/ui",
   "exports": {
     "./Header": "./src/components/shared/Header.astro",
+    "./Footer": "./src/components/shared/Footer.astro",
+    "./Hero": "./src/components/Hero.astro",
     "./Layout": "./src/layouts/Layout.astro",
     "./GlobalCSS": "./src/css/index.css"
   },
