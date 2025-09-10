@@ -48,6 +48,7 @@ p {
   color: var(--color-secondary);
   font-size: var(--size);
   line-height: var(--line-height);
+  padding-block: 1rem;
 }
 
 h4,
@@ -65,4 +66,19 @@ button {
 
 strong {
   color: var(--color-primary);
+}
+
+ul li,
+ol li {
+  list-style: decimal;
+  line-height: 1.6;
+}
+
+ul,
+ol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-block: 1rem;
+  margin-left: 50px;
 }
