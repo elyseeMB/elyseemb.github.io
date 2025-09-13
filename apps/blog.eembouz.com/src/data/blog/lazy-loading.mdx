@@ -1,0 +1,115 @@
+---
+title: "Lazy Loading"
+author: "elysee"
+summary: "En production, dans une application SPA (Single Page Application), il est crucial d'optimiser le chargement et le déploiement de nouvelles versions."
+thumbnail: "/iclh-diagram-convolutional-neural-networks.png"
+taxonomies: ["programmation"]
+pubDate: 2025-09-14
+---
+
+En production, dans une application SPA (Single Page Application), il est crucial d'optimiser le chargement et le déploiement de nouvelles versions. Il est très fréquent qu'un utilisateur ayant une session active depuis plusieurs heures se retrouve avec une version obsolète de l'application au moment d'un déploiement. Les fichiers JavaScript restent alors en cache dans le navigateur ou actifs durant la session, provoquant des erreurs de chargement lorsque l'utilisateur tente d'accéder à de nouvelles fonctionnalités.
+
+Dans cet article, nous analyserons l'implémentation du lazy loading dans un contexte de navigation et de routage. Nous verrons comment cette approche améliore les performances tout en gérant efficacement les erreurs de chargement en production.
+
+## Définition
+
+Le lazy loading est une technique d'optimisation utilisée en programmation, particulièrement en développement web, qui vise à améliorer les performances et réduire les temps de chargement initiaux. Cette approche consiste à différer le chargement des ressources (images, modules JavaScript, composants, etc.) jusqu'à ce qu'elles soient réellement nécessaires ou demandées par l'utilisateur.
+
+## Le lazy loading React.
+
+### Le Standard
+
+La plupart des frameworks modernes (React, Preact, etc.) proposent une implémentation native du lazy loading. React expose cette fonctionnalité via `React.lazy()`, mais cette approche basique révèle ses limites en production, particulièrement lors d'échecs de chargement des chunks JavaScript.
+
+### Fonctionnement
+
+Le lazy fonctionne en attendant qu'une promise se résolve vers un module qui contient un export default. Lorsque le composant est demandé React extrait le `module.default` et l'utilise pour le rendu
+
+### Code d'exemple basique
+
+```js
+import { lazy } from "react";
+const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"));
+```
+
+## Problème de chunks en production.
+
+Comme mentionné en introduction, les déploiements fréquents en production génèrent un problème récurrent : les utilisateurs ayant une session active se retrouvent avec des références vers d'anciens chunks qui n'existent plus sur le serveur. Lorsque ces utilisateurs tentent de naviguer vers une nouvelle section de l'application, le chargement échoue car les fichiers JavaScript ont été renommés avec de nouveaux hashs lors du déploiement.
+
+### Définition d'un chunks:
+
+Un chunks est un morceau de code javascript générer et optimiser pour la production par un bundler(vite, webpack) lors du processus de build.
+
+## Approche améliorer
+
+### Fonctionnalité Reload
+
+Commençons par l'essentiel : la gestion des chunks pour minimiser les échecs de chargement dus aux hashs obsolètes des anciennes versions.
+
+```js
+import { lazy as reactLazy, type ComponentType, type FC } from "react";
+
+export function createLazy(
+  importFunction: () => Promise<{ default: ComponentType<any> }>,
+  maxRetries = 3
+) {
+  /**
+   * 1 - Gestion du reload automatique
+   */
+  return reactLazy(async () => {
+    /**
+     * On utilise la signature de la fonction comme clé pour le sessionStorage.
+     * On la transforme en chaîne de caractères pour créer un identifiant unique.
+     */
+    const functionString = importFunction.toString();
+
+    try {
+      /**
+       * Ici on exécute la fonction qui importe notre composant
+       */
+      const component = await importFunction();
+
+      /**
+       * En cas de succès, on supprime au préalable la clé du sessionStorage
+       * pour une réinitialisation propre lors du prochain échec éventuel
+       */
+      sessionStorage.removeItem(functionString);
+
+      return component;
+    } catch (error) {
+      /**
+       * On récupère la valeur stockée dans le sessionStorage avec la clé "functionString".
+       * Ensuite on la compare à notre paramètre maxRetries.
+       * Si elle est inférieure à maxRetries, on l'incrémente jusqu'à ce qu'elle devienne supérieure.
+       * Puis on rafraîchit la page avec window.location.reload().
+       */
+      const currentFailures = parseInt(
+        sessionStorage.getItem(functionString) || "0"
+      );
+
+      if (currentFailures < maxRetries) {
+        sessionStorage.setItem(
+          functionString,
+          (currentFailures + 1).toString()
+        );
+        window.location.reload();
+
+        /**
+         * React.lazy() attend une Promise qui se résout vers { default: Component }.
+         * Ici c'est un placeholder qui ne sera jamais affiché car la page se recharge.
+         * On retourne une signature similaire à l'API React.lazy().
+         */
+        const EmptyComponent: FC = () => null;
+        return { default: EmptyComponent };
+      }
+
+      /**
+       * Si on a dépassé le nombre maximum de tentatives, on propage l'erreur
+       */
+      throw error;
+    }
+  });
+}
+```
+
+Cette approche nous permet d'assurer une gestion automatique des erreurs de chunks et d'améliorer significativement l'expérience utilisateur en évitant les crashs d'application.

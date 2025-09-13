@@ -3,6 +3,7 @@ import markdoc from "@astrojs/markdoc";
 import sitemap from "@astrojs/sitemap";
 import preact from "@astrojs/preact";
 import mdx from "@astrojs/mdx";
+import { remarkReadingTime } from "./src/modules/remark-reading-time.mjs";
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,6 +13,9 @@ export default defineConfig({
   site: "https://blog.eembouz.com/",
   image: {
     service: passthroughImageService(),
+  },
+  markdown: {
+    remarkPlugins: [remarkReadingTime],
   },
   base: "/",
   integrations: [
