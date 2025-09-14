@@ -13,12 +13,14 @@
     "@astrojs/mdx": "^4.3.0",
     "@astrojs/preact": "^4.1.0",
     "@astrojs/sitemap": "^3.4.1",
+    "@portfolio/functions": "workspace:*",
+    "@portfolio/ui": "workspace:*",
     "astro": "^5.10.0",
     "gsap": "^3.13.0",
     "highlight.js": "^11.11.1",
+    "mdast-util-to-string": "^4.0.0",
     "preact": "^10.26.9",
-    "@portfolio/ui": "workspace:*",
-    "@portfolio/functions": "workspace:*"
+    "reading-time": "^1.5.0"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.1",
