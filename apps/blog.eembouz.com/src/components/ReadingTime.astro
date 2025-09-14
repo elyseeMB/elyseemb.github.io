@@ -1,0 +1,16 @@
+---
+interface Props {
+  time: number;
+}
+
+const { time } = Astro.props;
+---
+
+<span> {Math.ceil(time) + " " + "min"} de lecture</span>
+
+<style>
+  span {
+    font-family: "JetBrains Mono" !important;
+    letter-spacing: -0.5px;
+  }
+</style>
