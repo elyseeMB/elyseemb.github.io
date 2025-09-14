@@ -67,7 +67,7 @@ const seo = seoProps ? seoProps : metaData;
           </div>
           <div class="meta">
             <span>
-              Posté le {formatDate.toString()} · Par {writer?.data.name} |
+              Posté le {formatDate.toString()} · Par {writer?.data.name}
             </span>
             <ReadingTime time={remarkPluginFrontmatter.stats.minutes} />
           </div>
@@ -131,8 +131,8 @@ const seo = seoProps ? seoProps : metaData;
   }
 
   .meta {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    display: flex;
+    flex-direction: column;
     font-size: 0.9rem;
     gap: 1rem;
     padding-block: 1rem;
