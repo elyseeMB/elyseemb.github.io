@@ -4,6 +4,7 @@ import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import ReadingTime from "../../components/ReadingTime.astro";
 
 interface Props {
   post: CollectionEntry<"blog">;
@@ -21,17 +22,9 @@ export const getStaticPaths = (async () => {
 
 const { post } = Astro.props;
 
-const { Content, headings } = await render(post);
+const { Content, remarkPluginFrontmatter } = await render(post);
 
-const {
-  seo: seoProps,
-  title,
-  summary,
-  taxonomies,
-  thumbnail,
-  author,
-  pubDate,
-} = post.data;
+const { seo: seoProps, title, taxonomies, author, pubDate } = post.data;
 
 const getTaxonomies = await Promise.all(
   taxonomies
@@ -51,7 +44,10 @@ const metaData = {
   description: post.data.summary,
   image: post.data.thumbnail,
   url: Astro.url.href,
+  author: author.id,
+  publishedDate: pubDate?.toISOString(),
 };
+
 const seo = seoProps ? seoProps : metaData;
 ---
 
@@ -61,6 +57,7 @@ const seo = seoProps ? seoProps : metaData;
       <div class="container-narrow">
         <div class="info">
           <h1>{title}</h1>
+
           <div class="tags">
             {
               getTaxonomies.map((taxonomy) => (
@@ -69,7 +66,10 @@ const seo = seoProps ? seoProps : metaData;
             }
           </div>
           <div class="meta">
-            Posté le {formatDate.toString()} · Par {writer?.data.name}
+            <span>
+              Posté le {formatDate.toString()} · Par {writer?.data.name} |
+            </span>
+            <ReadingTime time={remarkPluginFrontmatter.stats.minutes} />
           </div>
         </div>
       </div>
@@ -131,7 +131,16 @@ const seo = seoProps ? seoProps : metaData;
   }
 
   .meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    font-size: 0.9rem;
+    gap: 1rem;
     padding-block: 1rem;
+    font-family: "JetBrains Mono" !important;
+    & > * {
+      font-family: "JetBrains Mono" !important;
+      letter-spacing: -0.5px;
+    }
   }
 
   @media screen and (max-width: 590px) {
@@ -146,6 +155,23 @@ const seo = seoProps ? seoProps : metaData;
       img {
         max-height: 500px;
       }
+    }
+  }
+
+  .content {
+    p,
+    ul,
+    li,
+    ol,
+    table,
+    tr,
+    td,
+    th {
+      color: var(--color-primary);
+    }
+
+    strong {
+      font-weight: 900;
     }
   }
 
