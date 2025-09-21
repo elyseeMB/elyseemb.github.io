@@ -124,7 +124,6 @@ const seo = seoProps ? seoProps : metaData;
   }
 
   .wrapper-content {
-    padding-inline: var(--container-padding);
     max-width: 700px;
     display: block;
   }
@@ -184,6 +183,12 @@ const seo = seoProps ? seoProps : metaData;
     & > * {
       font-family: "JetBrains Mono" !important;
       letter-spacing: -0.5px;
+    }
+  }
+
+  @media screen and (max-width: 750px) {
+    .wrapper-content {
+      padding-inline: var(--container-padding);
     }
   }
 

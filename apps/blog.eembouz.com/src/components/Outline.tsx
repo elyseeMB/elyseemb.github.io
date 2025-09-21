@@ -1,7 +1,8 @@
+import type { EventHandler, MouseEventHandler } from "preact/compat";
 import { useEffect, useRef, useState } from "preact/hooks";
 
 export function Outline() {
-  const [activeItem, setActiveItem] = useState<unknown>(false);
+  const [activeItem, setActiveItem] = useState<Element | null>(null);
   const [headings, setHeadings] = useState<
     Partial<{
       heading_level_2: null | HTMLHeadingElement[];
@@ -26,8 +27,7 @@ export function Outline() {
         (entries) => {
           const entry = entries[0];
           if (entry.isIntersecting) {
-            console.log(entry);
-            setActiveItem(entry.target.id);
+            setActiveItem(entry.target);
           }
         },
         {
@@ -46,15 +46,39 @@ export function Outline() {
     };
   }, []);
 
+  const handleClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
+    e.preventDefault();
+
+    const targetHref = e.currentTarget.getAttribute("href");
+    const targetId = targetHref?.replace("#", "");
+
+    if (targetId) {
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        const elementTop =
+          targetElement.getBoundingClientRect().top + window.scrollY;
+        const offset = 10;
+
+        window.scrollTo({
+          top: elementTop - offset,
+          behavior: "smooth",
+        });
+      }
+    }
+  };
+
   return (
     <div className="outline__wrapper">
       <ul className="outline">
         {headings.heading_level_2?.map((heading) => (
-          <a key={heading.id} href={"#" + heading.id}>
+          <a onClick={handleClick} key={heading.id} href={"#" + heading.id}>
             <li
               style={{
                 color:
-                  activeItem === heading.id ? `var(--contrast) ` : "inherit",
+                  activeItem?.id === heading.id
+                    ? `var(--contrast) `
+                    : "inherit",
               }}
             >
               {heading.textContent}
