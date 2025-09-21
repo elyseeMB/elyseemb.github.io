@@ -10,7 +10,7 @@ const articles = await getCollection("blog");
 const { title, limit } = Astro.props;
 ---
 
-<section class="blog">
+<section class="blog container-narrow">
   {title && <h3>{title}</h3>}
   <div class="stack">
     {
