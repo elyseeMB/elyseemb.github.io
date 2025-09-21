@@ -5,6 +5,7 @@ import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import ReadingTime from "../../components/ReadingTime.astro";
+import { Outline } from "../../components/Outline.tsx";
 
 interface Props {
   post: CollectionEntry<"blog">;
@@ -67,7 +68,7 @@ const seo = seoProps ? seoProps : metaData;
           </div>
           <div class="meta">
             <span>
-              Posté le {formatDate.toString()} · Par {writer?.data.name} |
+              Posté le {formatDate.toString()} · Par {writer?.data.name}
             </span>
             <ReadingTime time={remarkPluginFrontmatter.stats.minutes} />
           </div>
@@ -86,9 +87,12 @@ const seo = seoProps ? seoProps : metaData;
     </div>
 
     <div class="container">
-      <div class="container-narrow">
+      <div class="wrapper-content">
         <div class="content">
           <Content />
+        </div>
+        <div class="wrapper-outline">
+          <Outline client:load />
         </div>
       </div>
     </div>
@@ -96,6 +100,15 @@ const seo = seoProps ? seoProps : metaData;
 </Layout>
 
 <style>
+  body .page-wrapper {
+    background: red !important;
+  }
+
+  .container,
+  .wrapper-content {
+    overflow: visible;
+  }
+
   .article__paragraph {
     padding-block: 1rem;
   }
@@ -108,6 +121,36 @@ const seo = seoProps ? seoProps : metaData;
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+
+  .wrapper-content {
+    max-width: 700px;
+    display: block;
+  }
+
+  .wrapper-outline {
+    display: none;
+  }
+
+  @media screen and (min-width: 1200px) {
+    .wrapper-content {
+      width: 100%;
+      display: grid !important;
+      grid-template-columns: 1fr 550px 1fr !important;
+      padding: 0;
+    }
+
+    .wrapper-outline {
+      display: block;
+      grid-column: 3;
+      margin-bottom: 5rem;
+    }
+
+    .content {
+      width: 550px;
+      grid-column: 2;
+      padding-bottom: 5rem;
+    }
   }
 
   .content {
@@ -131,8 +174,8 @@ const seo = seoProps ? seoProps : metaData;
   }
 
   .meta {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    display: flex;
+    flex-direction: column;
     font-size: 0.9rem;
     gap: 1rem;
     padding-block: 1rem;
@@ -140,6 +183,12 @@ const seo = seoProps ? seoProps : metaData;
     & > * {
       font-family: "JetBrains Mono" !important;
       letter-spacing: -0.5px;
+    }
+  }
+
+  @media screen and (max-width: 750px) {
+    .wrapper-content {
+      padding-inline: var(--container-padding);
     }
   }
 

@@ -73,11 +73,6 @@ tr:hover {
 
 /* Style responsive */
 @media (max-width: 768px) {
-  .table-container {
-    padding: 16px;
-    margin: 10px;
-  }
-
   table {
     font-size: 12px;
   }
