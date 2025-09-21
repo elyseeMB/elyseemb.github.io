@@ -1,0 +1,21 @@
+.outline__wrapper {
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+  z-index: 1000;
+
+  font-size: 0.9rem;
+}
+
+.outline {
+  line-height: 1.6;
+  max-width: 300px;
+  width: max-content;
+  border-radius: 1rem;
+  /* padding-inline: 1rem; */
+}
+
+.outline a:hover {
+  color: var(--contrast);
+  text-decoration: underline;
+}

@@ -11,8 +11,14 @@ const articles = await getCollection("blog");
 ---
 
 <Layout>
-  <div class="container">
+  <div class="container home">
     <Hero />
     {articles.length >= 1 && <Blog title="Mes derniers articles" />}
   </div>
 </Layout>
+
+<style>
+  .home {
+    overflow: hidden;
+  }
+</style>
