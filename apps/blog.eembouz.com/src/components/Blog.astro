@@ -59,10 +59,17 @@ const { title, limit } = Astro.props;
   .blog a {
     display: inline-flex;
   }
+
+  @media screen and (max-width: 590px) {
+    .blog article.item h3 {
+      line-height: 1.6;
+    }
+  }
+
   .blog h3 {
     font-family: "JetBrains Mono" !important;
     font-weight: 900;
-    font-size: 4rem;
+    font-size: 3rem;
   }
 
   .blog p {
