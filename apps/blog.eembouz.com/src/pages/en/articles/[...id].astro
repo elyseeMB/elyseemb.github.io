@@ -1,0 +1,244 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import ReadingTime from "../../components/ReadingTime.astro";
+import { Outline } from "../../components/Outline.tsx";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+  lang: string;
+}
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection("blog", ({ data }) => {
+    return import.meta.env.DEV ? data.isDraft !== true : true;
+  });
+
+  return posts.map((post) => {
+    return {
+      params: { id: post.id },
+      props: { post },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+
+const { Content, remarkPluginFrontmatter } = await render(post);
+
+const { seo: seoProps, title, taxonomies, author, pubDate } = post.data;
+
+const getTaxonomies = await Promise.all(
+  taxonomies
+    ? taxonomies?.map(
+        async (taxonomy) => await getEntry(taxonomy.collection, taxonomy.id)
+      )
+    : []
+);
+
+const formatDate = Intl.DateTimeFormat("fr", {
+  dateStyle: "long",
+}).format(pubDate);
+const writer = await getEntry(author.collection, author.id);
+
+const metaData = {
+  title: post.data.title,
+  description: post.data.summary,
+  image: post.data.thumbnail,
+  url: Astro.url.href,
+  author: author.id,
+  publishedDate: pubDate?.toISOString(),
+};
+
+const seo = seoProps ? seoProps : metaData;
+---
+
+<Layout {...seo}>
+  <section>
+    <div class="container">
+      <div class="container-narrow">
+        <div class="info">
+          <h1>{title}</h1>
+
+          <div class="tags">
+            {
+              getTaxonomies.map((taxonomy) => (
+                <div class="tag">{taxonomy?.data.name}</div>
+              ))
+            }
+          </div>
+          <div class="meta">
+            <span>
+              Posté le {formatDate.toString()} · Par {writer?.data.name}
+            </span>
+            <ReadingTime time={remarkPluginFrontmatter.stats.minutes} />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="container-narrow">
+        <div class="heading">
+          <div class="cover">
+            <!-- <img src={thumbnail} alt="" /> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="wrapper-content">
+        <div class="content">
+          <Content />
+        </div>
+        <div class="wrapper-outline">
+          <Outline client:load />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  body .page-wrapper {
+    background: red !important;
+  }
+
+  .container,
+  .wrapper-content {
+    overflow: visible;
+  }
+
+  .article__paragraph {
+    padding-block: 1rem;
+  }
+
+  .description {
+    padding-block: 3rem;
+  }
+
+  .info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .wrapper-content {
+    max-width: 700px;
+    display: block;
+  }
+
+  .wrapper-outline {
+    display: none;
+  }
+
+  @media screen and (min-width: 1200px) {
+    .wrapper-content {
+      width: 100%;
+      display: grid !important;
+      grid-template-columns: 1fr 550px 1fr !important;
+      padding: 0;
+    }
+
+    .wrapper-outline {
+      display: block;
+      grid-column: 3;
+      margin-bottom: 5rem;
+    }
+
+    .content {
+      width: 550px;
+      grid-column: 2;
+      padding-bottom: 5rem;
+    }
+  }
+
+  .content {
+    padding-bottom: 5rem;
+  }
+
+  h1 {
+    text-align: left;
+    padding-top: 2rem;
+    letter-spacing: -5px;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 0.9;
+    font-weight: 100;
+    font-size: 5rem;
+    font-style: italic;
+  }
+
+  .cover {
+    width: 100%;
+  }
+
+  .meta {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    gap: 1rem;
+    padding-block: 1rem;
+    font-family: "JetBrains Mono" !important;
+    & > * {
+      font-family: "JetBrains Mono" !important;
+      letter-spacing: -0.5px;
+    }
+  }
+
+  @media screen and (max-width: 750px) {
+    .wrapper-content {
+      padding-inline: var(--container-padding);
+    }
+  }
+
+  @media screen and (max-width: 590px) {
+    .container-narrow .info .tags {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  @media screen and (min-width: 1300px) {
+    .heading {
+      img {
+        max-height: 500px;
+      }
+    }
+  }
+
+  .content {
+    p,
+    ul,
+    li,
+    ol,
+    table,
+    tr,
+    td,
+    th {
+      color: var(--color-primary);
+    }
+
+    strong {
+      font-weight: 900;
+    }
+  }
+
+  .content {
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      padding-top: 1.5rem;
+      letter-spacing: normal;
+      font-family: "Inter" !important;
+      color: white;
+      font-weight: 700;
+    }
+  }
+</style>

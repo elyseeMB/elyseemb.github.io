@@ -6,24 +6,35 @@ interface Props {
   limit?: number;
 }
 
-const articles = await getCollection("blog");
+const allPages = await getCollection("blog");
+
+const articles = allPages.map((page) => {
+  const [lang, ...slug] = page.id.split("/");
+  return {
+    params: { lang, slug: slug.join("/") || undefined },
+    props: page,
+  };
+});
+
 const { title, limit } = Astro.props;
+
+const displayedArticles = limit ? articles.slice(0, limit) : articles;
 ---
 
 <section class="blog container-narrow">
   {title && <h3>{title}</h3>}
   <div class="stack">
     {
-      articles
-        .filter((article) => article.data.isDraft !== true)
+      displayedArticles
+        .filter((article) => article.props.data.isDraft !== true)
         .sort((a, b) =>
-          new Date(a.data.pubDate!).getTime() <
-          new Date(b.data.pubDate!).getTime()
+          new Date(a.props.data.pubDate!).getTime() <
+          new Date(b.props.data.pubDate!).getTime()
             ? 1
             : -1
         )
         .map((article, index) => (
-          <a href={`/articles/${article.id}`}>
+          <a href={`${Astro.url.pathname}articles/${article.params.slug}`}>
             <article class="item">
               <div class="item__info">
                 <div class="item__header-number">
@@ -32,16 +43,16 @@ const { title, limit } = Astro.props;
                       <strong>news</strong>
                     )}
                 </div>
-                <h3 class="item__title">{article.data.title}</h3>
+                <h3 class="item__title">{article.props.data.title}</h3>
                 <div class="meta">
                   <span>
                     {new Intl.DateTimeFormat("fr", {
                       dateStyle: "medium",
-                    }).format(article.data.pubDate)}
-                    · {article.data.author.id}
+                    }).format(article.props.data.pubDate)}
+                    · {article.props.data.author.id}
                   </span>
                 </div>
-                <p class="item__description">{article.data.summary}</p>
+                <p class="item__description">{article.props.data.summary}</p>
               </div>
               <div class="item__header-icon">&DownArrow;</div>
             </article>
@@ -55,7 +66,6 @@ const { title, limit } = Astro.props;
   .blog {
     padding-bottom: 5rem;
   }
-
   .blog a {
     display: inline-flex;
   }
@@ -64,7 +74,6 @@ const { title, limit } = Astro.props;
     font-weight: 900;
     font-size: 4rem;
   }
-
   .blog p {
     padding: 0;
   }
