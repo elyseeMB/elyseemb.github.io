@@ -11,7 +11,7 @@ const { title, limit } = Astro.props;
 ---
 
 <section class="blog container-narrow">
-  {title && <h3>{title}</h3>}
+  {title && <h3 class="title">{title}</h3>}
   <div class="stack">
     {
       articles
@@ -66,10 +66,17 @@ const { title, limit } = Astro.props;
     }
   }
 
+  .blog h3.title {
+    font-size: 2rem;
+    font-style: italic;
+    font-weight: 100;
+    font-family: "Literata" !important;
+    color: var(--secondary-color);
+  }
+
   .blog h3 {
-    font-family: "JetBrains Mono" !important;
     font-weight: 900;
-    font-size: 3rem;
+    font-size: 2rem;
   }
 
   .blog p {
