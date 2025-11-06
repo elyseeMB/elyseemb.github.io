@@ -2,7 +2,7 @@
 import Hero from "../components/Hero.astro";
 import type { CollectionEntry } from "astro:content";
 import Skills from "../components/Skills.astro";
-import Projet from "../components/Projet.astro";
+import Projects from "../components/Projets.astro";
 import Layout from "../layouts/Layout.astro";
 
 export type PropsProjet = CollectionEntry<"projects">;
@@ -13,7 +13,7 @@ export type PropsProjet = CollectionEntry<"projects">;
     <div class="container">
       <Hero />
       <Skills />
-      <Projet />
+      <Projects />
     </div>
   </div>
 </Layout>
