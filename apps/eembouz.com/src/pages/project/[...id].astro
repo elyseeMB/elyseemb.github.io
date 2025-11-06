@@ -1,0 +1,222 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+export const getStaticPaths = (async () => {
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+}) satisfies GetStaticPaths;
+
+const { project } = Astro.props;
+
+const { Content } = await render(project);
+
+const { seo: seoProps, title, thumbnail, description, summary } = project.data;
+
+const metaData = {
+  title: project.data.title,
+  description: project.data.description,
+  image: project.data.thumbnail,
+};
+
+const seo = seoProps ? seoProps : metaData;
+---
+
+<Layout {...seo}>
+  <section class="projects">
+    <div class="container-narrow">
+      <div class="page-header" style=`background-image:url('${thumbnail}');`>
+        <div class="meta">
+          <div class="container">
+            <div class="info">
+              <h1>{title}</h1>
+            </div>
+
+            <div class="description">
+              <p>{summary}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="content">
+        <Content />
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  section.projects > * {
+    z-index: 3;
+  }
+
+  .page-header {
+    width: 100%
+    height: 100%;
+    position: absolute;
+    background: 50% / contain fixed
+      linear-gradient(rgba(33, 33, 33, 0.71), rgba(33, 33, 33, 0.71));
+    padding-bottom: 30px;
+    padding-top: 80px;
+    position: relative;
+    z-index: -100;
+  }
+
+  .meta {
+    opacity: 1;
+    color: var(--color-primary) !important;
+  }
+
+  .page-header::after {
+    z-index: -2000;
+    --background: #0f100e;
+    background: linear-gradient(180deg, #0f100e, #0f100e17 40%, rgb(0 0 0 / 0%));
+    /* background: linear-gradient(
+      0deg,
+      #1f2235,
+      rgba(31, 34, 53, 0.902) 40%,
+      rgba(31, 34, 53, 0.902)
+    ); */
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  
+  .page-header::before {
+    z-index: -2000;
+    --background: #0f100e;
+    background: linear-gradient(0deg, #0f100e, #0f100ee3 40%, rgb(0 0 0 / 49%));
+    /* background: linear-gradient(
+      0deg,
+      #1f2235,
+      rgba(31, 34, 53, 0.902) 40%,
+      rgba(31, 34, 53, 0.902)
+    ); */
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  section.projects .content {
+    width: 100%;
+    height: 100%;
+  }
+
+  .description {
+    padding-bottom: 3rem;
+  }
+
+  .info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding-bottom: 5rem;
+  }
+
+  @media screen and (min-width: 1200px) {
+    .wrapper-content {
+      width: 100%;
+      display: grid !important;
+      grid-template-columns: 1fr 550px 1fr !important;
+      padding: 0;
+    }
+
+    .wrapper-outline {
+      display: block;
+      grid-column: 3;
+      margin-bottom: 5rem;
+    }
+
+    .content {
+      width: 550px;
+      grid-column: 2;
+      padding-bottom: 5rem;
+    }
+  }
+
+  .content {
+    padding-bottom: 5rem;
+  }
+
+  h1 {
+    text-align: left;
+    padding-top: 2rem;
+    letter-spacing: -2px;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 0.9;
+    font-weight: 100;
+    font-size: 3rem;
+    font-style: italic;
+  }
+
+  @media screen and (max-width: 750px) {
+    .wrapper-content {
+      padding-inline: var(--container-padding);
+    }
+  }
+
+  @media screen and (max-width: 590px) {
+    .container-narrow .info .tags {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  @media screen and (min-width: 1300px) {
+    .heading {
+      img {
+        max-height: 500px;
+      }
+    }
+  }
+
+  .content {
+    strong {
+      font-weight: 900;
+    }
+
+    h3,
+    h4,
+    h5,
+    h6 {
+      padding-top: 1.5rem;
+      letter-spacing: normal;
+      font-family: "Inter" !important;
+      color: white;
+      font-weight: 700;
+    }
+
+    h2 {
+      text-align: left;
+      white-space: normal;
+      word-break: break-word;
+      line-height: 1.4;
+      font-weight: 100;
+      font-size: 2rem;
+      font-style: italic;
+    }
+
+    img {
+      border-radius: 0.5rem;
+    }
+  }
+</style>

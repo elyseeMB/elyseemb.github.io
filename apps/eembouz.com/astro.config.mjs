@@ -1,6 +1,8 @@
 import { defineConfig, passthroughImageService } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import preact from "@astrojs/preact";
+import markdoc from "@astrojs/markdoc";
+import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,6 +15,8 @@ export default defineConfig({
   },
   base: "/",
   integrations: [
+    mdx(),
+    markdoc(),
     sitemap({
       filter: (page) =>
         page !== "https://eembouz.com/404/" &&

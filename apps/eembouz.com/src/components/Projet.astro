@@ -1,0 +1,95 @@
+---
+import { getCollection } from "astro:content";
+const projects = await getCollection("projects");
+
+console.log(projects);
+---
+
+<section class="projects">
+  <h3 class="projects__title">Projects completed</h3>
+  <div class="grid">
+    {
+      projects.map((project) => (
+        <div class="frameworks">
+          <ul class="list">
+            <div class="link">
+              <li class="framework">
+                <a href={"project/" + project.id}>
+                  <span class="framework__name"> {project.data.title}</span>
+                </a>
+                <span class="framework__description">
+                  {project.data.description}
+                </span>
+              </li>
+            </div>
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .projects__title {
+    font-size: 4rem !important;
+    padding-bottom: 2rem;
+    font-style: italic;
+  }
+
+  .projects {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 10rem;
+  }
+
+  .projects ul {
+    padding: 0;
+    margin: 0;
+  }
+
+  .techo__name {
+    font-family: "Inter" !important;
+    letter-spacing: normal;
+    font-weight: 100 !important;
+    padding-bottom: 1rem;
+  }
+
+  .frameworks .list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    line-height: 1.6;
+  }
+
+  @media only screen and (max-width: 499px) {
+    .frameworks .link {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* @media only screen and (min-width: 500px) and (max-width: 1024px) {
+    .frameworks .link {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  } */
+
+  .frameworks .list li {
+    list-style: disc;
+    padding-bottom: 0.5rem;
+  }
+
+  .frameworks .list .framework__name {
+    text-decoration: underline;
+    color: var(--color-primary) !important;
+  }
+
+  .frameworks .framework__description {
+    /* color: var(--color-primary) !important; */
+    grid-column: 2 / span 4;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
+  }
+</style>
