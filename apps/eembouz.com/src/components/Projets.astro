@@ -60,9 +60,39 @@ console.log(projects);
     line-height: 1.6;
   }
 
-  @media only screen and (max-width: 499px) {
-    .frameworks .link {
-      grid-template-columns: repeat(3, 1fr);
+  @media only screen and (max-width: 930px) {
+    .frameworks .list li {
+      list-style: disc;
+      padding-bottom: 0.5rem;
+      text-wrap: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 600px;
+      display: block;
+    }
+  }
+
+  @media only screen and (max-width: 700px) {
+    .frameworks .list li {
+      list-style: disc;
+      padding-bottom: 0.5rem;
+      text-wrap: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 400px;
+      display: block;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .frameworks .list li {
+      list-style: disc;
+      padding-bottom: 0.5rem;
+      text-wrap: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 350px;
+      display: block;
     }
   }
 

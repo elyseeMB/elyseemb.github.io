@@ -44,6 +44,7 @@ p {
   font-size: var(--size);
   line-height: var(--line-height);
   padding-block: 1rem;
+  text-wrap: pretty;
 }
 
 h4,
