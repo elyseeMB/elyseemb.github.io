@@ -1,23 +1,24 @@
 ---
-import { getCollection } from "astro:content";
 import { PhotoGrid } from "./PhotoGrid.tsx";
-const hoobies = await getCollection("hoobies");
-
-const rssUrl = new URL("/hobbies-rss.xml", Astro.site).toString();
-const data = await fetch(rssUrl);
-const rss = await data.text();
+import { SkeletonGallery } from "@portfolio/ui/Skeleton";
+import { ObserverElement } from "./ObserverElement";
 import hobbiesData from "../data/hobbies-gallery.json";
 ---
 
 <section class="hoobies">
   <h3 class="hoobies__title">My Hoobies</h3>
-  <PhotoGrid
-    client:load
-    maxRows={4}
-    images={hobbiesData}
-    rowHeight={250}
-    gap="0.5rem"
-  />
+  <ObserverElement client:visible={{ rootMargin: "200px" }}>
+    <PhotoGrid
+      client:only="preact"
+      images={hobbiesData}
+      rowHeight={250}
+      gap="0.5rem"
+    >
+      <div slot="fallback">
+        <SkeletonGallery length={9} />
+      </div>
+    </PhotoGrid>
+  </ObserverElement>
 </section>
 
 <style>

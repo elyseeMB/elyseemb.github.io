@@ -354,7 +354,6 @@ export function useCourses() {
 
   const addCourses = useStore((state) => state.addCourse);
 
-  console.log(list);
 
   return {
     list,
@@ -608,7 +607,6 @@ function exportData(data, strategy: ExportStrategy) {
 ```ts
 function withLogger(fn) {
   return function (...args) {
-    console.log("Appel de", fn.name, "avec", args);
     return fn(...args);
   };
 }
