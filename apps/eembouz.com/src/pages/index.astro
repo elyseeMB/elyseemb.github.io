@@ -4,6 +4,8 @@ import type { CollectionEntry } from "astro:content";
 import Skills from "../components/Skills.astro";
 import Projects from "../components/Projets.astro";
 import Layout from "../layouts/Layout.astro";
+import Inspiration from "../components/Inspiration.astro";
+import Hoobies from "../components/Hoobies.astro";
 
 export type PropsProjet = CollectionEntry<"projects">;
 ---
@@ -14,6 +16,8 @@ export type PropsProjet = CollectionEntry<"projects">;
       <Hero />
       <Skills />
       <Projects />
+      <Inspiration />
+      <Hoobies />
     </div>
   </div>
 </Layout>

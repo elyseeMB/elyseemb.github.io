@@ -22,4 +22,32 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { projects };
+const inspirations = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.json", base: "./src/data/inspirations" }),
+  schema: z.object({
+    title: z.string(),
+    link: z.string().url(),
+  }),
+});
+
+const hoobies = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.json", base: "./src/data/hoobies" }),
+  schema: z.object({
+    name: z.string(),
+    url: z.string(),
+  }),
+});
+
+const gallery = defineCollection({
+  type: "data",
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    image: z.string(),
+    width: z.number(),
+    height: z.number(),
+    pubDate: z.date(),
+  }),
+});
+
+export const collections = { projects, inspirations, hoobies, gallery };

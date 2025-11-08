@@ -1,0 +1,119 @@
+---
+import { getCollection } from "astro:content";
+const inspirations = await getCollection("inspirations");
+---
+
+<section class="inspirations">
+  <h3 class="inspirations__title">My inspirations</h3>
+  <div class="grid">
+    {
+      inspirations.map((inspiration) => (
+        <div class="frameworks">
+          <ul class="list">
+            <div class="link">
+              <li class="framework">
+                <a href={inspiration.data.link}>
+                  <span class="framework__name"> {inspiration.data.title}</span>
+                </a>
+              </li>
+            </div>
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .inspirations__title {
+    font-size: 2.5rem !important;
+    padding-bottom: 2rem;
+  }
+
+  .inspirations {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 5rem;
+  }
+
+  .inspirations ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .inspirations ul li::before {
+    content: "•";
+    margin-right: 0.5em;
+  }
+
+  .techo__name {
+    font-family: "Inter" !important;
+    letter-spacing: normal;
+    font-weight: 100 !important;
+    padding-bottom: 1rem;
+  }
+
+  .frameworks .list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    line-height: 1.6;
+  }
+
+  @media only screen and (max-width: 930px) {
+    .frameworks .list li {
+      list-style: disc;
+      padding-bottom: 0.5rem;
+      text-wrap: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 600px;
+      display: block;
+    }
+  }
+
+  @media only screen and (max-width: 700px) {
+    .frameworks .list li {
+      list-style: disc;
+      padding-bottom: 0.5rem;
+      text-wrap: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 400px;
+      display: block;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .frameworks .list li {
+      list-style: disc;
+      padding-bottom: 0.5rem;
+      text-wrap: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 350px;
+      display: block;
+    }
+  }
+
+  .frameworks .list li {
+    list-style: none;
+    padding-bottom: 0.5rem;
+    text-wrap: nowrap;
+  }
+
+  .frameworks .list .framework__name {
+    text-decoration: underline;
+    color: var(--color-primary) !important;
+  }
+
+  .frameworks .framework__description {
+    grid-column: 2 / span 4;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
+  }
+</style>

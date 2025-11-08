@@ -1,0 +1,84 @@
+---
+import { getCollection } from "astro:content";
+import { PhotoGrid } from "./PhotoGrid.tsx";
+const hoobies = await getCollection("hoobies");
+
+const rssUrl = new URL("/hobbies-rss.xml", Astro.site).toString();
+const data = await fetch(rssUrl);
+const rss = await data.text();
+import hobbiesData from "../data/hobbies-gallery.json";
+---
+
+<section class="hoobies">
+  <h3 class="hoobies__title">My Hoobies</h3>
+  <PhotoGrid
+    client:load
+    maxRows={4}
+    images={hobbiesData}
+    rowHeight={250}
+    gap="0.5rem"
+  />
+  <!-- <div class="grid">
+    {
+      hoobies.map((hoobies) => (
+        <div class="frameworks">
+          <ul class="list">
+            <div class="link">
+              <li class="framework">
+                <img src="https://picsum.photos/500/600" alt="" />
+              </li>
+            </div>
+          </ul>
+        </div>
+      ))
+    }
+  </div> -->
+</section>
+
+<style>
+  .hoobies__title {
+    font-size: 2.5rem !important;
+    padding-bottom: 2rem;
+  }
+
+  .hoobies {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 5rem;
+  }
+
+  .hoobies ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .frameworks .framework img {
+    display: block;
+    border-radius: 0.5rem;
+    /* background: red; */
+  }
+
+  .frameworks .list li {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .frameworks .list .framework__name {
+    text-decoration: underline;
+    color: var(--color-primary) !important;
+  }
+
+  .frameworks .framework__description {
+    grid-column: 2 / span 4;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(150px, 100%), 1fr));
+    gap: 1rem;
+  }
+</style>
