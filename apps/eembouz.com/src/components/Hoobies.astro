@@ -7,6 +7,7 @@ import hobbiesData from "../data/hobbies-gallery.json";
 <section class="hoobies">
   <h3 class="hoobies__title">My Hoobies</h3>
   <PhotoGrid
+    maxRows={4}
     client:only="preact"
     images={hobbiesData}
     rowHeight={250}
