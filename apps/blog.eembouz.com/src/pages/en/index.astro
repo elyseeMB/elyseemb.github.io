@@ -1,9 +1,8 @@
 ---
-import Hero from "../components/Hero.astro";
-import Blog from "../components/Blog.astro";
 import { getCollection } from "astro:content";
-import Layout from "../layouts/Layout.astro";
 import type { CollectionEntry } from "astro:content";
+import Hero from "../../components/Hero.astro";
+import Layout from "../../layouts/Layout.astro";
 
 export type PropsBlog = CollectionEntry<"blog">;
 

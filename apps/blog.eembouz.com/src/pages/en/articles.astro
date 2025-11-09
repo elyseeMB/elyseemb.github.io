@@ -1,8 +1,8 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../layouts/Layout.astro";
-import { Search } from "../components/search/Search.tsx";
-import Blog from "../components/Blog.astro";
+import Layout from "../../layouts/Layout.astro";
+import { Search } from "../../components/search/Search.tsx";
+import Blog from "../../components/Blog.astro";
 
 const articles = await getCollection("blog");
 ---
