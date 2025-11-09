@@ -24,6 +24,7 @@
 @import "./modules/item.css";
 @import "./modules/search.css";
 @import "./modules/outline.css";
+@import "./modules/skeleton.css";
 
 /* BLOCKS */
 @import "./blocks/presentation.css";

@@ -1,0 +1,68 @@
+---
+import { PhotoGrid } from "./PhotoGrid.tsx";
+import { SkeletonGallery } from "@portfolio/ui/Skeleton";
+import hobbiesData from "../data/hobbies-gallery.json";
+---
+
+<section class="hoobies">
+  <h3 class="hoobies__title">My Hoobies</h3>
+  <PhotoGrid
+    maxRows={4}
+    client:only="preact"
+    images={hobbiesData}
+    rowHeight={250}
+    gap="0.5rem"
+  >
+    <div slot="fallback">
+      <SkeletonGallery length={9} />
+    </div>
+  </PhotoGrid>
+</section>
+
+<style>
+  .hoobies__title {
+    font-size: 2.5rem !important;
+    padding-bottom: 2rem;
+  }
+
+  .hoobies {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 5rem;
+  }
+
+  .hoobies ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .frameworks .framework img {
+    display: block;
+    border-radius: 0.5rem;
+    /* background: red; */
+  }
+
+  .frameworks .list li {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .frameworks .list .framework__name {
+    text-decoration: underline;
+    color: var(--color-primary) !important;
+  }
+
+  .frameworks .framework__description {
+    grid-column: 2 / span 4;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(150px, 100%), 1fr));
+    gap: 1rem;
+  }
+</style>
