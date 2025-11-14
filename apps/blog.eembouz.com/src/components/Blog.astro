@@ -11,7 +11,7 @@ const { title, limit } = Astro.props;
 ---
 
 <section class="blog container-narrow">
-  {title && <h3>{title}</h3>}
+  {title && <h3 class="title">{title}</h3>}
   <div class="stack">
     {
       articles
@@ -26,19 +26,29 @@ const { title, limit } = Astro.props;
           <a href={`/articles/${article.id}`}>
             <article class="item">
               <div class="item__info">
-                <div class="item__header-number">
-                  {title &&
-                    index.toString().padStart(2, "0").includes("00") && (
-                      <strong>news</strong>
-                    )}
-                </div>
-                <h3 class="item__title">{article.data.title}</h3>
-                <div class="meta">
+                <h3
+                  transition:name={`article-title-${article.id}`}
+                  class="item__title"
+                >
+                  {article.data.title}
+                </h3>
+                <div
+                  transition:name={`article-meta-${article.id}`}
+                  class="meta"
+                >
                   <span>
                     {new Intl.DateTimeFormat("fr", {
                       dateStyle: "medium",
                     }).format(article.data.pubDate)}
                     · {article.data.author.id}
+                  </span>
+                  <span>
+                    <div class="tags">
+                      {article.data.taxonomies &&
+                        article.data.taxonomies.map((t) => (
+                          <div class="tag"> {t.id} </div>
+                        ))}
+                    </div>
                   </span>
                 </div>
                 <p class="item__description">{article.data.summary}</p>
@@ -59,9 +69,20 @@ const { title, limit } = Astro.props;
   .blog a {
     display: inline-flex;
   }
+
+  @media screen and (max-width: 590px) {
+    .blog article.item h3 {
+      line-height: 1.6;
+    }
+  }
+
+  .blog h3.title {
+    font-size: 2rem;
+  }
+
   .blog h3 {
     font-weight: 900;
-    font-size: 4rem;
+    font-size: 2rem;
   }
 
   .blog p {

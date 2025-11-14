@@ -1,4 +1,4 @@
-import type { Skill } from "../types/skills.ts";
+import type { Projet, Skill } from "../types/skills.ts";
 
 export const skills: Skill[] = [
   {
@@ -41,8 +41,7 @@ export const skills: Skill[] = [
       {
         name: "Golang",
         href: "https://go.dev/",
-        description:
-          "Langage compilé, rapide et concurrent, idéal pour les applications backend et systèmes distribués.",
+        description: "Langage compilé, rapide et concurrent.",
       },
     ],
   },
@@ -92,5 +91,13 @@ export const skills: Skill[] = [
         description: "Outil d’automatisation pour la gestion des serveurs.",
       },
     ],
+  },
+];
+
+export const projets: Projet[] = [
+  {
+    name: "ERP de gestion",
+    description: "",
+    href: "",
   },
 ];

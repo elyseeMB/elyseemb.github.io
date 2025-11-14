@@ -1,0 +1,107 @@
+---
+title: " URL Shortener - Micro-service Serverless"
+description: "Raccourcisseur d’URL"
+summary: "Ce projet est un raccourcisseur d’URL serverless développé en Go, conçu pour démontrer la création d’une architecture scalable et sans serveur sur AWS Lambda à l’aide de AWS SAM.
+Il gère la génération de liens courts et l’accès aux URL originales à partir d’un identifiant unique."
+thumbnail: "/project/shortener/3.png"
+pubDate: 2025-10-07
+---
+
+import GridProject from "../../components/GridProject.astro";
+import GridBlock from "../../components/GridBlock.astro";
+
+<GridProject>
+
+<GridBlock>
+    <img class="picture" src={"/project/shortener/6.png"} alt="project" style={{objectFit: "cover"}}  />
+    <div>
+      <h2>Objectif</h2>
+      <p>   
+L’objectif principal de ce projet était de concevoir un microservice autonome et performant dédié à la gestion des URL au sein d’une application distribuée plus large.
+L’idée était de déléguer cette tâche spécifique à un service indépendant, afin de réduire le couplage, améliorer la scalabilité et simplifier la maintenance du code.
+
+</p>
+</div>
+  </GridBlock>
+
+  <GridBlock>
+
+    <div>
+      <h2> Enjeux techniques</h2>
+      <p>
+      L’un des principaux enjeux techniques du projet était de concevoir un service léger et performant, avec une image Docker d’environ 10 Mo et un démarrage quasi instantané, inférieur à 100 ms. Le microservice devait être totalement portable, capable de se déployer aussi bien sur Docker, Kubernetes que sur AWS Lambda via AWS SAM, sans modification du code. L’architecture a été pensée pour rester claire, modulaire et maintenable, en suivant les bonnes pratiques du langage Go : utilisation du répertoire internal/ pour isoler la logique métier, séparation explicite des adapters (persistence, transport, logger, etc.), et définition d’interfaces (ports) afin de faciliter les tests unitaires et la substitution des implémentations selon les besoins.
+      </p>
+
+</div>
+    <img class="picture" src={"/project/shortener/1.png"} alt="project" style={{objectFit: "cover"}}  />
+<img
+class="picture"
+src={"/project/shortener/2.png"}
+alt="project"
+style={{ objectFit: "cover" }}
+/>
+
+  </GridBlock>
+
+<GridBlock>
+
+<div>
+  <h2>Architecture du projet</h2>
+  <p>
+ Le microservice suit une approche Clean Architecture composée de quatre couches : Domain (entités et interfaces), App (logique métier indépendante), Adapters (implémentations concrètes comme HTTP ou stockage) et Cmd (point d’entrée du service). Cette structure rend le code plus clair, testable et facile à faire évoluer.
+
+  </p>
+</div>
+
+<img
+  class="picture"
+  src={"/project/shortener/7.png"}
+  alt="project"
+  style={{ objectFit: "cover" }}
+/>
+<img
+  class="picture"
+  src={"/project/shortener/8.png"}
+  alt="project"
+  style={{ objectFit: "cover" }}
+/>
+<img
+  class="picture"
+  src={"/project/shortener/3.png"}
+  alt="project"
+  style={{ objectFit: "cover" }}
+/>
+<img
+  class="picture"
+  src={"/project/shortener/4.png"}
+  alt="project"
+  style={{ objectFit: "cover" }}
+/>
+<img
+  class="picture"
+  src={"/project/shortener/5.png"}
+  alt="project"
+  style={{ objectFit: "cover" }}
+/>
+  </GridBlock>
+
+{" "}
+
+<GridBlock>
+  <img
+    class="picture"
+    height={500}
+    src={"/project/urlshortener.png"}
+    alt="project"
+    style={{ objectFit: "cover" }}
+  />
+  <div>
+    <h2>Stack technique</h2>
+    <p>
+      Le microservice a été développé en Go 1.21 et peut être déployé facilement
+      sur AWS Lambda via AWS SAM.
+    </p>
+  </div>
+</GridBlock>
+
+</GridProject>

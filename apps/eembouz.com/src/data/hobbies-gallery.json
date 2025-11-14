@@ -1,0 +1,69 @@
+[
+  {
+    "src": "/gallery/cuisine1.gif",
+    "width": 500,
+    "height": 500,
+    "title": "Autre GIF"
+  },
+  {
+    "src": "/gallery/livre.gif",
+    "width": 800,
+    "height": 500,
+    "title": "Autre GIF"
+  },
+  {
+    "src": "/gallery/music1.gif",
+    "width": 300,
+    "height": 800,
+    "title": "Autre GIF"
+  },
+  {
+    "src": "/gallery/music2.gif",
+    "width": 800,
+    "height": 700,
+    "title": "Autre GIF"
+  },
+  {
+    "src": "/gallery/music3.gif",
+    "width": 800,
+    "height": 700,
+    "title": "Autre GIF"
+  },
+
+  {
+    "src": "/gallery/sport2.gif",
+    "width": 200,
+    "height": 700,
+    "title": "Autre GIF"
+  },
+  {
+    "src": "/gallery/art.gif",
+    "width": 400,
+    "height": 200,
+    "title": "Autre GIF"
+  },
+  {
+    "src": "/gallery/sport1.gif",
+    "width": 300,
+    "height": 700,
+    "title": "Autre GIF"
+  },
+  {
+    "src": "/gallery/cuisine3.gif",
+    "width": 400,
+    "height": 200,
+    "title": "Autre GIF"
+  },
+  {
+    "src": "/gallery/cuisine2.gif",
+    "width": 100,
+    "height": 200,
+    "title": "Autre GIF"
+  },
+  {
+    "src": "/gallery/tech.gif",
+    "width": 200,
+    "height": 200,
+    "title": "Autre GIF"
+  }
+]

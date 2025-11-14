@@ -5,12 +5,15 @@
     "./Footer": "./src/components/shared/Footer.astro",
     "./Hero": "./src/components/Hero.astro",
     "./Layout": "./src/layouts/Layout.astro",
-    "./GlobalCSS": "./src/css/index.css"
+    "./GlobalCSS": "./src/css/index.css",
+    "./Skeleton": "./src/components/Skeleton.tsx"
   },
   "peerDependencies": {
     "@astrojs/preact": "^4.1.0",
     "astro": "^5.10.0",
-    "preact": "^10.26.9"
+    "preact": "^10.26.9",
+    "@tailwindcss/vite": "^4.1.17",
+    "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.1",

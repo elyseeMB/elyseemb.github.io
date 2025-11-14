@@ -29,13 +29,17 @@ const {
   </head>
   <body>
     <div class="bg-noise">
-      <div class="page-wrapper">
-        <div class="container-narrow">
-          <Header />
-          <slot />
-          <Footer />
-        </div>
+      <div class="page-wrapper mx-auto max-w-max">
+        <Header />
+        <slot />
+        <Footer />
       </div>
     </div>
   </body>
 </html>
+
+<style>
+  .page-wrapper {
+    overflow: hidden;
+  }
+</style>

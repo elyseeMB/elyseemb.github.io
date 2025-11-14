@@ -2,18 +2,23 @@
 h1,
 h2,
 h3,
-h1 span,
-h2 span,
-h3 span {
-  font-family: "Literata" !important;
+h4,
+h5,
+h6 {
+  color: var(--color-primary);
+}
+
+h1,
+h1 span {
+  font-family: "Instrument Serif" !important;
+  font-style: italic;
+  font-weight: 400;
   color: var(--color-primary);
 }
 
 h1 {
-  letter-spacing: -3px;
   font-size: 6.1rem;
   line-height: 0.9;
-  font-weight: 200;
 }
 
 @media screen and (max-width: 900px) {
@@ -30,25 +35,22 @@ h1 {
   }
 }
 
-h2 {
+h2:not(:where([data-markdown] *)) {
+  font-family: "Instrument Serif" !important;
   font-size: 2rem;
-  font-weight: 200;
-
-  letter-spacing: -1px;
 }
 
-h3 {
-  font-family: "Literata" !important;
+h3:not(:where([data-markdown] *)) {
+  font-family: "Instrument Serif" !important;
   font-size: 1.4rem;
-  letter-spacing: -1px;
-  font-weight: 200;
 }
 
-p {
+p:not(:where([data-markdown] *)) {
   color: var(--color-secondary);
   font-size: var(--size);
   line-height: var(--line-height);
   padding-block: 1rem;
+  text-wrap: pretty;
 }
 
 h4,
@@ -61,21 +63,21 @@ body {
 }
 
 button {
-  font-family: "Literata" !important;
+  font-family: "JetBrains Mono" !important;
 }
 
 strong {
   color: var(--color-primary);
 }
 
-ul li,
-ol li {
+ul li:not(:where([data-markdown] *)),
+ol li:not(:where([data-markdown] *)) {
   list-style: decimal;
   line-height: 1.6;
 }
 
-ul,
-ol {
+ul:not(:where([data-markdown] *)),
+ol:not(:where([data-markdown] *)) {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;

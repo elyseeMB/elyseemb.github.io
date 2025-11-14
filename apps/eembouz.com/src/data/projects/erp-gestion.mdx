@@ -1,0 +1,88 @@
+---
+title: "CRM / ERP de gestion"
+description: "ERP de gestion"
+summary: "Monorepo full-stack regroupant plusieurs applications, avec un backend AdonisJS et un design system React partagé, permettant une réutilisation centralisée des composants et une cohérence entre les différentes parties de l’application."
+thumbnail: "/project/crm.png"
+pubDate: 2025-09-07
+---
+
+import GridProject from "../../components/GridProject.astro";
+import GridBlock from "../../components/GridBlock.astro";
+
+<GridProject>
+
+<GridBlock>
+    <img class="picture" src={"/project/crm/9.png"} alt="project" style={{objectFit: "cover"}}  />
+    <div>
+      <h2>Création d'un design system</h2>
+      <p>
+      Pour préparer le redesign de l’application, j’ai commencé par créer une librairie de composants. Afin de pouvoir les visualiser et les tester facilement, j’ai choisi d’utiliser Storybook, ce qui m’a permis de travailler sur chaque composant dans un environnement isolé avant de les intégrer à l’application.
+      Comme le projet contient de nombreux éléments d’interface, j’ai organisé la librairie selon le principe de l’Atomic Design, en séparant les composants en <strong>atomes</strong>, <strong>molécules</strong> et <strong>organismes</strong>.
+      <img class="picture" src={"/project/crm/8.png"} alt="project" style={{objectFit: "cover"}}  />
+
+</p>
+</div>
+  </GridBlock>
+
+  <GridBlock>
+  <img
+  class="picture"
+  src={"/project/crm/3.png"}
+  alt="project"
+  style={{ objectFit: "cover" }}
+/>
+    <img class="picture" src={"/project/crm/1.png"} alt="project" style={{objectFit: "cover"}}  />
+    <div>
+      <h2>Création d'une administration</h2>
+      <p>
+      Dans le but de créer une interface d’administration scalable sur un autre sous-domaine, afin de simplifier la gestion des utilisateurs, des articles, des taxonomies avec structures arborescentes, ainsi que des collections. Cette interface permettra également la visualisation des performances de l’application à travers un tableau de bord complet et intuitif.
+      </p>
+    </div>
+    <img
+class="picture"
+src={"/project/crm/2.png"}
+alt="project"
+style={{ objectFit: "cover" }}
+/>
+
+  </GridBlock>
+
+<GridBlock>
+
+<div>
+  <h2>Implémentaion de l'editeur Tiptap pour la rédaction des articles</h2>
+  <p>
+  Intégration de Tiptap, un éditeur moderne et personnalisable, afin de faciliter la rédaction et la mise en forme des articles. Cet éditeur offre une interface intuitive avec la possibilité d’ajouter facilement du texte enrichi, des images, des liens ou encore des blocs de code.
+
+L’objectif est d’offrir aux rédacteurs un outil simple et performant pour créer du contenu de qualité, tout en assurant une meilleure cohérence et une flexibilité dans la gestion des articles.
+
+  </p>
+</div>
+<img
+  class="picture"
+  src={"/project/crm/6.png"}
+  alt="project"
+  style={{ objectFit: "cover" }}
+/>
+  </GridBlock>
+
+  <GridBlock>
+<img
+  class="picture"
+  height={500}
+  src={"/project/crm.png"}
+  alt="project"
+  style={{ objectFit: "cover" }}
+/>
+<div>
+  <h2>Structure technique et déploiement</h2>
+  <p>
+  Le projet est organisé sous forme de monorepo full-stack géré avec pnpm workspaces, ce qui permet de regrouper le backend, le CMS et le design system dans un même espace de développement. Cette structure simplifie la collaboration, la réutilisation du code et la cohérence entre les différentes applications.
+
+Le déploiement est automatisé à l’aide d’Ansible, qui s’occupe de la configuration des serveurs, du déploiement des applications via Docker, et de la mise en place des services comme PostgreSQL ou Nginx. Ce processus assure une installation rapide, fiable et facilement reproductible sur tous les environnements.
+
+  </p>
+</div>
+  </GridBlock>
+
+</GridProject>

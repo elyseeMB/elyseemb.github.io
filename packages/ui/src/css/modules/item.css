@@ -4,7 +4,7 @@
   align-items: flex-start;
   justify-content: space-between;
   transition: background-color 0.3s;
-  padding: 0.5rem;
+  /* padding: 0.5rem; */
   border-radius: var(--rounded);
 }
 
@@ -12,8 +12,13 @@
   font-family: "Inter" !important;
 }
 
+.item:hover h3 {
+  text-decoration: underline;
+}
+
 .item:hover {
-  background-color: var(--hover-primary);
+  outline: 1px solid rgba(255, 255, 255, 0.185);
+  outline-offset: 8px;
 }
 .item__header-icon {
   transition: transform 0.2s;
@@ -26,13 +31,13 @@
 .item__description {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   overflow: hidden;
 }
 
 .item__info h3 {
-  font-size: 1.3rem !important;
-  font-weight: normal;
+  font-size: 1.2rem !important;
+  font-style: bold;
 }
 
 .item__info > * {
@@ -43,7 +48,7 @@
 .item__info {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .item__img img {
