@@ -34,6 +34,14 @@ const { title, limit } = Astro.props;
                     }).format(article.data.pubDate)}
                     · {article.data.author.id}
                   </span>
+                  <span>
+                    <div class="tags">
+                      {article.data.taxonomies &&
+                        article.data.taxonomies.map((t) => (
+                          <div class="tag"> {t.id} </div>
+                        ))}
+                    </div>
+                  </span>
                 </div>
                 <p class="item__description">{article.data.summary}</p>
               </div>
@@ -61,7 +69,7 @@ const { title, limit } = Astro.props;
   }
 
   .blog h3.title {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .blog h3 {
