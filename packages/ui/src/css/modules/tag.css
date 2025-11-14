@@ -8,7 +8,7 @@
 
 .tag {
   font-family: "JetBrains Mono" !important;
-  padding: 0.5rem 0.3rem;
+  padding: 0 0.1rem;
   width: max-content;
   background-color: var(--contrast);
   color: white;

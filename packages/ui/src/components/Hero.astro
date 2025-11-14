@@ -10,29 +10,13 @@ const { title, description, job } = Astro.props;
 
 <section class="hero container-narrow">
   <div class="wrapper">
-    <div class="info">
-      <div class="title">
-        <h1 class="split">{title}</h1>
-        {job && <span>{job}</span>}
-      </div>
-      <p class="description">
-        {description}
-      </p>
+    <div class="title">
+      <h1 class="split">{title}</h1>
     </div>
-
-    <div class="left">
-      (scroll)
-      <div class="icon">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          ><path
-            d="M13.0001 1.99974L11.0002 1.9996L11.0002 18.1715L7.05044 14.2218L5.63623 15.636L12.0002 22L18.3642 15.636L16.9499 14.2218L13.0002 18.1716L13.0001 1.99974Z"
-          ></path></svg
-        >
-      </div>
-    </div>
+    <!-- {job && <span>{job}</span>} -->
+    <p class="description">
+      {description}
+    </p>
   </div>
 </section>
 
@@ -44,28 +28,21 @@ const { title, description, job } = Astro.props;
   }
 
   .description {
-    color: var(--color-primary);
+    /* color: var(--color-primary); */
+    font-style: italic;
     margin: 0;
     padding: 0;
   }
 
   .title h1 {
     text-align: left;
-    font-weight: 100;
-    font-size: 3.5rem;
-    font-style: italic;
+    font-size: 2.5rem;
+    letter-spacing: -1px;
   }
 
-  .title span {
+  .wrapper span {
     font-weight: 100 !important;
     font-size: 1.5rem;
-  }
-
-  .info {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    width: 100%;
   }
 
   .icon {
@@ -90,7 +67,7 @@ const { title, description, job } = Astro.props;
   .wrapper {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
     width: 100%;
   }
 
@@ -102,10 +79,9 @@ const { title, description, job } = Astro.props;
   @media only screen and (min-width: 769px) {
     .wrapper {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(max(500px, 100%), 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
       place-items: flex-start;
-      justify-items: anchor-center;
-      /* gap: 4rem; */
+      gap: 2rem;
     }
   }
   .left {

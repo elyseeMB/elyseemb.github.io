@@ -1,0 +1,30 @@
+<div class="block">
+  <slot />
+</div>
+
+<style>
+  .block {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 3rem;
+    align-items: flex-start;
+  }
+
+  img.picture {
+    border-radius: 1rem;
+  }
+
+  /* petits écrans */
+  @media only screen and (max-width: 499px) {
+    .block {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+  }
+
+  /* Écrans larges */
+  @media only screen and (min-width: 1370px) {
+    .block {
+      grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+    }
+  }
+</style>

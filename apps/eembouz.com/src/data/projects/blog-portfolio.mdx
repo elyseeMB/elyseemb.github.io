@@ -1,0 +1,163 @@
+---
+title: "Blog & Portfolio"
+description: "Plateforme personnelle de partage technique"
+summary: "Site portfolio et blog technique développé avec Astro, conçu pour partager mon parcours d'ingénieur logiciel, mes projets et mes réflexions sur la programmation."
+thumbnail: "/project/portfolio/3.png"
+pubDate: 2025-5-07
+---
+
+import GridProject from "../../components/GridProject.astro";
+import GridBlock from "../../components/GridBlock.astro";
+
+<GridProject>
+
+<GridBlock>
+  <div>
+    <video src="/project/portfolio/v1.mp4" loop autoplay muted playsinline />
+  </div>
+  <div>
+    <h2>Objectif</h2>
+    <p>
+      Créer une présence en ligne professionnelle qui reflète mon identité
+      d’ingénieur logiciel et ma philosophie : concevoir des solutions
+      numériques fiables et durables. Le portfolio sert de vitrine pour
+      présenter mes projets techniques et mon parcours professionnel, tandis que
+      le blog représente un espace de partage où je documente mes
+      apprentissages, mes réflexions sur la programmation et mes découvertes
+      techniques. C’est aussi ma façon de contribuer à la communauté des
+      développeurs en partageant des solutions concrètes aux problèmes que je
+      rencontre au quotidien.
+    </p>
+  </div>
+</GridBlock>
+
+<GridBlock>
+  <div>
+    <h2>Le Portfolio</h2>
+    <p>
+      Le portfolio présente mes réalisations techniques de manière claire et
+      directe. Chaque projet dispose de sa propre page avec description
+      technique. Les grilles adaptatives assurent une navigation fluide sur tous
+      les écrans.
+    </p>
+  </div>
+  <img
+    class="picture"
+    src={"/project/portfolio/1.png"}
+    alt="project"
+    style={{ objectFit: "cover" }}
+  />
+  <img
+    class="picture"
+    src={"/project/portfolio/2.png"}
+    alt="project"
+    style={{ objectFit: "cover" }}
+  />
+</GridBlock>
+
+<GridBlock>
+  <div>
+    <h2>Le Blog</h2>
+    <p>
+      Le blog est l'endroit où je partage mes expériences et mes découvertes
+      techniques de manière plus approfondie. J'y écris des articles sur des
+      sujets variés liés au développement web moderne, des tutoriels pratiques,
+      des retours d'expérience sur des projets spécifiques, ou encore des
+      analyses de concepts techniques complexes. L'objectif est de rendre
+      accessible des notions parfois ardues et de fournir des solutions
+      concrètes que d'autres développeurs peuvent appliquer directement dans
+      leurs projets.
+    </p>
+    <p>
+      Les articles supportent l'intégration de composants React interactifs
+      directement dans le contenu grâce à MDX, ce qui me permet d'illustrer mes
+      propos avec des démonstrations vivantes plutôt que de simples captures
+      d'écran. Le blog me sert aussi de documentation personnelle, un endroit où
+      je peux revenir chercher des solutions à des problèmes déjà résolus.
+    </p>
+  </div>
+  <div>
+    <video src="/project/portfolio/v4.mp4" loop autoplay muted playsinline />
+  </div>
+  <img
+    class="picture"
+    src={"/project/portfolio/5.png"}
+    alt="project"
+    style={{ objectFit: "cover" }}
+  />
+  <img
+    class="picture"
+    src={"/project/portfolio/6.png"}
+    alt="project"
+    style={{ objectFit: "cover" }}
+  />
+</GridBlock>
+
+<GridBlock>
+
+  <div>
+    <h2>Choix techniques</h2>
+    <p>
+      J'ai choisi Astro comme framework principal pour sa philosophie orientée
+      performance et contenu. Contrairement aux frameworks JavaScript
+      traditionnels qui envoient beaucoup de code au navigateur, Astro génère
+      des pages statiques ultra-rapides à la compilation et n'envoie du
+      JavaScript que lorsque c'est vraiment nécessaire.
+    </p>
+    <p>
+      L'architecture repose sur un monorepo qui héberge à la fois le blog et le
+      portfolio. Cette décision technique était importante pour moi car je
+      voulais maintenir une cohérence visuelle parfaite entre les deux sites
+      tout en partageant les composants Astro. Les composants essentiels comme
+      le Header, le Footer, le SEO ou encore les layouts sont centralisés dans
+      le package UI et réutilisés dans les deux applications. Cette approche
+      évite la duplication de code et garantit que toute modification de design
+      se répercute automatiquement sur les deux sites.
+    </p>
+
+    <p>
+      Pour le styling, j'ai délibérément choisi d'écrire du CSS pur plutôt que
+      d'utiliser Tailwind. Je voulais avoir un contrôle total sur l'apparence et
+      créer une identité visuelle unique. Le contenu est écrit en MDX pour
+      combiner la simplicité du Markdown avec la puissance des composants.
+    </p>
+
+  </div>
+
+  <img
+    class="picture"
+    height={500}
+    src={"/project/portfolio/7.png"}
+    alt="project"
+    style={{ objectFit: "cover" }}
+  />
+            <img
+    class="picture"
+    height={500}
+    src={"/project/portfolio/8.png"}
+    alt="project"
+    style={{ objectFit: "cover" }}
+
+/>
+
+</GridBlock>
+
+<GridBlock>
+  <div>
+    <h2>Performance et SEO</h2>
+    <p>
+      Le référencement naturel a été une priorité dès la conception. Chaque page
+      dispose de métadonnées complètes, d'un sitemap XML généré automatiquement
+      et d'un fichier robots.txt optimisé. La structure HTML est sémantique et
+      accessible, avec des balises appropriées pour faciliter l'indexation par
+      les moteurs de recherche. Les URLs sont propres et descriptives, et le
+      site génère automatiquement les Open Graph tags pour un partage optimal
+      sur les réseaux sociaux.
+    </p>
+  </div>
+  <div>
+    <video src="/project/portfolio/v3.mp4" loop autoplay muted playsinline />
+  </div>
+</GridBlock>
+
+</GridProject>
