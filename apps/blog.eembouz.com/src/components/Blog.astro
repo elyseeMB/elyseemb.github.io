@@ -26,8 +26,16 @@ const { title, limit } = Astro.props;
           <a href={`/articles/${article.id}`}>
             <article class="item">
               <div class="item__info">
-                <h3 class="item__title">{article.data.title}</h3>
-                <div class="meta">
+                <h3
+                  transition:name={`article-title-${article.id}`}
+                  class="item__title"
+                >
+                  {article.data.title}
+                </h3>
+                <div
+                  transition:name={`article-meta-${article.id}`}
+                  class="meta"
+                >
                   <span>
                     {new Intl.DateTimeFormat("fr", {
                       dateStyle: "medium",

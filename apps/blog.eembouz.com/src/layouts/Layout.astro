@@ -3,6 +3,7 @@ import Scripts from "../components/Scripts.astro";
 import Seo from "../components/Seo.astro";
 import Footer from "../components/shared/Footer.astro";
 import Header from "../components/shared/Header.astro";
+import { ClientRouter } from "astro:transitions";
 
 import "@portfolio/ui/GlobalCSS";
 
@@ -41,3 +42,92 @@ const {
     </div>
   </body>
 </html>
+
+<ClientRouter />
+
+<style is:global>
+  /* Configuration globale des transitions */
+  @view-transition {
+    navigation: auto;
+  }
+
+  /* Animation plus fluide et naturelle pour tous les éléments */
+  ::view-transition-group(*) {
+    animation-duration: 0.4s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Animation spécifique pour les titres d'articles */
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.3s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    mix-blend-mode: normal;
+  }
+
+  /* Amélioration : transition plus douce pour le titre */
+  ::view-transition-group(*) {
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Fade out/in plus subtil pour l'ancienne version */
+  ::view-transition-old(*) {
+    animation-name: slide-and-fade-out;
+  }
+
+  /* Fade in plus naturel pour la nouvelle version */
+  ::view-transition-new(*) {
+    animation-name: slide-and-fade-in;
+  }
+
+  /* Animation personnalisée : sortie */
+  @keyframes slide-and-fade-out {
+    from {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.98);
+    }
+  }
+
+  /* Animation personnalisée : entrée */
+  @keyframes slide-and-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Désactiver les transitions par défaut qui peuvent être "cheap" */
+  ::view-transition-image-pair(root) {
+    isolation: auto;
+  }
+
+  /* Fade général de la page pour un effet SPA */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.3s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Overlay subtil pendant la transition */
+  ::view-transition-group(root) {
+    animation-duration: 0.3s;
+  }
+
+  /* Pour les appareils qui préfèrent moins d'animation */
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation-duration: 0.01ms !important;
+    }
+  }
+</style>
