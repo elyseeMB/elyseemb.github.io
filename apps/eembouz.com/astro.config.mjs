@@ -4,16 +4,22 @@ import preact from "@astrojs/preact";
 import markdoc from "@astrojs/markdoc";
 import mdx from "@astrojs/mdx";
 
+import tailwindcss from "@tailwindcss/vite";
+
 // https://astro.build/config
 export default defineConfig({
   devToolbar: {
     enabled: false,
   },
+
   site: "https://eembouz.com/",
+
   image: {
     service: passthroughImageService(),
   },
+
   base: "/",
+
   integrations: [
     mdx(),
     markdoc(),
@@ -32,4 +38,8 @@ export default defineConfig({
     }),
     preact(),
   ],
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });

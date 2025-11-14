@@ -69,11 +69,12 @@ export function Outline() {
   };
 
   return (
-    <div className="outline__wrapper">
-      <ul className="outline">
+    <div className="outline__wrapper w-max">
+      <ul className="flex flex-col gap-3 px-[4rem]  w-[350px]">
         {headings.heading_level_2?.map((heading) => (
           <a onClick={handleClick} key={heading.id} href={"#" + heading.id}>
             <li
+              className="whitespace-nowrap overflow-hidden text-ellipsis"
               style={{
                 color:
                   activeItem?.id === heading.id

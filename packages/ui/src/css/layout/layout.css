@@ -1,12 +1,12 @@
 :root {
-  --container-padding: 2rem;
+  --container-padding: 3rem;
   --container-width: calc(100vw - var(--container-padding) * 2);
 }
 
 /* petits écrans */
 @media only screen and (max-width: 499px) {
   :root {
-    --container-padding: 0.75rem;
+    --container-padding: 2rem;
   }
 }
 

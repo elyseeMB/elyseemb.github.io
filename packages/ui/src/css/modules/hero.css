@@ -57,6 +57,10 @@
   animation: moveY 25s linear infinite alternate;
 }
 
+.hero p {
+  text-wrap: balance;
+}
+
 @keyframes moveY {
   0% {
     transform: translateY(-100%);
@@ -80,6 +84,8 @@
   .hero p {
     width: 750px;
     line-height: 1.6;
+    flex-wrap: wrap;
+    text-wrap: balance;
   }
   .hero h1 {
     max-width: 100%;
@@ -90,11 +96,7 @@
   .hero span {
     font-size: 24px;
   }
-  .hero .description {
-    max-width: 800px;
-  }
   .hero .wrapper {
-    gap: var(--space-3);
     width: 100%;
   }
 }
@@ -113,5 +115,6 @@
     line-height: 1.6;
     display: flex;
     flex-wrap: wrap;
+    text-wrap: balance;
   }
 }

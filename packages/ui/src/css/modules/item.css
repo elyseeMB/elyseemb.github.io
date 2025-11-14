@@ -43,7 +43,7 @@
 .item__info {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .item__img img {

@@ -26,12 +26,6 @@ const { title, limit } = Astro.props;
           <a href={`/articles/${article.id}`}>
             <article class="item">
               <div class="item__info">
-                <div class="item__header-number">
-                  {title &&
-                    index.toString().padStart(2, "0").includes("00") && (
-                      <strong>news</strong>
-                    )}
-                </div>
                 <h3 class="item__title">{article.data.title}</h3>
                 <div class="meta">
                   <span>

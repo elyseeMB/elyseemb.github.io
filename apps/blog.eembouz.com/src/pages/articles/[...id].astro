@@ -87,8 +87,8 @@ const seo = seoProps ? seoProps : metaData;
     </div>
 
     <div class="container">
-      <div class="wrapper-content">
-        <div class="content">
+      <div data-markdown class="wrapper-content">
+        <div class="content prose prose-md">
           <Content />
         </div>
         <div class="wrapper-outline">
@@ -160,10 +160,8 @@ const seo = seoProps ? seoProps : metaData;
   h1 {
     text-align: left;
     padding-top: 2rem;
-    letter-spacing: -2px;
     white-space: normal;
     word-break: break-word;
-    line-height: 0.9;
     font-weight: 100;
     font-size: 3rem;
     font-style: italic;
@@ -177,7 +175,7 @@ const seo = seoProps ? seoProps : metaData;
     display: flex;
     flex-direction: column;
     font-size: 0.9rem;
-    gap: 1rem;
+    gap: 0.5rem;
     padding-block: 1rem;
     font-family: "JetBrains Mono" !important;
     & > * {
@@ -206,7 +204,7 @@ const seo = seoProps ? seoProps : metaData;
       }
     }
   }
-
+  /* 
   .content {
     p,
     ul,
@@ -236,5 +234,5 @@ const seo = seoProps ? seoProps : metaData;
       color: white;
       font-weight: 700;
     }
-  }
+  } */
 </style>

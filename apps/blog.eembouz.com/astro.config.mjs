@@ -4,20 +4,26 @@ import sitemap from "@astrojs/sitemap";
 import preact from "@astrojs/preact";
 import mdx from "@astrojs/mdx";
 import { remarkReadingTime } from "./src/modules/remark-reading-time.mjs";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
   devToolbar: {
     enabled: false,
   },
+
   site: "https://blog.eembouz.com/",
+
   image: {
     service: passthroughImageService(),
   },
+
   markdown: {
     remarkPlugins: [remarkReadingTime],
   },
+
   base: "/",
+
   integrations: [
     mdx(),
     markdoc(),
@@ -37,4 +43,8 @@ export default defineConfig({
     }),
     preact(),
   ],
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });

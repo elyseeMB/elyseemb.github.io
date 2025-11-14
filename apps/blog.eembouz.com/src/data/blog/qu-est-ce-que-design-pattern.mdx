@@ -354,7 +354,6 @@ export function useCourses() {
 
   const addCourses = useStore((state) => state.addCourse);
 
-
   return {
     list,
 
@@ -529,25 +528,18 @@ On caches la complexité du store et exposes une API simple.
     Bien que cet article ait pour objectif de fournir une **implémentation
     concrète** des design patterns dans un contexte réel (React + Zustand),
     certains modèles comme **Singleton** ou **Factory Method** s’intègrent
-    naturellement dans l’architecture de mon store.
-    <br />
-    En revanche, d’autres modèles comme **Builder**, **Strategy** ou
-    **Decorator** sont plus **conceptuels** dans ce contexte. Ils seront donc
-    illustrés de manière plus **générique en pseudo-code** pour faciliter leur
-    compréhension.
-    <br />
-    Ces exemples ne sont **pas destinés à être copiés tels quels** dans un
-    projet Zustand ou React, mais plutôt à vous aider à **saisir l’idée
-    générale** derrière chaque pattern.
-    <br />
-    Vous verrez ensuite comment **adapter ces concepts** dans un projet réel si
-    nécessaire.
+    naturellement dans l’architecture de mon store. En revanche, d’autres
+    modèles comme **Builder**, **Strategy** ou **Decorator** sont plus
+    **conceptuels** dans ce contexte. Ils seront donc illustrés de manière plus
+    **générique en pseudo-code** pour faciliter leur compréhension. Ces exemples
+    ne sont **pas destinés à être copiés tels quels** dans un projet Zustand ou
+    React, mais plutôt à vous aider à **saisir l’idée générale** derrière chaque
+    pattern. Vous verrez ensuite comment **adapter ces concepts** dans un projet
+    réel si nécessaire.
   </p>
 </blockquote>
 
 ### Builder (construire un objet étape par étape)
-
-<br />
 
 ```ts
 class CourseBuilder {
@@ -574,8 +566,6 @@ const course = new CourseBuilder().setName("React").setColor("blue").build();
 
 ### Strategy (changer de comportement dynamiquement)
 
-<br />
-
 ```ts
 class ExportStrategy {
   execute(data) {
@@ -601,8 +591,6 @@ function exportData(data, strategy: ExportStrategy) {
 ```
 
 ### Decorator (enrichir un comportement sans toucher au code source)
-
-<br />
 
 ```ts
 function withLogger(fn) {

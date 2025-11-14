@@ -1,8 +1,11 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
 /* LAYOUT */
 @import "./layout/layout.css";
 
 /* TOOLS */
-@import "./tools/reset.css";
+/* @import "./tools/reset.css"; */
 @import "./tools/typography.css";
 @import "./tools/theme.css";
 
@@ -25,6 +28,7 @@
 @import "./modules/search.css";
 @import "./modules/outline.css";
 @import "./modules/skeleton.css";
+@import "./modules/markdown.css";
 
 /* BLOCKS */
 @import "./blocks/presentation.css";
