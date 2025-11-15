@@ -34,14 +34,14 @@ const { title, limit } = Astro.props;
                     }).format(article.data.pubDate)}
                     · {article.data.author.id}
                   </span>
-                  <span>
+                  {/* <span>
                     <div class="tags">
                       {article.data.taxonomies &&
                         article.data.taxonomies.map((t) => (
                           <div class="tag"> {t.id} </div>
                         ))}
                     </div>
-                  </span>
+                  </span> */}
                 </div>
                 <p class="item__description">{article.data.summary}</p>
               </div>
