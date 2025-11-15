@@ -79,3 +79,7 @@
 body {
   background-color: var(--background);
 }
+
+pre {
+  text-wrap: wrap;
+}
