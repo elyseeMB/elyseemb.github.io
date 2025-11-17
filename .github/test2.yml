@@ -1,16 +1,16 @@
-name: 🚀 Hybrid Multi-Environment Deployment
+name: Multi-Environment Deployment
 
 on:
   push:
     branches:
-      # - main # 🌟 Production (GitHub Pages)
+      # - main # Production (GitHub Pages)
       - feat/multi-arch-deployement
-      - develop # 🚧 Staging (Cloudflare Pages)
-      - "feat/**" # 🔍 Preview (Cloudflare Pages)
-      - "fix/**" # 🐛 Bugfix Preview
-      - "hotfix/**" # 🚨 Hotfix Preview
+      - develop
+      - "feat/**"
+      - "fix/**"
+      - "hotfix/**"
   pull_request:
-    branches: [main, develop, feat/multi-arch-deployement] # 📝 PR Preview (Cloudflare Pages)
+    branches: [main, develop, feat/multi-arch-deployement]
 
 env:
   NODE_VERSION: 20
