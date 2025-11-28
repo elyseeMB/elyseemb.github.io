@@ -3,6 +3,7 @@ import sitemap from "@astrojs/sitemap";
 import preact from "@astrojs/preact";
 import markdoc from "@astrojs/markdoc";
 import mdx from "@astrojs/mdx";
+import { langs } from "./config.ts";
 
 import tailwindcss from "@tailwindcss/vite";
 
@@ -11,8 +12,17 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
+  prefetch: false,
+  trailingSlash: "never",
+  build: {
+    format: "file",
+  },
 
   site: "https://eembouz.com/",
+  i18n: {
+    locales: [...langs, "fr"],
+    defaultLocale: "fr",
+  },
 
   image: {
     service: passthroughImageService(),

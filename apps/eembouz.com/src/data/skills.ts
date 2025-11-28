@@ -1,4 +1,6 @@
+import { getTranslator } from "../libs/i18n.ts";
 import type { Projet, Skill } from "../types/skills.ts";
+const __ = await getTranslator(navigator.language.split("-").at(0));
 
 export const skills: Skill[] = [
   {
@@ -7,8 +9,9 @@ export const skills: Skill[] = [
       {
         name: "React",
         href: "https://react.dev/",
-        description:
-          "Librairie JavaScript pour créer des interfaces avec des composants réutilisables.",
+        description: __(
+          "Librairie JavaScript pour créer des interfaces avec des composants réutilisables."
+        ),
       },
       {
         name: "Vue",

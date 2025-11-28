@@ -1,9 +1,11 @@
 ---
 import { skills } from "../data/skills";
+import { getTranslator } from "../libs/i18n.ts";
+const __ = await getTranslator(Astro.currentLocale);
 ---
 
 <section class="skills">
-  <h3 class="skills__title">favorite tech</h3>
+  <h3 class="skills__title">{__("favorite tech")}</h3>
   <div class="grid">
     {
       skills.map((skill) => (
@@ -14,10 +16,10 @@ import { skills } from "../data/skills";
                 <div class="link">
                   <li class="framework">
                     <a href={framework.href}>
-                      <span class="framework__name"> {framework.name}</span>
+                      <span class="framework__name"> {__(framework.name)}</span>
                     </a>
                     <span class="framework__description">
-                      {framework.description}
+                      {__(framework.description ?? "")}
                     </span>
                   </li>
                 </div>

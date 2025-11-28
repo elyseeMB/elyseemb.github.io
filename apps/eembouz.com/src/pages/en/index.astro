@@ -1,0 +1,25 @@
+---
+import Hero from "../../components/Hero.astro";
+import type { CollectionEntry } from "astro:content";
+import Skills from "../../components/Skills.astro";
+import Projects from "../../components/Projets.astro";
+import Layout from "../../layouts/Layout.astro";
+import Inspiration from "../../components/Inspiration.astro";
+import Hoobies from "../../components/Hoobies.astro";
+import { getTranslator } from "../../libs/i18n.ts";
+
+export type PropsProjet = CollectionEntry<"projects">;
+const __ = await getTranslator(Astro.currentLocale);
+---
+
+<Layout>
+  <div class="container-narrow">
+    <div class="container">
+      <Hero />
+      <Skills />
+      <Projects />
+      <Inspiration />
+      <Hoobies />
+    </div>
+  </div>
+</Layout>

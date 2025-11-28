@@ -37,7 +37,7 @@ const displayedArticles = limit ? articles.slice(0, limit) : articles;
           <a href={`${Astro.url.pathname}articles/${article.params.slug}`}>
             <article class="item">
               <div class="item__info">
-                <h3 class="item__title">{article.data.title}</h3>
+                <h3 class="item__title">{article.props.data.title}</h3>
                 <div class="meta">
                   <span>
                     {new Intl.DateTimeFormat("fr", {

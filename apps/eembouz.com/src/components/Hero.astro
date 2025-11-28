@@ -1,10 +1,13 @@
 ---
 import HeroComponent from "@portfolio/ui/Hero";
+import { getTranslator } from "../libs/i18n.ts";
+const __ = await getTranslator(Astro.currentLocale);
 ---
 
 <HeroComponent
   title="Elysee Mboussa"
   job="solfware engineer"
-  description=`Ingénieur logiciel, Je conçois des solutions numériques fiables et durables. Sur Mon blog, je partage mon parcours créatif et technologique.
-  `
+  description={__(
+    "Ingénieur logiciel, Je conçois des solutions numériques fiables et durables. Sur Mon blog, je partage mon parcours créatif et technologique."
+  )}
 />
