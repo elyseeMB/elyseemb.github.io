@@ -30,13 +30,13 @@ const inspirations = defineCollection({
   }),
 });
 
-const hoobies = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.json", base: "./src/data/hoobies" }),
-  schema: z.object({
-    name: z.string(),
-    url: z.string(),
-  }),
-});
+// const hoobies = defineCollection({
+//   loader: glob({ pattern: "**/[^_]*.json", base: "./src/data/hoobies" }),
+//   schema: z.object({
+//     name: z.string(),
+//     url: z.string(),
+//   }),
+// });
 
 const gallery = defineCollection({
   type: "data",
@@ -50,4 +50,4 @@ const gallery = defineCollection({
   }),
 });
 
-export const collections = { projects, inspirations, hoobies, gallery };
+export const collections = { projects, inspirations, gallery };

@@ -27,8 +27,6 @@ Le lazy fonctionne en attendant qu'une promise se résolve vers un module qui co
 
 ### Code d'exemple basique
 
-<br />
-
 ```js
 import { lazy } from "react";
 const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"));
@@ -166,8 +164,6 @@ const tryImport = async (): Promise<{ default: ComponentType<any> }> => {
 Encapsuler `attempt` permet de garder le compteur de retry local à chaque tentative de chargement, évitant les conflits ou réinitialisations inattendues dans un environnement React où le lazy loading peut être évalué plusieurs fois.
 
 ### Le résultat :
-
-<br />
 
 ```js
 import { lazy as reactLazy, type ComponentType, type FC } from "react";
