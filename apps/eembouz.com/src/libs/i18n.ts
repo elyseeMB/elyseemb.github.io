@@ -12,7 +12,11 @@ export async function getTranslator(lang: string = "fr") {
   if (!translations.has(lang)) {
     throw new Error(`Cannot find translations for ${lang}`);
   }
+
   return (s: string) => {
+    // if (translations.get(lang)?.get(s) === "") {
+    //   return s;
+    // }
     return translations.get(lang)?.get(s) ?? s;
   };
 }

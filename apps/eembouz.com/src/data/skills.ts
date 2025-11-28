@@ -16,14 +16,16 @@ export const skills: Skill[] = [
       {
         name: "Vue",
         href: "https://vuejs.org/",
-        description:
-          "Framework simple et flexible pour construire des interfaces interactives.",
+        description: __(
+          "Framework simple et flexible pour construire des interfaces interactives."
+        ),
       },
       {
         name: "Astro",
         href: "https://astro.build/",
-        description:
-          "Framework orienté performance pour créer des sites statiques modernes.",
+        description: __(
+          "Framework orienté performance pour créer des sites statiques modernes."
+        ),
       },
     ],
   },
@@ -33,18 +35,19 @@ export const skills: Skill[] = [
       {
         name: "AdonisJS",
         href: "https://adonisjs.com/",
-        description:
-          "Framework Node.js complet, inspiré de Laravel, idéal pour les API.",
+        description: __(
+          "Framework Node.js complet, inspiré de Laravel, idéal pour les API."
+        ),
       },
       {
         name: "Fastify",
         href: "https://fastify.dev/",
-        description: "Framework backend rapide et léger pour Node.js.",
+        description: __("Framework backend rapide et léger pour Node.js."),
       },
       {
         name: "Golang",
         href: "https://go.dev/",
-        description: "Langage compilé, rapide et concurrent.",
+        description: __("Langage compilé, rapide et concurrent."),
       },
     ],
   },
@@ -54,17 +57,19 @@ export const skills: Skill[] = [
       {
         name: "PostgreSQL",
         href: "https://www.postgresql.org/",
-        description: "Base de données relationnelle robuste et open source.",
+        description: __(
+          "Base de données relationnelle robuste et open source."
+        ),
       },
       {
         name: "MySQL",
         href: "https://www.mysql.com/",
-        description: "SGBD populaire, rapide et facile à intégrer.",
+        description: __("SGBD populaire, rapide et facile à intégrer."),
       },
       {
         name: "SQLite",
         href: "https://www.sqlite.org/",
-        description: "Base de données légère et embarquée, sans serveur.",
+        description: __("Base de données légère et embarquée, sans serveur."),
       },
     ],
   },
@@ -74,33 +79,29 @@ export const skills: Skill[] = [
       {
         name: "Git",
         href: "https://git-scm.com/",
-        description: "Système de versionnement pour collaborer efficacement.",
+        description: __(
+          "Système de versionnement pour collaborer efficacement."
+        ),
       },
       {
         name: "Docker",
         href: "https://www.docker.com/",
-        description:
-          "Conteneurisation d’applications pour une meilleure portabilité.",
+        description: __(
+          "Conteneurisation d’applications pour une meilleure portabilité."
+        ),
       },
       {
         name: "Linux",
         href: "https://www.linux.org/",
-        description:
-          "Système d’exploitation stable, utilisé en développement et en production.",
+        description: __(
+          "Système d’exploitation stable, utilisé en développement et en production."
+        ),
       },
       {
         name: "Ansible",
         href: "https://docs.ansible.com/ansible/latest/index.html",
-        description: "Outil d’automatisation pour la gestion des serveurs.",
+        description: __("Outil d’automatisation pour la gestion des serveurs."),
       },
     ],
-  },
-];
-
-export const projets: Projet[] = [
-  {
-    name: "ERP de gestion",
-    description: "",
-    href: "",
   },
 ];
