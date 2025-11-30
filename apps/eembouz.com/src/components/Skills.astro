@@ -1,7 +1,9 @@
 ---
-import { skills } from "../data/skills";
+import { getSkills } from "../data/skills";
 import { getTranslator } from "../libs/i18n.ts";
-const __ = await getTranslator(Astro.currentLocale);
+const lang = Astro.currentLocale;
+const __ = await getTranslator(lang);
+const skills = await getSkills(lang);
 ---
 
 <section class="skills">
