@@ -15,7 +15,7 @@ export default defineConfig({
   trailingSlash: "ignore",
   site: "https://blog.eembouz.com/",
   build: {
-    format: "file",
+    format: "directory",
   },
 
   image: {

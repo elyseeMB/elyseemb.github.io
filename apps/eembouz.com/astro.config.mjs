@@ -15,7 +15,7 @@ export default defineConfig({
   prefetch: false,
   trailingSlash: "ignore",
   build: {
-    format: "file",
+    format: "directory",
   },
 
   site: "https://eembouz.com/",
