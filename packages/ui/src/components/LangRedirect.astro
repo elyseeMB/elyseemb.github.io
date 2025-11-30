@@ -1,0 +1,54 @@
+---
+import { langs } from "../../../config.js";
+---
+
+<script define:vars={{ langs }}>
+  /**
+   *
+   * @param str {string}
+   * @param char {string}
+   * @returns {string}
+   */
+  function trim(str, char) {
+    if (char.length !== 1) {
+      throw new Error("");
+    }
+    // Fast pointer-based trim of a single character from both ends.
+    // Avoids regex and allocations; uses code-point comparison for speed.
+    if (str == null || str.length === 0) return str;
+    if (!char) return str;
+
+    const c = char.charCodeAt(0);
+    let start = 0;
+    let end = str.length - 1;
+    while (start <= end && str.charCodeAt(start) === c) start++;
+    while (end >= start && str.charCodeAt(end) === c) end--;
+    return str.slice(start, end + 1);
+  }
+
+  function redirectLang() {
+    const lang = localStorage.getItem("lang");
+    // The check was already done in the past, do nothing
+    if (lang !== null) {
+      return;
+    }
+
+    for (const lang of langs) {
+      if (!navigator.language.includes(lang)) {
+        continue;
+      }
+
+      // User is already on a translated content, do nothing
+      if (window.location.href.includes(`/${lang}`)) {
+        localStorage.setItem("lang", lang);
+        continue;
+      }
+
+      // Redirect to the translated content
+      localStorage.setItem("lang", lang);
+      window.location.href =
+        "/" + trim(`${lang}${window.location.pathname}`, "/");
+    }
+  }
+  redirectLang();
+</script>

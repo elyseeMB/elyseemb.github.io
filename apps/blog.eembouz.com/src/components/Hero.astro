@@ -1,8 +1,12 @@
 ---
 import HeroComponent from "@portfolio/ui/Hero";
+import { getTranslator } from "../libs/i18n.ts";
+const __ = await getTranslator(Astro.currentLocale);
 ---
 
 <HeroComponent
-  title="Blog - Conseils, découvertes et inspirations"
-  description="Curieux de sciences, développeur, compositeur et amateur d’art. Je partage mes réflexions sur la programmation, la musique, la science ou parfois des analyses originales sur la littérature."
+  title={__("Blog - Conseils, découvertes et inspirations")}
+  description={__(
+    "Curieux de sciences, développeur, compositeur et amateur d’art. Je partage mes réflexions sur la programmation, la musique, la science ou parfois des analyses originales sur la littérature."
+  )}
 />
