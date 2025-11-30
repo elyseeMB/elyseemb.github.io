@@ -3,15 +3,16 @@ import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import { Search } from "../../components/search/Search.tsx";
 import Blog from "../../components/Blog.astro";
+import { getTranslator } from "../../libs/i18n.ts";
 
 const articles = await getCollection("blog");
+const __ = await getTranslator(Astro.currentLocale);
 ---
 
 <Layout>
   <div class="container container-narrow">
     <section class="blog-posts">
-      <h3>Tous mes articles</h3>
-      <Search articles={articles} client:load />
+      <h3>{__("Tous mes articles")}</h3>
       <Blog />
     </section>
   </div>
@@ -19,9 +20,9 @@ const articles = await getCollection("blog");
 
 <style>
   .blog-posts h3 {
-    font-style: italic;
+    font-family: "Inter" !important;
     font-weight: 100;
-    font-size: 3rem !important;
+    font-size: 2rem !important;
   }
 
   .blog-posts {

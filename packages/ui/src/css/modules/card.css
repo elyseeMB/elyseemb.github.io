@@ -1,17 +1,15 @@
 .card {
   --rounded-card: 0.5rem;
   --gap: 1rem;
-  min-height: 400px;
   display: grid;
   grid-template-columns: 1fr;
-  align-content: space-between;
   gap: 1.5rem;
   border: var(--border);
   transition: box-shadow 0.25s cubic-bezier(0.645, 0.045, 0.355, 1),
     transform 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   padding: var(--gap);
-  padding-bottom: 0;
   border-radius: var(--rounded-card);
+  place-content: space-between;
 }
 
 .card__header {

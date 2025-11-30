@@ -7,8 +7,8 @@ export default function DisplayList() {
     <div class="stack__pattern">
       {designPatterns.map((pattern) => (
         <article style={{ "--bg": `var(--${pattern.slug})` }} class="card">
-          <h2>{pattern.name}</h2>
-          <h3>{pattern.description}</h3>
+          <span>{pattern.name}</span>
+          <span>{pattern.description}</span>
         </article>
       ))}
     </div>

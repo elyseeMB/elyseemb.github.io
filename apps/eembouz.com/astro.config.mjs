@@ -22,6 +22,9 @@ export default defineConfig({
   i18n: {
     locales: [...langs, "fr"],
     defaultLocale: "fr",
+    fallback: {
+      en: "en",
+    },
   },
 
   image: {
