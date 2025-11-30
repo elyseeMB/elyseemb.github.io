@@ -1,50 +1,5 @@
----
-import Scripts from "../components/Scripts.astro";
-import Seo from "../components/Seo.astro";
-import Footer from "../components/shared/Footer.astro";
-import Header from "../components/shared/Header.astro";
-
-import "@portfolio/ui/GlobalCSS";
-import LangRedirect from "@portfolio/ui/LangRedirect";
-
-const {
-  title,
-  description,
-  author,
-  publishedDate,
-  image,
-  url = Astro.url.href,
-  typeContent,
-} = Astro.props;
----
-
-<!doctype html>
-<html lang="fr">
-  <Seo
-    title={title}
-    author={author}
-    publishedDate={publishedDate}
-    description={description}
-    typeContent={typeContent}
-    image={image}
-    url={url}
-  />
-  <Scripts />
-
-  <body>
-    <div class="bg-noise">
-      <div class="page-wrapper">
-        <Header />
-        <slot />
-        <Footer />
-      </div>
-    </div>
-    <LangRedirect client:load />
-  </body>
-</html>
-
 <script>
-  import { langs } from "../../config.ts";
+  import { langs } from "../../../config.js";
 
   export function trim(str: string, char: string): string {
     if (char.length !== 1) {
