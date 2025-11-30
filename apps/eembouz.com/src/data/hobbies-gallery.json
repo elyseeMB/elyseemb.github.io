@@ -14,7 +14,7 @@
   {
     "src": "/gallery/music1.gif",
     "width": 300,
-    "height": 800,
+    "height": 400,
     "title": "Autre GIF"
   },
   {
@@ -32,13 +32,13 @@
 
   {
     "src": "/gallery/sport2.gif",
-    "width": 200,
+    "width": 500,
     "height": 700,
     "title": "Autre GIF"
   },
   {
     "src": "/gallery/art.gif",
-    "width": 400,
+    "width": 200,
     "height": 200,
     "title": "Autre GIF"
   },
@@ -50,20 +50,14 @@
   },
   {
     "src": "/gallery/cuisine3.gif",
-    "width": 400,
-    "height": 200,
+    "width": 100,
+    "height": 100,
     "title": "Autre GIF"
   },
   {
     "src": "/gallery/cuisine2.gif",
-    "width": 100,
-    "height": 200,
-    "title": "Autre GIF"
-  },
-  {
-    "src": "/gallery/tech.gif",
     "width": 200,
-    "height": 200,
+    "height": 600,
     "title": "Autre GIF"
   }
 ]
