@@ -1,7 +1,13 @@
-<script>
+<script is:inline>
   import { langs } from "../../../config.js";
 
-  export function trim(str: string, char: string): string {
+  /**
+   *
+   * @param str {string}
+   * @param char {string}
+   * @returns {string}
+   */
+  export function trim(str, char) {
     if (char.length !== 1) {
       throw new Error("");
     }
@@ -42,6 +48,5 @@
         "/" + trim(`${lang}${window.location.pathname}`, "/");
     }
   }
-  // Disable lang redirection while the translations are being worked
   redirectLang();
 </script>
