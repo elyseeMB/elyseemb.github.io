@@ -13,7 +13,7 @@ export default defineConfig({
     enabled: false,
   },
   prefetch: false,
-  trailingSlash: "never",
+  trailingSlash: "ignore",
   build: {
     format: "file",
   },

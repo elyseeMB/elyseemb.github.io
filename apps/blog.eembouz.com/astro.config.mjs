@@ -12,7 +12,7 @@ export default defineConfig({
     enabled: false,
   },
   prefetch: false,
-  trailingSlash: "never",
+  trailingSlash: "ignore",
   site: "https://blog.eembouz.com/",
   build: {
     format: "file",
