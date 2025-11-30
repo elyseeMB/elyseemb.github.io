@@ -1,0 +1,235 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import ReadingTime from "../../../components/ReadingTime.astro";
+import { Outline } from "../../../components/Outline.jsx";
+import { filterLang, getTranslator } from "../../../libs/i18n.js";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection("blog", filterLang("en"));
+  return posts.map((post) => ({
+    params: { id: post.id.split("/").at(-1) },
+    props: { post },
+  }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+
+const { Content, remarkPluginFrontmatter } = await render(post);
+
+const { seo: seoProps, title, taxonomies, author, pubDate } = post.data;
+
+const getTaxonomies = await Promise.all(
+  taxonomies
+    ? taxonomies?.map(
+        async (taxonomy) => await getEntry(taxonomy.collection, taxonomy.id)
+      )
+    : []
+);
+
+const formatDate = Intl.DateTimeFormat(Astro.currentLocale, {
+  dateStyle: "long",
+}).format(pubDate);
+const writer = await getEntry(author.collection, author.id);
+
+const metaData = {
+  title: post.data.title,
+  description: post.data.summary,
+  image: post.data.thumbnail,
+  url: Astro.url.href,
+  author: author.id,
+  publishedDate: pubDate?.toISOString(),
+};
+
+const seo = seoProps ? seoProps : metaData;
+const __ = await getTranslator(Astro.currentLocale);
+---
+
+<Layout {...seo}>
+  <section data-markdown>
+    <div class="container">
+      <div class="container-narrow">
+        <div class="info">
+          <h1>{title}</h1>
+
+          <div class="meta">
+            <span>
+              {formatDate.toString()} ·
+              {writer?.data.name}
+            </span>
+            <ReadingTime time={remarkPluginFrontmatter.stats.minutes} />
+
+            <div class="tags">
+              {
+                getTaxonomies.map((taxonomy) => (
+                  <div class="tag">{taxonomy?.data.name}</div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="container-narrow">
+        <div class="heading">
+          <div class="cover">
+            <!-- <img src={thumbnail} alt="" /> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="wrapper-content">
+        <div class="content prose prose-md">
+          <Content />
+        </div>
+        <div class="wrapper-outline">
+          <Outline data-outline client:load />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  body .page-wrapper {
+    background: red !important;
+  }
+
+  .container,
+  .wrapper-content {
+    overflow: visible;
+  }
+
+  .article__paragraph {
+    padding-block: 1rem;
+  }
+
+  .description {
+    padding-block: 3rem;
+  }
+
+  .info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .wrapper-content {
+    max-width: 700px;
+    display: block;
+  }
+
+  .wrapper-outline {
+    display: none;
+  }
+
+  @media screen and (min-width: 1200px) {
+    .wrapper-content {
+      width: 100%;
+      display: grid !important;
+      grid-template-columns: 1fr 550px 1fr !important;
+      padding: 0;
+    }
+
+    .wrapper-outline {
+      display: block;
+      grid-column: 3;
+      margin-bottom: 5rem;
+    }
+
+    .content {
+      width: 550px;
+      grid-column: 2;
+      padding-bottom: 5rem;
+    }
+  }
+
+  .content {
+    padding-bottom: 5rem;
+  }
+
+  h1 {
+    text-align: left;
+    padding-top: 2rem;
+  }
+
+  .cover {
+    width: 100%;
+  }
+
+  .meta {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    gap: 0.5rem;
+    padding-bottom: 4rem;
+    font-family: "JetBrains Mono" !important;
+    & > * {
+      font-family: "JetBrains Mono" !important;
+      letter-spacing: -0.5px;
+    }
+  }
+
+  @media screen and (max-width: 750px) {
+    .wrapper-content {
+      padding-inline: var(--container-padding);
+    }
+  }
+
+  @media screen and (max-width: 590px) {
+    .container-narrow .info .tags {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  @media screen and (min-width: 1300px) {
+    .heading {
+      img {
+        max-height: 500px;
+      }
+    }
+  }
+  /* 
+  .content {
+    p,
+    ul,
+    li,
+    ol,
+    table,
+    tr,
+    td,
+    th {
+      color: var(--color-primary);
+    }
+
+    strong {
+      font-weight: 900;
+    }
+  }
+
+  .content {
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      padding-top: 1.5rem;
+      letter-spacing: normal;
+      font-family: "Inter" !important;
+      color: white;
+      font-weight: 700;
+    }
+  } */
+</style>

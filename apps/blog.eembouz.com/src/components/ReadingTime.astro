@@ -1,12 +1,15 @@
 ---
+import { getTranslator } from "../libs/i18n.ts";
+
 interface Props {
   time: number;
 }
 
 const { time } = Astro.props;
+const __ = await getTranslator(Astro.currentLocale);
 ---
 
-<span> {Math.ceil(time) + " " + "min"} de lecture</span>
+<span> {Math.ceil(time) + " " + "min"} {__("de lecture")} </span>
 
 <style>
   span {

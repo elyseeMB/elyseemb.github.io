@@ -3,13 +3,14 @@ import type { GetStaticPaths } from "astro";
 import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import { filterLang } from "../../libs/i18n.ts";
 
 interface Props {
   project: CollectionEntry<"projects">;
 }
 
 export const getStaticPaths = (async () => {
-  const projects = await getCollection("projects");
+  const projects = await getCollection("projects", filterLang("fr"))
   return projects.map((project) => ({
     params: { id: project.id },
     props: { project },

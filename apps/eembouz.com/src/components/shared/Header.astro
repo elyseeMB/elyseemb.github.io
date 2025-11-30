@@ -1,5 +1,7 @@
 ---
 import HeaderComponent from "@portfolio/ui/Header";
+import { getTranslator } from "../../libs/i18n.ts";
+const __ = await getTranslator(Astro.currentLocale);
 ---
 
 <div class="container-narrow">
@@ -17,7 +19,7 @@ import HeaderComponent from "@portfolio/ui/Header";
             ></path></svg
           >
         </span>
-        <a href="mailto:contact@eembouz.com">Me contactez</a>
+        <a href="mailto:contact@eembouz.com"> {__("Me contactez")} </a>
       </button>
     </div>
   </HeaderComponent>

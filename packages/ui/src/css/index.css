@@ -76,3 +76,18 @@ body {
 pre {
   text-wrap: wrap;
 }
+
+@layer utilities {
+  .container {
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  .prose h2 {
+    font-size: 1.2rem !important;
+  }
+
+  .prose h3 {
+    font-size: 1rem !important;
+  }
+}

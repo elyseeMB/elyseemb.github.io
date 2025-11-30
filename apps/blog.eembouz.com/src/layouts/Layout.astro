@@ -20,21 +20,20 @@ const {
 
 <!doctype html>
 <html lang="fr">
-  <head>
-    <Seo
-      title={title}
-      author={author}
-      publishedDate={publishedDate}
-      description={description}
-      typeContent={typeContent}
-      image={image}
-      url={url}
-    />
-    <Scripts />
-  </head>
+  <Seo
+    title={title}
+    author={author}
+    publishedDate={publishedDate}
+    description={description}
+    typeContent={typeContent}
+    image={image}
+    url={url}
+  />
+  <Scripts />
+
   <body>
     <div class="bg-noise">
-      <div class="page-wrapper mx-auto max-w-max">
+      <div class="page-wrapper">
         <Header />
         <slot />
         <Footer />
@@ -43,91 +42,50 @@ const {
   </body>
 </html>
 
-<ClientRouter />
+<script>
+  import { langs } from "../../config.ts";
 
-<style is:global>
-  /* Configuration globale des transitions */
-  @view-transition {
-    navigation: auto;
-  }
-
-  /* Animation plus fluide et naturelle pour tous les éléments */
-  ::view-transition-group(*) {
-    animation-duration: 0.4s;
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* Animation spécifique pour les titres d'articles */
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation-duration: 0.3s;
-    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-    mix-blend-mode: normal;
-  }
-
-  /* Amélioration : transition plus douce pour le titre */
-  ::view-transition-group(*) {
-    animation-duration: 0.5s;
-    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  /* Fade out/in plus subtil pour l'ancienne version */
-  ::view-transition-old(*) {
-    animation-name: slide-and-fade-out;
-  }
-
-  /* Fade in plus naturel pour la nouvelle version */
-  ::view-transition-new(*) {
-    animation-name: slide-and-fade-in;
-  }
-
-  /* Animation personnalisée : sortie */
-  @keyframes slide-and-fade-out {
-    from {
-      opacity: 1;
-      transform: translateY(0) scale(1);
+  export function trim(str: string, char: string): string {
+    if (char.length !== 1) {
+      throw new Error("");
     }
-    to {
-      opacity: 0;
-      transform: translateY(-20px) scale(0.98);
+    // Fast pointer-based trim of a single character from both ends.
+    // Avoids regex and allocations; uses code-point comparison for speed.
+    if (str == null || str.length === 0) return str;
+    if (!char) return str;
+
+    const c = char.charCodeAt(0);
+    let start = 0;
+    let end = str.length - 1;
+    while (start <= end && str.charCodeAt(start) === c) start++;
+    while (end >= start && str.charCodeAt(end) === c) end--;
+    return str.slice(start, end + 1);
+  }
+
+  function redirectLang() {
+    const lang = localStorage.getItem("lang");
+    // The check was already done in the past, do nothing
+    if (lang !== null) {
+      return;
+    }
+
+    for (const lang of langs) {
+      if (!navigator.language.includes(lang)) {
+        continue;
+      }
+
+      // User is already on a translated content, do nothing
+      if (window.location.href.includes(`/${lang}`)) {
+        localStorage.setItem("lang", lang);
+        continue;
+      }
+
+      // Redirect to the translated content
+      localStorage.setItem("lang", lang);
+      window.location.href =
+        "/" + trim(`${lang}${window.location.pathname}`, "/");
     }
   }
-
-  /* Animation personnalisée : entrée */
-  @keyframes slide-and-fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(20px) scale(0.98);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  /* Désactiver les transitions par défaut qui peuvent être "cheap" */
-  ::view-transition-image-pair(root) {
-    isolation: auto;
-  }
-
-  /* Fade général de la page pour un effet SPA */
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation-duration: 0.3s;
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* Overlay subtil pendant la transition */
-  ::view-transition-group(root) {
-    animation-duration: 0.3s;
-  }
-
-  /* Pour les appareils qui préfèrent moins d'animation */
-  @media (prefers-reduced-motion: reduce) {
-    ::view-transition-group(*),
-    ::view-transition-old(*),
-    ::view-transition-new(*) {
-      animation-duration: 0.01ms !important;
-    }
-  }
-</style>
+  // Disable lang redirection while the translations are being worked
+  redirectLang();
+</script>

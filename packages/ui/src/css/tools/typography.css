@@ -21,20 +21,6 @@ h1 {
   line-height: 0.9;
 }
 
-@media screen and (max-width: 900px) {
-  h1 {
-    letter-spacing: -2.5px;
-    line-height: 1;
-    font-size: 4rem;
-  }
-}
-
-@media screen and (min-width: 1350px) {
-  h1 {
-    font-size: 8rem;
-  }
-}
-
 h2:not(:where([data-markdown] *)) {
   font-family: "Instrument Serif" !important;
   font-size: 2rem;
@@ -43,6 +29,29 @@ h2:not(:where([data-markdown] *)) {
 h3:not(:where([data-markdown] *)) {
   font-family: "Instrument Serif" !important;
   font-size: 1.4rem;
+}
+
+:where([data-markdown]) {
+  h1 {
+    font-family: "Inter" !important;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.2rem !important;
+  }
+
+  .outline__wrapper {
+    ul li {
+      font-family: "Inter" !important;
+    }
+  }
+
+  p,
+  ul,
+  ul li,
+  em,
+  strong {
+    font-family: "IBM Plex Serif" !important;
+  }
 }
 
 p:not(:where([data-markdown] *)) {
