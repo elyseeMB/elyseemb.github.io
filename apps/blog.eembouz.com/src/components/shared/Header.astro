@@ -1,12 +1,13 @@
 ---
 import HeaderComponent from "@portfolio/ui/Header";
+import { getLink } from "../../libs/i18n.ts";
 ---
 
 <div class="container-narrow">
   <HeaderComponent>
     <div class="actions">
       <a href="https://eembouz.com"> Portfolio</a>
-      <a href="/articles">tous mes articles</a>
+      <a href={getLink(Astro, "/articles")}>tous mes articles</a>
     </div>
   </HeaderComponent>
 </div>

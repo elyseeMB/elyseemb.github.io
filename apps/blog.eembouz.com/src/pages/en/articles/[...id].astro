@@ -5,24 +5,20 @@ import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
 import Layout from "../../../layouts/Layout.astro";
 import ReadingTime from "../../../components/ReadingTime.astro";
-import { Outline } from "../../../components/Outline.tsx";
+import { Outline } from "../../../components/Outline.jsx";
 
 interface Props {
   post: CollectionEntry<"blog">;
-  lang: string;
 }
 
 export const getStaticPaths = (async () => {
   const posts = await getCollection("blog", ({ data }) => {
     return import.meta.env.DEV ? data.isDraft !== true : true;
   });
-
-  return posts.map((post) => {
-    return {
-      params: { id: post.id },
-      props: { post },
-    };
-  });
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
 }) satisfies GetStaticPaths;
 
 const { post } = Astro.props;
@@ -57,7 +53,7 @@ const seo = seoProps ? seoProps : metaData;
 ---
 
 <Layout {...seo}>
-  <section>
+  <section data-markdown>
     <div class="container">
       <div class="container-narrow">
         <div class="info">
@@ -92,11 +88,11 @@ const seo = seoProps ? seoProps : metaData;
 
     <div class="container">
       <div class="wrapper-content">
-        <div class="content">
+        <div class="content prose prose-md">
           <Content />
         </div>
         <div class="wrapper-outline">
-          <Outline client:load />
+          <Outline data-outline client:load />
         </div>
       </div>
     </div>
@@ -124,7 +120,7 @@ const seo = seoProps ? seoProps : metaData;
   .info {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
   .wrapper-content {
@@ -164,13 +160,6 @@ const seo = seoProps ? seoProps : metaData;
   h1 {
     text-align: left;
     padding-top: 2rem;
-    letter-spacing: -5px;
-    white-space: normal;
-    word-break: break-word;
-    line-height: 0.9;
-    font-weight: 100;
-    font-size: 5rem;
-    font-style: italic;
   }
 
   .cover {
@@ -181,8 +170,8 @@ const seo = seoProps ? seoProps : metaData;
     display: flex;
     flex-direction: column;
     font-size: 0.9rem;
-    gap: 1rem;
-    padding-block: 1rem;
+    gap: 0.5rem;
+    padding-bottom: 4rem;
     font-family: "JetBrains Mono" !important;
     & > * {
       font-family: "JetBrains Mono" !important;
@@ -210,7 +199,7 @@ const seo = seoProps ? seoProps : metaData;
       }
     }
   }
-
+  /* 
   .content {
     p,
     ul,
@@ -240,5 +229,5 @@ const seo = seoProps ? seoProps : metaData;
       color: white;
       font-weight: 700;
     }
-  }
+  } */
 </style>

@@ -1,1 +1,24 @@
-<meta http-equiv="refresh" content="0;url=/fr/" />
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import Blog from "../components/Blog.astro";
+
+export type PropsBlog = CollectionEntry<"blog">;
+
+const articles = await getCollection("blog");
+---
+
+<Layout>
+  <div class="container home">
+    <Hero />
+    {articles.length >= 1 && <Blog title="Mes derniers articles" />}
+  </div>
+</Layout>
+
+<style>
+  .home {
+    overflow: hidden;
+  }
+</style>

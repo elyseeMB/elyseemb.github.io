@@ -45,6 +45,29 @@ h3:not(:where([data-markdown] *)) {
   font-size: 1.4rem;
 }
 
+:where([data-markdown]) {
+  h1 {
+    font-family: "Inter" !important;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.2rem !important;
+  }
+
+  .outline__wrapper {
+    ul li {
+      font-family: "Inter" !important;
+    }
+  }
+
+  p,
+  ul,
+  ul li,
+  em,
+  strong {
+    font-family: "IBM Plex Serif" !important;
+  }
+}
+
 p:not(:where([data-markdown] *)) {
   color: var(--color-secondary);
   font-size: var(--size);
