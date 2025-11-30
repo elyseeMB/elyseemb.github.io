@@ -35,7 +35,7 @@
 }
 
 .container-narrow {
-  --container-width: 700px;
+  --container-width: 600px;
 }
 
 .page-wrapper {
@@ -43,6 +43,7 @@
   flex-direction: column;
   min-height: 100vh;
   width: 100%;
+  padding-top: 3rem;
 }
 
 .stack {

@@ -3,25 +3,125 @@ import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import { Search } from "../components/search/Search.tsx";
 import Blog from "../components/Blog.astro";
+import { filterLang, getTranslator } from "../libs/i18n.ts";
+import type { CollectionEntry } from "astro:content";
+import { array } from "astro:schema";
 
-const articles = await getCollection("blog");
+const allPages = await getCollection("blog", filterLang(Astro.currentLocale));
+
+const articles = allPages.map((page) => {
+  const [lang, ...slug] = page.id.split("/");
+  return {
+    params: { lang, slug: slug.join("/") || undefined },
+    props: page,
+  };
+});
+
+const { title, limit } = Astro.props;
+
+const displayedArticles = limit ? articles.slice(0, limit) : articles;
+
+function buildUrl(item: (typeof displayedArticles)[number]): string {
+  return (
+    "/" +
+    (item.props.id.includes("/")
+      ? item.props.id.replace("/", "/articles/")
+      : `articles/${item.props.id}`)
+  );
+}
+
+const __ = await getTranslator(Astro.currentLocale);
+
+function groupPostsByYear(posts: typeof displayedArticles) {
+  const postsByYear = [];
+
+  for (const post of posts) {
+    if (!post.props.data.pubDate) {
+      return;
+    }
+    const date = new Date(post.props.data.pubDate);
+    const year = date.getFullYear();
+    if (!postsByYear[year]) {
+      postsByYear[year] = [];
+    }
+    postsByYear[year].push(post);
+  }
+
+  for (const year of Object.keys(postsByYear)) {
+    postsByYear[year].sort((a, b) => {
+      if (!a.props.data.pubDate) return 1;
+      if (!b.props.data.pubDate) return -1;
+
+      return (
+        new Date(b.props.data.pubDate).getTime() -
+        new Date(a.props.data.pubDate).getTime()
+      );
+    });
+  }
+
+  return postsByYear;
+}
+
+const allPostsByYear = groupPostsByYear(displayedArticles);
+
+const doc = Object.keys(allPostsByYear)
+  .sort((a, b) => b - a)
+  .map((year) => ({
+    year: year,
+    items: allPostsByYear[year] as typeof displayedArticles,
+  }));
 ---
 
 <Layout>
   <div class="container container-narrow">
     <section class="blog-posts">
-      <h3>Tous mes articles</h3>
-      <Search articles={articles} client:load />
-      <Blog />
+      <h3 class="title">{__("Tous mes articles")}</h3>
+      <div class="divide-y divide-[var(--border-color)]">
+        {
+          doc.map((item) => (
+            <div class="flex flex-col md:flex-row gap-2 ">
+              <span class="text-[1.2rem] w-1/6 pt-4">{item.year}</span>
+
+              <div
+                data-list__articles
+                class="flex flex-1 flex-col divide-y divide-[var(--border-color)]"
+              >
+                {item.items.map((article) => (
+                  <a href={buildUrl(article)}>
+                    <article class="item flex items-center justify-between gap-4 py-4">
+                      <div class="item__info">
+                        <h3 class="item__title">{article.props.data.title}</h3>
+                      </div>
+                      <div>
+                        <div class="meta">
+                          <span>
+                            {new Intl.DateTimeFormat(Astro.currentLocale, {
+                              dateStyle: "short",
+                            }).format(article.props.data.pubDate)}
+                          </span>
+                        </div>
+                      </div>
+                    </article>
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
     </section>
   </div>
 </Layout>
 
 <style>
-  .blog-posts h3 {
-    font-style: italic;
+  .blog-posts h3.title {
+    font-family: "Inter" !important;
     font-weight: 100;
-    font-size: 4rem !important;
+    font-size: 2rem !important;
+  }
+
+  .item__title {
+    /* font-size: 1rem !important; */
   }
 
   .blog-posts {
