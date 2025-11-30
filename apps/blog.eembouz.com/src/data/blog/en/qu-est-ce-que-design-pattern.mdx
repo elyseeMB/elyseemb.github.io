@@ -1,0 +1,625 @@
+---
+title: "What is a Design Pattern?"
+author: elysee
+summary: "Design patterns are proven and validated solutions established by computing pioneers. They were conceived to structure and organize code in clear, readable, and efficient manners."
+thumbnail: "/design_pattern.png"
+taxonomies: ["best-practices-clean-code", "programming"]
+pubDate: 2025-07-12
+---
+
+import BlockDesignPattern from "../../../components/blog/pattern/BlockDesignPattern.tsx";
+import DisplayList from "../../../components/blog/pattern/DisplayList.tsx";
+
+<div class="blog-single">
+
+**Design patterns** are proven and validated solutions established by
+computing pioneers. They were conceived to **structure and organize
+code** in clear, readable, and efficient manners. The concept proposes
+**generic and reusable models** that facilitate **scalability** and
+**maintenance** of software systems while reducing common
+errors.
+
+## History
+
+**Design patterns** emerged from the desire to produce
+**scalable** and maintainable code, even if it initially meant **sacrificing
+some development comfort**. When technical teams
+observe that identical structures or solutions are **repeated multiple times in
+code** to resolve similar problem types, they eventually
+assign a **common name**. Thus the concept of **design
+patterns** was born: **named, generic, and reusable** solutions,
+documented to facilitate collaboration and comprehension in
+software projects.
+
+<blockquote>
+  <em>
+    Historically, the design pattern concept was inspired by the work of
+    **Christopher Alexander** in architecture, subsequently formalized in
+    computing by the **"Gang of Four"** in 1994. These patterns became an
+    indispensable foundation for structuring code, avoiding redundancies, and
+    facilitating large-scale application maintenance.
+  </em>
+</blockquote>
+
+## Why Should I Learn Patterns?
+
+In the majority of cases, you have probably already **utilized design
+patterns unknowingly**. This precisely distinguishes
+junior developers from senior developers: the capacity to recognize,
+comprehend, and consciously apply these structures. For example, **framework
+source code** (such as React, Laravel, AdonisJS, etc.) is replete with them.
+
+Once mastered, **design patterns** become a genuine **toolkit**
+for efficiently resolving common development problems.
+They will help you **think differently**, with more structure and perspective.
+Over time, this manner of reasoning becomes almost natural.
+
+## Classifications and Roles:
+
+This list is non-exhaustive and does not cover all design
+patterns you might encounter. We will concentrate on a
+particular model type: **architectural patterns**.
+
+These models can be implemented in **any programming
+language** and are called **universal patterns** or **high-level
+patterns**. They contrast with **idioms**, which are more
+specific solutions, language-particular and often low-level.
+
+<blockquote>
+- **Architectural patterns** define the global structure of an
+  application or system (e.g., MVC, Client-Server, Microservices).
+
+- **Design patterns** (in the more classical sense) concern
+  code organization within components (e.g., Singleton, Factory,
+  Observer).
+
+- **Idioms** are language-specific constructions that
+  exploit syntactic and semantic specificities.
+
+ </blockquote>
+
+<DisplayList client:only />
+
+---
+
+## Concrete Case: A Zustand Store Refactored According to Design Patterns
+
+To concretely illustrate design pattern benefits, consider a
+**real example** encountered during application construction.
+I utilize Zustand as a **global state management** solution. It's a
+simple yet powerful tool enabling on-the-fly store construction.
+
+However, advancing in development, the store becomes **complex,
+difficult to test or maintain**, and certain logics are duplicated.
+This is exactly the type of situation where **design patterns make complete
+sense**.
+
+In this section, we will **refactor this store step-by-step**,
+applying different design patterns. Each refactor will be **associated with a
+specific pattern**: Singleton, Factory, Observer, etc. This will enable
+understanding **both the theory** behind each model **and its
+practical application** in a modern context (React + Zustand).
+
+## Base Code
+
+Before beginning refactoring, here is **the Zustand store as it initially
+existed** in my project. It is functional and partially implemented
+certain patterns
+
+- Factory Method (partially)
+- Strategy
+
+```ts
+import { UnAuthenticatedError } from "@helpers/website";
+
+import {
+  createContext,
+  useContext,
+  useMemo,
+  type PropsWithChildren,
+} from "react";
+
+import { create, useStore as useZustandStore } from "zustand";
+
+import { combine, persist } from "zustand/middleware";
+
+import type { Account } from "./hooks/useAuth.ts";
+
+import type {
+  AccessLevels,
+  Courses,
+  Difficulties,
+  Statuses,
+} from "@api/website/types";
+
+export type ResourceMap = {
+  accessLevel: AccessLevels;
+
+  difficulties: Difficulties;
+
+  statuses: Statuses;
+};
+
+type State = {
+  account: undefined | null | Record<string, any>;
+
+  organization: Record<string, any>;
+
+  accesslevels: AccessLevels[];
+
+  difficulties: Difficulties[];
+
+  statuses: Statuses[];
+
+  courses: Courses[];
+};
+
+function getStateKey<T extends keyof ResourceMap>(
+  type: T
+): keyof Omit<State, "account" | "organization" | "courses"> {
+  switch (type) {
+    case "accessLevel":
+      return "accesslevels";
+
+    case "difficulties":
+      return "difficulties";
+
+    case "statuses":
+      return "statuses";
+
+    default:
+      throw new Error("Courses resource type " + type);
+  }
+}
+
+const createStore = () =>
+  create(
+    persist(
+      combine(
+        {
+          account: undefined as undefined | null | Account,
+
+          organization: {},
+
+          courses: [],
+
+          accesslevels: [],
+
+          difficulties: [],
+
+          statuses: [],
+        } as State,
+
+        (set) => ({
+          setResources: function <T extends keyof ResourceMap>(
+            type: T,
+
+            data: ResourceMap[T][]
+          ) {
+            const key = getStateKey(type);
+
+            return set({ [key]: data });
+          },
+
+          addResource: function <T extends keyof ResourceMap>(
+            type: T,
+
+            newData: ResourceMap[T]
+          ) {
+            const key = getStateKey(type);
+
+            return set((state) => ({
+              [key]: [...state[key], newData],
+            }));
+          },
+
+          updateResource: function <T extends keyof ResourceMap>(
+            type: T,
+
+            newData: ResourceMap[T]
+          ) {
+            const key = getStateKey(type);
+
+            return set((state) => ({
+              [key]: state[key].map((item) =>
+                item.id === newData.id ? { ...item, ...newData } : item
+              ),
+            }));
+          },
+
+          deleteResource: function <T extends keyof ResourceMap>(
+            type: T,
+
+            id: number
+          ) {
+            const key = getStateKey(type);
+
+            return set((state) => ({
+              [key]: state[key].filter((item) => item.id !== id),
+            }));
+          },
+
+          setCourses: (courses: Courses[]) => {
+            set({ courses });
+          },
+
+          addCourse: (course: Courses) => {
+            set((state) => ({
+              courses: [...state.courses, course],
+            }));
+          },
+
+          updateOrganization: (newDate: Record<string, any>) =>
+            set({ organization: newDate }),
+
+          updateAccount: (account: Account | null) => set({ account }),
+        })
+      ),
+
+      {
+        name: "account",
+      }
+    )
+  );
+
+type Store = ReturnType<typeof createStore>;
+
+type StoreState = Store extends {
+  getState: () => infer T;
+}
+  ? T
+  : never;
+
+const StoreContext = createContext<{ store?: Store }>({});
+
+export function StoreProvider({ children }: PropsWithChildren) {
+  const store = useMemo(() => createStore(), []);
+
+  return (
+    <StoreContext.Provider value={{ store: store }}>
+      {children}{" "}
+    </StoreContext.Provider>
+  );
+}
+
+export function useStore<T>(selector: (state: StoreState) => T) {
+  const store = useContext(StoreContext).store;
+
+  if (!store) {
+    throw new Error("A context need to be provider to use the store");
+  }
+
+  return useZustandStore(store, selector);
+}
+
+export type InferResourceType<T> = T extends keyof ResourceMap
+  ? ResourceMap[T]
+  : never;
+
+export function useResource<T extends keyof ResourceMap>(type: T) {
+  const key = getStateKey(type);
+
+  const list = useStore((state) => state[key]) as InferResourceType<T>[];
+
+  const setResources = useStore((state) => state.setResources);
+
+  const addResource = useStore((state) => state.addResource);
+
+  const updateResource = useStore((state) => state.updateResource);
+
+  const deleteResource = useStore((state) => state.deleteResource);
+
+  return {
+    list,
+
+    set: (data: InferResourceType<T>[]) => setResources(type, data),
+
+    add: (data: InferResourceType<T>) => addResource(type, data),
+
+    update: (data: InferResourceType<T>) => updateResource(type, data),
+
+    delete: (id: number) => deleteResource(type, id),
+  };
+}
+
+// ACCESS_LEVELS
+
+export function useAccessLevels() {
+  return useResource("accessLevel");
+}
+
+// DIFFICULTIES
+
+export function useDifficulties() {
+  return useResource("difficulties");
+}
+
+// STATUSES
+
+export function useStatuses() {
+  return useResource("statuses");
+}
+
+// COURSES
+
+export function useCourses() {
+  const list = useStore((state) => state.courses);
+
+  const setCourses = useStore((state) => state.setCourses);
+
+  const addCourses = useStore((state) => state.addCourse);
+
+  return {
+    list,
+
+    set: (data: Courses[]) => setCourses(data),
+
+    add: (data: Courses) => addCourses(data),
+  };
+}
+
+// ORGANISATION
+
+export function useOrganization() {
+  return useStore((state) => state.organization);
+}
+
+export function useUpdateOrganization() {
+  return useStore((state) => state.updateOrganization);
+}
+
+export function useUpdateAccount() {
+  return useStore((state) => state.updateAccount);
+}
+
+export function useIsAuth() {
+  const account = useStore((state) => state.account);
+
+  if (!account) {
+    throw new UnAuthenticatedError();
+  }
+
+  return {
+    ...account,
+  };
+}
+
+export function useAccount() {
+  const account = useStore((state) => state.account);
+
+  return {
+    ...account,
+  };
+}
+```
+
+### Refactored Version Objectives
+
+- Separate responsibilities.
+- Apply classical patterns.
+- Maintain clean and extensible API.
+
+## Singleton:
+
+A singleton ensures that only one instance of an object (preferably
+a class) is initialized, thus offering a single global
+initialization point. In our situation, we are in JavaScript where each
+object and module is unique in its execution context.
+
+— **Singleton Pattern**
+
+```ts
+import { create } from "zustand";
+import { combine, persist } from "zustand/middleware";
+import type { State, Store, ResourceKey, InferResourceType } from "./types";
+import { getStateKey } from "./factory";
+
+let storeInstance: Store | undefined;
+
+export const createStore = (): Store => {
+  if (storeInstance) return storeInstance;
+
+  storeInstance = create(
+    persist(
+      combine(
+        {
+          account: undefined,
+          organization: {},
+          courses: [],
+          accesslevels: [],
+          difficulties: [],
+          statuses: [],
+        } as State,
+        (set) => ({
+          updateAccount: (account) => set({ account }),
+          updateOrganization: (org) => set({ organization: org }),
+
+          setResources: <T extends ResourceKey>(
+            type: T,
+            data: InferResourceType<T>[]
+          ) => set({ [getStateKey(type)]: data }),
+
+          addResource: <T extends ResourceKey>(
+            type: T,
+            item: InferResourceType<T>
+          ) =>
+            set((state) => ({
+              [getStateKey(type)]: [...state[getStateKey(type)], item],
+            })),
+
+          updateResource: <T extends ResourceKey>(
+            type: T,
+            item: InferResourceType<T>
+          ) =>
+            set((state) => ({
+              [getStateKey(type)]: state[getStateKey(type)].map((i) =>
+                i.id === item.id ? { ...i, ...item } : i
+              ),
+            })),
+
+          deleteResource: <T extends ResourceKey>(type: T, id: number) =>
+            set((state) => ({
+              [getStateKey(type)]: state[getStateKey(type)].filter(
+                (i) => i.id !== id
+              ),
+            })),
+        })
+      ),
+      { name: "account" }
+    )
+  );
+
+  return storeInstance;
+};
+```
+
+This ensures a single Zustand store exists in the application, which is important
+to avoid inconsistencies or unnecessary re-renders in React `createStore()`
+in the React context.
+
+I will not revisit Zustand usage in detail here; that will be addressed in a forthcoming article.
+In brief:
+
+- **Combine**: is a middleware that enables state and action separation.
+- **Persist**: is a middleware that enables persistence with localStorage.
+
+## Factory
+
+— **Factory Pattern for Keys**
+
+```ts
+export const getStateKey = <T extends ResourceKey>(type: T): keyof State => {
+  const map: Record<ResourceKey, keyof State> = {
+    accessLevel: "accesslevels",
+    difficulties: "difficulties",
+    statuses: "statuses",
+  };
+  const key = map[type];
+  if (!key) throw new Error(`Unknown resource type: ${type}`);
+  return key;
+};
+```
+
+We **abstract the logic** of mapping `"accessLevel"` → `"accesslevels"` into
+a **declarative** object, instead of a `switch` statement.
+
+## Facade
+
+— **Facade Pattern**
+
+```ts
+export const useAccount = () => {
+  const account = useStore((s) => s.account);
+  return { ...account };
+};
+```
+
+We hide store complexity and expose a simple API.
+
+## Illustrations in Pseudo-code
+
+<blockquote>
+  Although this article aims to provide **concrete implementation** of design
+  patterns in a real context (React + Zustand), certain models like
+  **Singleton** or **Factory Method** integrate naturally into my store
+  architecture. However, other models like **Builder**, **Strategy**, or
+  **Decorator** are more **conceptual** in this context. They will therefore be
+  illustrated more **generically in pseudo-code** to facilitate comprehension.
+  These examples are **not intended for direct copying** into Zustand or React
+  projects, but rather to help you **grasp the general concept** behind each
+  pattern. You will subsequently see how to **adapt these concepts** in a real
+  project if necessary.
+</blockquote>
+
+### Builder (constructing objects step-by-step)
+
+```ts
+class CourseBuilder {
+  name = "";
+  color = "";
+
+  setName(name: string) {
+    this.name = name;
+    return this;
+  }
+
+  setColor(color: string) {
+    this.color = color;
+    return this;
+  }
+
+  build() {
+    return { name: this.name, color: this.color };
+  }
+}
+
+const course = new CourseBuilder().setName("React").setColor("blue").build();
+```
+
+### Strategy (dynamically changing behavior)
+
+```ts
+class ExportStrategy {
+  execute(data) {
+    throw "Not implemented";
+  }
+}
+
+class JsonExport extends ExportStrategy {
+  execute(data) {
+    return JSON.stringify(data);
+  }
+}
+
+class CsvExport extends ExportStrategy {
+  execute(data) {
+    return data.map((row) => row.join(",")).join("\n");
+  }
+}
+
+function exportData(data, strategy: ExportStrategy) {
+  return strategy.execute(data);
+}
+```
+
+### Decorator (enriching behavior without touching source code)
+
+```ts
+function withLogger(fn) {
+  return function (...args) {
+    return fn(...args);
+  };
+}
+
+function saveCourse(course) {}
+
+const loggedSaveCourse = withLogger(saveCourse);
+
+loggedSaveCourse({ name: "JS", color: "yellow" });
+```
+
+<hr />
+
+## Conclusion
+
+**Design patterns** are powerful tools, provided they are utilized
+in the **appropriate context** and thoughtfully. They can be considered **upstream**,
+during conception, if comfortable, or **progressively
+introduced** by refactoring the project over time.
+
+They enable **avoiding repetition**, **facilitating evolution** of code more
+easily, **improving** it, and especially **better testing**.
+
+In this article, we have seen how **certain models** like
+**Singleton**, **Factory Method**, or **Facade** can be applied
+**directly** in a modern architecture like React + Zustand. Other
+more **conceptual** patterns (Builder, Strategy, Decorator) were illustrated
+in **pseudo-code** form to better grasp their intention.
+
+### In Summary:
+
+- Patterns are not constraints but **mastered freedom**.
+- They enable **avoiding classic pitfalls** of development as projects expand.
+- **Learning to recognize** and utilize these models also means progressing in **software maturity**.
+
+</div>

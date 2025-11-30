@@ -13,6 +13,9 @@ export default defineConfig({
   },
 
   site: "https://blog.eembouz.com/",
+  build: {
+    format: "file",
+  },
 
   image: {
     service: passthroughImageService(),
@@ -22,6 +25,10 @@ export default defineConfig({
     remarkPlugins: [remarkReadingTime],
   },
 
+  i18n: {
+    defaultLocale: "fr",
+    locales: ["en", "fr"],
+  },
   base: "/",
 
   integrations: [
@@ -31,15 +38,6 @@ export default defineConfig({
       filter: (page) =>
         page !== "https://blog.eembouz.com/404/" &&
         page !== "https://blog.eembouz.com/505/",
-
-      i18n: {
-        defaultLocale: "fr",
-        locales: {
-          fr: "fr-CA",
-          en: "en-US",
-          es: "es-ES",
-        },
-      },
     }),
     preact(),
   ],

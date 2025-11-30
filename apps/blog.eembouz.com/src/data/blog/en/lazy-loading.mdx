@@ -1,0 +1,320 @@
+---
+title: "Lazy Loading in React: Retry & Reload Mechanisms"
+author: "elysee"
+summary: "In production environments, optimizing the loading process and deployment of new versions in Single Page Applications (SPAs) constitutes a critical consideration for system reliability and user experience."
+thumbnail: "/lazy_loading/lazy_loading.png"
+taxonomies: ["programming"]
+pubDate: 2025-09-14
+---
+
+In production environments, optimizing the loading process and deployment of new versions in Single Page Applications (SPAs) constitutes a critical consideration for system reliability and user experience. It is frequently observed that users maintaining active sessions for extended periods retain obsolete application versions at the moment of deployment. JavaScript files remain cached in the browser or active during the session, generating loading errors when users attempt to access new functionalities.
+
+In this article, we will analyze the implementation of lazy loading within navigation and routing contexts. We will examine how this approach enhances performance while effectively managing loading errors in production environments.
+
+## Definition
+
+Lazy loading represents an optimization technique utilized in programming, particularly in web development, aimed at improving performance and reducing initial loading times. This approach consists of deferring the loading of resources (images, JavaScript modules, components, etc.) until they are genuinely necessary or requested by the user.
+
+## Lazy Loading in React
+
+### The Standard Approach
+
+Most modern frameworks (React, Preact, etc.) provide native lazy loading implementations. React exposes this functionality via `React.lazy()`, however, this basic approach reveals its limitations in production environments, particularly during JavaScript chunk loading failures.
+
+### Operational Mechanism
+
+Lazy loading functions by awaiting a promise resolution to a module containing a default export. When the component is requested, React extracts the `module.default` and utilizes it for rendering operations.
+
+### Basic Code Example
+
+```js
+import { lazy } from "react";
+const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"));
+```
+
+## Production Chunk Management Challenges
+
+As mentioned in the introduction, frequent production deployments generate a recurring problem: users with active sessions retain references to legacy chunks that no longer exist on the server. When these users attempt to navigate to new application sections, loading fails because JavaScript files have been renamed with new hashes during deployment.
+
+### Chunk Definition:
+
+A chunk constitutes a segment of JavaScript code generated and optimized for production by a bundler (Vite, Webpack) during the build process.
+
+## Enhanced Methodological Approach
+
+### Reload Functionality
+
+We begin with the essential component: chunk management to minimize loading failures attributable to obsolete hashes from previous versions.
+
+```js
+import { lazy as reactLazy, type ComponentType, type FC } from "react";
+
+export function createLazy(
+  importFunction: () => Promise<{ default: ComponentType<any> }>,
+  maxRetries = 3
+) {
+  /**
+   * 1 - Automatic reload management
+   */
+  return reactLazy(async () => {
+    /**
+     * Utilizing the function signature as a sessionStorage key.
+     * Converting it to a string to create a unique identifier.
+     */
+    const functionString = importFunction.toString();
+
+    try {
+      /**
+       * Executing the function that imports our component
+       */
+      const component = await importFunction();
+
+      /**
+       * Upon success, removing the sessionStorage key beforehand
+       * for clean reinitialization during the next potential failure
+       */
+      sessionStorage.removeItem(functionString);
+
+      return component;
+    } catch (error) {
+      /**
+       * Retrieving the value stored in sessionStorage with the "functionString" key.
+       * Subsequently comparing it to our maxRetries parameter.
+       * If it is less than maxRetries, we increment it until it becomes greater.
+       * Then we refresh the page with window.location.reload().
+       */
+      const currentFailures = parseInt(
+        sessionStorage.getItem(functionString) || "0"
+      );
+
+      if (currentFailures < maxRetries) {
+        sessionStorage.setItem(
+          functionString,
+          (currentFailures + 1).toString()
+        );
+        window.location.reload();
+
+        /**
+         * React.lazy() expects a Promise that resolves to { default: Component }.
+         * This is a placeholder that will never be displayed because the page reloads.
+         * We return a signature similar to the React.lazy() API.
+         */
+        const EmptyComponent: FC = () => null;
+        return { default: EmptyComponent };
+      }
+
+      /**
+       * If the maximum number of attempts has been exceeded, we propagate the error
+       */
+      throw error;
+    }
+  });
+}
+```
+
+This approach enables automatic error handling for chunk-related failures and significantly improves user experience by preventing application crashes.
+
+### Retry Logic: Optimization
+
+Subsequently, to ensure optimal user experience, we incorporate a retry parameter that defines the number of attempts before triggering reload functionality. Thus, we ensure that temporary errors (unstable connection, momentarily unavailable server) are resolved without resorting to page reloading, which remains our last-resort solution for genuinely obsolete chunks.
+
+```js
+const tryImport = async (): Promise<{ default: ComponentType<any> }> => {
+  /**
+   * Initializing the counter
+   */
+  let retryCount: number = 0;
+
+  /**
+   * Internal function to manage import retry operations.
+   * We encapsulate attempt so that retryCount is local to each call
+   * and to avoid sharing state between multiple imports.
+   * Thus, we have a local function that manages its own state and manipulations.
+   */
+  const attempt = async (): Promise<{ default: ComponentType<any> }> => {
+    try {
+      return await importFunction();
+    } catch (error) {
+      /**
+       * If the number of retries is less than the parameter argument (which was 3),
+       * we increment and re-execute the function (recursion)
+       */
+      if (retryCount < importRetries) {
+        retryCount++;
+        /**
+         * We implement a pause for each retry
+         */
+        if (retryDelay > 0) {
+          await new Promise((resolve) => setTimeout(resolve, retryDelay));
+        }
+
+        return attempt();
+      }
+      /**
+       * In case of repeated failure, we stop and return the error
+       */
+      throw error;
+    }
+  };
+
+  return attempt();
+};
+```
+
+Encapsulating `attempt` maintains the retry counter local to each loading attempt, preventing conflicts or unexpected reinitializations in a React environment where lazy loading may be evaluated multiple times.
+
+### Complete Implementation:
+
+```js
+import { lazy as reactLazy, type ComponentType, type FC } from "react";
+
+type Options = {
+  maxRetries: number,
+  importRetries: number,
+  retryDelay: number,
+};
+
+export function createLazy(
+  importFunction: () => Promise<{ default: ComponentType<any> }>,
+  { maxRetries, importRetries, retryDelay }: Options = {
+    maxRetries: 3,
+    importRetries: 3,
+    retryDelay: 300,
+  }
+) {
+  /**
+   * Retry feature
+   *
+   * Creating a function with a signature similar to what createLazy() should return
+   */
+  const tryImport = async (): Promise<{ default: ComponentType<any> }> => {
+    /**
+     * Initializing the counter
+     */
+    let retryCount: number = 0;
+
+    /**
+     * Internal function to manage import retry operations.
+     * We encapsulate attempt so that retryCount is local to each call
+     * and to avoid sharing state between multiple imports.
+     * Thus, we have a local function that manages its own state and manipulations.
+     */
+    const attempt = async (): Promise<{ default: ComponentType<any> }> => {
+      try {
+        return await importFunction();
+      } catch (error) {
+        /**
+         * If the number of retries is less than the parameter argument (which was 3),
+         * we increment and re-execute the function (recursion)
+         */
+        if (retryCount < importRetries) {
+          retryCount++;
+          /**
+           * We implement a pause for each retry
+           */
+          if (retryDelay > 0) {
+            await new Promise((resolve) => setTimeout(resolve, retryDelay));
+          }
+
+          return attempt();
+        }
+        /**
+         * In case of repeated failure, we stop and return the error
+         */
+        throw error;
+      }
+    };
+
+    return attempt();
+  };
+
+  /**
+   * Automatic reload management
+   */
+  return reactLazy(async () => {
+    /**
+     * Utilizing the function signature as a sessionStorage key.
+     * Converting it to a string to create a unique identifier.
+     */
+    const functionString = importFunction.toString();
+
+    try {
+      /**
+       * Here we execute the tryImport function which imports our component
+       * and performs preliminary processing before executing a reload
+       */
+      const component = await tryImport();
+
+      /**
+       * Upon success, removing the sessionStorage key beforehand
+       * for clean reinitialization during the next potential failure
+       */
+      sessionStorage.removeItem(functionString);
+
+      return component;
+    } catch (error) {
+      /**
+       * Retrieving the value stored in sessionStorage with the "functionString" key.
+       * Subsequently comparing it to our maxRetries parameter.
+       * If it is less than maxRetries, we increment it until it becomes greater.
+       * Then we refresh the page with window.location.reload().
+       */
+      const currentFailures = parseInt(
+        sessionStorage.getItem(functionString) || "0"
+      );
+
+      if (currentFailures < maxRetries) {
+        sessionStorage.setItem(
+          functionString,
+          (currentFailures + 1).toString()
+        );
+
+        window.location.reload();
+
+        /**
+         * React.lazy() expects a Promise that resolves to { default: Component }.
+         * This is a placeholder that will never be displayed because the page reloads.
+         * We return a signature similar to the React.lazy() API.
+         */
+        const EmptyComponent: FC = () => null;
+
+        return { default: EmptyComponent };
+      }
+      /**
+       * If the maximum number of attempts has been exceeded, we propagate the error
+       */
+      throw error;
+    }
+  });
+}
+```
+
+## Solutions Provided by This Approach
+
+This `createLazy` implementation provides several significant improvements over standard lazy loading:
+
+1. **Robust Error Handling and Retry Mechanisms**  
+   The component is imported with a configurable retry system (`importRetries`) and a delay between attempts (`retryDelay`). This enables better management of network issues or temporary failures during component loading, thereby reducing application crash risks.
+
+2. **Efficient Chunk Management**  
+   By controlling lazy loading at the import level and utilizing unique keys for each imported function, this approach facilitates JavaScript chunk management for production environments. This optimizes resource delivery and simplifies **continuous deployment**, as problematic components can be automatically reloaded without interrupting user experience.
+
+3. **User Experience Enhancement Potential**  
+   While this version focuses on robustness and reliability, the mechanism can be extended to include loading state tracking. For example: displaying a **skeleton loader** or progress indicator while the component is loading. This would directly improve user experience while maintaining the benefits of retry and automatic reload functionality.
+
+## Simulation
+
+To demonstrate the functionality of this code, certain lazy-loaded components were deliberately configured to fail. Each component attempts to reload multiple times with delays between attempts, and if it continues to fail, the page can automatically reload. The objective is not to achieve a fluid interface, but to concretely demonstrate how the retry and reload mechanism operates.
+
+<iframe
+  src="https://elyseemb.github.io/lazyLoading/"
+  style="width:100%; height:500px; border:0; border-radius:8px;"
+></iframe>
+
+GitHub Repository: [https://github.com/elyseeMB/lazyLoading.git](https://github.com/elyseeMB/lazyLoading.git)
+
+## Conclusion
+
+In summary, this approach enables more reliable and resilient lazy loading with tangible benefits for production and maintenance. It effectively resolves the critical problem of obsolete chunks that daily affects SPA users.
+
+This implementation constitutes a solid foundation adaptable to your specific needs: monitoring, user feedback, environment-specific configuration. The principal advantage resides in its adoption simplicity—a few lines suffice to transform fragile lazy loading into a robust system.
