@@ -3,6 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "turbo run dev",
+    "host": "turbo run dev --host",
     "build": "turbo run build"
   },
   "packageManager": "pnpm@9.15.2+sha1.0ffb02f94047016ec7e088030337455b4c94bb34",

@@ -2,14 +2,14 @@
 import { langs } from "../../../config.js";
 ---
 
-<script define:vars={{ langs }} is:inline>
+<script define:vars={{ langs }}>
   /**
    *
    * @param str {string}
    * @param char {string}
    * @returns {string}
    */
-  export function trim(str, char) {
+  function trim(str, char) {
     if (char.length !== 1) {
       throw new Error("");
     }
