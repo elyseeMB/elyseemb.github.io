@@ -11,7 +11,8 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
-
+  prefetch: false,
+  trailingSlash: "never",
   site: "https://blog.eembouz.com/",
   build: {
     format: "file",
