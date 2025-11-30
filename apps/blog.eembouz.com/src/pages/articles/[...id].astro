@@ -6,15 +6,14 @@ import { getEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import ReadingTime from "../../components/ReadingTime.astro";
 import { Outline } from "../../components/Outline.jsx";
+import { filterLang, getTranslator } from "../../libs/i18n.js";
 
 interface Props {
   post: CollectionEntry<"blog">;
 }
 
 export const getStaticPaths = (async () => {
-  const posts = await getCollection("blog", ({ data }) => {
-    return import.meta.env.DEV ? data.isDraft !== true : true;
-  });
+  const posts = await getCollection("blog", filterLang("fr"));
   return posts.map((post) => ({
     params: { id: post.id },
     props: { post },
@@ -35,7 +34,7 @@ const getTaxonomies = await Promise.all(
     : []
 );
 
-const formatDate = Intl.DateTimeFormat("fr", {
+const formatDate = Intl.DateTimeFormat(Astro.currentLocale, {
   dateStyle: "long",
 }).format(pubDate);
 const writer = await getEntry(author.collection, author.id);
@@ -50,6 +49,7 @@ const metaData = {
 };
 
 const seo = seoProps ? seoProps : metaData;
+const __ = await getTranslator(Astro.currentLocale);
 ---
 
 <Layout {...seo}>
@@ -59,18 +59,20 @@ const seo = seoProps ? seoProps : metaData;
         <div class="info">
           <h1>{title}</h1>
 
-          <div class="tags">
-            {
-              getTaxonomies.map((taxonomy) => (
-                <div class="tag">{taxonomy?.data.name}</div>
-              ))
-            }
-          </div>
           <div class="meta">
             <span>
-              Posté le {formatDate.toString()} · Par {writer?.data.name}
+              {formatDate.toString()} ·
+              {writer?.data.name}
             </span>
             <ReadingTime time={remarkPluginFrontmatter.stats.minutes} />
+
+            <div class="tags">
+              {
+                getTaxonomies.map((taxonomy) => (
+                  <div class="tag">{taxonomy?.data.name}</div>
+                ))
+              }
+            </div>
           </div>
         </div>
       </div>

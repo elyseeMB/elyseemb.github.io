@@ -1,117 +1,112 @@
 ---
-title: "Qu’est-ce qu’un design pattern ?"
+title: "What is a Design Pattern?"
 author: elysee
-summary: "Les design patterns sont des solutions éprouvées et validées par les pionniers de l’informatique. Ils ont été conçus pour structurer et organiser le code de manière claire, lisible et efficace."
+summary: "Design patterns are proven and validated solutions established by computing pioneers. They were conceived to structure and organize code in clear, readable, and efficient manners."
 thumbnail: "/design_pattern.png"
-taxonomies: ["bonnes-pratiques-clean-code", "programmation"]
+taxonomies: ["best-practices-clean-code", "programming"]
 pubDate: 2025-07-12
 ---
 
-import BlockDesignPattern from "../../components/blog/pattern/BlockDesignPattern.tsx";
-import DisplayList from "../../components/blog/pattern/DisplayList.tsx";
+import BlockDesignPattern from "../../../components/blog/pattern/BlockDesignPattern.tsx";
+import DisplayList from "../../../components/blog/pattern/DisplayList.tsx";
 
 <div class="blog-single">
 
-Les **design patterns** sont des solutions éprouvées et validées par les
-pionniers de l'informatique. Ils ont été conçus pour **structurer et organiser
-le code** de manière claire, lisible et efficace. L’idée est de proposer des
-**modèles génériques et réutilisables**, qui facilitent la **scalabilité** et
-la **maintenance** des systèmes logiciels, tout en réduisant les erreurs
-courantes.
+**Design patterns** are proven and validated solutions established by
+computing pioneers. They were conceived to **structure and organize
+code** in clear, readable, and efficient manners. The concept proposes
+**generic and reusable models** that facilitate **scalability** and
+**maintenance** of software systems while reducing common
+errors.
 
-## histoire
+## History
 
-Les **design patterns** sont nés de la volonté de produire du code
-**scalable** et maintenable, même si cela signifiait, au départ, **sacrifier
-un peu de confort de développement**. Lorsque les équipes techniques
-remarquent qu’une même structure ou solution est **répétée plusieurs fois dans
-le code** pour résoudre un même type de problème, elles finissent par lui
-donner un **nom commun**. C’est ainsi qu’est née l’idée des **design
-patterns** : des solutions **nommées, génériques et réutilisables**,
-documentées pour faciliter la collaboration et la compréhension dans les
-projets logiciels.
-
-<blockquote>
-  <p>
-    <em>
-      historiquement, Le concept de design pattern est inspiré du travail de
-      **Christopher Alexander** dans l’architecture, puis formalisé en
-      informatique par les **"Gang of Four"** en 1994. Ces patterns sont devenus
-      une base incontournable pour structurer le code, éviter les redondances,
-      et faciliter la maintenance des applications à grande échelle.
-    </em>
-  </p>
-</blockquote>
-
-## Pourquoi devrais je apprendre des modèles ?
-
-Dans la majorité des cas, vous avez probablement déjà **utilisé des design
-patterns sans le savoir**. C’est exactement ce qui distingue souvent un
-développeur junior d’un développeur senior : la capacité à reconnaître,
-comprendre et appliquer consciemment ces structures. Par exemple, le **code
-source des Framework** (comme React, Laravel, AdonisJS, etc.) en est truffé.
-
-Une fois maîtrisés, les **design patterns** deviennent une véritable **boîte à
-outils** pour résoudre efficacement des problèmes courants en développement.
-Ils vous aideront à **penser autrement**, avec plus de structure et de recul.
-Avec le temps, cette manière de réfléchir deviendra presque naturelle.
-
-## Classifications et Rôle:
-
-Cette liste n’est pas exhaustive et ne couvre pas l’ensemble des design
-patterns que vous pourriez rencontrer. Nous allons nous concentrer sur un type
-particulier de modèles : les **modèles architecturaux**.
-
-Ces modèles peuvent être implémentés dans **n’importe quel langage de
-programmation** et sont appelés **modèles universels** ou **patterns de haut
-niveau**. Ils s’opposent aux **idiomes**, qui sont des solutions plus
-spécifiques, propres à un langage particulier et souvent de bas niveau.
+**Design patterns** emerged from the desire to produce
+**scalable** and maintainable code, even if it initially meant **sacrificing
+some development comfort**. When technical teams
+observe that identical structures or solutions are **repeated multiple times in
+code** to resolve similar problem types, they eventually
+assign a **common name**. Thus the concept of **design
+patterns** was born: **named, generic, and reusable** solutions,
+documented to facilitate collaboration and comprehension in
+software projects.
 
 <blockquote>
-  <p>
-    - Les **patterns architecturaux** définissent la structure globale d’une
-    application ou d’un système (ex. MVC, Client-Serveur, Microservices).
-  </p>
-  <p>
-    - Les **patterns de conception** (design patterns au sens plus classique)
-    concernent l’organisation du code à l’intérieur des composants (ex.
-    Singleton, Factory, Observer).
-  </p>
-  <p>
-    - Les **idiomes** sont des constructions propres à un langage, qui
-    exploitent ses spécificités syntaxiques et sémantiques.
-  </p>
+  <em>
+    Historically, the design pattern concept was inspired by the work of
+    **Christopher Alexander** in architecture, subsequently formalized in
+    computing by the **"Gang of Four"** in 1994. These patterns became an
+    indispensable foundation for structuring code, avoiding redundancies, and
+    facilitating large-scale application maintenance.
+  </em>
 </blockquote>
+
+## Why Should I Learn Patterns?
+
+In the majority of cases, you have probably already **utilized design
+patterns unknowingly**. This precisely distinguishes
+junior developers from senior developers: the capacity to recognize,
+comprehend, and consciously apply these structures. For example, **framework
+source code** (such as React, Laravel, AdonisJS, etc.) is replete with them.
+
+Once mastered, **design patterns** become a genuine **toolkit**
+for efficiently resolving common development problems.
+They will help you **think differently**, with more structure and perspective.
+Over time, this manner of reasoning becomes almost natural.
+
+## Classifications and Roles:
+
+This list is non-exhaustive and does not cover all design
+patterns you might encounter. We will concentrate on a
+particular model type: **architectural patterns**.
+
+These models can be implemented in **any programming
+language** and are called **universal patterns** or **high-level
+patterns**. They contrast with **idioms**, which are more
+specific solutions, language-particular and often low-level.
+
+<blockquote>
+- **Architectural patterns** define the global structure of an
+  application or system (e.g., MVC, Client-Server, Microservices).
+
+- **Design patterns** (in the more classical sense) concern
+  code organization within components (e.g., Singleton, Factory,
+  Observer).
+
+- **Idioms** are language-specific constructions that
+  exploit syntactic and semantic specificities.
+
+ </blockquote>
 
 <DisplayList client:only />
 
 ---
 
-## Cas concret : un store Zustand refactoré selon les Design Patterns
+## Concrete Case: A Zustand Store Refactored According to Design Patterns
 
-Pour illustrer concrètement l’intérêt des design patterns, prenons un
-**exemple réel** rencontré lors de la construction de mon application.
-J’utilise Zustand comme **solution de gestion d’état** globale. C’est un outil
-simple, mais très puissant, qui permet de construire un store à la volée.
+To concretely illustrate design pattern benefits, consider a
+**real example** encountered during application construction.
+I utilize Zustand as a **global state management** solution. It's a
+simple yet powerful tool enabling on-the-fly store construction.
 
-Cependant, en avançant dans le développement, le store devient **complexe,
-difficile à tester ou à maintenir**, et certaines logiques sont dupliquées.
-C’est exactement le genre de situation où **les design patterns prennent tout
-leur sens**.
+However, advancing in development, the store becomes **complex,
+difficult to test or maintain**, and certain logics are duplicated.
+This is exactly the type of situation where **design patterns make complete
+sense**.
 
-Dans cette section, nous allons **refactorer ce store pas à pas**, en
-appliquant différents design patterns. Chaque refactor sera **associé à un
-pattern précis** : Singleton, Factory, Observer, etc. Cela permettra de
-comprendre **à la fois la théorie** derrière chaque modèle **et son
-application pratique** dans un contexte moderne (React + Zustand).
+In this section, we will **refactor this store step-by-step**,
+applying different design patterns. Each refactor will be **associated with a
+specific pattern**: Singleton, Factory, Observer, etc. This will enable
+understanding **both the theory** behind each model **and its
+practical application** in a modern context (React + Zustand).
 
-## Le code de base
+## Base Code
 
-Avant de commencer le refactor, voici **le store Zustand tel qu’il existait
-initialement** dans mon projet. Il est fonctionnel, et implémentait
-certainspattern partiellement
+Before beginning refactoring, here is **the Zustand store as it initially
+existed** in my project. It is functional and partially implemented
+certain patterns
 
-- Factory Method (partiellement)
+- Factory Method (partially)
 - Strategy
 
 ```ts
@@ -282,7 +277,7 @@ export function StoreProvider({ children }: PropsWithChildren) {
 
   return (
     <StoreContext.Provider value={{ store: store }}>
-            {children}   {" "}
+      {children}{" "}
     </StoreContext.Provider>
   );
 }
@@ -398,18 +393,18 @@ export function useAccount() {
 }
 ```
 
-### Objectifs de la version refactorée
+### Refactored Version Objectives
 
-- Séparer les responsabilités.
-- Appliquer des patterns classiques.
-- Garder une API propre et extensible.
+- Separate responsibilities.
+- Apply classical patterns.
+- Maintain clean and extensible API.
 
 ## Singleton:
 
-Un singleton s'assure d'avoir qu'une seul instance d'un object (de préférence
-une class) ne soit initialisé, offrant ainsi un seul point global
-d'initialisation. Dans notre situation nous somme en javascript ou chaque
-object et module est unique dans son contexte d'exécution.
+A singleton ensures that only one instance of an object (preferably
+a class) is initialized, thus offering a single global
+initialization point. In our situation, we are in JavaScript where each
+object and module is unique in its execution context.
 
 — **Singleton Pattern**
 
@@ -478,19 +473,19 @@ export const createStore = (): Store => {
 };
 ```
 
-Ici on assure qu’un seul store Zustand existe dans l’app, ce qui est important
-pour éviter les incohérences ou re-rendu inutile dans React `createStore()`
-dans le contexte React.
+This ensures a single Zustand store exists in the application, which is important
+to avoid inconsistencies or unnecessary re-renders in React `createStore()`
+in the React context.
 
-je ne reviendrais pas sur l'utilisation de Zustand, dans un prochain article.
-En bref :
+I will not revisit Zustand usage in detail here; that will be addressed in a forthcoming article.
+In brief:
 
-- **Combine** : est un middleware qui permet de séparer le state et les actions.
-- **Persist** : est un middleware qui permet de faire de la persistance avec le local Storage.
+- **Combine**: is a middleware that enables state and action separation.
+- **Persist**: is a middleware that enables persistence with localStorage.
 
-## factory
+## Factory
 
-— **Factory Pattern pour les clés**
+— **Factory Pattern for Keys**
 
 ```ts
 export const getStateKey = <T extends ResourceKey>(type: T): keyof State => {
@@ -505,8 +500,8 @@ export const getStateKey = <T extends ResourceKey>(type: T): keyof State => {
 };
 ```
 
-On **abstrait la logique** de mappage `"accessLevel"` → `"accesslevels"` dans
-un objet **déclaratif**, au lieu d’un `switch`.
+We **abstract the logic** of mapping `"accessLevel"` → `"accesslevels"` into
+a **declarative** object, instead of a `switch` statement.
 
 ## Facade
 
@@ -519,34 +514,24 @@ export const useAccount = () => {
 };
 ```
 
-On caches la complexité du store et exposes une API simple.
+We hide store complexity and expose a simple API.
 
-## Illustrations en pseudo-code
+## Illustrations in Pseudo-code
 
 <blockquote>
-  <p>
-    Bien que cet article ait pour objectif de fournir une **implémentation
-    concrète** des design patterns dans un contexte réel (React + Zustand),
-    certains modèles comme **Singleton** ou **Factory Method** s’intègrent
-    naturellement dans l’architecture de mon store.
-    <br />
-    En revanche, d’autres modèles comme **Builder**, **Strategy** ou
-    **Decorator** sont plus **conceptuels** dans ce contexte. Ils seront donc
-    illustrés de manière plus **générique en pseudo-code** pour faciliter leur
-    compréhension.
-    <br />
-    Ces exemples ne sont **pas destinés à être copiés tels quels** dans un
-    projet Zustand ou React, mais plutôt à vous aider à **saisir l’idée
-    générale** derrière chaque pattern.
-    <br />
-    Vous verrez ensuite comment **adapter ces concepts** dans un projet réel si
-    nécessaire.
-  </p>
+  Although this article aims to provide **concrete implementation** of design
+  patterns in a real context (React + Zustand), certain models like
+  **Singleton** or **Factory Method** integrate naturally into my store
+  architecture. However, other models like **Builder**, **Strategy**, or
+  **Decorator** are more **conceptual** in this context. They will therefore be
+  illustrated more **generically in pseudo-code** to facilitate comprehension.
+  These examples are **not intended for direct copying** into Zustand or React
+  projects, but rather to help you **grasp the general concept** behind each
+  pattern. You will subsequently see how to **adapt these concepts** in a real
+  project if necessary.
 </blockquote>
 
-### Builder (construire un objet étape par étape)
-
-<br />
+### Builder (constructing objects step-by-step)
 
 ```ts
 class CourseBuilder {
@@ -571,9 +556,7 @@ class CourseBuilder {
 const course = new CourseBuilder().setName("React").setColor("blue").build();
 ```
 
-### Strategy (changer de comportement dynamiquement)
-
-<br />
+### Strategy (dynamically changing behavior)
 
 ```ts
 class ExportStrategy {
@@ -599,14 +582,11 @@ function exportData(data, strategy: ExportStrategy) {
 }
 ```
 
-### Decorator (enrichir un comportement sans toucher au code source)
-
-<br />
+### Decorator (enriching behavior without touching source code)
 
 ```ts
 function withLogger(fn) {
   return function (...args) {
-    console.log("Appel de", fn.name, "avec", args);
     return fn(...args);
   };
 }
@@ -622,24 +602,24 @@ loggedSaveCourse({ name: "JS", color: "yellow" });
 
 ## Conclusion
 
-Les **design patterns** sont des outils puissants, à condition d’être utilisés
-dans le **bon contexte** et de manière réfléchie. On peut y penser **en
-amont**, lors de la conception, si l’on est à l’aise, ou bien **les introduire
-progressivement** en refactorant le projet au fil du temps.
+**Design patterns** are powerful tools, provided they are utilized
+in the **appropriate context** and thoughtfully. They can be considered **upstream**,
+during conception, if comfortable, or **progressively
+introduced** by refactoring the project over time.
 
-Ils permettent d’**éviter la répétition**, de **faire évoluer** le code plus
-facilement, de **l’améliorer** et surtout de **mieux le tester**.
+They enable **avoiding repetition**, **facilitating evolution** of code more
+easily, **improving** it, and especially **better testing**.
 
-Dans cet article, nous avons vu comment **certains modèles** comme le
-**Singleton**, la **Factory Method**, ou la **Facade** peuvent s’appliquer
-**directement** dans une architecture moderne comme React + Zustand. D’autres
-patterns plus **conceptuels** (Builder, Strategy, Decorator) ont été illustrés
-sous forme de **pseudo-code** afin de mieux saisir leur intention.
+In this article, we have seen how **certain models** like
+**Singleton**, **Factory Method**, or **Facade** can be applied
+**directly** in a modern architecture like React + Zustand. Other
+more **conceptual** patterns (Builder, Strategy, Decorator) were illustrated
+in **pseudo-code** form to better grasp their intention.
 
-### En bref :
+### In Summary:
 
-- Les patterns ne sont pas une contrainte, mais une **liberté maîtrisée**.
-- Ils vous permettent d’**éviter les pièges classiques** du développement à mesure que vos projets prennent de l’ampleur.
-- **Apprendre à reconnaître** et à utiliser ces modèles, c’est aussi progresser en **maturité logicielle**.
+- Patterns are not constraints but **mastered freedom**.
+- They enable **avoiding classic pitfalls** of development as projects expand.
+- **Learning to recognize** and utilize these models also means progressing in **software maturity**.
 
 </div>

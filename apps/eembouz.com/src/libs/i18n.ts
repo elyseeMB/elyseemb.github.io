@@ -31,9 +31,9 @@ export function getLink(astro: { currentLocale?: string }, path: string) {
 }
 
 export const filterLang =
-  (lang: string = "en") =>
+  (lang: string = "fr") =>
   (entry: { id: string }) => {
-    if (lang === "en") {
+    if (lang === "fr") {
       return !entry.id.includes("/");
     }
     return entry.id.startsWith(lang);

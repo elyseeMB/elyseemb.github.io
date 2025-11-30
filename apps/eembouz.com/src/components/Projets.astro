@@ -1,8 +1,23 @@
 ---
 import { getCollection } from "astro:content";
-import { getTranslator } from "../libs/i18n.ts";
-const projects = await getCollection("projects");
+import { getTranslator, filterLang } from "../libs/i18n.ts";
+import type { CollectionEntry } from "astro:content";
+
+const projects = await getCollection(
+  "projects",
+  filterLang(Astro.currentLocale)
+);
+
 const __ = await getTranslator(Astro.currentLocale);
+
+function buildUrl(item: CollectionEntry<"projects">): string {
+  return (
+    "/" +
+    (item.id.includes("/")
+      ? item.id.replace("/", "/projects/")
+      : `projects/${item.id}`)
+  );
+}
 ---
 
 <section class="projects">
@@ -21,7 +36,7 @@ const __ = await getTranslator(Astro.currentLocale);
             <ul class="list">
               <div class="link">
                 <li class="framework">
-                  <a href={"projects/" + project.id}>
+                  <a href={buildUrl(project)}>
                     <span class="framework__name"> {project.data.title}</span>
                   </a>
                   <span class="framework__description">

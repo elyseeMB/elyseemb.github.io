@@ -1,0 +1,249 @@
+---
+title: "Load Balancing"
+author: "elysee"
+summary: "Load balancing, or load distribution, is a technique utilized to improve the availability, scalability, and resilience of modern web applications by distributing traffic among multiple servers."
+thumbnail: "/load_balancer/load_balancer.png"
+taxonomies: ["infrastructure-networks"]
+pubDate: 2025-07-21
+---
+
+<div class="blog-single">
+
+Daily, thousands of users connect to consult their
+emails, exchange messages, or work on their projects. An
+incalculable number of network packets transit each second between thousands of
+servers, all optimized to respond as rapidly as possible and
+efficiently distribute resources.
+
+However, **user multiplication** entails **simultaneous
+requests**, overload risks, slowdowns, or even failures.
+
+In this performance and reactivity race, numerous techniques
+are implemented to guarantee fluid and balanced load
+distribution: **load balancing** constitutes one of the keys.
+
+**Load Balancing** is a key process in computing, frequently utilized
+in distributed systems architecture. It enables distributing a set
+of tasks or requests across multiple resources (such as servers) to
+**reduce overload**, **improve global performance**, and
+**guarantee high availability**. It primarily applies **at the
+application protocol level** such as **HTTP/HTTPS, FTP, SMTP, DNS, SSH**,
+etc., to efficiently manage network traffic.
+
+<img
+  src="/load_balancer/illustration_load-balancer.png"
+  alt="Diagram of a load balancer distributing traffic"
+/>
+
+Concretely, instead of each client directly addressing a given
+server, all requests are sent to a **central network address** —
+that of the load balancer. This then **redirects traffic**
+toward available servers according to different criteria (algorithms, current
+load, availability, etc.).
+
+This mechanism prevents overloads, improves system global performance, and guarantees high service availability.
+
+## Load Balancing: Level 4 vs. Level 7
+
+Several load balancer types exist according to the **OSI model** level on
+which they operate:
+
+- **Level 4 (transport)**: balancing occurs based on IP addresses, TCP or UDP ports. The load balancer doesn't "see" request content; it merely routes traffic according to low-level rules.  
+   Example: **HAProxy** or **AWS Network Load Balancer**.
+- **Level 7 (application)**: balancing occurs by analyzing HTTP request content, such as URLs, cookies, or headers. This enables finer and more contextual distribution.  
+   Example: **NGINX**, **Traefik**, or **AWS Application Load Balancer**.
+
+This choice depends on application type, customization requirements, and expected performance.
+
+## Principal Balancing Algorithms:
+
+### Round Robin DNS:
+
+<img src="/load_balancer/round_robin.png" alt="round_robin" />
+
+**Round Robin DNS** is a load balancing algorithm that enables
+distributing traffic among multiple servers by associating **multiple IP
+addresses** with a **single domain name**.
+
+Unlike other methods, this technique **requires no dedicated
+physical equipment**. It relies on **authoritative DNS
+server** functioning ([authoritative
+nameserver](https://www.cloudflare.com/learning/dns/dns-server-types/#authoritative-nameserver)).
+
+It is easily implemented via your provider's DNS management interface:
+
+- by adding **multiple A records** (for IPv4),
+- or **AAAA records** (for IPv6).
+
+**Advantage**: configuration simplicity.  
+**Limitation**: no intelligent real load management (DNS doesn't "see" if a server is saturated or unavailable).
+
+## Software and Hardware Load Balancers:
+
+## -- Software:
+
+### [Nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/):
+
+nginx is open-source software functioning as a **web server**,
+**reverse proxy**, and **load balancer**. It is recognized for its **low
+memory consumption** and **high speed**, making it a
+preferred choice in high-traffic environments.
+
+To configure Nginx as a load balancer, the `upstream` directive is used in the configuration file, enabling declaration of multiple backend servers:
+
+```nginx
+http {
+    upstream backend_servers {
+        server backend1.example.com;
+        server backend2.example.com;
+        server backend3.example.com;
+    }
+
+    server {
+        listen 80;
+
+        location / {
+            proxy_pass http://backend_servers;
+        }
+    }
+}
+```
+
+By default, Nginx applies **round robin**, but also supports:
+
+- `least_conn`: toward the server with fewest active connections
+- `ip_hash`: to maintain session on the same server
+
+## Choosing a Load Balancing Method:
+
+[NGINX](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/#choosing-a-load-balancing-method "Choosing a Load Balancing Method") supports four load balancing methods: Round Robin, Least Connections, IP Hash, and Generic Hash.
+
+> **Note:** When configuring a method other than Round Robin, place the corresponding directive ([`hash`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#hash), [`ip_hash`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#ip_hash), [`least_conn`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_conn), [`least_time`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_time), or [`random`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#random)) above the `server` directive list in the [`upstream {}`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#upstream) block.
+
+1- **Round Robin (Default)**
+
+```nginx
+upstream backend {
+   # no load balancing method is specified for Round Robin
+   server backend1.example.com;
+   server backend2.example.com;
+}
+```
+
+    Unlike Round Robin DNS, reverse proxies like **NGINX** enable **more intelligent** and dynamic load balancing, with consideration of active connections, client IP address, or hash key.
+
+2- **[Least
+Connections](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_conn) –**
+A request is sent to the server with fewest active connections. This
+method also considers [server
+weight](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/#weights).
+
+```nginx
+upstream backend {
+    least_conn;
+    server backend1.example.com;
+    server backend2.example.com;
+}
+```
+
+3- **[IP
+Hash](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#ip_hash) –**
+The server to which a request is sent is determined from the
+client IP address. In this case, either the first three octets of the IPv4 address
+or the entire IPv6 address are used to calculate the hash value.
+The method guarantees that requests from the same address reach
+the same server, unless unavailable.
+
+```nginx
+upstream backend {
+    ip_hash;
+    server backend1.example.com;
+    server backend2.example.com;
+}
+```
+
+If a server must be temporarily removed from load-balancing
+rotation, it can be marked with
+the [down](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#down) parameter.
+This preserves current client IP address hashing. Requests that
+should have been processed by this server are automatically sent to the next
+server in the group.
+
+```nginx
+upstream backend {
+    server backend1.example.com;
+    server backend2.example.com;
+    server backend3.example.com down;
+}
+```
+
+4- **Generic [Hash](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#hash) –**
+The server to which a request is sent is determined from a
+user-defined key. This key can be a text string, a
+variable, or a combination. For example, the key can be a paired source IP
+address and port. This example uses a URI:
+
+```nginx
+upstream backend {
+    hash $request_uri consistent;
+    server backend1.example.com;
+    server backend2.example.com;
+}
+```
+
+    The optional [consistent](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#hash) parameter to the `hash` directive enables [ketama](http://www.last.fm/user/RJ/journal/2007/04/10/rz_libketama_-_a_consistent_hashing_algo_for_memcache_clients) consistent hash load balancing. Requests are uniformly distributed across all upstream servers based on user-defined hashed key value. If an upstream server is added or removed from an upstream group, only a few keys are remapped, minimizing cache misses. This is useful for load-balancing cache servers or other applications that accumulate state.
+
+### [HAProxy](https://www.haproxy.com/blog/haproxy-configuration-basics-load-balance-your-servers):
+
+HAProxy is free, open-source software offering high availability and load balancing for TCP and HTTP-based applications. It distributes incoming network traffic across multiple servers to guarantee optimal utilization and scalability.
+
+**HAProxy** and **NGINX** can both perform load balancing,
+but they have **important differences** in their design,
+behavior, and preferred use cases.
+
+## NGINX vs HAProxy: Usage Comparison
+
+<div class="table-container">
+
+| Criterion                    | **NGINX**                          | **HAProxy**                            |
+| ---------------------------- | ---------------------------------- | -------------------------------------- |
+| **Primary function**         | HTTP server + reverse proxy        | Load balancer (specialized)            |
+| **Raw performance**          | Excellent in HTTP, good generalist | Better on high network loads           |
+| **Balancing level**          | L7 (HTTP) + partial L4             | L4 (TCP) + highly optimized L7 (HTTP)  |
+| **Native HTTPS support**     | Yes (certbot, etc.)                | Possible, but more complex             |
+| **Configuration**            | Simple, readable config files      | More verbose but very precise          |
+| **Monitoring / stats**       | Basic (status module)              | Very detailed (integrated dashboard)   |
+| **Frequent usage**           | Web reverse proxy, CDN, cache      | Pure load balancing, high availability |
+| **Memory consumption**       | Low                                | Ultra-optimized also                   |
+| **Hot reload / live update** | Not always without interruption    | Yes, without disturbing connections    |
+
+</div>
+
+## Hardware Load Balancer
+
+    In physical form, hardware versions are physical devices installed in specific datacenters. Although capable of handling and dispatching large traffic volumes across different networks, they offer less flexibility and their costs are quite elevated.
+
+<div class="table-container">
+
+| Name                            | Description                                                                                                                          |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| **F5 BIG-IP**                   | Most recognized. Widely used in enterprises. Enables L4 and L7 with advanced functions (SSL offloading, application firewall, etc.). |
+| **Cisco ACE / ACI**             | Integrated into Cisco network solutions. Less common today, but very robust in certain data centers.                                 |
+| **Barracuda Load Balancer ADC** | Known for simplicity, good quality/price ratio, suitable for SMEs. Also offers security functions.                                   |
+
+</div>
+
+---
+
+> In this article, we clarified and explained some of the most utilized **load balancing** algorithms.  
+> However, this list is far from exhaustive: tools like **HAProxy** offer other advanced distribution methods, as well as key functionalities such as:
+>
+> - **health checks** (automatic server state verification),
+> - **redundancy** with load balancers in **active/passive** mode,
+> - **automatic recovery** in case of failure.
+>
+> Commercial solutions like **NGINX Plus** also offer extended functionalities, including fine session management, real-time metrics, or native support for specific protocols.
+
+In summary, **load balancing** is an essential component of modern architectures, guaranteeing **performance, reliability, and scalability**. Whether implemented through software solutions like **NGINX** or **HAProxy**, or specialized hardware, it plays an orchestral conductor role between users and servers. The choice of the appropriate algorithm or solution will always depend on **usage context**, **budget**, and **technical constraints**.
+
+</div>
