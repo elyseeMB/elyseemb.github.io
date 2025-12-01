@@ -11,7 +11,7 @@ export async function getSkills(lang: string | undefined): Promise<Skill[]> {
           name: "React",
           href: "https://react.dev/",
           description: __(
-            "Librairie JavaScript pour créer des interfaces avec des composants réutilisables."
+            "Bibliothèque d’interfaces utilisateur web et natives"
           ),
         },
         {
