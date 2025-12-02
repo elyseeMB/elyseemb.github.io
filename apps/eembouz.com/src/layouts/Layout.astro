@@ -5,6 +5,7 @@ import Footer from "../components/shared/Footer.astro";
 import { ClientRouter } from "astro:transitions";
 import "@portfolio/ui/GlobalCSS";
 import Header from "../components/shared/Header.astro";
+import BlurEffect from "@portfolio/ui/BlurEffect";
 
 const {
   title,
@@ -28,6 +29,8 @@ const {
     <Scripts />
   </head>
   <body>
+    <BlurEffect />
+
     <div class="bg-noise">
       <div class="page-wrapper">
         <Header />

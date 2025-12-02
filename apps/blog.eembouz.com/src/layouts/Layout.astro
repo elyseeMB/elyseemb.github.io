@@ -6,6 +6,7 @@ import Header from "../components/shared/Header.astro";
 import { ClientRouter } from "astro:transitions";
 
 import "@portfolio/ui/GlobalCSS";
+import BlurEffect from "@portfolio/ui/BlurEffect";
 
 const {
   title,
@@ -31,6 +32,8 @@ const {
   <Scripts />
 
   <body>
+    <BlurEffect />
+
     <div class="bg-noise">
       <div class="page-wrapper">
         <Header />
