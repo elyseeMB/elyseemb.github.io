@@ -7,8 +7,7 @@
     "./Hero": "./src/components/Hero.astro",
     "./Layout": "./src/layouts/Layout.astro",
     "./GlobalCSS": "./src/css/index.css",
-    "./Skeleton": "./src/components/Skeleton.tsx",
-    "./BlurEffect": "./src/components/BlurEffect.astro"
+    "./Skeleton": "./src/components/Skeleton.tsx"
   },
   "peerDependencies": {
     "@astrojs/preact": "^4.1.0",
