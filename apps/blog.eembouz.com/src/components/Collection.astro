@@ -1,0 +1,22 @@
+---
+import type { Collection } from "../pages/en/articles.astro";
+import Article from "./Article.astro";
+
+interface Props {
+  year: Collection["year"];
+  items: Collection["items"];
+}
+
+const { year, items } = Astro.props;
+---
+
+<div class="flex flex-col md:flex-row gap-2">
+  <span class="text-[1.2rem] w-1/6 pt-4">{year}</span>
+
+  <div
+    data-list__articles
+    class="flex flex-1 flex-col divide-y divide-[var(--border-color)]"
+  >
+    {items.map((article) => <Article {...article} />)}
+  </div>
+</div>

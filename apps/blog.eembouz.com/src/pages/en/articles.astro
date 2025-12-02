@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import { filterLang, getTranslator } from "../../libs/i18n.ts";
+import Collection from "../../components/Collection.astro";
 
 const allPages = await getCollection("blog", filterLang(Astro.currentLocale));
 
@@ -60,6 +61,7 @@ function groupPostsByYear(posts: typeof displayedArticles) {
 
 const allPostsByYear = groupPostsByYear(displayedArticles);
 
+export type Collection = (typeof doc)[number];
 const doc = Object.keys(allPostsByYear)
   .sort((a, b) => b - a)
   .map((year) => ({
@@ -72,37 +74,7 @@ const doc = Object.keys(allPostsByYear)
   <div class="container container-narrow">
     <section class="blog-posts">
       <div class="divide-y divide-[var(--border-color)]">
-        {
-          doc.map((item) => (
-            <div class="flex flex-col md:flex-row gap-2 ">
-              <span class="text-[1.2rem] w-1/6 pt-4">{item.year}</span>
-
-              <div
-                data-list__articles
-                class="flex flex-1 flex-col divide-y divide-[var(--border-color)]"
-              >
-                {item.items.map((article) => (
-                  <a href={buildUrl(article)}>
-                    <article class="item flex items-center justify-between gap-4 py-4">
-                      <div class="item__info">
-                        <h3 class="item__title">{article.props.data.title}</h3>
-                      </div>
-                      <div>
-                        <div class="meta">
-                          <span>
-                            {new Intl.DateTimeFormat(Astro.currentLocale, {
-                              dateStyle: "short",
-                            }).format(article.props.data.pubDate)}
-                          </span>
-                        </div>
-                      </div>
-                    </article>
-                  </a>
-                ))}
-              </div>
-            </div>
-          ))
-        }
+        {doc.map((collection) => <Collection {...collection} />)}
       </div>
     </section>
   </div>
@@ -113,10 +85,6 @@ const doc = Object.keys(allPostsByYear)
     font-family: "Inter" !important;
     font-weight: 100;
     font-size: 2rem !important;
-  }
-
-  .item__title {
-    /* font-size: 1rem !important; */
   }
 
   .blog-posts {
