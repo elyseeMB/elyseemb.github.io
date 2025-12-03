@@ -58,7 +58,7 @@ export function Outline() {
       if (targetElement) {
         const elementTop =
           targetElement.getBoundingClientRect().top + window.scrollY;
-        const offset = 10;
+        const offset = 50;
 
         window.scrollTo({
           top: elementTop - offset,
