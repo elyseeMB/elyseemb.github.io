@@ -91,6 +91,10 @@ pre {
     font-size: 1rem !important;
   }
 
+  .bg-secondary {
+    background-color: rgba(128, 128, 128, 0.267);
+  }
+
   .from-background {
     --tw-gradient-from: var(--background);
   }

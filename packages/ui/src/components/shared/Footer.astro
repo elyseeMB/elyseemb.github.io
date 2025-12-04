@@ -1,4 +1,5 @@
 ---
+import Redirect from "../Redirect.astro";
 type Info = {
   title: string;
   description: string;
@@ -22,6 +23,9 @@ interface Props {
 }
 
 const { info, links, contacts, property } = Astro.props;
+
+const locale = Astro.currentLocale?.includes("fr") ? "/" : Astro.currentLocale;
+const url = new URL(locale ?? "/en", Astro.url.origin);
 ---
 
 <footer>
@@ -51,7 +55,7 @@ const { info, links, contacts, property } = Astro.props;
           </div>
 
           <div class="legacy">
-            <a href={property?.url}>{property?.name}</a>
+            <Redirect>{property?.name}</Redirect>
             <span class="declaration"
               >Copyright © 2025 elysee Mboussa . All rights reserved.</span
             >
