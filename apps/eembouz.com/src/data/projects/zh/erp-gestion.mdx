@@ -1,0 +1,116 @@
+---
+title: "管理 CRM / ERP"
+description: "ERP 管理系统"
+summary: "这是一个 Full-stack（全栈）Monorepo 项目，整合了多个应用。后端采用 AdonisJS，并共享一个 React 设计系统，实现组件集中复用，确保整个平台的 UI 统一。"
+thumbnail: "/project/crm.png"
+pubDate: 2025-09-07
+---
+
+import GridProject from "../../../components/GridProject.astro";
+import GridBlock from "../../../components/GridBlock.astro";
+
+<GridProject>
+
+<GridBlock>
+  <img
+    class="picture"
+    src={"/project/crm/9.png"}
+    alt="project"
+    style={{ objectFit: "cover" }}
+  />
+  <div>
+    <h2>设计系统（Design System）创建</h2>
+    <p>
+      为了对整个应用系统进行重构，我首先搭建了一套完整的
+      <strong>组件库</strong>。为了更方便地可视化并测试这些组件，我选择使用
+      <strong>Storybook</strong>，这样可以在集成到应用之前，在独立环境中构建和验证每个组件。
+
+      鉴于项目包含大量界面元素，我采用了
+      <strong>原子设计（Atomic Design）</strong> 方法论，将组件库划分为
+      <strong>原子（atoms）</strong>、<strong>分子（molecules）</strong>
+      和 <strong>有机体（organisms）</strong> 等层级，使结构更清晰，扩展更高效。
+
+      <img
+        class="picture"
+        src={"/project/crm/8.png"}
+        alt="project"
+        style={{ objectFit: "cover" }}
+      />
+    </p>
+
+  </div>
+</GridBlock>
+
+<GridBlock>
+  <img
+    class="picture"
+    src={"/project/crm/3.png"}
+    alt="project"
+    style={{ objectFit: "cover" }}
+  />
+  <img
+    class="picture"
+    src={"/project/crm/1.png"}
+    alt="project"
+    style={{ objectFit: "cover" }}
+  />
+  <div>
+    <h2>管理员界面开发</h2>
+    <p>
+      我开发了一个可扩展的管理员界面，并部署在独立子域名上， 用于
+      <span style="white-space:nowrap">高效管理</span>用户、文章、
+      具有层级结构的分类法以及内容集合。 此管理后台还提供一个
+      <strong>完整且直观的仪表盘（Dashboard）</strong>，
+      用于数据分析与性能监控，使所有运营信息一目了然。
+    </p>
+  </div>
+  <img
+    class="picture"
+    src={"/project/crm/2.png"}
+    alt="project"
+    style={{ objectFit: "cover" }}
+  />
+</GridBlock>
+
+<GridBlock>
+<div>
+  <h2>集成 Tiptap 编辑器用于文章撰写</h2>
+  <p>
+    我集成了 Tiptap —— 一个现代、灵活且高度可定制的富文本编辑器，
+    让文章的编写与排版更加流畅。
+    借助其直观的界面，Tiptap 可以轻松插入富文本、图片、链接和代码块。
+
+    目标是为内容创作者提供一个既简单又强大的工具，以便生成高质量内容，
+    同时提升文章管理的一致性与灵活性。
+
+  </p>
+</div>
+
+<img class="picture" src={"/project/crm/6.png"} alt="project" style={{ objectFit: "cover" }} />
+</GridBlock>
+
+<GridBlock>
+  <img
+    class="picture"
+    height={500}
+    src={"/project/crm.png"}
+    alt="project"
+    style={{ objectFit: "cover" }}
+  />
+  <div>
+    <h2>技术架构与部署</h2>
+    <p>
+      项目采用<strong>全栈 Monorepo 架构</strong>，并通过
+      <code>pnpm workspaces</code> 进行管理，将后端、CMS 与设计系统统一整合在同一开发环境中。
+      这样不仅提高了协作效率，也显著提升了代码复用度和整体一致性。
+
+      部署流程由 <strong>Ansible 全面自动化</strong> 管理，
+      负责服务器环境配置、基于 <strong>Docker</strong> 的应用部署，
+      以及 PostgreSQL、Nginx 等服务的初始化（provisioning）。
+      这确保了所有环境都能实现快速、可靠且<strong>完全可复现</strong>的部署体验。
+    </p>
+
+  </div>
+</GridBlock>
+
+</GridProject>

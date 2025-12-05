@@ -5,7 +5,7 @@ import Skills from "../components/Skills.astro";
 import Projects from "../components/Projets.astro";
 import Layout from "../layouts/Layout.astro";
 import Inspiration from "../components/Inspiration.astro";
-import Hoobies from "../components/Hoobies.astro";
+import Hobbies from "../components/Hobbies.astro";
 import { getTranslator } from "../libs/i18n.ts";
 
 export type PropsProjet = CollectionEntry<"projects">;
@@ -19,7 +19,7 @@ const __ = await getTranslator(Astro.currentLocale);
       <Skills />
       <Projects />
       <Inspiration />
-      <Hoobies />
+      <Hobbies />
     </div>
   </div>
 </Layout>

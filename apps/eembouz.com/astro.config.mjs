@@ -23,7 +23,7 @@ export default defineConfig({
     locales: [...langs, "fr"],
     defaultLocale: "fr",
     fallback: {
-      en: "en",
+      zh: "en",
     },
   },
 

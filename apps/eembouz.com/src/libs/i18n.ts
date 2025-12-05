@@ -1,8 +1,11 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 import EN from "../locales/en.json";
+import ZH from "../locales/zh.json";
+import { langs } from "../../config.ts";
 
 const translations = new Map<string, Map<string, string>>([
   ["en", new Map(Object.entries(EN))],
+  ["zh", new Map(Object.entries(ZH))],
 ]);
 
 export async function getTranslator(lang: string = "fr") {
@@ -31,7 +34,7 @@ export function getLink(astro: { currentLocale?: string }, path: string) {
 }
 
 export const filterLang =
-  (lang: string = "fr") =>
+  (lang: (typeof langs)[number] | "fr" = "fr") =>
   (entry: { id: string }) => {
     if (lang === "fr") {
       return !entry.id.includes("/");
