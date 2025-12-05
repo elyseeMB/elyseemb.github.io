@@ -64,31 +64,42 @@ const {
   }
 
   function redirectLang() {
-    const storedLang = localStorage.getItem("lang");
-    const currentPath = window.location.pathname;
-    const browserLang = navigator.language.split("-")[0].toLowerCase();
+  const storedLang = localStorage.getItem("lang");
+  const currentPath = window.location.pathname;
+  const browserLang = navigator.language.split("-")[0].toLowerCase();
 
-    if (storedLang) {
-      if (storedLang !== "fr" && !currentPath.startsWith("/" + storedLang)) {
-        window.location.href = "/" + trim(storedLang + currentPath, "/");
-      }
-      return;
-    }
+  // Extraire la langue de l'URL si présente
+  const pathLang = currentPath.split('/')[1];
+  const isValidPathLang = langs.includes(pathLang as any);
 
-    let targetLang = "fr";
-
-    if (langs.includes(browserLang as any)) {
-      targetLang = browserLang;
-    } else if (browserLang !== "fr") {
-      targetLang = "en";
-    }
-
-    localStorage.setItem("lang", targetLang);
-
-    if (targetLang !== "fr" && !currentPath.startsWith("/" + targetLang)) {
-      window.location.href = "/" + trim(targetLang + currentPath, "/");
-    }
+  // Si l'URL contient déjà une langue valide, l'utiliser et la stocker
+  if (isValidPathLang && pathLang !== 'fr') {
+    localStorage.setItem("lang", pathLang);
+    return;
   }
 
-  redirectLang();
+  if (storedLang) {
+    if (storedLang !== "fr" && !currentPath.startsWith("/" + storedLang)) {
+      window.location.href = "/" + trim(storedLang + currentPath, "/");
+    }
+    return;
+  }
+
+  let targetLang = "fr";
+
+  if (langs.includes(browserLang as any)) {
+    targetLang = browserLang;
+  } else if (browserLang !== "fr") {
+    targetLang = "en";
+  }
+
+  localStorage.setItem("lang", targetLang);
+
+  if (targetLang !== "fr" && !currentPath.startsWith("/" + targetLang)) {
+    window.location.href = "/" + trim(targetLang + currentPath, "/");
+  }
+}
+
+redirectLang();
+
 </script>
