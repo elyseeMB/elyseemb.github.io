@@ -30,8 +30,8 @@ const inspirations = defineCollection({
   }),
 });
 
-// const hoobies = defineCollection({
-//   loader: glob({ pattern: "**/[^_]*.json", base: "./src/data/hoobies" }),
+// const hobbies = defineCollection({
+//   loader: glob({ pattern: "**/[^_]*.json", base: "./src/data/hobbies" }),
 //   schema: z.object({
 //     name: z.string(),
 //     url: z.string(),

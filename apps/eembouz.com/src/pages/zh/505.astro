@@ -1,0 +1,19 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+interface Props {
+  error: unknown;
+}
+
+const { error } = Astro.props;
+---
+
+<Layout>
+  <div class="container">
+    <div class="wrapper">
+      <div>
+        {error instanceof Error ? error.message : "Unknown error"}<div></div>
+      </div>
+    </div>
+  </div>
+</Layout>

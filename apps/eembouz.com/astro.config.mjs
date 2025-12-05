@@ -13,9 +13,9 @@ export default defineConfig({
     enabled: false,
   },
   prefetch: false,
-  trailingSlash: "never",
+  trailingSlash: "ignore",
   build: {
-    format: "file",
+    format: "directory",
   },
 
   site: "https://eembouz.com/",
@@ -23,7 +23,7 @@ export default defineConfig({
     locales: [...langs, "fr"],
     defaultLocale: "fr",
     fallback: {
-      en: "en",
+      zh: "en",
     },
   },
 

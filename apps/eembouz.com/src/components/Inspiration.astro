@@ -1,10 +1,12 @@
 ---
 import { getCollection } from "astro:content";
+import { getTranslator } from "../libs/i18n.ts";
 const inspirations = await getCollection("inspirations");
+const __ = await getTranslator(Astro.currentLocale);
 ---
 
 <section class="inspirations">
-  <h3 class="inspirations__title">My inspirations</h3>
+  <h3 class="inspirations__title">{__("My inspirations")}</h3>
   <div class="grid">
     {
       inspirations.map((inspiration) => (
