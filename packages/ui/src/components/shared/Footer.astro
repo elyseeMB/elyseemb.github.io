@@ -18,7 +18,7 @@ type Property = {
 interface Props {
   info?: Info;
   links?: {title:string; items: Link[]};
-  contacts?: Link[];
+  contacts?: {title:string; items: Link[]};
   property?: Property;
 }
 
@@ -41,17 +41,17 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
 
         <div class="extra">
           <div class="contacts">
-            <h4>contact</h4>
+            {contacts && (
+            <h4>{contacts.title}</h4>
             <ul class="links">
-              {
-                contacts &&
-                  contacts.map((contact) => (
+                 { contacts.items.map((contact) => (
                     <a href={contact.href}>
                       <li> {contact.title} </li>
                     </a>
-                  ))
+                  ))}
+              </ul>
+                  )
               }
-            </ul>
           </div>
 
           <div class="legacy">

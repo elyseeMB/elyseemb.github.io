@@ -23,7 +23,7 @@ const root = resolve(__dirname, "../src");
 const sourcePath = globSync(`${root}/**/*.{astro,md,mdx,ts}`);
 const outputPath = resolve(__dirname, "../src/locales/{lang}.json");
 
-const langs = ["en"];
+const langs = ["en", "zh"];
 
 type Dict = Map<string, string>;
 

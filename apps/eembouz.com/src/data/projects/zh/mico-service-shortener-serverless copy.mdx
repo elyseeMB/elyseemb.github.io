@@ -1,0 +1,83 @@
+---
+title: "URL Shortener – 无服务器架构微服务"
+description: "URL 缩短服务"
+summary: "本项目是一个使用 Go 构建的 Serverless（无服务器）URL 短链服务，用于演示如何通过 AWS Lambda 和 AWS SAM 创建可扩展、完全无服务器的架构。系统负责生成短链接并根据唯一标识符检索原始 URL。"
+thumbnail: "/project/shortener/3.png"
+pubDate: 2025-10-07
+---
+
+import GridProject from "../../../components/GridProject.astro";
+import GridBlock from "../../../components/GridBlock.astro";
+
+<GridProject>
+
+<GridBlock>
+  <img
+    class="picture"
+    src={"/project/shortener/6.png"}
+    alt="project"
+    style={{ objectFit: "cover" }}
+  />
+  <div>
+    <h2>项目目标</h2>
+    <p>
+      本项目的主要目标是设计一个独立且高性能的微服务，
+      专门负责在更大规模的分布式系统中处理 URL 管理。
+      通过将此功能委托给一个独立服务，可以减少耦合、提升可扩展性，并简化代码维护。
+    </p>
+  </div>
+</GridBlock>
+
+<GridBlock>
+  <div>
+    <h2>技术挑战</h2>
+    <p>
+      其中一个关键技术挑战，是构建一个极其轻量且高效的服务：
+      Docker 镜像约 10 MB，冷启动时间低于 100 ms，几乎瞬时响应。
+      微服务必须保持完全可移植，可在 Docker、Kubernetes 和 AWS Lambda 上部署，
+      且无需对代码进行任何修改。
+
+      在架构设计上，我遵循 Go 的最佳实践：使用 <code>internal/</code>
+      目录隔离业务逻辑；明确区分不同的适配器层（持久化、传输、日志等）；
+      通过定义清晰的接口（ports）来简化单元测试并允许灵活替换实现。
+    </p>
+
+  </div>
+
+  <img class="picture" src={"/project/shortener/1.png"} alt="project" style={{ objectFit: "cover" }} />
+  <img class="picture" src={"/project/shortener/2.png"} alt="project" style={{ objectFit: "cover" }} />
+</GridBlock>
+
+<GridBlock>
+  <div>
+    <h2>项目架构</h2>
+    <p>
+      微服务采用 Clean Architecture（整洁架构）思想构建，由四层组成：
+      Domain（实体与接口）、App（独立业务逻辑）、Adapters（具体实现，如 HTTP 或存储）、
+      Cmd（服务入口）。
+      这种设计让代码更加清晰、可测试且易于扩展。
+    </p>
+  </div>
+
+  <img class="picture" src={"/project/shortener/7.png"} alt="project" style={{ objectFit: "cover" }} />
+  <img class="picture" src={"/project/shortener/8.png"} alt="project" style={{ objectFit: "cover" }} />
+  <img class="picture" src={"/project/shortener/3.png"} alt="project" style={{ objectFit: "cover" }} />
+  <img class="picture" src={"/project/shortener/4.png"} alt="project" style={{ objectFit: "cover" }} />
+  <img class="picture" src={"/project/shortener/5.png"} alt="project" style={{ objectFit: "cover" }} />
+</GridBlock>
+
+<GridBlock>
+  <img
+    class="picture"
+    height={500}
+    src={"/project/urlshortener.png"}
+    alt="project"
+    style={{ objectFit: "cover" }}
+  />
+  <div>
+    <h2>技术栈</h2>
+    <p>该微服务使用 Go 1.21 开发，并可通过 AWS SAM 无缝部署到 AWS Lambda。</p>
+  </div>
+</GridBlock>
+
+</GridProject>

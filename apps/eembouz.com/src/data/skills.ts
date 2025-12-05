@@ -11,7 +11,7 @@ export async function getSkills(lang: string | undefined): Promise<Skill[]> {
           name: "React",
           href: "https://react.dev/",
           description: __(
-            "Bibliothèque d’interfaces utilisateur web et natives"
+            "Bibliothèque d'interfaces utilisateur web et natives"
           ),
         },
         {
@@ -88,21 +88,21 @@ export async function getSkills(lang: string | undefined): Promise<Skill[]> {
           name: "Docker",
           href: "https://www.docker.com/",
           description: __(
-            "Conteneurisation d’applications pour une meilleure portabilité."
+            "Conteneurisation d'applications pour une meilleure portabilité."
           ),
         },
         {
           name: "Linux",
           href: "https://www.linux.org/",
           description: __(
-            "Système d’exploitation stable, utilisé en développement et en production."
+            "Système d'exploitation stable, utilisé en développement et en production."
           ),
         },
         {
           name: "Ansible",
           href: "https://docs.ansible.com/ansible/latest/index.html",
           description: __(
-            "Outil d’automatisation pour la gestion des serveurs."
+            "Outil d'automatisation pour la gestion des serveurs."
           ),
         },
       ],
