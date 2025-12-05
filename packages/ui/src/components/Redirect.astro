@@ -1,0 +1,8 @@
+---
+const locale = Astro.currentLocale?.includes("fr") ? "/" : Astro.currentLocale;
+const url = new URL(locale ?? "/en", Astro.url.origin);
+---
+
+<a href={url}>
+  <slot />
+</a>

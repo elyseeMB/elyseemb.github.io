@@ -2,13 +2,20 @@
 import HeaderComponent from "@portfolio/ui/Header";
 import { getLink, getTranslator } from "../../libs/i18n.ts";
 const __ = await getTranslator(Astro.currentLocale);
+const { pathname } = Astro.url;
+const href = getLink(Astro, "/articles");
+const isActive = pathname.startsWith(href);
 ---
 
 <div class="container-narrow">
   <HeaderComponent>
     <div class="actions">
-      <a href="https://eembouz.com"> Portfolio</a>
-      <a href={getLink(Astro, "/articles")}>
+      <a href="https://eembouz.com">Portfolio</a>
+      <a
+        href={href}
+        aria-current={isActive ? "page" : undefined}
+        class="aria-[current=page]:text-[var(--contrast)]! transition-colors duration-300"
+      >
         {__("Tous mes articles")}
       </a>
     </div>

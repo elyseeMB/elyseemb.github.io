@@ -6,6 +6,7 @@ import Header from "../components/shared/Header.astro";
 import { ClientRouter } from "astro:transitions";
 
 import "@portfolio/ui/GlobalCSS";
+import BlurEffect from "../components/BlurEffect.astro";
 
 const {
   title,
@@ -18,7 +19,6 @@ const {
 } = Astro.props;
 ---
 
-<!doctype html>
 <html lang="fr">
   <Seo
     title={title}
@@ -32,6 +32,8 @@ const {
   <Scripts />
 
   <body>
+    <BlurEffect />
+
     <div class="bg-noise">
       <div class="page-wrapper">
         <Header />
@@ -39,6 +41,7 @@ const {
         <Footer />
       </div>
     </div>
+    <ClientRouter />
   </body>
 </html>
 

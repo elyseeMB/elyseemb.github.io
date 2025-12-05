@@ -1,7 +1,7 @@
 {
-  "$ref": "#/definitions/hoobies",
+  "$ref": "#/definitions/hobbies",
   "definitions": {
-    "hoobies": {
+    "hobbies": {
       "type": "object",
       "properties": {
         "name": {
@@ -14,10 +14,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "name",
-        "url"
-      ],
+      "required": ["name", "url"],
       "additionalProperties": false
     }
   },

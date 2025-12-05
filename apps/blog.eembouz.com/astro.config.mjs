@@ -11,10 +11,11 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
-
+  prefetch: false,
+  trailingSlash: "ignore",
   site: "https://blog.eembouz.com/",
   build: {
-    format: "file",
+    format: "directory",
   },
 
   image: {

@@ -11,11 +11,7 @@
 }
 
 :has(.item:hover) .item:not(:hover) {
-  opacity: 0.5;
-}
-
-.item:not(:nth-last-child()) {
-  background: red;
+  opacity: 0.3;
 }
 
 .item__title {

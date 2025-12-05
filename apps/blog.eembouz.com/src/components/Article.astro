@@ -1,0 +1,32 @@
+---
+import type { ItemDisplayed } from "../pages/articles.astro";
+import DateFormate from "./DateFormate.astro";
+
+interface Props {
+  props: ItemDisplayed["props"];
+}
+
+const { props } = Astro.props;
+
+function buildUrl(item: ItemDisplayed["props"]): string {
+  return (
+    "/" +
+    (item.id.includes("/")
+      ? item.id.replace("/", "/articles/")
+      : `articles/${item.id}`)
+  );
+}
+---
+
+<a href={buildUrl(props)}>
+  <article class="item flex items-center justify-between gap-4 py-4">
+    <div class="item__info">
+      <h3 class="item__title">{props.data.title}</h3>
+    </div>
+    <div>
+      <div class="meta">
+        <DateFormate date={props.data.pubDate} />
+      </div>
+    </div>
+  </article>
+</a>

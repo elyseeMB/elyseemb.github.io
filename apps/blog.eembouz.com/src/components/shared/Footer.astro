@@ -9,7 +9,7 @@ const __ = await getTranslator(Astro.currentLocale);
     info={{
       title: __("A propos"),
       description: __(
-        "Ingénieur de formation en réseaux et telecom, j’ai développé une expertise complémentaire en infrastructure logicielle et développement."
+        "Ingénieur de formation en réseaux et telecom, j'ai développé une expertise complémentaire en infrastructure logicielle et développement."
       ),
     }}
     links={{
@@ -25,12 +25,15 @@ const __ = await getTranslator(Astro.currentLocale);
         },
       ],
     }}
-    contacts={[
-      {
-        title: "contact@eembouz.com",
-        href: "mailto:contact@eembouz.com",
-      },
-    ]}
+    contacts={{
+      title: __("Contact"),
+      items: [
+        {
+          title: "contact@eembouz.com",
+          href: "mailto:contact@eembouz.com",
+        },
+      ],
+    }}
     property={{
       name: "blog.eembouz.com",
       url: "https://blog.eembouz.com",

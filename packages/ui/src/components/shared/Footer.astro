@@ -1,4 +1,5 @@
 ---
+import Redirect from "../Redirect.astro";
 type Info = {
   title: string;
   description: string;
@@ -17,11 +18,14 @@ type Property = {
 interface Props {
   info?: Info;
   links?: {title:string; items: Link[]};
-  contacts?: Link[];
+  contacts?: {title:string; items: Link[]};
   property?: Property;
 }
 
 const { info, links, contacts, property } = Astro.props;
+
+const locale = Astro.currentLocale?.includes("fr") ? "/" : Astro.currentLocale;
+const url = new URL(locale ?? "/en", Astro.url.origin);
 ---
 
 <footer>
@@ -37,23 +41,23 @@ const { info, links, contacts, property } = Astro.props;
 
         <div class="extra">
           <div class="contacts">
-            <h4>contact</h4>
+            {contacts && (
+            <h4>{contacts.title}</h4>
             <ul class="links">
-              {
-                contacts &&
-                  contacts.map((contact) => (
+                 { contacts.items.map((contact) => (
                     <a href={contact.href}>
                       <li> {contact.title} </li>
                     </a>
-                  ))
+                  ))}
+              </ul>
+                  )
               }
-            </ul>
           </div>
 
           <div class="legacy">
-            <a href={property?.url}>{property?.name}</a>
+            <Redirect>{property?.name}</Redirect>
             <span class="declaration"
-              >Copyright © 2025 elysee Mboussa. All rights reserved.</span
+              >Copyright © 2025 elysee Mboussa . All rights reserved.</span
             >
           </div>
         </div>
@@ -86,12 +90,12 @@ const { info, links, contacts, property } = Astro.props;
 <style scoped>
   
   footer * {
+    font-size: 0.8rem ;
     font-family: "JetBrains Mono" !important;
   }
 
   footer h4 {
     padding-block: 1rem;
-    font-size: 1rem;
   }
 
   footer {
@@ -107,6 +111,7 @@ const { info, links, contacts, property } = Astro.props;
     padding: 0;
     margin: 0;
     color: white;
+    text-wrap: balance;
   }
 
   footer ul {
@@ -191,6 +196,7 @@ const { info, links, contacts, property } = Astro.props;
 
   .legacy .declaration {
     font-size: 0.7rem;
+    text-wrap: nowrap;
   }
 
   .legacy a {
