@@ -1,0 +1,174 @@
+---
+title: "Internationalisation : Une Approche Native"
+author: "elysee"
+summary: "Architecture i18n/l10n en React utilisant les standards web natifs."
+thumbnail: "/i18n/Internationalisation.png"
+taxonomies: ["programming"]
+pubDate: 2025-12-07
+---
+
+**I18n** et **L10n** sont les abréviations respectives d'**internationalisation** et de **localisation**. Il s'agit d'un workflow conventionnel qui consiste à préparer et adapter une application web au multilinguisme et aux différentes cultures.
+
+Dans cet article, je vous propose une approche architecturale en React basée sur les Contextes, les Hooks, et centrée sur l'API native du navigateur **[Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)**. L'objectif ? Maîtriser le flux de données et comprendre l'approche des frameworks qui proposent des solutions toutes faites, en construisant la nôtre from scratch.
+
+## La structure de l'API
+
+L'approche repose sur trois piliers fondamentaux :
+
+1- **Global State Management** : Un `TranslatorProvider` qui entoure l'application et distribue via le Context API la locale active, le dictionnaire de traductions chargé dynamiquement, et la fonction de traduction.
+
+Le hook `useTranslator` expose ensuite une API unifiée pour accéder aux traductions (`__`), aux formats de dates (`dateFormat`) et aux formats numériques (`numberFormat`).
+
+2- **Standardisation Native** : Déléguer la complexité du formatage (dates, nombres, pluriels) à l'API **`Intl`** du navigateur.
+
+3- **Outillage Statique** : Un script d'analyse statique qui extrait automatiquement les clés de traduction du code source via regex, puis synchronise les fichiers JSON de chaque locale en ajoutant les nouvelles clés et supprimant celles devenues obsolètes. Cela garantit que les dictionnaires restent toujours cohérents avec le code.
+
+## L'Architecture de Données
+
+Mon approche dans la structuration des données s'est naturellement tournée vers JSON. Étant donné le nombre de méthodes natives du navigateur qui permettent un parsing de ce format (`JSON.parse`, `fetch`, etc.), j'ai choisi de m'appuyer sur cette simplicité.
+
+```json
+{
+  "Bonjour": "Hello",
+  "Au revoir": "Goodbye"
+}
+```
+
+### State Management (State Sharing)
+
+L'architecture s'appuie sur le pattern **Provider/Consumer** de React. Le `TranslatorProvider` met le dictionnaire à disposition du Context, et les composants le consomment via le hook `useTranslator`.
+
+```typescript
+// TranslatorProvider.tsx
+export function TranslatorProvider({ children, lang, loader }: Props) {
+  const [langV, setLangV] = useState<Langs>(lang);
+  const [translations, setTranslations] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    loader(langV).then(setTranslations);
+  }, [langV, loader]);
+
+  const translate = useCallback(
+    (s: string) => translations[s] || s,
+    [translations]
+  );
+
+  return (
+    <TranslateContext.Provider value={{ translate, langV, setLangV }}>
+      {children}
+    </TranslateContext.Provider>
+  );
+}
+```
+
+```typescript
+export function useTranslator() {
+  const { translate, langV, setLangV } = useContext(TranslateContext);
+
+  const dateFormat = (date: Date | string | number | null,
+    options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      weekday: "long",
+    }
+  ) => {...};
+
+  const styleForNumber = (options: Options): Intl.NumberFormatOptions ...
+
+  const numberFormat = ( value: number | string | null, options: Options = {
+      style: "decimal",
+    }
+  ) => {...};
+
+  return {
+    langV,
+    setLangV,
+    dateFormat: dateFormat,
+    numberFormat,
+    __: translate,
+  };
+}
+```
+
+**Pourquoi cette approche ?**
+Elle sépare le chargement `loader` de la distribution `Provider`. Cela rend le système agnostique : les traductions peuvent venir d'un fichier JSON local, d'une API REST ou d'un CMS headless.
+
+## Abstraction autour d'Intl
+
+L'API Intl du navigateur couvre la plupart des besoins d'internationalisation pour une application web. Elle contient l'intégralité des règles linguistiques et typographiques mondiales : formats de dates par pays, symboles monétaires, règles de pluralisation, etc.
+
+Une **façade légère** suffit pour adapter cette API à nos besoins. L'idée est d'encapsuler la verbosité d'`Intl` (constructeurs, options multiples) derrière des fonctions simples (`dateFormat`, `numberFormat`) qui respectent automatiquement la locale active.
+
+```typescript
+// useTranslator.ts
+const styleForNumber = (options: Options): Intl.NumberFormatOptions => {
+  switch (options.style) {
+    case "currency":
+      return {
+        style: "currency",
+        // La devise est déduite dynamiquement de la locale (ex: FR -> EUR)
+        currency: CurrencyCode[langV.toUpperCase()],
+      };
+    case "unit":
+      return {
+        style: "unit",
+        unit: options.unit, // ex: "kilometer"
+      };
+    // ...
+  }
+};
+```
+
+Cette fonction agit comme un **normalisateur** qui garantit le respect des conventions typographiques selon la locale active : espace insécable, position du symbole monétaire, séparateur décimal (virgule ou point).
+
+## Automatisation de la Maintenance
+
+Pour des raisons de maintenance et d'expérience développeur, j'ai implémenté un script qui analyse le code source et synchronise automatiquement les fichiers de traduction.
+
+L'outil scanne tous les fichiers TypeScript/React pour détecter les appels à `__()` via regex, puis met à jour les dictionnaires de chaque locale.
+
+```typescript
+// scripts/collect.ts
+function collectStrings() {
+  const files = globSync(sourcePath);
+  const strings = new Set<string>();
+
+  for (const file of files) {
+    const content = readFileSync(file, "utf8");
+    const found = extractStringsFromContent(content);
+    found.forEach((s) => strings.add(s));
+  }
+  return strings;
+}
+
+// Synchronisation : ajout des nouvelles clés, suppression des obsolètes
+for (const newKey of keys.difference(existingKeys)) {
+  dict.set(newKey, "");
+}
+```
+
+Une simple commande (`node scripts/collect.ts` ou via votre task runner) garantit que les fichiers JSON restent parfaitement alignés avec le code.
+
+## Application Concrète
+
+L'interface ci-dessous réagit au changement de locale :
+
+- Formats de date adaptés
+- Devises localisées (€ vs $)
+- Unités régionales (km, °C)
+
+<iframe
+  src="https://elyseemb.github.io/i18Tp/"
+  width="100%"
+  height="800px"
+  style="border-radius: 18px;"
+  title="Démonstration du système i18n natif"
+  loading="lazy"
+></iframe>
+
+## Conclusion
+
+Cette architecture illustre que les navigateurs modernes fournissent déjà de nombreuses abstractions puissantes. Ces standards sont optimisés, maintenus par les éditeurs de navigateurs.
+
+L'implémentation complète (Provider, Hook, script d'extraction) est disponible sur [GitHub](https://github.com/elyseeMB/i18Tp) pour expérimentation et adaptation à vos projets.
