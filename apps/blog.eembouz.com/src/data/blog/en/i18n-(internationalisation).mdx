@@ -1,0 +1,156 @@
+---
+title: "Une approche native de l'i18n"
+author: "elysee"
+summary: "Faut-il vraiment une librairie externe pour gérer le multilinguisme ? En adoptant une architecture basée sur les standards web (Intl) et l'analyse statique, nous pouvons construire une solution i18n robuste, légère et entièrement typée."
+thumbnail: "/i18n/native-approach.png"
+taxonomies: ["architecture-design"]
+pubDate: 2025-12-07
+---
+
+Dans l'ingénierie logicielle moderne, nous avons tendance à résoudre chaque problème par l'ajout d'une dépendance. Vous voulez des dates ? `moment`. Des requêtes ? `axios`. Du multilinguisme ? `i18next`.
+
+Pourtant, le navigateur a évolué. Les standards se sont enrichis.
+
+Cet article propose une **approche architecturale** différente pour l'internationalisation (i18n). Au lieu de voir l'i18n comme une fonctionnalité à _installer_, nous allons l'aborder comme une couche d'abstraction construite sur les API natives. L'objectif ? Une maîtrise totale du flux de données, zéro poids mort dans le bundle, et une expérience développeur (DX) sur-mesure.
+
+## La Philosophie : "Browser as a Framework"
+
+L'approche repose sur trois piliers fondamentaux :
+
+- **State Management Minimaliste** : Utiliser **React Context** pour propager la langue, sans complexité superflue.
+- **Standardisation Native** : Déléguer la complexité du formatage (dates, nombres, pluriels) à l'API **`Intl`** du navigateur.
+- **Outillage Statique** : Remplacer la complexité au _runtime_ par de l'intelligence au _build-time_ (extraction de clés).
+
+## L'Architecture de Données
+
+Contrairement aux librairies qui chargent souvent de lourds mécanismes de parsing de chaînes ou d'interpolation complexe au runtime, notre approche privilégie un dictionnaire simple.
+
+La structure est volontairement naïve : un mapping `Clé -> Valeur`.
+
+### L'injection de dépendance via le Context
+
+Le cœur du système n'est pas un moteur de traduction complexe, mais un simple mécanisme de distribution. Nous utilisons le pattern **Provider** pour injecter le dictionnaire chargé de manière asynchrone.
+
+```typescript
+// TranslatorProvider.tsx
+// Une implémentation puriste du pattern Provider
+export function TranslatorProvider({ children, lang, loader }: Props) {
+  const [langV, setLangV] = useState<Langs>(lang);
+  const [translations, setTranslations] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    // Le chargement est découplé de l'implémentation (Dependency Injection)
+    loader(langV).then(setTranslations);
+  }, [langV, loader]);
+
+  const translate = useCallback(
+    (s: string) => translations[s] || s, // Fallback gracieux sur la clé
+    [translations]
+  );
+
+  return (
+    <TranslateContext.Provider value={{ translate, langV, setLangV }}>
+      {children}
+    </TranslateContext.Provider>
+  );
+}
+```
+
+**Pourquoi cette approche ?**
+Elle sépare la _responsabilité du chargement_ (le `loader`) de la _responsabilité de la distribution_ (le `Provider`). Cela rend le système agnostique : les traductions peuvent venir d'un fichier JSON local, d'une API REST ou d'un CMS headless.
+
+## Déléguer la complexité à `Intl`
+
+C'est ici que l'approche se distingue. La plupart des développeurs réinventent la roue pour le formatage des devises ou des dates. Or, l'objet **`Intl`** est présent dans tous les navigateurs modernes et contient déjà toutes les règles linguistiques mondiales.
+
+L'idée est de créer une **abstraction légère** autour de `Intl`.
+
+### L'unification des formats
+
+Au lieu d'avoir des fonctions éparses, nous centralisons la logique de présentation. C'est une façade qui adapte l'API impérative de `Intl` à notre besoin déclaratif.
+
+Regardez comment nous gérons la complexité des devises et des unités :
+
+```typescript
+// useTranslator.ts
+const styleForNumber = (options: Options): Intl.NumberFormatOptions => {
+  switch (options.style) {
+    case "currency":
+      return {
+        style: "currency",
+        // La devise est déduite dynamiquement de la locale (ex: FR -> EUR)
+        // C'est une convention forte de notre architecture
+        currency: CurrencyCode[langV.toUpperCase()],
+      };
+    case "unit":
+      return {
+        style: "unit",
+        unit: options.unit, // ex: "kilometer"
+      };
+    // ...
+  }
+};
+```
+
+Cette fonction agit comme un **normalisateur**. Elle garantit que peu importe où le développeur affiche un prix, il respectera les conventions typographiques de la langue active (espace insécable, position du symbole, virgule ou point).
+
+## L'Approche "Compiler-First" pour la DX
+
+Le principal argument contre les solutions maison est la maintenance. _"Je ne veux pas copier-coller mes clés dans un JSON à la main."_
+
+C'est une critique valide. Pour y répondre, notre approche inclut un script d'analyse statique. Au lieu d'alourdir le runtime JavaScript côté client, nous déportons l'intelligence côté Node.js lors du développement.
+
+### Extraction et Synchronisation
+
+Le script suivant agit comme un "garbage collector" de traductions. Il scanne les sources pour trouver les usages de la fonction `__()`.
+
+```typescript
+// scripts/collect.ts
+// Analyse statique des sources pour garantir la cohérence Code <-> JSON
+function collectStrings() {
+  const files = globSync(sourcePath);
+  const strings = new Set<string>();
+
+  for (const file of files) {
+    const content = readFileSync(file, "utf8");
+    const found = extractStringsFromContent(content); // Trouve toutes les occurences de __("...")
+    found.forEach((s) => strings.add(s));
+  }
+  return strings;
+}
+
+// Synchronisation différentielle : mise à jour des fichiers de locales
+for (const newKey of keys.difference(existingKeys)) {
+  dict.set(newKey, ""); // Ajout automatique
+}
+```
+
+Cette brique est essentielle à l'architecture. Elle transforme une contrainte manuelle en un processus automatisé (`npm run i18n:extract`), garantissant que le code et les fichiers de langue ne divergent jamais.
+
+## Le Résultat en Action
+
+Le véritable test de cette approche est de voir comment elle gère dynamiquement le changement de contexte.
+
+L'exemple ci-dessous met en évidence la puissance de l'API `Intl` et de notre architecture minimaliste. Notez comment l'interface gère :
+
+- Le format de date (jour/mois/année).
+- La devise (€ vs $).
+- Les unités (kilomètres, degrés Celsius).
+
+<iframe
+  src="https://elyseemb.github.io/i18Tp/"
+  width="100%"
+  height="800px"
+  style="border: 1px solid \#e2e8f0; border-radius: 8px;"
+  title="Démonstration du système i18n natif"
+  loading="lazy"
+></iframe>
+## Conclusion
+
+Cette approche de l'i18n n'est pas seulement un exercice de style. C'est une démonstration qu'en 2025, la plateforme Web est suffisamment mature pour se suffire à elle-même.
+
+En adoptant cette architecture, nous gagnons sur trois tableaux :
+
+- **Performance** : Pas de parsing complexe au runtime, juste des lookups O(1) et des API natives optimisées en C++.
+- **Contrôle** : Nous ne dépendons pas des mises à jour ou des "breaking changes" d'une librairie tierce.
+- **Compréhension** : Chaque ligne de code sert un but précis, sans magie noire.
