@@ -6,6 +6,7 @@ import Header from "../components/shared/Header.astro";
 import { ClientRouter } from "astro:transitions";
 
 import "@portfolio/ui/GlobalCSS";
+import ThemeManager from "@portfolio/ui/ThemeManager";
 import BlurEffect from "../components/BlurEffect.astro";
 
 const {
@@ -20,17 +21,19 @@ const {
 ---
 
 <html lang="fr">
-  <Seo
-    title={title}
-    author={author}
-    publishedDate={publishedDate}
-    description={description}
-    typeContent={typeContent}
-    image={image}
-    url={url}
-  />
-  <Scripts />
-
+  <head>
+    <Seo
+      title={title}
+      author={author}
+      publishedDate={publishedDate}
+      description={description}
+      typeContent={typeContent}
+      image={image}
+      url={url}
+    />
+    <Scripts />
+    <ThemeManager />
+  </head>
   <body>
     <BlurEffect />
 
@@ -67,6 +70,16 @@ const {
     const storedLang = localStorage.getItem("lang");
     const currentPath = window.location.pathname;
     const browserLang = navigator.language.split("-")[0].toLowerCase();
+
+    // Extraire la langue de l'URL si présente
+    const pathLang = currentPath.split("/")[1];
+    const isValidPathLang = langs.includes(pathLang as any);
+
+    // Si l'URL contient déjà une langue valide, l'utiliser et la stocker
+    if (isValidPathLang && pathLang !== "fr") {
+      localStorage.setItem("lang", pathLang);
+      return;
+    }
 
     if (storedLang) {
       if (storedLang !== "fr" && !currentPath.startsWith("/" + storedLang)) {

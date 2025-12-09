@@ -60,7 +60,7 @@ export class ChapiterAnimation {
         transform-origin: 50% 50% 0px;
         z-index: -1;
         opacity: 1;
-        transition: all 0.2s ease;`
+        transition: all 0.25s ease;`
     );
   };
 }

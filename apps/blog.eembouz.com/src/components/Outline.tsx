@@ -85,7 +85,7 @@ export function Outline() {
             className="px-2 py-2 flex items-center cursor-pointer"
           >
             <a
-              class="relative inline-block pr-4 text-gray-200/50!"
+              class="relative inline-block pr-4 text-neutral-500!"
               key={heading.id}
               href={"#" + heading.id}
             >
