@@ -2,73 +2,70 @@
   padding-block: 24px;
 }
 
-h1 {
-  color: #ffffff;
-  font-size: 24px;
-  font-weight: 500;
-  text-align: center;
-}
-
 table {
   width: 100%;
   border-collapse: collapse;
   background-color: transparent;
 }
 
+/* ---------- HEADERS ---------- */
 th {
-  background-color: #404040;
-  color: #ffffff;
+  background-color: var(--secondary); /* gris clair / gris foncé selon thème */
+  color: var(--color-primary);
   padding: 16px 20px;
   text-align: left;
   font-weight: 600;
   font-size: 14px;
-  border-bottom: 1px solid #555555;
-  border-right: 1px solid #555555;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
 }
 
 th:first-child {
-  border-left: 1px solid #555555;
+  border-left: 1px solid var(--border);
 }
 
 th:last-child {
-  border-right: 1px solid #555555;
+  border-right: 1px solid var(--border);
 }
 
+/* ---------- CELLS ---------- */
 td {
   padding: 14px 20px;
-  border-bottom: 1px solid #404040;
-  border-right: 1px solid #404040;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
   font-size: 14px;
   line-height: 1.4;
   vertical-align: top;
+  color: var(--foreground);
 }
 
 td:first-child {
-  border-left: 1px solid #404040;
+  border-left: 1px solid var(--border);
   font-weight: 500;
-  color: #cccccc;
-  background-color: #353535;
+  color: var(--muted-foreground);
+  background-color: var(--muted); /* léger fond */
 }
 
+/* ---------- ROW HOVER ---------- */
 tr:hover {
-  background-color: rgba(255, 255, 255, 0.03);
+  background-color: color-mix(in oklch, var(--foreground) 5%, transparent);
 }
 
-/* Couleurs spéciales pour certains contenus */
+/* ---------- SPECIAL COLORS ---------- */
 .highlight {
-  color: #4fc3f7;
+  color: var(--chart-2); /* bleu clair */
 }
 
 .success {
-  color: #81c784;
+  color: var(--chart-5); /* vert harmonisé */
 }
 
 .warning {
-  color: #ffb74d;
+  color: oklch(75% 0.15 70); /* orange compatible ton système */
 }
 
 .info {
-  color: #64b5f6;
+  color: var(--chart-3); /* bleu froid */
 }
 
 /* Style responsive */
