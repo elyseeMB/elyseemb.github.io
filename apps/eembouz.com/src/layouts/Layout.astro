@@ -6,6 +6,7 @@ import { ClientRouter } from "astro:transitions";
 import "@portfolio/ui/GlobalCSS";
 import Header from "../components/shared/Header.astro";
 import BlurEffect from "../components/BlurEffect.astro";
+import ThemeManager from "@portfolio/ui/ThemeManager";
 
 const {
   title,
@@ -27,6 +28,7 @@ const {
       url={url}
     />
     <Scripts />
+    <ThemeManager />
   </head>
   <body>
     <BlurEffect />
@@ -71,6 +73,16 @@ const {
     const currentPath = window.location.pathname;
     const browserLang = navigator.language.split("-")[0].toLowerCase();
 
+    // Extraire la langue de l'URL si présente
+    const pathLang = currentPath.split("/")[1];
+    const isValidPathLang = langs.includes(pathLang as any);
+
+    // Si l'URL contient déjà une langue valide, l'utiliser et la stocker
+    if (isValidPathLang && pathLang !== "fr") {
+      localStorage.setItem("lang", pathLang);
+      return;
+    }
+
     if (storedLang) {
       if (storedLang !== "fr" && !currentPath.startsWith("/" + storedLang)) {
         window.location.href = "/" + trim(storedLang + currentPath, "/");
@@ -94,4 +106,11 @@ const {
   }
 
   redirectLang();
+
+  document.addEventListener("astro:page-load", () => {
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document.documentElement.classList.add("dark");
+      document.documentElement.style.colorScheme = "dark";
+    }
+  });
 </script>

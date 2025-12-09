@@ -5,7 +5,6 @@
 @import "./layout/layout.css";
 
 /* TOOLS */
-/* @import "./tools/reset.css"; */
 @import "./tools/typography.css";
 @import "./tools/theme.css";
 
@@ -37,26 +36,17 @@
 @import "./pages/pattern.css";
 
 :root {
-  --url-image: url("/noise.png");
-  --background: #0f100e;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  /* background-color: #242424; */
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.bg-noise {
+:root[data-theme="dark"] .bg-noise {
   position: relative;
 }
 
-.bg-noise::before {
+:root[data-theme="dark"] .bg-noise::before {
   position: absolute;
   content: "";
   pointer-events: none;
@@ -74,6 +64,7 @@ body {
 }
 
 pre {
+  background: var(--secondary) !important;
   text-wrap: wrap;
 }
 
@@ -92,7 +83,7 @@ pre {
   }
 
   .bg-secondary {
-    background-color: rgba(128, 128, 128, 0.267);
+    background-color: var(--outline-wrapper);
   }
 
   .from-background {

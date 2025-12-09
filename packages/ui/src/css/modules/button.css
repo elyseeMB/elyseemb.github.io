@@ -3,7 +3,7 @@ button > * {
 }
 
 .btn {
-  border: var(--border);
+  border: var(--border-btn);
   padding: 0.2rem 0.9rem;
   border-radius: var(--rounded);
   font-weight: 700;
@@ -13,20 +13,12 @@ button > * {
   gap: 0.5rem;
   box-shadow: 3px 3px #000;
   transition: box-shadow 0.1s;
-  color: white;
+  color: var(--color-primary);
   font-family: "JetBrains Mono";
 }
 
 .btn:hover {
-  filter: brightness(1.4);
-}
-
-.btn .icon svg {
-  fill: white;
-  transform-origin: center;
-  width: 24px;
-  height: 24px;
-  transition: transform 0.2s;
+  filter: var(--filter-brightness);
 }
 
 .btn-primary {
@@ -41,17 +33,5 @@ button > * {
   transform: translate(-4px, -4px);
   box-shadow: 6px 6px #000;
   background-color: var(--hover-primary);
-}
-
-.btn:hover .icon svg {
-  transform-origin: center;
-  transform: rotate(45deg);
-}
-
-.btn-secondary {
-  box-shadow: none;
-  border: none;
-  background-color: black;
-  width: 100%;
-  height: 100%;
+  color: var(--color-primary);
 }
