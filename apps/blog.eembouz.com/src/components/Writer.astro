@@ -1,0 +1,12 @@
+---
+import { getEntry } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+interface Props {
+  author: CollectionEntry<"authors">;
+}
+
+const { author } = Astro.props;
+const writer = await getEntry(author.collection, author.id);
+---
+
+<span> {writer?.data.name} </span>

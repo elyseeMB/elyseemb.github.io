@@ -1,0 +1,75 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import ReadingTime from "./ReadingTime.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import Writer from "./Writer.astro";
+
+interface Props {
+  serie: CollectionEntry<"series">;
+  author: CollectionEntry<"authors">;
+  title: string;
+  pubDate: any;
+  description: string;
+}
+
+const { serie, title, pubDate, author, description, ...props } = Astro.props;
+
+const { remarkPluginFrontmatter, Content } = await render(serie);
+
+console.log(Content.propagation);
+
+const formatDate = Intl.DateTimeFormat(Astro.currentLocale, {
+  dateStyle: "long",
+}).format(pubDate);
+---
+
+<div class="info">
+  <Breadcrumb contentTypeId={serie.data.contentType} />
+
+  <h1 transition:name={`article-title-${serie.id}`}>{title}</h1>
+
+  <div class="meta">
+    <span>
+      {formatDate.toString()} ·
+      <Writer author={author} />
+    </span>
+
+    <div>
+      {!Content.propagation && description}
+    </div>
+    {
+      <Content /> ?? (
+        <ReadingTime time={remarkPluginFrontmatter.stats.minutes} />
+      )
+    }
+  </div>
+</div>
+
+<style>
+  h1 {
+    text-align: left;
+    padding-top: 3rem;
+    line-height: 1.4;
+  }
+
+  .info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .meta {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    gap: 0.5rem;
+    padding-bottom: 4rem;
+    font-family: "JetBrains Mono" !important;
+
+    & > * {
+      font-family: "JetBrains Mono" !important;
+      letter-spacing: -0.5px;
+      color: var(--color-secondary);
+    }
+  }
+</style>

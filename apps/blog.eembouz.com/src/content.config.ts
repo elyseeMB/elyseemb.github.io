@@ -1,11 +1,13 @@
 import { glob } from "astro/loaders";
 import { defineCollection, reference, z } from "astro:content";
+import { ContentType, ContentTypeDesc } from "../config.ts";
 
 const blog = defineCollection({
   loader: glob({ pattern: "**/*.mdx", base: "./src/data/blog" }),
   schema: z.object({
     title: z.string(),
     slug: z.string().optional(),
+    contentType: z.nativeEnum(ContentType).default(1),
     isDraft: z.boolean().default(false),
     taxonomies: z.array(reference("taxonomies")).optional(),
     thumbnail: z.string().optional(),
@@ -42,4 +44,20 @@ const taxonomies = defineCollection({
   }),
 });
 
-export const collections = { blog, taxonomies, authors };
+const series = defineCollection({
+  loader: glob({
+    pattern: ["**/__*__.json", "**/*.mdx"],
+    base: "./src/data/series",
+  }),
+  schema: z.object({
+    contentType: z.nativeEnum(ContentType).default(2),
+    name: z.string(),
+    pubDate: z.coerce.date().optional(),
+    thumbnail: z.string().optional(),
+    description: z.string(),
+    author: reference("authors"),
+    relatedPosts: z.array(reference("series")).optional(),
+  }),
+});
+
+export const collections = { blog, taxonomies, authors, series };

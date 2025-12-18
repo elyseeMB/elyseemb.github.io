@@ -1,0 +1,121 @@
+---
+import { ContentTypeDesc, ContentType } from "../../config.ts";
+interface Props {
+  contentTypeId: ContentType;
+}
+
+const { contentTypeId } = Astro.props;
+const url = Astro.url;
+console.log(url);
+
+const buildUrl = (pathname: string) => {
+  if (pathname.includes("articles") && pathname !== "/articles/") {
+    return "/articles/";
+  }
+
+  if (pathname.includes("series") && pathname !== "/series/") {
+    return "/series/";
+  }
+
+  const segments = pathname.split("/").filter(Boolean);
+  segments.pop();
+  return segments.length > 0 ? `/${segments.join("/")}/` : "/";
+};
+
+const segments = url.pathname.split("/").filter(Boolean);
+const showBreadcrumb = segments.length > 1;
+
+const breadcrumbs = segments.slice(1).map((segment, index) => {
+  const path = "/" + segments.slice(0, index + 2).join("/") + "/";
+  const isLast = index === segments.length - 2;
+  const isActive = url.pathname === path || isLast;
+  return { segment, path, isLast, isActive };
+});
+
+const badgeIsActive = url.pathname === buildUrl(url.pathname);
+---
+
+<div class="breadcrumb [&>*:not(:last-child)]:after:content-['·'] after:hidden">
+  <div
+    style={`--color:var(--${ContentTypeDesc[contentTypeId]});`}
+    class="badge"
+  >
+    <a
+      href={buildUrl(url.pathname)}
+      aria-current={badgeIsActive ? "page" : undefined}
+      class:list={[
+        "transition-opacity duration-300",
+        { "opacity-100": badgeIsActive, "opacity-50": !badgeIsActive },
+      ]}
+    >
+      {ContentTypeDesc[contentTypeId]}
+    </a>
+  </div>
+
+  {
+    showBreadcrumb &&
+      breadcrumbs.map(({ segment, path, isLast, isActive }) => (
+        <div>
+          {isLast ? (
+            <span
+              aria-current="page"
+              class="opacity-100 transition-opacity duration-300"
+            >
+              {segment}
+            </span>
+          ) : (
+            <a
+              href={path}
+              aria-current={isActive ? "page" : undefined}
+              class:list={[
+                "transition-opacity duration-300",
+                { "opacity-100": isActive, "opacity-50": !isActive },
+              ]}
+            >
+              {segment}
+            </a>
+          )}
+        </div>
+      ))
+  }
+</div>
+
+<style>
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .breadcrumb > * {
+    font-family: "JetBrains Mono" !important;
+  }
+
+  .badge {
+    position: relative;
+    font-size: 0.9rem;
+
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    gap: 1rem;
+  }
+
+  .badge:hover {
+    background-color: rgba(255, 255, 255, 0.153);
+  }
+
+  .badge::before {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    aspect-ratio: 1;
+    background: var(--color);
+  }
+
+  .breadcrumb a:hover {
+    opacity: 1 !important;
+  }
+</style>
