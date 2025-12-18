@@ -78,7 +78,7 @@ export function Outline() {
 
   return (
     <div className="relative  outline__wrapper w-max">
-      <ul ref={ulRef} id="chapiter-animation" className="px-10">
+      <ul ref={ulRef} id="chapiter-animation" className="">
         {headings.heading_level_2?.map((heading) => (
           <li
             onClick={handleClick}

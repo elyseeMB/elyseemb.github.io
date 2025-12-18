@@ -1,12 +1,27 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import { filterLang, getTranslator } from "../libs/i18n.ts";
 import Collection from "../components/Collection.astro";
+import type { ItemDisplayed, OptionsCollection } from "../../config.ts";
+
+const filterSeries = (entry: CollectionEntry<"series">) => {
+  if (!entry.filePath) {
+    throw Error("file not found...");
+  }
+  return entry.filePath.endsWith(".json");
+};
+
+const docSeries = await getCollection("series", filterSeries);
+
+const series = docSeries.map((item) => ({
+  title: item.id.split("/")[0],
+  ...item,
+}));
 
 const allPages = await getCollection("blog", filterLang(Astro.currentLocale));
 
-const articles = allPages.map((page) => {
+const articles: ItemDisplayed[] = [...allPages, ...series].map((page) => {
   const [lang, ...slug] = page.id.split("/");
   return {
     params: { lang, slug: slug.join("/") || undefined },
@@ -14,22 +29,17 @@ const articles = allPages.map((page) => {
   };
 });
 
-const { title, limit } = Astro.props;
-
-const displayedArticles = limit ? articles.slice(0, limit) : articles;
-export type ItemDisplayed = (typeof displayedArticles)[number];
-
 const __ = await getTranslator(Astro.currentLocale);
 
-function groupPostsByYear(posts: typeof displayedArticles) {
-  const postsByYear = [];
+function groupPostsByYear(posts: ItemDisplayed[]) {
+  const postsByYear: Record<string, ItemDisplayed[]> = {};
 
   for (const post of posts) {
     if (!post.props.data.pubDate) {
-      return;
+      continue;
     }
     const date = new Date(post.props.data.pubDate);
-    const year = date.getFullYear();
+    const year = date.getFullYear().toString();
     if (!postsByYear[year]) {
       postsByYear[year] = [];
     }
@@ -51,21 +61,28 @@ function groupPostsByYear(posts: typeof displayedArticles) {
   return postsByYear;
 }
 
-const allPostsByYear = groupPostsByYear(displayedArticles);
-
+const allPostsByYear = groupPostsByYear(articles);
 const doc = Object.keys(allPostsByYear)
-  .sort((a, b) => b - a)
+  .sort((a, b) => Number(b) - Number(a))
   .map((year) => ({
     year: year,
-    items: allPostsByYear[year] as typeof displayedArticles,
+    items: allPostsByYear[year],
   }));
+
+const options: OptionsCollection = {
+  showYear: true,
+};
 ---
 
 <Layout>
   <div class="container container-narrow">
     <section class="blog-posts">
       <div class="divide-y divide-[var(--border-color)]">
-        {doc.map((collection) => <Collection {...collection} />)}
+        {
+          doc.map((collection) => (
+            <Collection {...collection} options={options} />
+          ))
+        }
       </div>
     </section>
   </div>

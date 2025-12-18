@@ -9,10 +9,10 @@ interface Props {
   author: CollectionEntry<"authors">;
   title: string;
   pubDate: any;
-  description: string;
+  summary: string;
 }
 
-const { serie, title, pubDate, author, description, ...props } = Astro.props;
+const { serie, title, pubDate, author, summary, ...props } = Astro.props;
 
 const { remarkPluginFrontmatter, Content } = await render(serie);
 
@@ -35,13 +35,17 @@ const formatDate = Intl.DateTimeFormat(Astro.currentLocale, {
     </span>
 
     <div>
-      {!Content.propagation && description}
+      <div class="summary leading-7">
+        {!Content.propagation && summary}
+      </div>
+      <span>
+        {
+          Content.propagation && (
+            <ReadingTime time={remarkPluginFrontmatter.stats.minutes} />
+          )
+        }
+      </span>
     </div>
-    {
-      <Content /> ?? (
-        <ReadingTime time={remarkPluginFrontmatter.stats.minutes} />
-      )
-    }
   </div>
 </div>
 
@@ -56,6 +60,10 @@ const formatDate = Intl.DateTimeFormat(Astro.currentLocale, {
     display: grid;
     grid-template-columns: 1fr;
     gap: 0.5rem;
+  }
+
+  .info .summary {
+    font-family: "JetBrains Mono" !important;
   }
 
   .meta {

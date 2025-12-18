@@ -1,10 +1,7 @@
 {
-  "name": "Automate",
-  "description": "Découvrez les automates programmables (API/PLC), piliers de l'automatisation industrielle pour contrôler machines et processus via programmation flexible.",
+  "title": "Automate",
+  "summary": "Découvrez les automates programmables (API/PLC), piliers de l'automatisation industrielle pour contrôler machines et processus via programmation flexible.",
   "author": "elysee",
-  "pubDate": "2025-09-04",
-  "relatedPosts": [
-    "infrastructure_agnostique/introduction",
-    "infrastructure_agnostique/configuration"
-  ]
+  "pubDate": "2025-12-14",
+  "relatedPosts": ["automate/introduction", "automate/configuration"]
 }

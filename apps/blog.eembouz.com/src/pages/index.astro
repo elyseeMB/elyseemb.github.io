@@ -5,42 +5,18 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import Blog from "../components/Blog.astro";
 import { getTranslator } from "../libs/i18n.ts";
-import { serializeActionResult } from "astro:actions";
 
 export type PropsBlog = CollectionEntry<"blog">;
 
 const articles = await getCollection("blog");
-const doc = await getCollection("series");
-const series = doc.map((item) => ({
-  title: item.id.split("/")[0],
-  ...item,
-}));
 
-console.log("=====================================");
-console.log("=====================================");
-console.log("=====================================");
-console.log("=====================================");
-console.log(series);
-console.log("=====================================");
-console.log("=====================================");
-console.log("=====================================");
-console.log("=====================================");
-console.log("=====================================");
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
 <Layout>
   <div class="container home">
     <Hero />
-    <ul class="flex flex-col gap-1">
-      {
-        series.map((serie) => (
-          <li>
-            <a href={`/series/${serie.id.split("__")[0]}`}>{serie.title}</a>
-          </li>
-        ))
-      }
-    </ul>
+
     {articles.length >= 1 && <Blog title={__("Mes dernfiers articles")} />}
   </div>
 </Layout>

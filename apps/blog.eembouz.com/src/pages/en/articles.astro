@@ -18,15 +18,6 @@ const { title, limit } = Astro.props;
 
 const displayedArticles = limit ? articles.slice(0, limit) : articles;
 
-function buildUrl(item: (typeof displayedArticles)[number]): string {
-  return (
-    "/" +
-    (item.props.id.includes("/")
-      ? item.props.id.replace("/", "/articles/")
-      : `articles/${item.props.id}`)
-  );
-}
-
 const __ = await getTranslator(Astro.currentLocale);
 
 function groupPostsByYear(posts: typeof displayedArticles) {
@@ -61,13 +52,14 @@ function groupPostsByYear(posts: typeof displayedArticles) {
 
 const allPostsByYear = groupPostsByYear(displayedArticles);
 
-export type Collection = (typeof doc)[number];
 const doc = Object.keys(allPostsByYear)
   .sort((a, b) => b - a)
   .map((year) => ({
     year: year,
     items: allPostsByYear[year] as typeof displayedArticles,
   }));
+
+export type Collection = (typeof doc)[number];
 ---
 
 <Layout>

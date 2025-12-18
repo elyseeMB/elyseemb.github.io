@@ -1,12 +1,19 @@
 ---
-import type { ItemDisplayed } from "../pages/articles.astro";
+import {
+  ContentType,
+  type ItemDisplayed,
+  type OptionsCollection,
+} from "../../config.ts";
+import Badge from "./Badge.astro";
 import DateFormate from "./DateFormate.astro";
+import Link from "./Link.astro";
 
 interface Props {
   props: ItemDisplayed["props"];
+  options: OptionsCollection;
 }
 
-const { props } = Astro.props;
+const { props, options } = Astro.props;
 
 function buildUrl(item: ItemDisplayed["props"]): string {
   return (
@@ -16,17 +23,41 @@ function buildUrl(item: ItemDisplayed["props"]): string {
       : `articles/${item.id}`)
   );
 }
+
+console.log(props);
+
+const url =
+  props.data.contentType === ContentType["SERIE"]
+    ? `/series/${props.id.split("__")[0]}`
+    : buildUrl(props);
 ---
 
-<a href={buildUrl(props)}>
-  <article class="item flex items-center justify-between gap-4 py-4">
-    <div class="item__info">
+<article class="item flex items-center justify-between gap-4 py-4">
+  <div class="item__info">
+    <Link href={url}>
+      {options.showBadge && <Badge contentTypeId={props.data.contentType} />}
       <h3 class="item__title">{props.data.title}</h3>
+      {
+        options.description && (
+          <p class="item__description">{props.data.summary}</p>
+        )
+      }
+    </Link>
+  </div>
+  <div>
+    <div class="meta">
+      <DateFormate isShowYear={options.showYear} date={props.data.pubDate} />
     </div>
-    <div>
-      <div class="meta">
-        <DateFormate date={props.data.pubDate} />
-      </div>
-    </div>
-  </article>
-</a>
+  </div>
+</article>
+
+<style>
+  /* article h3 {
+    padding-bottom: 0.5rem;
+  } */
+
+  article p {
+    font-size: 0.9rem;
+    padding: 0.5rem 0 0 0;
+  }
+</style>

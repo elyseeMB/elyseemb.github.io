@@ -12,7 +12,7 @@
           ],
           "default": 2
         },
-        "name": {
+        "title": {
           "type": "string"
         },
         "pubDate": {
@@ -34,7 +34,7 @@
         "thumbnail": {
           "type": "string"
         },
-        "description": {
+        "summary": {
           "type": "string"
         },
         "author": {
@@ -123,8 +123,8 @@
         }
       },
       "required": [
-        "name",
-        "description",
+        "title",
+        "summary",
         "author"
       ],
       "additionalProperties": false

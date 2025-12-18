@@ -1,16 +1,32 @@
 ---
 import { getCollection } from "astro:content";
-import { getLink, filterLang } from "../libs/i18n.ts";
+import { filterLang } from "../libs/i18n.ts";
 import type { CollectionEntry } from "astro:content";
+import Collection from "./Collection.astro";
+import type { ItemDisplayed, OptionsCollection } from "../../config.ts";
 
 interface Props {
   title?: string;
   limit?: number;
 }
 
+const filterSeries = (entry: CollectionEntry<"series">) => {
+  if (!entry.filePath) {
+    throw Error("file not found...");
+  }
+  return entry.filePath.endsWith(".json");
+};
+
+const docSeries = await getCollection("series", filterSeries);
+
+const series = docSeries.map((item) => ({
+  title: item.id.split("/")[0],
+  ...item,
+}));
+
 const allPages = await getCollection("blog", filterLang(Astro.currentLocale));
 
-const articles = allPages.map((page) => {
+const articles: ItemDisplayed[] = [...allPages, ...series].map((page) => {
   const [lang, ...slug] = page.id.split("/");
   return {
     params: { lang, slug: slug.join("/") || undefined },
@@ -22,14 +38,49 @@ const { title, limit } = Astro.props;
 
 const displayedArticles = limit ? articles.slice(0, limit) : articles;
 
-function buildUrl(item: (typeof displayedArticles)[number]): string {
-  return (
-    "/" +
-    (item.props.id.includes("/")
-      ? item.props.id.replace("/", "/articles/")
-      : `articles/${item.props.id}`)
-  );
+function groupPostsByYear(posts: ItemDisplayed[]) {
+  const postsByYear: Record<string, ItemDisplayed[]> = {};
+
+  for (const post of posts) {
+    if (!post.props.data.pubDate) {
+      continue;
+    }
+    const date = new Date(post.props.data.pubDate);
+    const year = date.getFullYear().toString();
+    if (!postsByYear[year]) {
+      postsByYear[year] = [];
+    }
+    postsByYear[year].push(post);
+  }
+
+  for (const year of Object.keys(postsByYear)) {
+    postsByYear[year].sort((a, b) => {
+      if (!a.props.data.pubDate) return 1;
+      if (!b.props.data.pubDate) return -1;
+
+      return (
+        new Date(b.props.data.pubDate).getTime() -
+        new Date(a.props.data.pubDate).getTime()
+      );
+    });
+  }
+
+  return postsByYear;
 }
+
+const allPostsByYear = groupPostsByYear(displayedArticles);
+
+const doc = Object.keys(allPostsByYear)
+  .sort((a, b) => Number(b) - Number(a))
+  .map((year) => ({
+    year: year,
+    items: allPostsByYear[year],
+  }));
+
+const options: OptionsCollection = {
+  description: true,
+  showYear: false,
+};
 ---
 
 <section class="blog container-narrow">
@@ -38,35 +89,7 @@ function buildUrl(item: (typeof displayedArticles)[number]): string {
     data-list__articles
     class="flex flex-1 flex-col divide-y divide-[var(--border-color)]"
   >
-    {
-      displayedArticles
-        .filter((article) => article.props.data.isDraft !== true)
-        .sort((a, b) =>
-          new Date(a.props.data.pubDate!).getTime() <
-          new Date(b.props.data.pubDate!).getTime()
-            ? 1
-            : -1
-        )
-        .map((article) => (
-          <a href={buildUrl(article)}>
-            <article class="item flex items-center justify-between gap-4 py-4">
-              <div class="item__info">
-                <h3 class="item__title">{article.props.data.title}</h3>
-                <p class="item__description">{article.props.data.summary}</p>
-              </div>
-              <div>
-                <div class="meta">
-                  <span>
-                    {new Intl.DateTimeFormat(Astro.currentLocale, {
-                      dateStyle: "short",
-                    }).format(article.props.data.pubDate)}
-                  </span>
-                </div>
-              </div>
-            </article>
-          </a>
-        ))
-    }
+    {doc.map((collection) => <Collection {...collection} options={options} />)}
   </div>
 </section>
 
@@ -90,10 +113,6 @@ function buildUrl(item: (typeof displayedArticles)[number]): string {
     font-size: 2rem !important;
   }
 
-  .blog h3 {
-    font-weight: 900;
-    font-size: 2rem;
-  }
   .blog p {
     padding: 0;
   }

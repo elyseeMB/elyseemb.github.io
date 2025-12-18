@@ -51,10 +51,10 @@ const series = defineCollection({
   }),
   schema: z.object({
     contentType: z.nativeEnum(ContentType).default(2),
-    name: z.string(),
+    title: z.string(),
     pubDate: z.coerce.date().optional(),
     thumbnail: z.string().optional(),
-    description: z.string(),
+    summary: z.string(),
     author: reference("authors"),
     relatedPosts: z.array(reference("series")).optional(),
   }),
