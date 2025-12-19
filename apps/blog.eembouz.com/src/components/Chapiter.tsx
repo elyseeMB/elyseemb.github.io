@@ -7,7 +7,11 @@ type Props = {
 
 export function Chapiter({ items }: Props) {
   const ulRef = useRef<HTMLUListElement>(null);
-  const isActive = window.location.pathname.split("/").slice(2).join("/");
+
+  const url = new URL(window.location.href);
+  const isActive = url.pathname.split("/").filter(Boolean).slice(2).join("/");
+
+  console.log(isActive);
 
   useEffect(() => {
     if (items) {
@@ -26,7 +30,9 @@ export function Chapiter({ items }: Props) {
               href={`/series/${item.id}`}
             >
               <div
-                aria-current={isActive === item.id ? "page" : undefined}
+                aria-current={
+                  isActive === item.id.split("/")[1] ? "page" : undefined
+                }
                 class="block whitespace-nowrap max-w-[250px] overflow-hidden text-ellipsis transition aria-[current=page]:border-l-2 aria-[current=page]:border-l-[var(--contrast)]! aria-[current=page]:px-3 aria-[current=page]:text-[var(--color-primary)]! transition-all duration-300"
               >
                 {item.data.title}
