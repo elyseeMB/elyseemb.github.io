@@ -4,7 +4,7 @@ import { filterLang } from "../libs/i18n.ts";
 import type { CollectionEntry } from "astro:content";
 import Collection from "./Collection.astro";
 import type { ItemDisplayed, OptionsCollection } from "../../config.ts";
-import { normalizerItem } from "../functions/article.ts";
+import { itemNormalizer } from "../functions/article.ts";
 
 interface Props {
   title?: string;
@@ -29,7 +29,7 @@ const allPages = await getCollection("blog", filterLang(Astro.currentLocale));
 
 const { title, limit } = Astro.props;
 
-const doc = normalizerItem([allPages, series]);
+const doc = itemNormalizer([allPages, series]);
 
 const options: OptionsCollection = {
   description: true,

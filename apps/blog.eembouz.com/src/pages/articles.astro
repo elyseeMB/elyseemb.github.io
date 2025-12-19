@@ -4,7 +4,7 @@ import Layout from "../layouts/Layout.astro";
 import { filterLang, getTranslator } from "../libs/i18n.ts";
 import Collection from "../components/Collection.astro";
 import type { OptionsCollection } from "../../config.ts";
-import { normalizerItem } from "../functions/article.ts";
+import { itemNormalizer } from "../functions/article.ts";
 
 const filterSeries = (entry: CollectionEntry<"series">) => {
   if (!entry.filePath) {
@@ -24,7 +24,7 @@ const allPages = await getCollection("blog", filterLang(Astro.currentLocale));
 
 const __ = await getTranslator(Astro.currentLocale);
 
-const doc = normalizerItem([allPages, series]);
+const doc = itemNormalizer([allPages, series]);
 
 const options: OptionsCollection = {
   showYear: true,

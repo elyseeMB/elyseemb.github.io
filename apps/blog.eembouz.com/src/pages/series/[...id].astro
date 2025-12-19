@@ -11,7 +11,7 @@ import Collection from "../../components/Collection.astro";
 import Prose from "../../components/Prose.astro";
 import type { OptionsCollection } from "../../../config.ts";
 import {
-  normalizerItem,
+  itemNormalizer,
   allDurationForSeries,
 } from "../../functions/article.ts";
 import { Chapiter } from "../../components/Chapiter.tsx";
@@ -46,7 +46,7 @@ const relatedPostsEntries = await Promise.all(
 const durationForSeries = await allDurationForSeries(relatedPostsEntries);
 
 //@ts-ignore
-const doc = normalizerItem(relatedPostsEntries);
+const doc = itemNormalizer(relatedPostsEntries);
 
 const options: OptionsCollection = {
   showYear: true,

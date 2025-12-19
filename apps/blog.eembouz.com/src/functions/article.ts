@@ -7,13 +7,13 @@ type Entry = BlogEntry | SeriesEntry;
 type EntryArray = Entry[];
 type EntryArrayNested = Entry[][];
 
-export function normalizerItem(
+export function itemNormalizer(
   items: EntryArray
 ): { year: string; items: ItemDisplayed[] }[];
-export function normalizerItem(
+export function itemNormalizer(
   items: EntryArrayNested
 ): { year: string; items: ItemDisplayed[] }[];
-export function normalizerItem(
+export function itemNormalizer(
   items: EntryArray | EntryArrayNested
 ): { year: string; items: ItemDisplayed[] }[] {
   let flatItems: EntryArray = Array.isArray(items[0])

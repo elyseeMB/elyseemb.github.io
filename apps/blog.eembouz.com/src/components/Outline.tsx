@@ -77,7 +77,7 @@ export function Outline() {
   };
 
   return (
-    <div className="relative outline__wrapper w-max animate-slide-in  animation-delay-200">
+    <div className="relative outline__wrapper w-max animate-slide-in  animation-delay-300">
       <ul ref={ulRef} id="chapiter-animation" className="">
         {headings.heading_level_2?.map((heading) => (
           <li

@@ -36,14 +36,14 @@ const getTaxonomies = await Promise.all(
   <h1 class="animate-slide-in">{title}</h1>
 
   <div class="meta">
-    <spa class="animate-slide-in animation-delay-100">
+    <span class="animate-slide-in animation-delay-100">
       {formatDate.toString()} ·
       <Writer author={author} />
-    </spa>
+    </span>
     <ReadingTime time={readingTime!} />
     {
       showSummary && (
-        <div class="summary leading-7 animate-slide-in animation-delay-200">
+        <div class="summary leading-7 animate-slide-in animation-delay-300">
           {summary}
         </div>
       )
