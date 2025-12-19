@@ -20,13 +20,12 @@ const baseOptions: OptionsCollection = {
 };
 
 const isArticlePage = Astro.url.pathname.includes("articles");
-console.log(isArticlePage);
 ---
 
 <div
   class:list={[
     "flex flex-col md:flex-row gap-2",
-    !isArticlePage && "animate-slide-in animation-delay-300",
+    { "animate-slide-in animation-delay-300": !isArticlePage },
   ]}
 >
   {
