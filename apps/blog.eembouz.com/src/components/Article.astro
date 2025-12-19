@@ -7,13 +7,15 @@ import {
 import Badge from "./Badge.astro";
 import DateFormate from "./DateFormate.astro";
 import Link from "./Link.astro";
+import clx from "clsx";
 
 interface Props {
   props: ItemDisplayed["props"];
   options: OptionsCollection;
+  className?: string
 }
 
-const { props, options } = Astro.props;
+const { props, options, className } = Astro.props;
 
 function buildUrl(item: ItemDisplayed["props"]): string {
   if (item.id.includes("/")) {
@@ -29,7 +31,9 @@ const url =
     : buildUrl(props);
 ---
 
-<article class="item flex items-center justify-between gap-4 py-4">
+<article
+  class={clx(className, "item flex items-center justify-between gap-4 py-4")}
+>
   <div class="item__info">
     <Link href={url}>
       {options.showBadge && <Badge contentTypeId={props.data.contentType} />}

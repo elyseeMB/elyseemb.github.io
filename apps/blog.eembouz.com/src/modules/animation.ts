@@ -1,6 +1,4 @@
-function between(val: number, min: number, max: number): number {
-  return Math.max(min, Math.min(val, max));
-}
+import { between } from "../functions/helper.ts";
 
 function initSplitAnimation() {
   const elements = document.querySelectorAll(".split");
