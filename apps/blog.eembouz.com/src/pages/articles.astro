@@ -3,7 +3,8 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import { filterLang, getTranslator } from "../libs/i18n.ts";
 import Collection from "../components/Collection.astro";
-import type { ItemDisplayed, OptionsCollection } from "../../config.ts";
+import type { OptionsCollection } from "../../config.ts";
+import { normalizerItem } from "../functions/article.ts";
 
 const filterSeries = (entry: CollectionEntry<"series">) => {
   if (!entry.filePath) {
@@ -21,53 +22,9 @@ const series = docSeries.map((item) => ({
 
 const allPages = await getCollection("blog", filterLang(Astro.currentLocale));
 
-const articles: ItemDisplayed[] = [...allPages, ...series].map((page) => {
-  const [lang, ...slug] = page.id.split("/");
-  return {
-    params: { lang, slug: slug.join("/") || undefined },
-    props: page,
-  };
-});
-
 const __ = await getTranslator(Astro.currentLocale);
 
-function groupPostsByYear(posts: ItemDisplayed[]) {
-  const postsByYear: Record<string, ItemDisplayed[]> = {};
-
-  for (const post of posts) {
-    if (!post.props.data.pubDate) {
-      continue;
-    }
-    const date = new Date(post.props.data.pubDate);
-    const year = date.getFullYear().toString();
-    if (!postsByYear[year]) {
-      postsByYear[year] = [];
-    }
-    postsByYear[year].push(post);
-  }
-
-  for (const year of Object.keys(postsByYear)) {
-    postsByYear[year].sort((a, b) => {
-      if (!a.props.data.pubDate) return 1;
-      if (!b.props.data.pubDate) return -1;
-
-      return (
-        new Date(b.props.data.pubDate).getTime() -
-        new Date(a.props.data.pubDate).getTime()
-      );
-    });
-  }
-
-  return postsByYear;
-}
-
-const allPostsByYear = groupPostsByYear(articles);
-const doc = Object.keys(allPostsByYear)
-  .sort((a, b) => Number(b) - Number(a))
-  .map((year) => ({
-    year: year,
-    items: allPostsByYear[year],
-  }));
+const doc = normalizerItem([allPages, series]);
 
 const options: OptionsCollection = {
   showYear: true,

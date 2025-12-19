@@ -4,6 +4,7 @@ import { filterLang } from "../libs/i18n.ts";
 import type { CollectionEntry } from "astro:content";
 import Collection from "./Collection.astro";
 import type { ItemDisplayed, OptionsCollection } from "../../config.ts";
+import { normalizerItem } from "../functions/article.ts";
 
 interface Props {
   title?: string;
@@ -26,56 +27,9 @@ const series = docSeries.map((item) => ({
 
 const allPages = await getCollection("blog", filterLang(Astro.currentLocale));
 
-const articles: ItemDisplayed[] = [...allPages, ...series].map((page) => {
-  const [lang, ...slug] = page.id.split("/");
-  return {
-    params: { lang, slug: slug.join("/") || undefined },
-    props: page,
-  };
-});
-
 const { title, limit } = Astro.props;
 
-const displayedArticles = limit ? articles.slice(0, limit) : articles;
-
-function groupPostsByYear(posts: ItemDisplayed[]) {
-  const postsByYear: Record<string, ItemDisplayed[]> = {};
-
-  for (const post of posts) {
-    if (!post.props.data.pubDate) {
-      continue;
-    }
-    const date = new Date(post.props.data.pubDate);
-    const year = date.getFullYear().toString();
-    if (!postsByYear[year]) {
-      postsByYear[year] = [];
-    }
-    postsByYear[year].push(post);
-  }
-
-  for (const year of Object.keys(postsByYear)) {
-    postsByYear[year].sort((a, b) => {
-      if (!a.props.data.pubDate) return 1;
-      if (!b.props.data.pubDate) return -1;
-
-      return (
-        new Date(b.props.data.pubDate).getTime() -
-        new Date(a.props.data.pubDate).getTime()
-      );
-    });
-  }
-
-  return postsByYear;
-}
-
-const allPostsByYear = groupPostsByYear(displayedArticles);
-
-const doc = Object.keys(allPostsByYear)
-  .sort((a, b) => Number(b) - Number(a))
-  .map((year) => ({
-    year: year,
-    items: allPostsByYear[year],
-  }));
+const doc = normalizerItem([allPages, series]);
 
 const options: OptionsCollection = {
   description: true,
@@ -83,7 +37,7 @@ const options: OptionsCollection = {
 };
 ---
 
-<section class="blog container-narrow">
+<section class="blog container-narrow animate-slide-in animation-delay-300">
   {title && <h3 class="title">{title}</h3>}
   <div
     data-list__articles

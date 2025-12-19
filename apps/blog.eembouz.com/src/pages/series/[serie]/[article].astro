@@ -1,0 +1,147 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import { Outline } from "../../../components/Outline.jsx";
+import { getTranslator } from "../../../libs/i18n.js";
+import Info from "../../../components/Info.astro";
+import Prose from "../../../components/Prose.astro";
+import { Chapiter } from "../../../components/Chapiter.jsx";
+
+interface Props {
+  article: CollectionEntry<"blog">;
+  serie: CollectionEntry<"series">;
+  relatedPosts: CollectionEntry<"blog">[];
+}
+
+export const getStaticPaths = (async () => {
+  const series = await getCollection("series");
+  const paths = [];
+
+  for (const serie of series) {
+    const { relatedPosts } = serie.data;
+
+    if (relatedPosts) {
+      for (const post of relatedPosts) {
+        const article = await getEntry(post.collection, post.id);
+
+        const allRelatedPosts = await Promise.all(
+          relatedPosts.map(
+            async (item) => await getEntry(item.collection, item.id)
+          )
+        );
+
+        //@ts-ignore
+        paths.push({
+          params: {
+            serie: serie.id.split("__")[0],
+            article: post.id.split("/")[1],
+          },
+          props: {
+            article,
+            serie,
+            relatedPosts: allRelatedPosts,
+          },
+        });
+      }
+    }
+  }
+
+  return paths;
+}) satisfies GetStaticPaths;
+
+const { article, serie, relatedPosts } = Astro.props;
+
+const { Content, remarkPluginFrontmatter } = await render(article);
+
+const { title, author, pubDate } = article.data;
+
+const __ = await getTranslator(Astro.currentLocale);
+---
+
+<Layout>
+  <section data-markdown>
+    <div class="container">
+      <div class="container-narrow">
+        <Info
+          serie={serie}
+          showSummary={false}
+          readingTime={remarkPluginFrontmatter.stats.minutes}
+        />
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="wrapper-content pt-10">
+        <Chapiter items={relatedPosts} client:only />
+        <Prose>
+          <Content />
+        </Prose>
+        <div class="wrapper-outline">
+          <Outline client:load />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .container,
+  .wrapper-content {
+    overflow: visible;
+  }
+
+  .wrapper-content {
+    display: block;
+  }
+
+  .wrapper-outline {
+    display: none;
+  }
+
+  @media screen and (min-width: 1200px) {
+    .wrapper-content {
+      width: 100%;
+      display: grid !important;
+      grid-template-columns: 1fr 600px 1fr !important;
+      padding: 0;
+    }
+
+    .wrapper-outline {
+      display: block;
+      grid-column: 3;
+      margin-bottom: 5rem;
+      justify-self: end;
+    }
+  }
+
+  h1 {
+    text-align: left;
+    padding-top: 3rem;
+    line-height: 1.4;
+  }
+
+  .meta {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    gap: 0.5rem;
+    padding-bottom: 4rem;
+    font-family: "JetBrains Mono" !important;
+
+    & > * {
+      font-family: "JetBrains Mono" !important;
+      letter-spacing: -0.5px;
+      color: var(--color-secondary);
+    }
+  }
+
+  @media screen and (max-width: 590px) {
+    .container-narrow .info .tags {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+</style>

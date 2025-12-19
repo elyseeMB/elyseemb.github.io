@@ -10,11 +10,11 @@ const { title, description, job } = Astro.props;
 
 <section class="hero container-narrow">
   <div class="wrapper">
-    <div class="title">
+    <div class="title animate-slide-in">
       <h1 class="split">{title}</h1>
     </div>
     <!-- {job && <span>{job}</span>} -->
-    <p class="description">
+    <p class="description animate-slide-in animation-delay-100">
       {description}
     </p>
   </div>

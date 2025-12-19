@@ -20,7 +20,9 @@ const breadcrumbs = segments.slice(1).map((segment, index) => {
 });
 ---
 
-<div class="breadcrumb [&>*:not(:last-child)]:after:content-['·'] after:hidden">
+<div
+  class="breadcrumb [&>*:not(:last-child)]:after:content-['·'] after:hidden animate-fade-in animation-delay-200"
+>
   <Badge contentTypeId={contentTypeId} />
 
   {

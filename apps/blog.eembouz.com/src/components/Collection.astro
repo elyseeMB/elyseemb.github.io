@@ -18,7 +18,9 @@ const baseOptions: OptionsCollection = {
 };
 ---
 
-<div class="flex flex-col md:flex-row gap-2">
+<div
+  class="flex flex-col md:flex-row gap-2 animate-slide-in animation-delay-200"
+>
   {baseOptions.showYear && <span class="text-[1.2rem] w-1/6 pt-4">{year}</span>}
 
   <div

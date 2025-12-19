@@ -6,17 +6,13 @@ import Writer from "./Writer.astro";
 
 interface Props {
   serie: CollectionEntry<"series">;
-  author: CollectionEntry<"authors">;
-  title: string;
-  pubDate: any;
-  summary: string;
+  readingTime?: number;
+  showSummary?: boolean;
 }
 
-const { serie, title, pubDate, author, summary, ...props } = Astro.props;
+const { serie, readingTime, showSummary = true } = Astro.props;
 
-const { remarkPluginFrontmatter, Content } = await render(serie);
-
-console.log(Content.propagation);
+const { title, pubDate, author, contentType, summary, ...props } = serie.data;
 
 const formatDate = Intl.DateTimeFormat(Astro.currentLocale, {
   dateStyle: "long",
@@ -26,26 +22,21 @@ const formatDate = Intl.DateTimeFormat(Astro.currentLocale, {
 <div class="info">
   <Breadcrumb contentTypeId={serie.data.contentType} />
 
-  <h1 transition:name={`article-title-${serie.id}`}>{title}</h1>
+  <h1 class="animate-slide-in">{title}</h1>
 
   <div class="meta">
-    <span>
+    <spa class="animate-slide-in animation-delay-100">
       {formatDate.toString()} ·
       <Writer author={author} />
-    </span>
-
-    <div>
-      <div class="summary leading-7">
-        {!Content.propagation && summary}
-      </div>
-      <span>
-        {
-          Content.propagation && (
-            <ReadingTime time={remarkPluginFrontmatter.stats.minutes} />
-          )
-        }
-      </span>
-    </div>
+    </spa>
+    <ReadingTime time={readingTime!} />
+    {
+      showSummary && (
+        <div class="summary leading-7 animate-slide-in animation-delay-300">
+          {summary}
+        </div>
+      )
+    }
   </div>
 </div>
 

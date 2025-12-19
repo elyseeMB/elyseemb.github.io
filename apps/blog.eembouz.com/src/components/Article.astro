@@ -16,15 +16,12 @@ interface Props {
 const { props, options } = Astro.props;
 
 function buildUrl(item: ItemDisplayed["props"]): string {
-  return (
-    "/" +
-    (item.id.includes("/")
-      ? item.id.replace("/", "/articles/")
-      : `articles/${item.id}`)
-  );
+  if (item.id.includes("/")) {
+    const [serie, article] = item.id.split("/");
+    return `/series/${serie}/${article}`;
+  }
+  return `/articles/${item.id}`;
 }
-
-console.log(props);
 
 const url =
   props.data.contentType === ContentType["SERIE"]
@@ -52,10 +49,6 @@ const url =
 </article>
 
 <style>
-  /* article h3 {
-    padding-bottom: 0.5rem;
-  } */
-
   article p {
     font-size: 0.9rem;
     padding: 0.5rem 0 0 0;

@@ -1,9 +1,5 @@
 .outline__wrapper {
-  position: sticky;
-  top: 20px;
-  height: fit-content;
-  z-index: 1000;
-  font-size: 0.8rem;
+  display: none;
 }
 
 .outline {
@@ -11,10 +7,20 @@
   max-width: 300px;
   width: max-content;
   border-radius: 1rem;
-  /* padding-inline: 1rem; */
 }
 
 .outline a:hover {
   color: var(--contrast);
   text-decoration: underline;
+}
+
+@media screen and (min-width: 1200px) {
+  .outline__wrapper {
+    display: block;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+    font-size: 0.8rem;
+    z-index: 100;
+  }
 }

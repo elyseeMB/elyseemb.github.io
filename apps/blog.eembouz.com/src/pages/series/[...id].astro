@@ -4,14 +4,17 @@ import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
-import { Chapiter } from "../../components/Chapiter.tsx";
 import { Outline } from "../../components/Outline.jsx";
-import { filterLang, getTranslator } from "../../libs/i18n.js";
+import { getTranslator } from "../../libs/i18n.js";
 import Info from "../../components/Info.astro";
 import Collection from "../../components/Collection.astro";
-import { getEntries } from "astro:content";
 import Prose from "../../components/Prose.astro";
-import type { ItemDisplayed, OptionsCollection } from "../../../config.ts";
+import type { OptionsCollection } from "../../../config.ts";
+import {
+  normalizerItem,
+  allDurationForSeries,
+} from "../../functions/article.ts";
+import { Chapiter } from "../../components/Chapiter.tsx";
 
 interface Props {
   serie: CollectionEntry<"series">;
@@ -19,7 +22,6 @@ interface Props {
 
 export const getStaticPaths = (async ({ paginate }) => {
   const series = await getCollection("series");
-
   return series.map((serie) => ({
     params: { id: serie.id.split("__")[0] },
     props: { serie },
@@ -40,52 +42,11 @@ const relatedPostsEntries = await Promise.all(
     : []
 );
 
-const articles: ItemDisplayed[] = relatedPostsEntries.map((page) => {
-  const [lang, ...slug] = page.id.split("/");
-  return {
-    params: { lang, slug: slug.join("/") || undefined },
-    props: page,
-  };
-});
+//@ts-ignore
+const durationForSeries = await allDurationForSeries(relatedPostsEntries);
 
-function groupPostsByYear(posts: ItemDisplayed[]) {
-  const postsByYear: Record<string, ItemDisplayed[]> = {};
-
-  for (const post of posts) {
-    if (!post.props.data.pubDate) {
-      continue;
-    }
-    const date = new Date(post.props.data.pubDate);
-    const year = date.getFullYear().toString();
-    if (!postsByYear[year]) {
-      postsByYear[year] = [];
-    }
-    postsByYear[year].push(post);
-  }
-
-  for (const year of Object.keys(postsByYear)) {
-    postsByYear[year].sort((a, b) => {
-      if (!a.props.data.pubDate) return 1;
-      if (!b.props.data.pubDate) return -1;
-
-      return (
-        new Date(b.props.data.pubDate).getTime() -
-        new Date(a.props.data.pubDate).getTime()
-      );
-    });
-  }
-
-  return postsByYear;
-}
-
-const allPostsByYear = groupPostsByYear(articles);
-
-const doc = Object.keys(allPostsByYear)
-  .sort((a, b) => Number(b) - Number(a))
-  .map((year) => ({
-    year: year,
-    items: allPostsByYear[year],
-  }));
+//@ts-ignore
+const doc = normalizerItem(relatedPostsEntries);
 
 const options: OptionsCollection = {
   showYear: true,
@@ -98,13 +59,7 @@ const __ = await getTranslator(Astro.currentLocale);
   <section data-markdown>
     <div class="container">
       <div class="container-narrow">
-        <Info
-          summary={summary}
-          serie={serie}
-          title={title}
-          author={author as CollectionEntry<"authors">}
-          pubDate={pubDate}
-        />
+        <Info serie={serie} readingTime={durationForSeries} />
       </div>
     </div>
 
@@ -122,11 +77,10 @@ const __ = await getTranslator(Astro.currentLocale);
 
     <div class="container">
       <div class="wrapper-content pt-10">
-        <Chapiter client:load />
         <Prose>
           <Content />
         </Prose>
-        <div class="wrapper-outline">
+        <div class="wrapper-outline translate-x-6">
           <Outline client:load />
         </div>
       </div>
@@ -218,3 +172,14 @@ const __ = await getTranslator(Astro.currentLocale);
     }
   }
 </style>
+
+<!-- <script>
+  import { mapItems } from "../../store.ts";
+
+  function openDialog() {
+    mapItems.set(true);
+  }
+
+  // Add an event listener to the button
+  document.getElementById("openDialog").addEventListener("click", openDialog);
+</script> -->
