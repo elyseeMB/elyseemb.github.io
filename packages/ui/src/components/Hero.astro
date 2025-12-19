@@ -5,15 +5,17 @@ interface Props {
   job?: string;
 }
 
-const { title, description, job } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <section class="hero container-narrow">
   <div class="wrapper">
-    <div class="title animate-slide-in">
-      <h1 class="split">{title}</h1>
+    <div class="title">
+      <h1 class="split">
+        {title}
+      </h1>
     </div>
-    <!-- {job && <span>{job}</span>} -->
+
     <p class="description animate-slide-in animation-delay-100">
       {description}
     </p>
@@ -38,24 +40,8 @@ const { title, description, job } = Astro.props;
     text-align: left;
     font-size: 2.5rem;
     letter-spacing: -1px;
-  }
-
-  .wrapper span {
-    font-weight: 100 !important;
-    font-size: 1.5rem;
-  }
-
-  .icon {
-    width: 25px;
-    height: 25px;
-  }
-
-  img.hero-img {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    display: block;
-    object-fit: cover;
+    overflow: hidden;
+    line-height: 1.1;
   }
 
   @media screen and (min-width: 1350px) {
@@ -69,10 +55,7 @@ const { title, description, job } = Astro.props;
     flex-direction: column;
     gap: 1rem;
     width: 100%;
-  }
-
-  strong {
-    font-weight: 700;
+    height: 100%;
   }
 
   /* Desktop (769px et plus) */
@@ -82,28 +65,5 @@ const { title, description, job } = Astro.props;
       grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
       place-items: flex-start;
     }
-  }
-  .left {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    font-size: 0.9rem;
-  }
-
-  form.label input {
-    background: transparent;
-    border: none;
-    outline: none;
-    color: white;
-  }
-
-  input::placeholder {
-    color: rgba(255, 255, 255, 0.484);
-  }
-
-  .icon {
-    width: 24px;
-    height: 24px;
   }
 </style>

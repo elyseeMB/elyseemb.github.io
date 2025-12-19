@@ -3,20 +3,31 @@ import { render, type CollectionEntry } from "astro:content";
 import ReadingTime from "./ReadingTime.astro";
 import Breadcrumb from "../components/Breadcrumb.astro";
 import Writer from "./Writer.astro";
+import type { CollectionKey, ReferenceDataEntry } from "astro:content";
+import { getEntry } from "astro:content";
 
 interface Props {
   serie: CollectionEntry<"series">;
   readingTime?: number;
   showSummary?: boolean;
+  taxonomies?: ReferenceDataEntry<"taxonomies", string>[] | undefined;
 }
 
-const { serie, readingTime, showSummary = true } = Astro.props;
+const { serie, readingTime, showSummary = true, taxonomies } = Astro.props;
 
 const { title, pubDate, author, contentType, summary, ...props } = serie.data;
 
 const formatDate = Intl.DateTimeFormat(Astro.currentLocale, {
   dateStyle: "long",
 }).format(pubDate);
+
+const getTaxonomies = await Promise.all(
+  taxonomies
+    ? taxonomies?.map(
+        async (taxonomy) => await getEntry(taxonomy.collection, taxonomy.id)
+      )
+    : []
+);
 ---
 
 <div class="info">
@@ -32,8 +43,17 @@ const formatDate = Intl.DateTimeFormat(Astro.currentLocale, {
     <ReadingTime time={readingTime!} />
     {
       showSummary && (
-        <div class="summary leading-7 animate-slide-in animation-delay-300">
+        <div class="summary leading-7 animate-slide-in animation-delay-200">
           {summary}
+        </div>
+      )
+    }
+    {
+      getTaxonomies && (
+        <div class="tags animate-slide-in animation-delay-300">
+          {getTaxonomies.map((taxonomy) => (
+            <div class="tag">{taxonomy?.data.name}</div>
+          ))}
         </div>
       )
     }

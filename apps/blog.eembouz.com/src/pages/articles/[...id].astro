@@ -9,6 +9,7 @@ import { Outline } from "../../components/Outline.jsx";
 import { filterLang, getTranslator } from "../../libs/i18n.js";
 import Breadcrumb from "../../components/Breadcrumb.astro";
 import Prose from "../../components/Prose.astro";
+import Info from "../../components/Info.astro";
 
 interface Props {
   post: CollectionEntry<"blog">;
@@ -35,19 +36,6 @@ const {
   contentType,
 } = post.data;
 
-const getTaxonomies = await Promise.all(
-  taxonomies
-    ? taxonomies?.map(
-        async (taxonomy) => await getEntry(taxonomy.collection, taxonomy.id)
-      )
-    : []
-);
-
-const formatDate = Intl.DateTimeFormat(Astro.currentLocale, {
-  dateStyle: "long",
-}).format(pubDate);
-const writer = await getEntry(author.collection, author.id);
-
 const metaData = {
   title: post.data.title,
   description: post.data.summary,
@@ -65,28 +53,12 @@ const __ = await getTranslator(Astro.currentLocale);
   <section data-markdown>
     <div class="container">
       <div class="container-narrow">
-        <div class="info">
-          <Breadcrumb contentTypeId={contentType} />
-          <h1 class="animate-slide-in">
-            {title}
-          </h1>
-
-          <div class="meta animate-slide-in animation-delay-100">
-            <span>
-              {formatDate.toString()} ·
-              {writer?.data.name}
-            </span>
-            <ReadingTime time={remarkPluginFrontmatter.stats.minutes} />
-
-            <div class="tags animate-slide-in animation-delay-100">
-              {
-                getTaxonomies.map((taxonomy) => (
-                  <div class="tag">{taxonomy?.data.name}</div>
-                ))
-              }
-            </div>
-          </div>
-        </div>
+        <Info
+          serie={post}
+          showSummary={false}
+          taxonomies={taxonomies}
+          readingTime={remarkPluginFrontmatter.stats.minutes}
+        />
       </div>
     </div>
 
