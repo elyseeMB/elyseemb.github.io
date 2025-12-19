@@ -52,11 +52,11 @@ export const getStaticPaths = (async () => {
   return paths;
 }) satisfies GetStaticPaths;
 
-const { article, serie, relatedPosts } = Astro.props;
+const { article, relatedPosts } = Astro.props;
 
 const { Content, remarkPluginFrontmatter } = await render(article);
 
-const { title, author, pubDate } = article.data;
+const { title } = article.data;
 
 const __ = await getTranslator(Astro.currentLocale);
 ---
@@ -66,7 +66,7 @@ const __ = await getTranslator(Astro.currentLocale);
     <div class="container">
       <div class="container-narrow">
         <Info
-          serie={serie}
+          item={article}
           showSummary={false}
           readingTime={remarkPluginFrontmatter.stats.minutes}
         />

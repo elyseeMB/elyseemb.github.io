@@ -7,15 +7,15 @@ import type { CollectionKey, ReferenceDataEntry } from "astro:content";
 import { getEntry } from "astro:content";
 
 interface Props {
-  serie: CollectionEntry<"series">;
+  item: CollectionEntry<"series"> | CollectionEntry<"blog">;
   readingTime?: number;
   showSummary?: boolean;
   taxonomies?: ReferenceDataEntry<"taxonomies", string>[] | undefined;
 }
 
-const { serie, readingTime, showSummary = true, taxonomies } = Astro.props;
+const { item, readingTime, showSummary = true, taxonomies } = Astro.props;
 
-const { title, pubDate, author, contentType, summary, ...props } = serie.data;
+const { title, pubDate, author, contentType, summary, ...props } = item.data;
 
 const formatDate = Intl.DateTimeFormat(Astro.currentLocale, {
   dateStyle: "long",
@@ -31,7 +31,7 @@ const getTaxonomies = await Promise.all(
 ---
 
 <div class="info">
-  <Breadcrumb contentTypeId={serie.data.contentType} />
+  <Breadcrumb contentTypeId={item.data.contentType} />
 
   <h1 class="animate-slide-in">{title}</h1>
 
