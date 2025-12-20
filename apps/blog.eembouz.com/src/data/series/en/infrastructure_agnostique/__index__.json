@@ -1,14 +1,14 @@
 {
-  "title": "Infrastructure agnostique",
+  "title": "English version Infrastructure agnostique",
   "author": "elysee",
-  "summary": "L'infrastructure agnostique désigne une approche logicielle ou système indépendante de l'infrastructure sous-jacente, fonctionnant sur tout cloud, serveur ou plateforme sans adaptation spécifique.",
+  "summary": "English version L'infrastructure agnostique désigne une approche logicielle ou système indépendante de l'infrastructure sous-jacente, fonctionnant sur tout cloud, serveur ou plateforme sans adaptation spécifique.",
   "pubDate": "2025-12-14",
   "relatedPosts": [
-    "infrastructure_agnostique/introduction",
-    "infrastructure_agnostique/configuration",
-    "infrastructure_agnostique/1",
-    "infrastructure_agnostique/2",
-    "infrastructure_agnostique/3",
-    "infrastructure_agnostique/4"
+    "en/infrastructure_agnostique/introduction",
+    "en/infrastructure_agnostique/configuration",
+    "en/infrastructure_agnostique/1",
+    "en/infrastructure_agnostique/2",
+    "en/infrastructure_agnostique/3",
+    "en/infrastructure_agnostique/4"
   ]
 }
