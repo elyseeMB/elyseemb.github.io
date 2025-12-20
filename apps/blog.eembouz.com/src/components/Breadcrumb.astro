@@ -1,5 +1,5 @@
 ---
-import { ContentType } from "../../config.ts";
+import { ContentType, langs } from "../../config.ts";
 import Badge from "./Badge.astro";
 interface Props {
   contentTypeId: ContentType;
@@ -9,12 +9,22 @@ const { contentTypeId } = Astro.props;
 
 const url = Astro.url;
 
-const segments = url.pathname.split("/").filter(Boolean);
-const showBreadcrumb = segments.length > 2;
+const currentLang = Astro.currentLocale;
 
-const breadcrumbs = segments.slice(1).map((segment, index) => {
-  const path = "/" + segments.slice(0, index + 2).join("/") + "/";
-  const isLast = index === segments.length - 2;
+const segments = url.pathname.split("/").filter(Boolean);
+
+const isLangPrefix =
+  segments[0] && langs.includes(segments[0] as (typeof langs)[number]);
+
+const contentSegments = isLangPrefix ? segments.slice(1) : segments;
+
+const showBreadcrumb = contentSegments.length > 1;
+
+const breadcrumbs = contentSegments.slice(1).map((segment, index) => {
+  const langPrefix = currentLang === "fr" ? "" : `/${currentLang}`;
+  const path =
+    langPrefix + "/" + contentSegments.slice(0, index + 2).join("/") + "/";
+  const isLast = index === contentSegments.length - 2;
   const isActive = url.pathname === path || isLast;
   return { segment, path, isLast, isActive };
 });

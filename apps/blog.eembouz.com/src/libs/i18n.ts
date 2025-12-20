@@ -1,3 +1,4 @@
+import type { CollectionEntry } from "astro:content";
 import EN from "../locales/en.json";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
@@ -28,6 +29,19 @@ export const filterLang =
       return !entry.id.includes("/");
     }
     return entry.id.startsWith(lang);
+  };
+
+export const filterSeries =
+  (lang: string = "fr") =>
+  (entry: CollectionEntry<"series">) => {
+    if (!entry.filePath?.endsWith(".json")) {
+      return false;
+    }
+
+    if (lang === "fr") {
+      return !entry.id.startsWith("en/");
+    }
+    return entry.id.startsWith(lang + "/");
   };
 
 export function getLink(

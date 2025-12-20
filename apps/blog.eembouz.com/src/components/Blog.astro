@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import { filterLang } from "../libs/i18n.ts";
+import { filterLang, filterSeries } from "../libs/i18n.ts";
 import type { CollectionEntry } from "astro:content";
 import Collection from "./Collection.astro";
 import type { ItemDisplayed, OptionsCollection } from "../../config.ts";
@@ -11,14 +11,10 @@ interface Props {
   limit?: number;
 }
 
-const filterSeries = (entry: CollectionEntry<"series">) => {
-  if (!entry.filePath) {
-    throw Error("file not found...");
-  }
-  return entry.filePath.endsWith(".json");
-};
-
-const docSeries = await getCollection("series", filterSeries);
+const docSeries = await getCollection(
+  "series",
+  filterSeries(Astro.currentLocale)
+);
 
 const series = docSeries.map((item) => ({
   title: item.id.split("/")[0],

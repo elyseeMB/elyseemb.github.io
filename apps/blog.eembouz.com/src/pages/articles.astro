@@ -1,22 +1,18 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
-import { filterLang, getTranslator } from "../libs/i18n.ts";
+import { filterLang, filterSeries, getTranslator } from "../libs/i18n.ts";
 import Collection from "../components/Collection.astro";
 import type { OptionsCollection } from "../../config.ts";
 import { itemNormalizer } from "../functions/article.ts";
 
-const filterSeries = (entry: CollectionEntry<"series">) => {
-  if (!entry.filePath) {
-    throw Error("file not found...");
-  }
-  return entry.filePath.endsWith(".json");
-};
-
-const docSeries = await getCollection("series", filterSeries);
+const docSeries = await getCollection(
+  "series",
+  filterSeries(Astro.currentLocale)
+);
 
 const series = docSeries.map((item) => ({
-  title: item.id.split("/")[0],
+  title: item.data.title,
   ...item,
 }));
 

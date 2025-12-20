@@ -1,7 +1,12 @@
 ---
-import type { Collection, OptionsCollection } from "../../config.ts";
+import {
+  ContentType,
+  type Collection,
+  type OptionsCollection,
+} from "../../config.ts";
 import { between } from "../functions/helper.ts";
 import Article from "./Article.astro";
+import ItemSerie from "./ItemSerie.astro";
 
 interface Props {
   year: Collection["year"];
@@ -11,6 +16,7 @@ interface Props {
 }
 
 const { year, items, options, className } = Astro.props;
+console.log(year);
 
 const baseOptions: OptionsCollection = {
   showBadge: false,
@@ -20,6 +26,8 @@ const baseOptions: OptionsCollection = {
 };
 
 const isArticlePage = Astro.url.pathname.includes("articles");
+
+const isSeriesPage = Astro.url.pathname.includes("series");
 ---
 
 <div
@@ -39,17 +47,29 @@ const isArticlePage = Astro.url.pathname.includes("articles");
     class="flex flex-1 flex-col divide-y divide-[var(--border-color)]"
   >
     {
-      items.map((article, index) => (
-        <Article
-          className={`animate-perspective-in animation-delay-${between(
-            index * 100,
-            0,
-            300
-          )}`}
-          props={article.props}
-          options={baseOptions}
-        />
-      ))
+      items.map((article, index) =>
+        isSeriesPage ? (
+          <ItemSerie
+            className={`animate-perspective-in animation-delay-${between(
+              index * 100,
+              0,
+              300
+            )}`}
+            props={article.props}
+            options={baseOptions}
+          />
+        ) : (
+          <Article
+            className={`animate-perspective-in animation-delay-${between(
+              index * 100,
+              0,
+              300
+            )}`}
+            props={article.props}
+            options={baseOptions}
+          />
+        )
+      )
     }
   </div>
 </div>

@@ -3,17 +3,17 @@ import type { GetStaticPaths } from "astro";
 import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
-import { Outline } from "../../components/Outline.jsx";
-import { getTranslator } from "../../libs/i18n.js";
-import Info from "../../components/Info.astro";
-import Collection from "../../components/Collection.astro";
-import Prose from "../../components/Prose.astro";
-import type { OptionsCollection } from "../../../config.ts";
+import Layout from "../../../layouts/Layout.astro";
+import { Outline } from "../../../components/Outline.jsx";
+import { getTranslator } from "../../../libs/i18n.js";
+import Info from "../../../components/Info.astro";
+import Collection from "../../../components/Collection.astro";
+import Prose from "../../../components/Prose.astro";
+import type { OptionsCollection } from "../../../../config.ts";
 import {
   itemNormalizer,
   allDurationForSeries,
-} from "../../functions/article.ts";
+} from "../../../functions/article.ts";
 
 interface Props {
   serie: CollectionEntry<"series">;
@@ -173,7 +173,7 @@ const __ = await getTranslator(Astro.currentLocale);
 </style>
 
 <!-- <script>
-  import { mapItems } from "../../store.ts";
+  import { mapItems } from "../../../store.ts";
 
   function openDialog() {
     mapItems.set(true);
