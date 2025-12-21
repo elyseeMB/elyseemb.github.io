@@ -90,11 +90,14 @@ function getArticleFromId(itemId: string): string {
 
 function buildItemPath(itemId: string, currentPathname: string): string {
   const currentSegments = currentPathname.split("/").filter(Boolean);
+  const ln = navigator.language.split("-")[0];
   const lang = currentSegments[0];
   const seriesName = currentSegments[2];
 
   const itemSegments = itemId.split("/").filter(Boolean);
   const article = itemSegments[itemSegments.length - 1];
 
-  return `/${lang}/series/${seriesName}/${article}`;
+  return ln === "fr"
+    ? `/series/${itemSegments.join("/")}`
+    : `/${lang}/series/${seriesName}/${article}`;
 }
