@@ -25,7 +25,7 @@ export function Chapiter({ items }: Props) {
   }, [items]);
 
   return (
-    <div class="relative outline__wrapper w-max animate-fade-in animation-delay-200">
+    <div class="relative outline__wrapper w-max animate-fade-in animation-delay-200 pb-[5rem]">
       <ul ref={ulRef} id="chapiter-animation text-lg!" className="">
         {items.map((item, index) => (
           <ChapiterItem
