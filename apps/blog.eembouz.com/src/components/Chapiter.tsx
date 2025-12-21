@@ -78,42 +78,23 @@ function ChapiterItem({
   );
 }
 
-// Helper functions
-
 function getActiveArticle(pathname: string): string {
-  // pathname: "/fr/series/automate/introduction"
-  // retourne: "introduction"
   const segments = pathname.split("/").filter(Boolean);
   return segments[segments.length - 1];
 }
 
 function getArticleFromId(itemId: string): string {
-  // itemId: "fr/automate/introduction"
-  // retourne: "introduction"
   const segments = itemId.split("/").filter(Boolean);
   return segments[segments.length - 1];
 }
 
 function buildItemPath(itemId: string, currentPathname: string): string {
-  // itemId: "fr/automate/introduction"
-  // currentPathname: "/fr/series/automate/1"
-
-  // Extraire langue et série du pathname actuel
   const currentSegments = currentPathname.split("/").filter(Boolean);
-  // currentSegments: ["fr", "series", "automate", "1"]
+  const lang = currentSegments[0];
+  const seriesName = currentSegments[2];
 
-  const lang = currentSegments[0]; // "fr"
-  const seriesName = currentSegments[2]; // "automate"
-
-  // Extraire l'article de l'itemId
   const itemSegments = itemId.split("/").filter(Boolean);
-  const article = itemSegments[itemSegments.length - 1]; // "introduction"
+  const article = itemSegments[itemSegments.length - 1];
 
-  // Construire: /fr/series/automate/introduction
   return `/${lang}/series/${seriesName}/${article}`;
-}
-
-function isActivePage(itemPath: string, activeSegment: string): boolean {
-  const itemSegments = itemPath.split("/").filter(Boolean);
-  return activeSegment === itemSegments[itemSegments.length - 1];
 }
