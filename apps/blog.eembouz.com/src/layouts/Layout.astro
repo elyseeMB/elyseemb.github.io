@@ -105,3 +105,29 @@ const {
 
   redirectLang();
 </script>
+
+<style is:global>
+  pre.astro-code,
+  pre.astro-code span {
+    background-color: transparent !important;
+  }
+
+  pre.astro-code code {
+    counter-reset: step;
+    counter-increment: step 0;
+    display: grid;
+  }
+
+  pre.astro-code .line::before {
+    content: counter(step);
+    counter-increment: step;
+    width: 1rem;
+    margin-right: 1.5rem;
+    display: inline-block;
+    text-align: right;
+    color: var(--color-secondary);
+    font-size: 0.8rem;
+    user-select: none;
+    opacity: 0.5;
+  }
+</style>

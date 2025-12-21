@@ -96,7 +96,7 @@ export function Outline() {
                       ? "var(--color-primary)"
                       : "inherit",
                 }}
-                class="block whitespace-nowrap max-w-[250px] overflow-hidden text-ellipsis transition"
+                class="block whitespace-nowrap max-w-[200px] overflow-hidden text-ellipsis transition"
               >
                 {heading.textContent}
               </div>
