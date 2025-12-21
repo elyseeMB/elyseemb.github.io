@@ -10,14 +10,18 @@ document.addEventListener("astro:page-load", () => {
 
   codeBlocks.forEach((pre) => {
     const wrapper = document.createElement("div");
+    const language = pre.dataset.language;
     wrapper.className =
       "my-6 overflow-hidden rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-[#0d1117]";
 
     const header = document.createElement("div");
     header.className =
-      "flex items-center justify-end border-b border-zinc-200 bg-zinc-50/50 px-4 py-2 dark:border-zinc-800 dark:bg-zinc-900/50";
+      "flex items-center justify-between border-b border-zinc-200 bg-zinc-50/50 px-4 py-2 dark:border-zinc-800 dark:bg-zinc-900/50";
 
     header.innerHTML = `
+      <span class="copy-btn p-1.5 rounded-md text-[var(--color-secondary)]! transition-all active:scale-90">
+      ${language}
+      </span>
       <button class="copy-btn p-1.5 rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-500 transition-all active:scale-90" aria-label="Copier">
         ${copyIcon}
       </button>
