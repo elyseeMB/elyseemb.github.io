@@ -49,7 +49,7 @@ const isSeriesPage = Astro.url.pathname.includes("series");
       items.map((article, index) =>
         isSeriesPage ? (
           <ItemSerie
-            className={`animate-perspective-in animation-delay-${between(
+            className={`animate-slide-in animation-delay-${between(
               index * 100,
               0,
               300
@@ -59,7 +59,7 @@ const isSeriesPage = Astro.url.pathname.includes("series");
           />
         ) : (
           <Article
-            className={`animate-perspective-in animation-delay-${between(
+            className={`animate-slide-in animation-delay-${between(
               index * 100,
               0,
               300

@@ -83,7 +83,7 @@ export function Outline() {
         {headings.heading_level_2?.map((heading, index) => (
           <li
             onClick={handleClick}
-            className={`px-2 py-2 flex items-center cursor-pointer animate-perspective-in animation-delay-${between(
+            className={`px-2 py-2 flex items-center cursor-pointer animate-slide-in animation-delay-${between(
               index * 100,
               0,
               300

@@ -15,8 +15,8 @@ type Props = {
 
 export function Chapiter({ items }: Props) {
   const ulRef = useRef<HTMLUListElement>(null);
-  const currentUrl = new URL(window.location.href);
-  const activePathSegment = getActivePathSegment(currentUrl);
+  const pathname = window.location.pathname;
+  const activeArticle = getActiveArticle(pathname);
 
   useEffect(() => {
     if (items) {
@@ -32,8 +32,8 @@ export function Chapiter({ items }: Props) {
             key={item.id}
             item={item}
             index={index}
-            currentUrl={currentUrl}
-            activePathSegment={activePathSegment}
+            pathname={pathname}
+            activeArticle={activeArticle}
           />
         ))}
       </ul>
@@ -44,23 +44,24 @@ export function Chapiter({ items }: Props) {
 type ChapiterItemProps = {
   item: ChapiterItem;
   index: number;
-  currentUrl: URL;
-  activePathSegment: string;
+  pathname: string;
+  activeArticle: string;
 };
 
 function ChapiterItem({
   item,
   index,
-  currentUrl,
-  activePathSegment,
+  pathname,
+  activeArticle,
 }: ChapiterItemProps) {
-  const itemPath = buildItemPath(item.id, currentUrl);
-  const isCurrentPage = isActivePage(itemPath, activePathSegment);
+  const itemPath = buildItemPath(item.id, pathname);
+  const articleName = getArticleFromId(item.id);
+  const isCurrentPage = activeArticle === articleName;
   const animationDelay = between(index * 100, 0, 300);
 
   return (
     <li
-      className={`relative px-2 py-2 flex items-center cursor-pointer animate-perspective-in animation-delay-${animationDelay}`}
+      className={`relative px-2 py-2 flex items-center cursor-pointer animate-slide-in animation-delay-${animationDelay}`}
     >
       <a
         class="block pr-4 text-neutral-500! z-10 before:content-[''] before:absolute before:-z-10 before:inset-0 before:w-full before:h-full"
@@ -77,18 +78,39 @@ function ChapiterItem({
   );
 }
 
-function getActivePathSegment(url: URL): string {
-  const pathSegments = url.pathname.split("/").filter(Boolean);
-  return pathSegments.slice(pathSegments.length - 1).join("/");
+// Helper functions
+
+function getActiveArticle(pathname: string): string {
+  // pathname: "/fr/series/automate/introduction"
+  // retourne: "introduction"
+  const segments = pathname.split("/").filter(Boolean);
+  return segments[segments.length - 1];
 }
 
-function buildItemPath(itemId: string, baseUrl: URL): string {
-  const pathSegments = new URL(itemId, baseUrl).pathname
-    .split("/")
-    .filter(Boolean);
+function getArticleFromId(itemId: string): string {
+  // itemId: "fr/automate/introduction"
+  // retourne: "introduction"
+  const segments = itemId.split("/").filter(Boolean);
+  return segments[segments.length - 1];
+}
 
-  const uniqueSegments = Array.from(new Set(pathSegments));
-  return "/" + uniqueSegments.join("/");
+function buildItemPath(itemId: string, currentPathname: string): string {
+  // itemId: "fr/automate/introduction"
+  // currentPathname: "/fr/series/automate/1"
+
+  // Extraire langue et série du pathname actuel
+  const currentSegments = currentPathname.split("/").filter(Boolean);
+  // currentSegments: ["fr", "series", "automate", "1"]
+
+  const lang = currentSegments[0]; // "fr"
+  const seriesName = currentSegments[2]; // "automate"
+
+  // Extraire l'article de l'itemId
+  const itemSegments = itemId.split("/").filter(Boolean);
+  const article = itemSegments[itemSegments.length - 1]; // "introduction"
+
+  // Construire: /fr/series/automate/introduction
+  return `/${lang}/series/${seriesName}/${article}`;
 }
 
 function isActivePage(itemPath: string, activeSegment: string): boolean {
