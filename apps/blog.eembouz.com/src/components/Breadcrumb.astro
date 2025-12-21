@@ -15,7 +15,7 @@ const isLangPrefix =
   segments[0] && langs.includes(segments[0] as (typeof langs)[number]);
 
 const contentSegments = isLangPrefix ? segments.slice(1) : segments;
-const showBreadcrumb = contentSegments.length > 1;
+const showBreadcrumb = contentSegments.length > 2;
 
 const breadcrumbs = contentSegments.slice(1).map((segment, index) => {
   const langPrefix = currentLang === "fr" ? "" : `/${currentLang}`;
