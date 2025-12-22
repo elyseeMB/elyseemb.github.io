@@ -65,13 +65,16 @@ body {
 
 pre {
   background: var(--secondary) !important;
-  text-wrap: wrap;
 }
 
 @layer utilities {
   .container {
     margin: 0 auto;
     max-width: 100%;
+  }
+
+  .prose pre {
+    border-radius: 0;
   }
 
   .prose h2 {
