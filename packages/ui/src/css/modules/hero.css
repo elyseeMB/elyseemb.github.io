@@ -82,7 +82,7 @@
     width: 750px;
     line-height: 1.6;
     flex-wrap: wrap;
-    text-wrap: balance;
+    /* text-wrap: balance; */
   }
   .hero h1 {
     max-width: 100%;
@@ -112,6 +112,6 @@
     line-height: 1.6;
     display: flex;
     flex-wrap: wrap;
-    text-wrap: balance;
+    /* text-wrap: balance; */
   }
 }
