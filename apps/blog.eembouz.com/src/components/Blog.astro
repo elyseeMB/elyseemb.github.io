@@ -1,7 +1,10 @@
 ---
 import { getCollection } from "astro:content";
-import { getLink, filterLang } from "../libs/i18n.ts";
+import { filterLang, filterSeries } from "../libs/i18n.ts";
 import type { CollectionEntry } from "astro:content";
+import Collection from "./Collection.astro";
+import type { ItemDisplayed, OptionsCollection } from "../../config.ts";
+import { itemNormalizer } from "../functions/article.ts";
 
 interface Props {
   title?: string;
@@ -10,63 +13,23 @@ interface Props {
 
 const allPages = await getCollection("blog", filterLang(Astro.currentLocale));
 
-const articles = allPages.map((page) => {
-  const [lang, ...slug] = page.id.split("/");
-  return {
-    params: { lang, slug: slug.join("/") || undefined },
-    props: page,
-  };
-});
-
 const { title, limit } = Astro.props;
 
-const displayedArticles = limit ? articles.slice(0, limit) : articles;
+const doc = itemNormalizer(allPages);
 
-function buildUrl(item: (typeof displayedArticles)[number]): string {
-  return (
-    "/" +
-    (item.props.id.includes("/")
-      ? item.props.id.replace("/", "/articles/")
-      : `articles/${item.props.id}`)
-  );
-}
+const options: OptionsCollection = {
+  description: true,
+  showYear: false,
+};
 ---
 
 <section class="blog container-narrow">
-  {title && <h3 class="title">{title}</h3>}
+  {title && <h3 class="title animate-slide-in animation-delay-300">{title}</h3>}
   <div
     data-list__articles
     class="flex flex-1 flex-col divide-y divide-[var(--border-color)]"
   >
-    {
-      displayedArticles
-        .filter((article) => article.props.data.isDraft !== true)
-        .sort((a, b) =>
-          new Date(a.props.data.pubDate!).getTime() <
-          new Date(b.props.data.pubDate!).getTime()
-            ? 1
-            : -1
-        )
-        .map((article) => (
-          <a href={buildUrl(article)}>
-            <article class="item flex items-center justify-between gap-4 py-4">
-              <div class="item__info">
-                <h3 class="item__title">{article.props.data.title}</h3>
-                <p class="item__description">{article.props.data.summary}</p>
-              </div>
-              <div>
-                <div class="meta">
-                  <span>
-                    {new Intl.DateTimeFormat(Astro.currentLocale, {
-                      dateStyle: "short",
-                    }).format(article.props.data.pubDate)}
-                  </span>
-                </div>
-              </div>
-            </article>
-          </a>
-        ))
-    }
+    {doc.map((collection) => <Collection {...collection} options={options} />)}
   </div>
 </section>
 
@@ -90,10 +53,6 @@ function buildUrl(item: (typeof displayedArticles)[number]): string {
     font-size: 2rem !important;
   }
 
-  .blog h3 {
-    font-weight: 900;
-    font-size: 2rem;
-  }
   .blog p {
     padding: 0;
   }

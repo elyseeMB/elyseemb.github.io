@@ -18,33 +18,17 @@ interface Props {
 const { props, options, className } = Astro.props;
 
 function buildUrl(item: ItemDisplayed["props"]): string {
-  return (
-    "/" +
-    (item.id.includes("/")
-      ? item.id.replace("/", "/articles/")
-      : `articles/${item.id}`)
-  );
+  const base = new URL(item.id, Astro.url).pathname.split("/").filter(Boolean);
+  const set = new Set(base);
+  return "/" + Array.from(set).join("/");
 }
-
-function buildUrlForSeries({ id }: ItemDisplayed["props"]): string {
-  const segments = id.split("__")[0].split("/").filter(Boolean);
-
-  return segments.length > 1
-    ? `/${segments[0]}/series/${segments.slice(1).join("/")}`
-    : `/series/${segments[0]}`;
-}
-
-const url =
-  props.data.contentType === ContentType["SERIE"]
-    ? buildUrlForSeries(props)
-    : buildUrl(props);
 ---
 
 <article
   class={clx(className, "item flex items-center justify-between gap-4 py-4")}
 >
   <div class="item__info">
-    <Link href={url}>
+    <Link href={buildUrl(props)}>
       {options.showBadge && <Badge contentTypeId={props.data.contentType} />}
       <h3 class="item__title">{props.data.title}</h3>
       {

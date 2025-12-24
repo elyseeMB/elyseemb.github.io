@@ -9,12 +9,14 @@ import { getTranslator } from "../libs/i18n.ts";
 export type PropsBlog = CollectionEntry<"blog">;
 
 const articles = await getCollection("blog");
+
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
 <Layout>
   <div class="container home">
     <Hero />
+
     {articles.length >= 1 && <Blog title={__("Mes dernfiers articles")} />}
   </div>
 </Layout>

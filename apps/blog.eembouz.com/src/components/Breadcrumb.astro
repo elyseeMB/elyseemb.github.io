@@ -1,0 +1,73 @@
+---
+import { ContentType, langs } from "../../config.ts";
+import Badge from "./Badge.astro";
+
+interface Props {
+  contentTypeId: ContentType;
+}
+
+const { contentTypeId } = Astro.props;
+const url = Astro.url;
+const currentLang = Astro.currentLocale;
+const segments = url.pathname.split("/").filter(Boolean);
+
+const isLangPrefix =
+  segments[0] && langs.includes(segments[0] as (typeof langs)[number]);
+
+const contentSegments = isLangPrefix ? segments.slice(1) : segments;
+const showBreadcrumb = contentSegments.length > 2;
+
+const breadcrumbs = contentSegments.slice(1).map((segment, index) => {
+  const langPrefix = currentLang === "fr" ? "" : `/${currentLang}`;
+  const path =
+    langPrefix + "/" + contentSegments.slice(0, index + 2).join("/") + "/";
+  const isLast = index === contentSegments.length - 2;
+  const isActive = url.pathname === path || isLast;
+  return { segment, path, isLast, isActive };
+});
+---
+
+<nav
+  class="breadcrumb [&>*:not(:last-child)]:after:content-['·'] after:hidden animate-fade-in animation-delay-200"
+>
+  <Badge contentTypeId={contentTypeId} />
+
+  {
+    showBreadcrumb &&
+      breadcrumbs.map(({ segment, path, isLast, isActive }) => (
+        <>
+          {isLast ? (
+            <span
+              aria-current="page"
+              class="opacity-100 text-[var(--color-primary)]! transition-opacity duration-300 inline-block truncate max-w-[120px] sm:max-w-none sm:whitespace-normal"
+            >
+              {segment}
+            </span>
+          ) : (
+            <a
+              href={path}
+              aria-current={isActive ? "page" : undefined}
+              class:list={[
+                "transition-opacity duration-300 inline-block",
+                "truncate max-w-[120px] sm:max-w-none sm:whitespace-normal",
+                {
+                  "opacity-100": isActive,
+                  "opacity-50": !isActive,
+                },
+              ]}
+            >
+              {segment}
+            </a>
+          )}
+        </>
+      ))
+  }
+</nav>
+
+<style>
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+import { ContentType, ContentTypeDesc } from "../../config.ts";
+
+interface Props {
+  contentTypeId: ContentType;
+}
+const { contentTypeId } = Astro.props;
+
+const url = Astro.url;
+
+const buildUrl = (pathname: string) => {
+  if (pathname.includes("articles") && pathname !== "/articles/") {
+    return "/articles/";
+  }
+
+  if (pathname.includes("series") && pathname !== "/series/") {
+    return "/series/";
+  }
+
+  const segments = pathname.split("/").filter(Boolean);
+  segments.pop();
+  return segments.length > 0 ? `/${segments.join("/")}/` : "/";
+};
+
+const badgeIsActive = url.pathname === buildUrl(url.pathname);
+---
+
+<div style={`--color:var(--${ContentTypeDesc[contentTypeId]});`} class="badge">
+  <a
+    href="#"
+    aria-current={badgeIsActive ? "page" : undefined}
+    class:list={[
+      "transition-opacity duration-300 pointer-events-none",
+      { "opacity-100": badgeIsActive, "opacity-50": !badgeIsActive },
+    ]}
+  >
+    {ContentTypeDesc[contentTypeId]}
+  </a>
+</div>
+
+<style>
+  .badge {
+    font-family: "JetBrains Mono" !important;
+    position: relative;
+    font-size: 0.9rem;
+    display: flex;
+    width: max-content;
+    align-items: center;
+    justify-items: center;
+    gap: 0.5rem;
+    z-index: 10;
+  }
+
+  .badge::before {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    aspect-ratio: 1;
+    background: var(--color);
+  }
+
+  .breadcrumb a:hover {
+    opacity: 1 !important;
+  }
+</style>
