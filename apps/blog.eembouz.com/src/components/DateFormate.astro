@@ -1,12 +1,22 @@
 ---
-const { date } = Astro.props;
+interface Props {
+  isShowYear?: boolean;
+  date: Date | undefined;
+}
+
+const optionsDate = (isShowYear: boolean): Intl.DateTimeFormatOptions => {
+  if (!isShowYear) return { dateStyle: "short" };
+  return { month: "2-digit", day: "2-digit" };
+};
+
+const { date, isShowYear } = Astro.props;
 ---
 
 <span>
   {
-    new Intl.DateTimeFormat(Astro.currentLocale, {
-      month: "2-digit",
-      day: "2-digit",
-    }).format(date)
+    new Intl.DateTimeFormat(
+      Astro.currentLocale,
+      optionsDate(isShowYear ?? false) ?? { dateStyle: "short" }
+    ).format(date)
   }
 </span>

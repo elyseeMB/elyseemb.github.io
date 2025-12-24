@@ -1,71 +1,31 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
-import { filterLang, getTranslator } from "../libs/i18n.ts";
+import { filterLang, filterSeries, getTranslator } from "../libs/i18n.ts";
 import Collection from "../components/Collection.astro";
+import type { OptionsCollection } from "../../config.ts";
+import { itemNormalizer } from "../functions/article.ts";
 
 const allPages = await getCollection("blog", filterLang(Astro.currentLocale));
 
-const articles = allPages.map((page) => {
-  const [lang, ...slug] = page.id.split("/");
-  return {
-    params: { lang, slug: slug.join("/") || undefined },
-    props: page,
-  };
-});
-
-const { title, limit } = Astro.props;
-
-const displayedArticles = limit ? articles.slice(0, limit) : articles;
-export type ItemDisplayed = (typeof displayedArticles)[number];
-
 const __ = await getTranslator(Astro.currentLocale);
 
-function groupPostsByYear(posts: typeof displayedArticles) {
-  const postsByYear = [];
+const doc = itemNormalizer(allPages);
 
-  for (const post of posts) {
-    if (!post.props.data.pubDate) {
-      return;
-    }
-    const date = new Date(post.props.data.pubDate);
-    const year = date.getFullYear();
-    if (!postsByYear[year]) {
-      postsByYear[year] = [];
-    }
-    postsByYear[year].push(post);
-  }
-
-  for (const year of Object.keys(postsByYear)) {
-    postsByYear[year].sort((a, b) => {
-      if (!a.props.data.pubDate) return 1;
-      if (!b.props.data.pubDate) return -1;
-
-      return (
-        new Date(b.props.data.pubDate).getTime() -
-        new Date(a.props.data.pubDate).getTime()
-      );
-    });
-  }
-
-  return postsByYear;
-}
-
-const allPostsByYear = groupPostsByYear(displayedArticles);
-
-const doc = Object.keys(allPostsByYear)
-  .sort((a, b) => b - a)
-  .map((year) => ({
-    year: year,
-    items: allPostsByYear[year] as typeof displayedArticles,
-  }));
+const options: OptionsCollection = {
+  showYear: true,
+};
 ---
 
 <Layout>
   <div class="container container-narrow">
     <section class="blog-posts">
       <div class="divide-y divide-[var(--border-color)]">
-        {doc.map((collection) => <Collection {...collection} />)}
+        {
+          doc.map((collection) => (
+            <Collection {...collection} options={options} />
+          ))
+        }
       </div>
     </section>
   </div>

@@ -1,6 +1,7 @@
 import type { MouseEventHandler } from "preact/compat";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { ChapiterAnimation } from "./elements/ChapiterAnimation.ts";
+import { between } from "../functions/helper.ts";
 
 export function Outline() {
   const [activeItem, setActiveItem] = useState<Element | null>(null);
@@ -77,12 +78,16 @@ export function Outline() {
   };
 
   return (
-    <div className="relative  outline__wrapper w-max">
-      <ul ref={ulRef} id="chapiter-animation" className="px-10">
-        {headings.heading_level_2?.map((heading) => (
+    <div className="relative outline__wrapper w-max animate-fade-in  animation-delay-200">
+      <ul ref={ulRef} id="chapiter-animation" className="">
+        {headings.heading_level_2?.map((heading, index) => (
           <li
             onClick={handleClick}
-            className="px-2 py-2 flex items-center cursor-pointer"
+            className={`px-2 py-2 flex items-center cursor-pointer animate-slide-in animation-delay-${between(
+              index * 100,
+              0,
+              300
+            )}`}
           >
             <a
               class="relative inline-block pr-4 text-neutral-500!"
@@ -96,7 +101,7 @@ export function Outline() {
                       ? "var(--color-primary)"
                       : "inherit",
                 }}
-                class="block whitespace-nowrap max-w-[250px] overflow-hidden text-ellipsis transition"
+                class="block whitespace-nowrap max-w-[200px] overflow-hidden text-ellipsis transition"
               >
                 {heading.textContent}
               </div>

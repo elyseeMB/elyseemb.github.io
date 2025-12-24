@@ -18,6 +18,9 @@
   --hover-primary: rgba(0, 122, 236, 0.242);
   --border: 1.5px solid rgba(255, 255, 255, 0.126); */
 
+  --Serie: red;
+  --Post: green;
+
   --background-blur: var(--background);
   --bg-second-blur: #f4f5f217;
   --bg-second-blur-strong: #f4f5f2e3;

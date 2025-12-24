@@ -6,6 +6,7 @@
 
 /* TOOLS */
 @import "./tools/typography.css";
+@import "./tools/animation.css";
 @import "./tools/theme.css";
 
 /* MODULES */
