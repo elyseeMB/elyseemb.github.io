@@ -1,0 +1,94 @@
+---
+import { type CollectionEntry } from "astro:content";
+import ReadingTime from "./ReadingTime.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import Writer from "./Writer.astro";
+import type { ReferenceDataEntry } from "astro:content";
+import { getEntry } from "astro:content";
+
+interface Props {
+  item: CollectionEntry<"series"> | CollectionEntry<"blog">;
+  readingTime?: number;
+  showSummary?: boolean;
+  taxonomies?: ReferenceDataEntry<"taxonomies", string>[] | undefined;
+}
+
+const { item, readingTime, showSummary = true, taxonomies } = Astro.props;
+
+const { title, pubDate, author, contentType, summary, ...props } = item.data;
+
+const formatDate = Intl.DateTimeFormat(Astro.currentLocale, {
+  dateStyle: "long",
+}).format(pubDate);
+
+const getTaxonomies = await Promise.all(
+  taxonomies
+    ? taxonomies?.map(
+        async (taxonomy) => await getEntry(taxonomy.collection, taxonomy.id)
+      )
+    : []
+);
+---
+
+<div class="info">
+  <Breadcrumb contentTypeId={item.data.contentType} />
+
+  <h1 class="animate-slide-in">{title}</h1>
+
+  <div class="meta">
+    <span class="animate-slide-in animation-delay-100">
+      {formatDate.toString()} ·
+      <Writer author={author} />
+    </span>
+    <ReadingTime time={readingTime!} />
+    {
+      showSummary && (
+        <div class="summary leading-7 animate-slide-in animation-delay-300">
+          {summary}
+        </div>
+      )
+    }
+    {
+      getTaxonomies && (
+        <div class="tags animate-slide-in animation-delay-300">
+          {getTaxonomies.map((taxonomy) => (
+            <div class="tag">{taxonomy?.data.name}</div>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</div>
+
+<style>
+  h1 {
+    text-align: left;
+    padding-top: 3rem;
+    line-height: 1.4;
+  }
+
+  .info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .info .summary {
+    font-family: "JetBrains Mono" !important;
+  }
+
+  .meta {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    gap: 0.5rem;
+    padding-bottom: 4rem;
+    font-family: "JetBrains Mono" !important;
+
+    & > * {
+      font-family: "JetBrains Mono" !important;
+      letter-spacing: -0.5px;
+      color: var(--color-secondary);
+    }
+  }
+</style>

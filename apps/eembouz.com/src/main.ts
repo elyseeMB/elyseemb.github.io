@@ -1,1 +1,1 @@
-import "./modules/gsap.ts";
+import "./modules/animation.ts";

@@ -5,7 +5,7 @@ const inspirations = await getCollection("inspirations");
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
-<section class="inspirations">
+<section class="inspirations animate-slide-in animation-delay-300">
   <h3 class="inspirations__title">{__("My inspirations")}</h3>
   <div class="grid">
     {

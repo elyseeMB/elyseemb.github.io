@@ -1,0 +1,154 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { Outline } from "../../components/Outline.jsx";
+import Prose from "../../components/Prose.astro";
+import Info from "../../components/Info.astro";
+import { Chapiter } from "../../components/Chapiter.jsx";
+
+interface Props {
+  item: CollectionEntry<"blog">;
+}
+
+const { item } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(item);
+
+const { seo: seoProps, taxonomies, author, pubDate } = item.data;
+
+const metaData = {
+  title: item.data.title,
+  description: item.data.summary,
+  image: item.data.thumbnail,
+  url: Astro.url.href,
+  author: author.id,
+  publishedDate: pubDate?.toISOString(),
+};
+
+const seo = seoProps ? seoProps : metaData;
+---
+
+<Layout {...seo}>
+  <section data-markdown>
+    <div class="container">
+      <div class="container-narrow">
+        <Info
+          item={item}
+          showSummary={false}
+          taxonomies={taxonomies}
+          readingTime={remarkPluginFrontmatter.stats.minutes}
+        />
+      </div>
+    </div>
+
+    <!-- <div class="container">
+      <div class="container-narrow">
+        <div class="heading">
+          <div class="cover">
+            <img src={thumbnail} alt="" />
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="container">
+      <div class="wrapper-content">
+        <Prose>
+          <Content />
+        </Prose>
+        <div class="wrapper-outline">
+          <Outline client:load />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .container,
+  .wrapper-content {
+    overflow: visible;
+  }
+
+  .article__paragraph {
+    padding-block: 1rem;
+  }
+
+  .description {
+    padding-block: 3rem;
+  }
+
+  .info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .wrapper-content {
+    display: block;
+  }
+
+  .wrapper-outline {
+    display: none;
+  }
+
+  @media screen and (min-width: 1200px) {
+    .wrapper-content {
+      width: 100%;
+      display: grid !important;
+      grid-template-columns: 1fr 600px 1fr !important;
+      padding: 0;
+    }
+
+    .wrapper-outline {
+      display: block;
+      grid-column: 3;
+      margin-bottom: 5rem;
+      justify-self: end;
+    }
+  }
+
+  .content {
+    padding-bottom: 5rem;
+  }
+  h1 {
+    text-align: left;
+    padding-top: 3rem;
+    line-height: 1.4;
+  }
+
+  .cover {
+    width: 100%;
+  }
+
+  .meta {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    gap: 0.5rem;
+    padding-bottom: 4rem;
+    font-family: "JetBrains Mono" !important;
+
+    & > * {
+      font-family: "JetBrains Mono" !important;
+      letter-spacing: -0.5px;
+      color: var(--color-secondary);
+    }
+  }
+
+  /*  */
+
+  @media screen and (max-width: 590px) {
+    .container-narrow .info .tags {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  @media screen and (min-width: 1300px) {
+    .heading {
+      img {
+        max-height: 500px;
+      }
+    }
+  }
+</style>

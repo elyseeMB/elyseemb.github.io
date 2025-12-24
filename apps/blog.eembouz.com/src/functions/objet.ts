@@ -1,3 +1,5 @@
+import type { ItemDisplayed } from "../../config.ts";
+
 type Keypath = string | string[];
 type ExplorableObject = Record<string, unknown> | Array<Object>;
 

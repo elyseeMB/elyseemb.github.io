@@ -9,7 +9,10 @@ const { time } = Astro.props;
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
-<span> {Math.ceil(time) + " " + "min"} {__("de lecture")} </span>
+<span class="animate-slide-in animation-delay-200">
+  {Math.ceil(time) + " " + "min"}
+  {__("de lecture")}
+</span>
 
 <style>
   span {

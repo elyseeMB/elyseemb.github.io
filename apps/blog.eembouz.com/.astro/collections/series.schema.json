@@ -1,73 +1,18 @@
 {
-  "$ref": "#/definitions/blog",
+  "$ref": "#/definitions/series",
   "definitions": {
-    "blog": {
+    "series": {
       "type": "object",
       "properties": {
-        "title": {
-          "type": "string"
-        },
-        "slug": {
-          "type": "string"
-        },
         "contentType": {
           "type": "number",
           "enum": [
             1,
             2
           ],
-          "default": 1
+          "default": 2
         },
-        "isDraft": {
-          "type": "boolean",
-          "default": false
-        },
-        "taxonomies": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "collection": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "collection"
-                ],
-                "additionalProperties": false
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "slug": {
-                    "type": "string"
-                  },
-                  "collection": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "slug",
-                  "collection"
-                ],
-                "additionalProperties": false
-              }
-            ]
-          }
-        },
-        "thumbnail": {
-          "type": "string"
-        },
-        "summary": {
+        "title": {
           "type": "string"
         },
         "pubDate": {
@@ -86,21 +31,11 @@
             }
           ]
         },
-        "updatedDate": {
-          "anyOf": [
-            {
-              "type": "string",
-              "format": "date-time"
-            },
-            {
-              "type": "string",
-              "format": "date"
-            },
-            {
-              "type": "integer",
-              "format": "unix-time"
-            }
-          ]
+        "thumbnail": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
         },
         "author": {
           "anyOf": [
@@ -183,41 +118,13 @@
             ]
           }
         },
-        "seo": {
-          "type": "object",
-          "properties": {
-            "title": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            },
-            "image": {
-              "type": "string"
-            },
-            "canonicalURL": {
-              "type": "string",
-              "format": "uri"
-            },
-            "typeContent": {
-              "type": "string",
-              "default": "website"
-            },
-            "tags": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          "additionalProperties": false
-        },
         "$schema": {
           "type": "string"
         }
       },
       "required": [
         "title",
+        "summary",
         "author"
       ],
       "additionalProperties": false

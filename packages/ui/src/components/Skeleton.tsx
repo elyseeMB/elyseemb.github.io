@@ -8,7 +8,7 @@ export const Skeleton = () => {
   );
 };
 
-export const SkeletonGallery = ({ length = 6 }: { length: number }) => {
+export const SkeletonGallery = ({ length = 4 }: { length: number }) => {
   return (
     <div className="skeleton-grid">
       {Array.from({ length }, (_, k) => (

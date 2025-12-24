@@ -1,22 +1,73 @@
 ---
-import type { Collection } from "../pages/en/articles.astro";
+import {
+  ContentType,
+  type Collection,
+  type OptionsCollection,
+} from "../../config.ts";
+import { between } from "../functions/helper.ts";
 import Article from "./Article.astro";
+import ItemSerie from "./ItemSerie.astro";
 
 interface Props {
   year: Collection["year"];
   items: Collection["items"];
+  options?: OptionsCollection;
+  className?: string;
 }
 
-const { year, items } = Astro.props;
+const { year, items, options, className } = Astro.props;
+
+const baseOptions: OptionsCollection = {
+  showBadge: false,
+  description: false,
+  showYear: true,
+  ...options,
+};
+
+const isArticlePage = Astro.url.pathname.includes("articles");
+const isSeriesPage = Astro.url.pathname.includes("series");
 ---
 
-<div class="flex flex-col md:flex-row gap-2">
-  <span class="text-[1.2rem] w-1/6 pt-4">{year}</span>
+<div
+  class:list={[
+    "flex flex-col md:flex-row gap-2",
+    { "animate-slide-in animation-delay-300": !isArticlePage },
+  ]}
+>
+  {
+    baseOptions.showYear && (
+      <span class="text-[1.2rem] w-1/6 pt-4 animate-slide-in">{year}</span>
+    )
+  }
 
   <div
     data-list__articles
     class="flex flex-1 flex-col divide-y divide-[var(--border-color)]"
   >
-    {items.map((article) => <Article {...article} />)}
+    {
+      items.map((article, index) =>
+        isSeriesPage ? (
+          <ItemSerie
+            className={`animate-slide-in animation-delay-${between(
+              index * 100,
+              0,
+              300
+            )}`}
+            props={article.props}
+            options={baseOptions}
+          />
+        ) : (
+          <Article
+            className={`animate-slide-in animation-delay-${between(
+              index * 100,
+              0,
+              300
+            )}`}
+            props={article.props}
+            options={baseOptions}
+          />
+        )
+      )
+    }
   </div>
 </div>
