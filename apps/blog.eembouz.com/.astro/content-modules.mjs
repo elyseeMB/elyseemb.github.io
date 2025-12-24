@@ -1,4 +1,3 @@
-
 export default new Map([
 ["src/data/blog/convolutional-neural-networks.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fblog%2Fconvolutional-neural-networks.mdx&astroContentModuleFlag=true")],
 ["src/data/blog/global-id.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fblog%2Fglobal-id.mdx&astroContentModuleFlag=true")],

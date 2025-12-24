@@ -1,4 +1,3 @@
-
 export default new Map([
 ["src/data/projects/blog-portfolio.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fblog-portfolio.mdx&astroContentModuleFlag=true")],
 ["src/data/projects/durand-construction.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fdurand-construction.mdx&astroContentModuleFlag=true")],
