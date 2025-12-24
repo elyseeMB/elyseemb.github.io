@@ -6,21 +6,11 @@ import Collection from "../components/Collection.astro";
 import type { OptionsCollection } from "../../config.ts";
 import { itemNormalizer } from "../functions/article.ts";
 
-const docSeries = await getCollection(
-  "series",
-  filterSeries(Astro.currentLocale)
-);
-
-const series = docSeries.map((item) => ({
-  title: item.data.title,
-  ...item,
-}));
-
 const allPages = await getCollection("blog", filterLang(Astro.currentLocale));
 
 const __ = await getTranslator(Astro.currentLocale);
 
-const doc = itemNormalizer([allPages, series]);
+const doc = itemNormalizer(allPages);
 
 const options: OptionsCollection = {
   showYear: true,

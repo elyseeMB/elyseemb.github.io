@@ -11,21 +11,11 @@ interface Props {
   limit?: number;
 }
 
-const docSeries = await getCollection(
-  "series",
-  filterSeries(Astro.currentLocale)
-);
-
-const series = docSeries.map((item) => ({
-  title: item.id.split("/")[0],
-  ...item,
-}));
-
 const allPages = await getCollection("blog", filterLang(Astro.currentLocale));
 
 const { title, limit } = Astro.props;
 
-const doc = itemNormalizer([allPages, series]);
+const doc = itemNormalizer(allPages);
 
 const options: OptionsCollection = {
   description: true,

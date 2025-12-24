@@ -6,8 +6,10 @@ const __ = await getTranslator(lang);
 const skills = await getSkills(lang);
 ---
 
-<section class="skills">
-  <h3 class="skills__title">{__("favorite tech")}</h3>
+<section class="skills animate-slide-in animation-delay-300">
+  <h3 class="skills__title">
+    {__("favorite tech")}
+  </h3>
   <div class="grid">
     {
       skills.map((skill) => (

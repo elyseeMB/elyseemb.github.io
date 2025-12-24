@@ -1,6 +1,4 @@
-function between(val: number, min: number, max: number): number {
-  return Math.max(min, Math.min(val, max));
-}
+import { between } from "../functions/helper.ts";
 
 function initSplitAnimation() {
   const elements = document.querySelectorAll(".split");
@@ -16,7 +14,7 @@ function initSplitAnimation() {
       .map(
         (word, index) =>
           `<span class="animate-perspective-in animation-delay-${between(
-            index * 100,
+            (index + 1) * 200,
             0,
             300
           )} inline-block">${word}&nbsp;</span>`

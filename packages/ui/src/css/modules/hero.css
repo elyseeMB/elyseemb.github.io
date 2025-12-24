@@ -58,10 +58,6 @@
   animation: moveY 25s linear infinite alternate;
 }
 
-.hero p {
-  text-wrap: balance;
-}
-
 @keyframes moveY {
   0% {
     transform: translateY(-100%);
