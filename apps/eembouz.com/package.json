@@ -9,23 +9,22 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/markdoc": "^0.15.0",
-    "@astrojs/mdx": "^4.3.0",
-    "@astrojs/preact": "^4.1.0",
-    "@astrojs/rss": "^4.0.13",
-    "@astrojs/sitemap": "^3.4.1",
+    "@astrojs/markdoc": "^0.15.10",
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/preact": "^4.1.3",
+    "@astrojs/rss": "^4.0.14",
+    "@astrojs/sitemap": "^3.6.0",
     "@portfolio/ui": "workspace:*",
-    "astro": "^5.10.0",
-    "gsap": "^3.13.0",
+    "astro": "^5.16.6",
     "highlight.js": "^11.11.1",
-    "preact": "^10.26.9"
+    "preact": "^10.28.1"
   },
   "peerDependencies": {
     "@tailwindcss/vite": "^4.1.17",
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.10.1",
+    "@preact/preset-vite": "^2.10.2",
     "typescript": "~5.8.3"
   },
   "packageManager": "pnpm@9.15.2+sha1.0ffb02f94047016ec7e088030337455b4c94bb34"
