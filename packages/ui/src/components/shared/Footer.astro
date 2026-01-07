@@ -26,7 +26,6 @@ const { info, links, contacts, property } = Astro.props;
 
 const locale = Astro.currentLocale?.includes("fr") ? "/" : Astro.currentLocale;
 const url = new URL(locale ?? "/en", Astro.url.origin);
-const year = new Date().getFullYear()
 ---
 
 <footer>
@@ -59,7 +58,7 @@ const year = new Date().getFullYear()
             <Redirect>{property?.name}</Redirect>
             <span class="declaration"
               >
-              Copyright © <span id="footer-year">{year}</span> elysee Mboussa . All rights reserved.</span
+              Copyright © <span id="footer-year"></span> elysee Mboussa . All rights reserved.</span
             >
           </div>
         </div>
@@ -227,5 +226,7 @@ const year = new Date().getFullYear()
 
 
 <script is:inline>
-  document.getElementById("footer-year").innerText = new Date().getFullYear();
+  document.addEventListener("astro:page-load", () => {
+    document.getElementById("footer-year").innerText = new Date().getFullYear();
+  })
 </script>
