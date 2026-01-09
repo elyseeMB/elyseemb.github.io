@@ -1,3 +1,12 @@
+@font-face {
+  font-family: "Departure Mono";
+  src:
+    url("../../fonts/DepartureMono-Regular.woff2") format("woff2"),
+    url("../../fonts/DepartureMono-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* TYPOGRAPHIE */
 h1,
 h2,
@@ -69,10 +78,6 @@ h6,
 body {
   font-family: "Inter" !important;
   color: var(--color-secondary);
-}
-
-button {
-  font-family: "JetBrains Mono" !important;
 }
 
 strong {

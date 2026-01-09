@@ -1,11 +1,11 @@
 button > * {
-  font-family: "JetBrains Mono" !important;
+  font-family: "Departure Mono" !important;
 }
 
 .btn {
   border: var(--border-btn);
   padding: 0.2rem 0.9rem;
-  border-radius: var(--rounded);
+  border-radius: 2rem;
   font-weight: 700;
   display: flex;
   justify-content: center;
@@ -14,7 +14,7 @@ button > * {
   box-shadow: 3px 3px #000;
   transition: box-shadow 0.1s;
   color: var(--color-primary);
-  font-family: "JetBrains Mono";
+  font-family: "Departure Mono";
 }
 
 .btn:hover {
@@ -22,9 +22,11 @@ button > * {
 }
 
 .btn-primary {
-  transition: box-shadow 0.25s cubic-bezier(0.645, 0.045, 0.355, 1),
+  transition:
+    box-shadow 0.25s cubic-bezier(0.645, 0.045, 0.355, 1),
     transform 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-  transition: box-shadow 0.25s cubic-bezier(0.645, 0.045, 0.355, 1),
+  transition:
+    box-shadow 0.25s cubic-bezier(0.645, 0.045, 0.355, 1),
     transform 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   border-color: var(--contrast);
 }

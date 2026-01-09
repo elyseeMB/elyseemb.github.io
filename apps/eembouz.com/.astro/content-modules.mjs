@@ -1,18 +1,18 @@
 
 export default new Map([
 ["src/data/projects/blog-portfolio.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fblog-portfolio.mdx&astroContentModuleFlag=true")],
-["src/data/projects/durand-construction.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fdurand-construction.mdx&astroContentModuleFlag=true")],
-["src/data/projects/editeur-markdown.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fediteur-markdown.mdx&astroContentModuleFlag=true")],
 ["src/data/projects/erp-gestion.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Ferp-gestion.mdx&astroContentModuleFlag=true")],
+["src/data/projects/editeur-markdown.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fediteur-markdown.mdx&astroContentModuleFlag=true")],
 ["src/data/projects/mico-service-shortener-serverless copy.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fmico-service-shortener-serverless+copy.mdx&astroContentModuleFlag=true")],
+["src/data/projects/durand-construction.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fdurand-construction.mdx&astroContentModuleFlag=true")],
 ["src/data/projects/en/blog-portfolio.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fen%2Fblog-portfolio.mdx&astroContentModuleFlag=true")],
 ["src/data/projects/en/durand-construction.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fen%2Fdurand-construction.mdx&astroContentModuleFlag=true")],
 ["src/data/projects/en/editeur-markdown.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fen%2Fediteur-markdown.mdx&astroContentModuleFlag=true")],
 ["src/data/projects/en/erp-gestion.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fen%2Ferp-gestion.mdx&astroContentModuleFlag=true")],
 ["src/data/projects/en/mico-service-shortener-serverless copy.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fen%2Fmico-service-shortener-serverless+copy.mdx&astroContentModuleFlag=true")],
-["src/data/projects/zh/blog-portfolio.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fzh%2Fblog-portfolio.mdx&astroContentModuleFlag=true")],
-["src/data/projects/zh/durand-construction.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fzh%2Fdurand-construction.mdx&astroContentModuleFlag=true")],
+["src/data/projects/zh/editeur-markdown.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fzh%2Fediteur-markdown.mdx&astroContentModuleFlag=true")],
 ["src/data/projects/zh/erp-gestion.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fzh%2Ferp-gestion.mdx&astroContentModuleFlag=true")],
-["src/data/projects/zh/mico-service-shortener-serverless copy.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fzh%2Fmico-service-shortener-serverless+copy.mdx&astroContentModuleFlag=true")],
-["src/data/projects/zh/editeur-markdown.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fzh%2Fediteur-markdown.mdx&astroContentModuleFlag=true")]]);
+["src/data/projects/zh/durand-construction.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fzh%2Fdurand-construction.mdx&astroContentModuleFlag=true")],
+["src/data/projects/zh/blog-portfolio.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fzh%2Fblog-portfolio.mdx&astroContentModuleFlag=true")],
+["src/data/projects/zh/mico-service-shortener-serverless copy.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fprojects%2Fzh%2Fmico-service-shortener-serverless+copy.mdx&astroContentModuleFlag=true")]]);
 		

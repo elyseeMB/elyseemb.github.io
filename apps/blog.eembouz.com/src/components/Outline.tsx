@@ -101,9 +101,9 @@ export function Outline() {
                       ? "var(--color-primary)"
                       : "inherit",
                 }}
-                class="block whitespace-nowrap max-w-[200px] overflow-hidden text-ellipsis transition"
+                class="block max-w-[200px] overflow-hidden text-ellipsis transition"
               >
-                {heading.textContent}
+                {heading.textContent?.replace(/[^\p{L}\p{N}\s]/gu, "").trim()}
               </div>
             </a>
           </li>
