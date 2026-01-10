@@ -38,12 +38,30 @@ const url =
   props.data.contentType === ContentType["SERIE"]
     ? buildUrlForSeries(props)
     : buildUrl(props);
+
+    const isArticlePage = Astro.url.pathname.includes("articles");
 ---
 
+
 <article
-  class={clx(className, "item flex items-center justify-between gap-4 py-4")}
+class={clx(className, "item flex items-center justify-between gap-4 py-4")}
 >
-  <div class="item__info">
+{isArticlePage  ? <div class="item__info">
+  <Link href={url}>
+    {options.showBadge && <Badge contentTypeId={props.data.contentType} />}
+    <h3 class="item__title">{props.data.title}</h3>
+    {
+      options.description && (
+        <p class="item__description">{props.data.summary}</p>
+      )
+    }
+  </Link>
+</div>
+<div class="max-w-[150px]">
+  <div class="meta">
+    <DateFormate isShowYear={options.showYear} date={props.data.pubDate} />
+  </div>
+</div> : <div class="item__info">
     <Link href={url}>
       {options.showBadge && <Badge contentTypeId={props.data.contentType} />}
       <h3 class="item__title">{props.data.title}</h3>
@@ -55,13 +73,13 @@ const url =
     </Link>
     <DateFormate isShowYear={options.showYear} date={props.data.pubDate} />
   </div>
-  <div class="bg-slate-500 max-w-[150px]">
+  <div class="max-w-[150px]">
     <img
       class="object-cover aspect-square w-full"
       src={props.data.thumbnail}
       alt=""
     />
-  </div>
+  </div>}
 </article>
 
 <style>
