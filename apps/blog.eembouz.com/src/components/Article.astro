@@ -53,11 +53,14 @@ const url =
         )
       }
     </Link>
+    <DateFormate isShowYear={options.showYear} date={props.data.pubDate} />
   </div>
-  <div>
-    <div class="meta">
-      <DateFormate isShowYear={options.showYear} date={props.data.pubDate} />
-    </div>
+  <div class="bg-slate-500 max-w-[150px]">
+    <img
+      class="object-cover aspect-square w-full"
+      src={props.data.thumbnail}
+      alt=""
+    />
   </div>
 </article>
 
