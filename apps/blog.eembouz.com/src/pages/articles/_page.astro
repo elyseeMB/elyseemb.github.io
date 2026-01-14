@@ -235,7 +235,9 @@ const seo = seoProps ? seoProps : metaData;
         const entry = entries[0];
         if (entry.isIntersecting) {
           element!.dataset.target = entry.target.id;
-          element!.dispatchEvent(new Event("mindmap"));
+          element!.dispatchEvent(new CustomEvent("mindmap", {
+            detail:entry.target.id
+          }));
         }
       });
       observer.observe(item);
