@@ -14,24 +14,12 @@ importers:
       '@astrojs/mdx':
         specifier: ^4.3.0
         version: 4.3.0(astro@5.10.0(@types/node@24.0.3)(rollup@4.41.1)(typescript@5.8.3))
-      '@astrojs/preact':
-        specifier: ^4.1.0
-        version: 4.1.0(@babel/core@7.27.4)(@types/node@24.0.3)(preact@10.26.9)
       '@astrojs/sitemap':
         specifier: ^3.4.1
         version: 3.4.1
       astro:
         specifier: ^5.10.0
         version: 5.10.0(@types/node@24.0.3)(rollup@4.41.1)(typescript@5.8.3)
-      gsap:
-        specifier: ^3.13.0
-        version: 3.13.0
-      highlight.js:
-        specifier: ^11.11.1
-        version: 11.11.1
-      preact:
-        specifier: ^10.26.9
-        version: 10.26.9
     devDependencies:
       '@preact/preset-vite':
         specifier: ^2.10.1
@@ -66,12 +54,6 @@ packages:
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0}
     peerDependencies:
       astro: ^5.0.0
-
-  '@astrojs/preact@4.1.0':
-    resolution: {integrity: sha512-yXs63ndFHhoKHEZsvYbfsmmZt15QPEziW/twF4uBLAPWjSlZ1Fx/lG+NFMQpGy/CmvI0WkrhyPa9pkJp5ZaVmQ==}
-    engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0}
-    peerDependencies:
-      preact: ^10.6.5
 
   '@astrojs/prism@3.3.0':
     resolution: {integrity: sha512-q8VwfU/fDZNoDOf+r7jUnMC2//H2l0TuQ6FkGJL8vD8nw/q5KiL3DS1KKBI3QhI9UQhpJ5dc7AtqfbXWuOgLCQ==}
@@ -475,14 +457,6 @@ packages:
     peerDependencies:
       '@babel/core': 7.x
       vite: 2.x || 3.x || 4.x || 5.x || 6.x
-
-  '@preact/signals-core@1.10.0':
-    resolution: {integrity: sha512-qlKeXlfqtlC+sjxCPHt6Sk0/dXBrKZVcPlianqjNc/vW263YBFiP5mRrgKpHoO0q222Thm1TdYQWfCKpbbgvwA==}
-
-  '@preact/signals@2.2.0':
-    resolution: {integrity: sha512-P3KPcEYyVk9Wiwfw68QQzRpPkt0H+zjfH3X4AaGCDlc86GuRBYFGiAxT1nC5F5qlsVIEmjNJ9yVYe7C91z3L+g==}
-    peerDependencies:
-      preact: '>= 10.25.0'
 
   '@prefresh/babel-plugin@0.5.1':
     resolution: {integrity: sha512-uG3jGEAysxWoyG3XkYfjYHgaySFrSsaEb4GagLzYaxlydbuREtaX+FTxuIidp241RaLl85XoHg9Ej6E4+V1pcg==}
@@ -1053,9 +1027,6 @@ packages:
     resolution: {integrity: sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==}
     engines: {node: '>=4'}
 
-  gsap@3.13.0:
-    resolution: {integrity: sha512-QL7MJ2WMjm1PHWsoFrAQH/J8wUeqZvMtHO58qdekHpCfhvhSL4gSiz6vJf5EeMP0LOn3ZCprL2ki/gjED8ghVw==}
-
   h3@1.15.3:
     resolution: {integrity: sha512-z6GknHqyX0h9aQaTx22VZDf6QyZn+0Nh+Ym8O/u0SGSkyF5cuTJYKlc8MkzW3Nzf9LE1ivcpmYC3FUGpywhuUQ==}
 
@@ -1098,10 +1069,6 @@ packages:
   he@1.2.0:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
-
-  highlight.js@11.11.1:
-    resolution: {integrity: sha512-Xwwo44whKBVCYoliBQwaPvtd/2tYFkRQtXDWj1nackaV2JPXx3L0+Jvd8/qCJ2p+ML0/XVkJ2q+Mr+UVdpJK5w==}
-    engines: {node: '>=12.0.0'}
 
   html-escaper@3.0.3:
     resolution: {integrity: sha512-RuMffC89BOWQoY0WKGpIhn5gX3iI54O6nRA0yC124NYVtzjmFWBIiFd8M0x+ZdX0P9R4lADg1mgP8C7PxGOWuQ==}
@@ -1470,11 +1437,6 @@ packages:
   postcss@8.5.4:
     resolution: {integrity: sha512-QSa9EBe+uwlGTFmHsPKokv3B/oEMQZxfqW0QqNCyhpa6mB1afzulwn8hihglqAb2pOw+BJgNlmXQ8la2VeHB7w==}
     engines: {node: ^10 || ^12 || >=14}
-
-  preact-render-to-string@6.5.13:
-    resolution: {integrity: sha512-iGPd+hKPMFKsfpR2vL4kJ6ZPcFIoWZEcBf0Dpm3zOpdVvj77aY8RlLiQji5OMrngEyaxGogeakTb54uS2FvA6w==}
-    peerDependencies:
-      preact: '>=10'
 
   preact@10.26.9:
     resolution: {integrity: sha512-SSjF9vcnF27mJK1XyFMNJzFd5u3pQiATFqoaDy03XuN00u4ziveVVEGt5RKJrDR8MHE/wJo9Nnad56RLzS2RMA==}
@@ -2008,28 +1970,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/preact@4.1.0(@babel/core@7.27.4)(@types/node@24.0.3)(preact@10.26.9)':
-    dependencies:
-      '@preact/preset-vite': 2.10.1(@babel/core@7.27.4)(preact@10.26.9)(vite@6.3.5(@types/node@24.0.3))
-      '@preact/signals': 2.2.0(preact@10.26.9)
-      preact: 10.26.9
-      preact-render-to-string: 6.5.13(preact@10.26.9)
-      vite: 6.3.5(@types/node@24.0.3)
-    transitivePeerDependencies:
-      - '@babel/core'
-      - '@types/node'
-      - jiti
-      - less
-      - lightningcss
-      - sass
-      - sass-embedded
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-      - tsx
-      - yaml
-
   '@astrojs/prism@3.3.0':
     dependencies:
       prismjs: 1.30.0
@@ -2411,13 +2351,6 @@ snapshots:
     transitivePeerDependencies:
       - preact
       - supports-color
-
-  '@preact/signals-core@1.10.0': {}
-
-  '@preact/signals@2.2.0(preact@10.26.9)':
-    dependencies:
-      '@preact/signals-core': 1.10.0
-      preact: 10.26.9
 
   '@prefresh/babel-plugin@0.5.1': {}
 
@@ -3049,8 +2982,6 @@ snapshots:
 
   globals@11.12.0: {}
 
-  gsap@3.13.0: {}
-
   h3@1.15.3:
     dependencies:
       cookie-es: 1.2.2
@@ -3192,8 +3123,6 @@ snapshots:
       space-separated-tokens: 2.0.2
 
   he@1.2.0: {}
-
-  highlight.js@11.11.1: {}
 
   html-escaper@3.0.3: {}
 
@@ -3813,10 +3742,6 @@ snapshots:
       nanoid: 3.3.11
       picocolors: 1.1.1
       source-map-js: 1.2.1
-
-  preact-render-to-string@6.5.13(preact@10.26.9):
-    dependencies:
-      preact: 10.26.9
 
   preact@10.26.9: {}
 
