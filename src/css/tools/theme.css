@@ -1,8 +1,10 @@
 :root {
-  --contrast: rgb(0, 122, 236);
-  --bg-color: #ffffff;
-  --color-secondary: #c4c4c4;
-  --color-primary: white;
+  /* --- Variables Partagées (Statiques) --- */
+
+  --icon-bento: #fff;
+  --hover: #000;
+  --bg-bento: #0b0a0a;
+  --url-image: url("/noise.png");
   --space: 1rem;
   --space-2: calc(2 * var(--space));
   --space-3: calc(4 * var(--space));
@@ -12,11 +14,27 @@
   --size: 16px;
   --letter-spacing: -0.5px;
   --line-height: calc(1.8 * var(--size));
-  --contrast-2: #ec7200;
-
   --rounded: 0.3rem;
   --rounded-2: 16px;
 
+  --background: #0f100e;
+  --bg-color: #ffffff;
+  --color-primary: white;
+  --color-secondary: #c4c4c4;
+
+  --contrast: rgb(0, 122, 236);
+  --contrast-2: #ec7200;
   --hover-primary: rgba(0, 122, 236, 0.242);
   --border: 1.5px solid rgba(255, 255, 255, 0.126);
+}
+
+[data-theme="light"] {
+  --icon-bento: #000000;
+  --bg-bento: #d1d1d13a;
+  --url-image: rgb(176, 176, 176) e;
+  --hover: #d1d1d180;
+  --background: #ffffff;
+  --color-primary: #0f100e;
+  --color-secondary: #4a4a4a;
+  --border: 1.5px solid rgba(81, 81, 81, 0.1);
 }

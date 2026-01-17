@@ -7,7 +7,7 @@
   min-height: 100vh;
   font-size: var(--size);
   z-index: 1;
-  padding-bottom: 5rem;
+  padding-bottom: 15rem;
 }
 
 /* .hero::before {
@@ -47,12 +47,12 @@
 }
 
 .hero .wrapper::before {
-  left: 200px;
+  top: 12px;
 }
 
 .hero .wrapper::after {
-  left: 900px;
-  top: 262px;
+  left: 620px;
+  top: 252px;
   animation: moveY 25s linear infinite alternate;
 }
 

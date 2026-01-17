@@ -1,8 +1,7 @@
 ---
 import Scripts from "../components/Scripts.astro";
 import Seo from "../components/Seo.astro";
-import Footer from "../components/shared/Footer.astro";
-import Header from "../components/shared/Header.astro";
+import ThemeManager from "../components/ThemeManager.astro";
 import "../css/index.css";
 
 const {
@@ -30,11 +29,10 @@ const {
     <div class="bg-noise">
       <div class="page-wrapper">
         <div class="container-narrow">
-          <Header />
           <slot />
-          <Footer />
         </div>
       </div>
     </div>
+    <ThemeManager />
   </body>
 </html>
