@@ -77,6 +77,10 @@ img.bento__cover {
     grid-template-columns: 1fr;
   }
 
+  img.bento__cover {
+    object-fit: fill;
+  }
+
   .bento .block {
     transform: translateY(50px);
   }
