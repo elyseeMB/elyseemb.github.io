@@ -78,7 +78,7 @@ img.bento__cover {
   }
 
   .bento .block {
-    margin-top: 2rem;
+    transform: translateY(50px);
   }
 
   .bento__item {
