@@ -24,11 +24,6 @@
   border-color: var(--contrast);
 }
 
-.bento .description {
-  line-height: 1.6;
-  font-size: 0.9rem;
-}
-
 .bento__item:nth-child(1) {
   grid-column: 1 / span 3;
   grid-row: 1;
@@ -60,6 +55,7 @@ img.bento__cover {
   border-radius: 1rem;
   background: var(--bg-bento);
   border: var(--border);
+  transform: translateY(15px);
 }
 
 .bento .logo {
@@ -93,5 +89,12 @@ img.bento__cover {
 }
 
 .bento .description {
+  line-height: 1.6;
+  font-size: 0.8rem;
+  text-wrap: pretty;
+  padding-inline: 0.5rem;
+}
+
+.bento .title {
   padding-inline: 0.5rem;
 }
