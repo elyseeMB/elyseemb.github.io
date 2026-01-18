@@ -103,3 +103,16 @@ img.bento__cover {
 .bento .title {
   padding-inline: 0.5rem;
 }
+
+.bento .link {
+  width: 100%;
+  height: 100%;
+}
+
+.bento .link::before {
+  position: absolute;
+  content: "";
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
