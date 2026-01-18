@@ -114,5 +114,6 @@ img.bento__cover {
   content: "";
   inset: 0;
   width: 100%;
+  z-index: 2;
   height: 100%;
 }
