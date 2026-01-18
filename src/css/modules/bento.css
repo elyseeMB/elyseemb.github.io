@@ -92,33 +92,9 @@ img.bento__cover {
 
 @media (max-width: 768px) {
   .bento {
-<<<<<<< HEAD
     display: flex;
     flex-direction: column;
     gap: 1rem;
-=======
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 1rem;
-  }
-
-  .bento__item:nth-child(1) {
-    aspect-ratio: auto;
-  }
-  .bento__item:nth-child(2) {
-    aspect-ratio: auto;
-  }
-  .bento__item:nth-child(3) {
-    aspect-ratio: auto;
-  }
-  .bento__item:nth-child(4) {
-    aspect-ratio: auto;
-  }
-
-  .bento .logo {
-    width: 100%;
-    height: auto;
->>>>>>> 876c0d80854bd374209c5be52c8b7d16ca3be107
   }
 
   img.bento__cover {
@@ -126,31 +102,14 @@ img.bento__cover {
   }
 
   .bento .block {
-<<<<<<< HEAD
     transform: translateY(4rem);
-=======
-    display: none;
->>>>>>> 876c0d80854bd374209c5be52c8b7d16ca3be107
   }
 
   .bento .description {
     padding-top: 0.5rem;
-<<<<<<< HEAD
   }
 
   .bento__item {
-=======
-  }
-
-  .bento .header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .bento__item {
-    aspect-ratio: 16 / 7;
->>>>>>> 876c0d80854bd374209c5be52c8b7d16ca3be107
     display: flex;
     flex-direction: column;
     gap: 1rem;
