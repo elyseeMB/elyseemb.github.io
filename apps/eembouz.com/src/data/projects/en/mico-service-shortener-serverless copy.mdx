@@ -4,78 +4,49 @@ description: "URL shortener"
 summary: "This project is a serverless URL shortener built in Go, designed to demonstrate the creation of a scalable and fully serverless architecture using AWS Lambda and AWS SAM. It handles the generation of short links and the retrieval of original URLs from a unique identifier."
 thumbnail: "/project/shortener/3.png"
 pubDate: 2025-10-07
+techno: ["Golang", "AWS", "Docker", "Redis", "Postgresql"]
 ---
 
+![project](/project/shortener/6.png)
 
+## Project Objective
 
+The main objective of this project was to design a standalone and
+high-performance microservice dedicated to URL management within a larger
+distributed application. The idea was to delegate this specific task to an
+independent service in order to reduce coupling, improve scalability, and
+simplify code maintenance.
 
+## Technical Challenges
 
+One of the key technical challenges was to build a lightweight and efficient service, with a Docker image of around 10 MB and an almost instant cold start of less than 100 ms.
+The microservice had to remain fully portable, deployable on Docker, Kubernetes, and AWS Lambda via AWS SAM, without any code changes.
+The architecture was designed to be clear, modular, and maintainable, following Go best practices: use of the `internal/` folder to isolate business logic, explicit separation of adapters (persistence, transport, logger, etc.), and well-defined interfaces (ports) to make unit testing easier and allow implementation swapping when needed.
 
-  <img
-    class="picture"
-    src={"/project/shortener/6.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
-  <div>
-    <h2>Project Objective</h2>
-    <p>
-      The main objective of this project was to design a standalone and
-      high-performance microservice dedicated to URL management within a larger
-      distributed application. The idea was to delegate this specific task to an
-      independent service in order to reduce coupling, improve scalability, and
-      simplify code maintenance.
-    </p>
-  </div>
+![project](/project/shortener/1.png)
 
+![project](/project/shortener/2.png)
 
+## Project Architecture
 
-  <div>
-    <h2>Technical Challenges</h2>
-    <p>
-      One of the key technical challenges was to build a lightweight and efficient service, with a Docker image of around 10 MB and an almost instant cold start of less than 100 ms.
-      The microservice had to remain fully portable, deployable on Docker, Kubernetes, and AWS Lambda via AWS SAM, without any code changes.
-      The architecture was designed to be clear, modular, and maintainable, following Go best practices: use of the <code>internal/</code> folder to isolate business logic, explicit separation of adapters (persistence, transport, logger, etc.), and well-defined interfaces (ports) to make unit testing easier and allow implementation swapping when needed.
-    </p>
-  </div>
+The microservice follows a Clean Architecture approach structured around four layers:
+Domain (entities and interfaces), App (independent business logic),
+Adapters (concrete implementations such as HTTP or storage), and Cmd (service entry point).
+This design makes the code clearer, more testable, and easier to extend.
 
-  <img class="picture" src={"/project/shortener/1.png"} alt="project" style={{ objectFit: "cover" }} />
-  <img class="picture" src={"/project/shortener/2.png"} alt="project" style={{ objectFit: "cover" }} />
+![project](/project/shortener/7.png)
 
+![project](/project/shortener/8.png)
 
+![project](/project/shortener/3.png)
 
-  <div>
-    <h2>Project Architecture</h2>
-    <p>
-      The microservice follows a Clean Architecture approach structured around four layers:
-      Domain (entities and interfaces), App (independent business logic),
-      Adapters (concrete implementations such as HTTP or storage), and Cmd (service entry point).
-      This design makes the code clearer, more testable, and easier to extend.
-    </p>
-  </div>
+![project](/project/shortener/4.png)
 
-  <img class="picture" src={"/project/shortener/7.png"} alt="project" style={{ objectFit: "cover" }} />
-  <img class="picture" src={"/project/shortener/8.png"} alt="project" style={{ objectFit: "cover" }} />
-  <img class="picture" src={"/project/shortener/3.png"} alt="project" style={{ objectFit: "cover" }} />
-  <img class="picture" src={"/project/shortener/4.png"} alt="project" style={{ objectFit: "cover" }} />
-  <img class="picture" src={"/project/shortener/5.png"} alt="project" style={{ objectFit: "cover" }} />
+![project](/project/shortener/5.png)
 
+![project](/project/urlshortener.png)
 
+## Tech Stack
 
-  <img
-    class="picture"
-    height={500}
-    src={"/project/urlshortener.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
-  <div>
-    <h2>Tech Stack</h2>
-    <p>
-      The microservice was developed using Go 1.21 and can be easily deployed to
-      AWS Lambda through AWS SAM.
-    </p>
-  </div>
-
-
-
+The microservice was developed using Go 1.21 and can be easily deployed to
+AWS Lambda through AWS SAM.

@@ -4,172 +4,80 @@ description: "个人技术分享平台"
 summary: "基于 Astro 构建的作品集网站与技术博客，用于分享我的软件工程历程、展示项目作品，并记录编程思考。"
 thumbnail: "/project/portfolio/3.png"
 pubDate: 2025-05-07
+techno: ["Astrojs", "Preactjs", "tailwindCSS"]
 ---
 
+<video src="/project/portfolio/v1.mp4" loop autoplay muted playsinline />
 
+## 目标
 
+搭建一个在线平台，用于展示项目并分享开发经验。作品集部分呈现技术工作成果，博客则用于记录学习心得并回馈社区。
 
+同时这也是我的个人文档库——一个可以随时回顾并查找已解决问题方案的地方。
 
+## 作品集
 
-  <div>
-    <video src="/project/portfolio/v1.mp4" loop autoplay muted playsinline />
-  </div>
-  <div>
-    <h2>目标</h2>
-    <p>
-      搭建一个在线平台，用于展示项目并分享开发经验。作品集部分呈现技术工作成果，博客则用于记录学习心得并回馈社区。
-    </p>
-    <p>
-      同时这也是我的个人文档库——一个可以随时回顾并查找已解决问题方案的地方。
-    </p>
-  </div>
+作品集以简洁直观的方式展示项目。每个项目都有独立页面，配以清晰的技术说明。
 
+![project](/project/portfolio/1.png)
 
+![project](/project/portfolio/2.png)
 
-  <div>
-    <h2>作品集</h2>
-    <p>
-      作品集以简洁直观的方式展示项目。每个项目都有独立页面，配以清晰的技术说明。
-    </p>
-  </div>
-  <img
-    class="picture"
-    src={"/project/portfolio/1.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
-  <img
-    class="picture"
-    src={"/project/portfolio/2.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
+## 博客
 
+博客用于分享技术探索。内容包括实用教程、项目实践心得，以及对复杂概念的简化阐释。
 
+目标是让复杂思想更易理解，并提供可在其他项目中复用的具体解决方案。文章支持交互式
+React 组件（得益于 __MDX__），可通过实时演示而非简单截图来说明概念。
 
-  <div>
-    <h2>博客</h2>
-    <p>
-      博客用于分享技术探索。内容包括实用教程、项目实践心得，以及对复杂概念的简化阐释。
-    </p>
-    <p>
-      目标是让复杂思想更易理解，并提供可在其他项目中复用的具体解决方案。文章支持交互式
-      React 组件（得益于 __MDX__），可通过实时演示而非简单截图来说明概念。
-    </p>
-  </div>
-  <div>
-    <video src="/project/portfolio/v4.mp4" loop autoplay muted playsinline />
-  </div>
-  <img
-    class="picture"
-    src={"/project/portfolio/5.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
-  <img
-    class="picture"
-    src={"/project/portfolio/6.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
+<video src="/project/portfolio/v4.mp4" loop autoplay muted playsinline />
 
+![project](/project/portfolio/5.png)
 
+![project](/project/portfolio/6.png)
 
-  <div>
-    <h2>技术选型</h2>
-    <p>
-      选择 __Astro__ 是看重其性能优先的理念。不同于传统 JavaScript 框架，Astro
-      生成超快的静态页面，仅在真正需要时才加载 JavaScript。
-    </p>
-    <p>
-      架构基于 __monorepo__，同时托管博客和作品集。Header、Footer
-      及布局系统等核心组件集中在共享包中，在两个应用间复用。这避免了代码重复，确保整个平台样式一致。
-    </p>
-    <p>
-      样式方面选用 __纯 CSS__ 而非
-      Tailwind，以保持对视觉风格的完全控制，打造独特设计。内容采用 __MDX__
-      编写，结合 Markdown 的简洁性与 React 组件的强大功能。
-    </p>
-  </div>
-  <img
-    class="picture"
-    height={500}
-    src={"/project/portfolio/7.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
-  <img
-    class="picture"
-    height={500}
-    src={"/project/portfolio/8.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
+## 技术选型
 
+选择 __Astro__ 是看重其性能优先的理念。不同于传统 JavaScript 框架，Astro
+生成超快的静态页面，仅在真正需要时才加载 JavaScript。
 
+架构基于 __monorepo__，同时托管博客和作品集。Header、Footer
+及布局系统等核心组件集中在共享包中，在两个应用间复用。这避免了代码重复，确保整个平台样式一致。
 
-  <div>
-    <h2>基础设施与部署</h2>
-    <p>
-      部署架构在保证稳定性和性能的同时支持快速迭代。实施了包含开发、预发布和生产三个级别的多环境配置。
-    </p>
-    <p>
-      生产环境托管在 __GitHub Pages__ 以确保可靠性，预发布和预览环境则运行在
-      __Cloudflare Pages__
-      上以提升速度。每个功能分支自动生成独立的预览环境，极大简化了代码审查和测试流程。
-    </p>
-    <p>
-      通过 __GitHub Actions__
-      实现完全自动化，编排整个工作流：推送分支触发构建和预览部署，合并到主分支则部署至生产环境。Astro
-      构建通过 __Turbo__ 优化，__pnpm__ 确保快速且可重现的依赖安装。
-    </p>
-    <p>
-      这套工作流让我能够并行开发多个功能，每个功能都有独立环境，在预发布环境验证后，即可自信地部署到生产环境。
-    </p>
-  </div>
-  <div>
-    <p>
-      <img
-        class="picture"
-        src={"/project/portfolio/9.png"}
-        alt="Deployment architecture"
-        style={{ objectFit: "cover" }}
-      />
-    </p>
-    <p>
-      <img
-        class="picture"
-        src={"/project/portfolio/10.png"}
-        alt="Deployment architecture"
-        style={{ objectFit: "cover" }}
-      />
-    </p>
-    <p>
-      <img
-        class="picture"
-        src={"/project/portfolio/11.png"}
-        alt="Deployment architecture"
-        style={{ objectFit: "cover" }}
-      />
-    </p>
-  </div>
+样式方面选用 __纯 CSS__ 而非
+Tailwind，以保持对视觉风格的完全控制，打造独特设计。内容采用 __MDX__
+编写，结合 Markdown 的简洁性与 React 组件的强大功能。
 
+![project](/project/portfolio/7.png)
 
+![project](/project/portfolio/8.png)
 
-  <div>
-    <video src="/project/portfolio/v3.mp4" loop autoplay muted playsinline />
-  </div>
-  <div>
-    <h2>性能与 SEO</h2>
-    <p>
-      SEO 从一开始就是优先事项。每个页面包含完整的元数据、自动生成的 XML
-      站点地图，以及优化的 robots.txt 文件。
-    </p>
-    <p>
-      HTML 结构语义化且易于访问，使用合适的标签以便索引。URL
-      简洁且具有描述性，网站自动生成 Open Graph 标签，优化社交分享效果。
-    </p>
-  </div>
+## 基础设施与部署
 
+部署架构在保证稳定性和性能的同时支持快速迭代。实施了包含开发、预发布和生产三个级别的多环境配置。
 
+生产环境托管在 __GitHub Pages__ 以确保可靠性，预发布和预览环境则运行在
+__Cloudflare Pages__
+上以提升速度。每个功能分支自动生成独立的预览环境，极大简化了代码审查和测试流程。
 
+通过 __GitHub Actions__
+实现完全自动化，编排整个工作流：推送分支触发构建和预览部署，合并到主分支则部署至生产环境。Astro
+构建通过 __Turbo__ 优化，__pnpm__ 确保快速且可重现的依赖安装。
+
+这套工作流让我能够并行开发多个功能，每个功能都有独立环境，在预发布环境验证后，即可自信地部署到生产环境。
+
+![Deployment architecture](/project/portfolio/9.png)
+
+![Deployment architecture](/project/portfolio/10.png)
+
+![Deployment architecture](/project/portfolio/11.png)
+
+<video src="/project/portfolio/v3.mp4" loop autoplay muted playsinline />
+
+## 性能与 SEO
+
+SEO 从一开始就是优先事项。每个页面包含完整的元数据、自动生成的 XML
+站点地图，以及优化的 robots.txt 文件。
+
+HTML 结构语义化且易于访问，使用合适的标签以便索引。URL
+简洁且具有描述性，网站自动生成 Open Graph 标签，优化社交分享效果。

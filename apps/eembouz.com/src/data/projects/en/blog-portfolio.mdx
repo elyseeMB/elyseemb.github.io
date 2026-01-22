@@ -4,193 +4,101 @@ description: "Personal technical sharing platform"
 summary: "A portfolio website and technical blog built with Astro, designed to share my software engineering journey, showcase my projects, and document my thoughts on programming."
 thumbnail: "/project/portfolio/3.png"
 pubDate: 2025-05-07
+techno: ["Astrojs", "Preactjs", "tailwindCSS"]
 ---
 
+<video src="/project/portfolio/v1.mp4" loop autoplay muted playsinline />
 
+## Objective
 
+Build an online showcase to present my projects and share my experience as
+a developer. The portfolio highlights my technical work, while the blog
+allows me to document what I learn and contribute to the community.
 
+It also serves as my personal documentation — a place where I can come
+back and find solutions to problems I've already solved.
 
+## The Portfolio
 
-  <div>
-    <video src="/project/portfolio/v1.mp4" loop autoplay muted playsinline />
-  </div>
-  <div>
-    <h2>Objective</h2>
-    <p>
-      Build an online showcase to present my projects and share my experience as
-      a developer. The portfolio highlights my technical work, while the blog
-      allows me to document what I learn and contribute to the community.
-    </p>
-    <p>
-      It also serves as my personal documentation — a place where I can come
-      back and find solutions to problems I've already solved.
-    </p>
-  </div>
+The portfolio presents my projects in a clean and direct way. Each project
+has its own page with a clear technical explanation.
 
+![project](/project/portfolio/1.png)
 
+![project](/project/portfolio/2.png)
 
-  <div>
-    <h2>The Portfolio</h2>
-    <p>
-      The portfolio presents my projects in a clean and direct way. Each project
-      has its own page with a clear technical explanation.
-    </p>
-  </div>
-  <img
-    class="picture"
-    src={"/project/portfolio/1.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
-  <img
-    class="picture"
-    src={"/project/portfolio/2.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
+## The Blog
 
+The blog is where I share my technical discoveries. I write practical
+tutorials, project-based insights, and simplified explanations of complex
+concepts.
 
+The goal is to make challenging ideas more accessible and to provide
+concrete, reusable solutions for other projects. Articles support
+interactive React components thanks to __MDX__, allowing me to illustrate
+concepts with live demos instead of simple screenshots.
 
-  <div>
-    <h2>The Blog</h2>
-    <p>
-      The blog is where I share my technical discoveries. I write practical
-      tutorials, project-based insights, and simplified explanations of complex
-      concepts.
-    </p>
-    <p>
-      The goal is to make challenging ideas more accessible and to provide
-      concrete, reusable solutions for other projects. Articles support
-      interactive React components thanks to __MDX__, allowing me to illustrate
-      concepts with live demos instead of simple screenshots.
-    </p>
-  </div>
-  <div>
-    <video src="/project/portfolio/v4.mp4" loop autoplay muted playsinline />
-  </div>
-  <img
-    class="picture"
-    src={"/project/portfolio/5.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
-  <img
-    class="picture"
-    src={"/project/portfolio/6.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
+<video src="/project/portfolio/v4.mp4" loop autoplay muted playsinline />
 
+![project](/project/portfolio/5.png)
 
+![project](/project/portfolio/6.png)
 
-  <div>
-    <h2>Technical Choices</h2>
-    <p>
-      I chose __Astro__ for its performance-first philosophy. Unlike traditional
-      JavaScript frameworks, Astro generates ultra-fast static pages and only
-      ships JavaScript when it’s truly needed.
-    </p>
-    <p>
-      The architecture is based on a __monorepo__ hosting both the blog and
-      portfolio. Core components such as the Header, Footer, and layout system
-      are centralized in a shared package and reused across both applications.
-      This avoids code duplication and ensures consistent styling across the
-      whole platform.
-    </p>
-    <p>
-      For styling, I opted for __pure CSS__ instead of Tailwind to keep total
-      control over the visual identity and craft a unique design. Content is
-      written in __MDX__ to combine the simplicity of Markdown with the power of
-      React components.
-    </p>
-  </div>
-  <img
-    class="picture"
-    height={500}
-    src={"/project/portfolio/7.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
-  <img
-    class="picture"
-    height={500}
-    src={"/project/portfolio/8.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
+## Technical Choices
 
+I chose __Astro__ for its performance-first philosophy. Unlike traditional
+JavaScript frameworks, Astro generates ultra-fast static pages and only
+ships JavaScript when it's truly needed.
 
+The architecture is based on a __monorepo__ hosting both the blog and
+portfolio. Core components such as the Header, Footer, and layout system
+are centralized in a shared package and reused across both applications.
+This avoids code duplication and ensures consistent styling across the
+whole platform.
 
-  <div>
-    <h2>Infrastructure & Deployment</h2>
-    <p>
-      The deployment architecture ensures stability and performance while
-      enabling rapid iteration. I implemented a multi-environment setup with
-      three levels: development, staging, and production.
-    </p>
-    <p>
-      Production is hosted on __GitHub Pages__ for its reliability, while
-      staging and preview environments run on __Cloudflare Pages__ for speed.
-      Each feature branch automatically generates its own preview environment,
-      making code reviews and testing much easier.
-    </p>
-    <p>
-      Full automation via __GitHub Actions__ orchestrates the entire workflow:
-      pushing a branch triggers a build and preview deployment, and merging to
-      main deploys to production. Astro builds are optimized with __Turbo__, and
-      __pnpm__ ensures fast, reproducible installs.
-    </p>
-    <p>
-      This workflow lets me work on multiple features in parallel, each with its
-      own isolated environment, validate on staging, and then deploy confidently
-      to production.
-    </p>
-  </div>
-  <div>
-    <p>
-      <img
-        class="picture"
-        src={"/project/portfolio/9.png"}
-        alt="Deployment architecture"
-        style={{ objectFit: "cover" }}
-      />
-    </p>
-    <p>
-      <img
-        class="picture"
-        src={"/project/portfolio/10.png"}
-        alt="Deployment architecture"
-        style={{ objectFit: "cover" }}
-      />
-    </p>
-    <p>
-      <img
-        class="picture"
-        src={"/project/portfolio/11.png"}
-        alt="Deployment architecture"
-        style={{ objectFit: "cover" }}
-      />
-    </p>
-  </div>
+For styling, I opted for __pure CSS__ instead of Tailwind to keep total
+control over the visual identity and craft a unique design. Content is
+written in __MDX__ to combine the simplicity of Markdown with the power of
+React components.
 
+![project](/project/portfolio/7.png)
 
+![project](/project/portfolio/8.png)
 
-  <div>
-    <video src="/project/portfolio/v3.mp4" loop autoplay muted playsinline />
-  </div>
-  <div>
-    <h2>Performance & SEO</h2>
-    <p>
-      SEO was a priority from the very beginning. Every page includes complete
-      metadata, an automatically generated XML sitemap, and an optimized
-      robots.txt file.
-    </p>
-    <p>
-      The HTML structure is semantic and accessible, with proper tags for easier
-      indexing. URLs are clean and descriptive, and the site automatically
-      generates Open Graph tags for optimal social sharing.
-    </p>
-  </div>
+## Infrastructure & Deployment
 
+The deployment architecture ensures stability and performance while
+enabling rapid iteration. I implemented a multi-environment setup with
+three levels: development, staging, and production.
 
+Production is hosted on __GitHub Pages__ for its reliability, while
+staging and preview environments run on __Cloudflare Pages__ for speed.
+Each feature branch automatically generates its own preview environment,
+making code reviews and testing much easier.
 
+Full automation via __GitHub Actions__ orchestrates the entire workflow:
+pushing a branch triggers a build and preview deployment, and merging to
+main deploys to production. Astro builds are optimized with __Turbo__, and
+__pnpm__ ensures fast, reproducible installs.
+
+This workflow lets me work on multiple features in parallel, each with its
+own isolated environment, validate on staging, and then deploy confidently
+to production.
+
+![Deployment architecture](/project/portfolio/9.png)
+
+![Deployment architecture](/project/portfolio/10.png)
+
+![Deployment architecture](/project/portfolio/11.png)
+
+<video src="/project/portfolio/v3.mp4" loop autoplay muted playsinline />
+
+## Performance & SEO
+
+SEO was a priority from the very beginning. Every page includes complete
+metadata, an automatically generated XML sitemap, and an optimized
+robots.txt file.
+
+The HTML structure is semantic and accessible, with proper tags for easier
+indexing. URLs are clean and descriptive, and the site automatically
+generates Open Graph tags for optimal social sharing.

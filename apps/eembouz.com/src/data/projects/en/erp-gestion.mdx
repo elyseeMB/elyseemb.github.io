@@ -4,106 +4,49 @@ description: "Management ERP"
 summary: "A full-stack monorepo grouping several applications, with an AdonisJS backend and a shared React design system, enabling centralized component reuse and consistent UI across the entire platform."
 thumbnail: "/project/crm.png"
 pubDate: 2025-09-07
+techno: ["Adonisjs", "Inertia", "Reactjs", "Postgresql", "tailwindCSS", "Docker", "Ansible", "Nginx", "Redis", "Storybook"]
 ---
 
+![project](/project/crm/9.png)
 
+## Design System Creation To prepare for the redesign of the application, I
 
+started by creating a component library. To visualize and test these components
+easily, I chose to work with Storybook, which allowed me to build each component
+in an isolated environment before integrating them into the application. Since
+the project includes many interface elements, I organized the library following
+the Atomic Design methodology, dividing components into __atoms__,
+__molecules__, and __organisms__.
+![project](/project/crm/8.png)
 
+![project](/project/crm/3.png)
+![project](/project/crm/1.png)
 
+## Admin Interface Development I built a scalable admin interface hosted on a
 
-  <img
-    class="picture"
-    src={"/project/crm/9.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
-  <div>
-    <h2>Design System Creation</h2>
-    <p>
-      To prepare for the redesign of the application, I started by creating a
-      component library. To visualize and test these components easily, I chose
-      to work with Storybook, which allowed me to build each component in an
-      isolated environment before integrating them into the application. Since
-      the project includes many interface elements, I organized the library
-      following the Atomic Design methodology, dividing components into{" "}
-      <strong>atoms</strong>, <strong>molecules</strong>, and{" "}
-      <strong>organisms</strong>.
-      <img
-        class="picture"
-        src={"/project/crm/8.png"}
-        alt="project"
-        style={{ objectFit: "cover" }}
-      />
-    </p>
-  </div>
+separate subdomain to streamline the management of users, articles, taxonomies
+with hierarchical structures, and content collections. This administration panel
+also provides full analytics and performance monitoring through a complete and
+intuitive dashboard.
+![project](/project/crm/2.png)
 
+## Integration of the Tiptap Editor for Article Writing
 
+I integrated Tiptap, a modern and highly customizable text editor, to simplify article creation and formatting.  
+ With its intuitive UI, Tiptap makes it easy to insert rich text, images, links, and code blocks.
 
-  <img
-    class="picture"
-    src={"/project/crm/3.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
-  <img
-    class="picture"
-    src={"/project/crm/1.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
-  <div>
-    <h2>Admin Interface Development</h2>
-    <p>
-      I built a scalable admin interface hosted on a separate subdomain to
-      streamline the management of users, articles, taxonomies with hierarchical
-      structures, and content collections. This administration panel also
-      provides full analytics and performance monitoring through a complete and
-      intuitive dashboard.
-    </p>
-  </div>
-  <img
-    class="picture"
-    src={"/project/crm/2.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
+The goal was to provide authors with a simple yet powerful tool to produce high-quality content, while ensuring better consistency and flexibility in article management.
 
+![project](/project/crm/6.png)
 
+![project](/project/crm.png)
 
-<div>
-  <h2>Integration of the Tiptap Editor for Article Writing</h2>
-  <p>
-  I integrated Tiptap, a modern and highly customizable text editor, to simplify article creation and formatting.  
-  With its intuitive UI, Tiptap makes it easy to insert rich text, images, links, and code blocks.
-  
-  The goal was to provide authors with a simple yet powerful tool to produce high-quality content, while ensuring better consistency and flexibility in article management.
-  </p>
-</div>
+## Technical Architecture & Deployment The project is structured as a full-stack
 
-<img class="picture" src={"/project/crm/6.png"} alt="project" style={{ objectFit: "cover" }} />
-
-
-
-  <img
-    class="picture"
-    height={500}
-    src={"/project/crm.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
-  <div>
-    <h2>Technical Architecture & Deployment</h2>
-    <p>
-      The project is structured as a full-stack monorepo managed with pnpm
-      workspaces, grouping the backend, the CMS, and the design system within a
-      single development environment. This structure improves collaboration,
-      code reuse, and consistency across all applications. Deployment is fully
-      automated with Ansible, which handles server configuration, application
-      deployment through Docker, and provisioning of services such as PostgreSQL
-      and Nginx. This ensures a fast, reliable, and fully reproducible setup
-      across all environments.
-    </p>
-  </div>
-
-
-
+monorepo managed with pnpm workspaces, grouping the backend, the CMS, and the
+design system within a single development environment. This structure improves
+collaboration, code reuse, and consistency across all applications. Deployment
+is fully automated with Ansible, which handles server configuration, application
+deployment through Docker, and provisioning of services such as PostgreSQL and
+Nginx. This ensures a fast, reliable, and fully reproducible setup across all
+environments.

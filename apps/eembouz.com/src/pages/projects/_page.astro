@@ -4,7 +4,6 @@ import type { CollectionEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import MetaDescription from "../../components/MetaDescription.astro";
 import Prose from "@portfolio/ui/Prose";
-import { supportsViewTransitions } from "astro:transitions/client";
 
 interface Props {
   project: CollectionEntry<"projects">;
@@ -28,7 +27,7 @@ const seo = seoProps ? seoProps : metaData;
 <Layout {...seo}>
   <div class="container">
     <section class="projects">
-      <div class="meta w-[550px] h-full">
+      <div class="meta">
         <MetaDescription
           thumbnail={thumbnail}
           title={title}
@@ -38,11 +37,9 @@ const seo = seoProps ? seoProps : metaData;
       </div>
 
       <div class="content">
-        <div class="container">
-          <Prose>
-            <Content />
-          </Prose>
-        </div>
+        <Prose>
+          <Content />
+        </Prose>
       </div>
     </section>
   </div>
@@ -52,9 +49,7 @@ const seo = seoProps ? seoProps : metaData;
   .projects {
     position: relative;
     display: flex;
-    /* align-items: start; */
     flex-direction: column;
-    gap: 2rem;
     z-index: 2;
     padding-block: 3rem;
   }
@@ -63,10 +58,9 @@ const seo = seoProps ? seoProps : metaData;
     .projects {
       position: relative;
       display: grid;
-      /* align-items: start; */
+      gap: 5rem;
       grid-template-columns: repeat(2, 1fr);
       z-index: 2;
-      /* padding-top: 5rem; */
     }
   }
 
@@ -78,8 +72,8 @@ const seo = seoProps ? seoProps : metaData;
   }
 
   .content {
-    /* background: red; */
-    padding-top: 30rem;
+    padding-bottom: 0;
+
     strong {
       font-weight: 900;
     }
@@ -96,20 +90,21 @@ const seo = seoProps ? seoProps : metaData;
     }
 
     h2 {
+      font-family: "Inter" !important;
       text-align: left;
       white-space: normal;
       word-break: break-word;
-      line-height: 1.4;
-      font-weight: 100;
+      line-height: 1;
       font-size: 2rem;
-      font-style: italic;
     }
 
     img {
-      border-radius: 0.5rem;
+      padding-block: 1rem;
+      border-radius: 0.5rem !important;
     }
 
     video {
+      padding-block: 1rem;
       border-radius: 0.5rem;
       width: -webkit-fill-available;
     }
