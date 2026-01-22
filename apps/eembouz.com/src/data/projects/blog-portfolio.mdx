@@ -6,125 +6,111 @@ thumbnail: "/project/portfolio/3.png"
 pubDate: 2025-5-07
 ---
 
-import GridProject from "../../components/GridProject.astro";
-import GridBlock from "../../components/GridBlock.astro";
+<div>
+  <video src="/project/portfolio/v1.mp4" loop autoplay muted playsinline />
+</div>
+<div>
+  <h2>Objectif</h2>
+  <p>
+    Créer une vitrine en ligne pour présenter mes projets et partager mon
+    expérience de développeur. Le portfolio met en avant mes réalisations
+    techniques, tandis que le blog me permet de documenter mes apprentissages et
+    de contribuer à la communauté.
+  </p>
+  <p>
+    C'est aussi ma documentation personnelle : un endroit où je peux revenir
+    chercher des solutions à des problèmes déjà résolus.
+  </p>
+</div>
 
-<GridProject>
+<div>
+  <h2>Le Portfolio</h2>
+  <p>
+    Le portfolio présente mes projets de manière directe. Chaque réalisation
+    dispose de sa propre page avec une description technique claire.
+  </p>
+</div>
+<img
+  class="picture"
+  src={"/project/portfolio/1.png"}
+  alt="project"
+  style={{ objectFit: "cover" }}
+/>
+<img
+  class="picture"
+  src={"/project/portfolio/2.png"}
+  alt="project"
+  style={{ objectFit: "cover" }}
+/>
 
-<GridBlock>
-  <div>
-    <video src="/project/portfolio/v1.mp4" loop autoplay muted playsinline />
-  </div>
-  <div>
-    <h2>Objectif</h2>
-    <p>
-      Créer une vitrine en ligne pour présenter mes projets et partager mon
-      expérience de développeur. Le portfolio met en avant mes réalisations
-      techniques, tandis que le blog me permet de documenter mes apprentissages
-      et de contribuer à la communauté.
-    </p>
-    <p>
-      C'est aussi ma documentation personnelle : un endroit où je peux revenir
-      chercher des solutions à des problèmes déjà résolus.
-    </p>
-  </div>
-</GridBlock>
+<div>
+  <h2>Le Blog</h2>
+  <p>
+    Le blog c'est l'endroit où je partage mes découvertes techniques. J'y écris
+    des tutoriels pratiques, des retours d'expérience sur mes projets et des
+    analyses de concepts complexes que je simplifie.
+  </p>
+  <p>
+    L'objectif est de rendre accessibles des notions parfois difficiles et de
+    fournir des solutions concrètes applicables directement dans d'autres
+    projets. Les articles supportent l'intégration de composants React
+    interactifs grâce à __MDX__, ce qui me permet d'illustrer mes propos avec
+    des démonstrations vivantes plutôt que de simples captures d'écran.
+  </p>
+</div>
+<div>
+  <video src="/project/portfolio/v4.mp4" loop autoplay muted playsinline />
+</div>
+<img
+  class="picture"
+  src={"/project/portfolio/5.png"}
+  alt="project"
+  style={{ objectFit: "cover" }}
+/>
+<img
+  class="picture"
+  src={"/project/portfolio/6.png"}
+  alt="project"
+  style={{ objectFit: "cover" }}
+/>
 
-<GridBlock>
-  <div>
-    <h2>Le Portfolio</h2>
-    <p>
-      Le portfolio présente mes projets de manière directe. Chaque réalisation
-      dispose de sa propre page avec une description technique claire.
-    </p>
-  </div>
-  <img
-    class="picture"
-    src={"/project/portfolio/1.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
-  <img
-    class="picture"
-    src={"/project/portfolio/2.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
-</GridBlock>
+<div>
+  <h2>Choix techniques</h2>
+  <p>
+    J'ai choisi __Astro__ pour sa philosophie orientée performance.
+    Contrairement aux frameworks JavaScript traditionnels, Astro génère des
+    pages statiques ultra-rapides et n'envoie du JavaScript que lorsque c'est
+    vraiment nécessaire.
+  </p>
+  <p>
+    L'architecture repose sur un __monorepo__ qui héberge blog et portfolio. Les
+    composants essentiels comme le Header, le Footer ou les layouts sont
+    centralisés dans un package partagé et réutilisés dans les deux
+    applications. Cette approche évite la duplication de code et garantit une
+    cohérence visuelle parfaite.
+  </p>
+  <p>
+    Pour le styling, j'ai choisi d'écrire du __CSS pur__ plutôt que d'utiliser
+    Tailwind. Je voulais un contrôle total sur l'apparence et créer une identité
+    visuelle unique. Le contenu est écrit en __MDX__ pour combiner la simplicité
+    du Markdown avec la puissance des composants React.
+  </p>
+</div>
+<img
+  class="picture"
+  height={500}
+  src={"/project/portfolio/7.png"}
+  alt="project"
+  style={{ objectFit: "cover" }}
+/>
+<img
+  class="picture"
+  height={500}
+  src={"/project/portfolio/8.png"}
+  alt="project"
+  style={{ objectFit: "cover" }}
+/>
 
-<GridBlock>
-  <div>
-    <h2>Le Blog</h2>
-    <p>
-      Le blog c'est l'endroit où je partage mes découvertes techniques. J'y
-      écris des tutoriels pratiques, des retours d'expérience sur mes projets et
-      des analyses de concepts complexes que je simplifie.
-    </p>
-    <p>
-      L'objectif est de rendre accessibles des notions parfois difficiles et de
-      fournir des solutions concrètes applicables directement dans d'autres
-      projets. Les articles supportent l'intégration de composants React
-      interactifs grâce à __MDX__, ce qui me permet d'illustrer mes propos avec
-      des démonstrations vivantes plutôt que de simples captures d'écran.
-    </p>
-  </div>
-  <div>
-    <video src="/project/portfolio/v4.mp4" loop autoplay muted playsinline />
-  </div>
-  <img
-    class="picture"
-    src={"/project/portfolio/5.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
-  <img
-    class="picture"
-    src={"/project/portfolio/6.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
-</GridBlock>
-
-<GridBlock>
-  <div>
-    <h2>Choix techniques</h2>
-    <p>
-      J'ai choisi __Astro__ pour sa philosophie orientée performance.
-      Contrairement aux frameworks JavaScript traditionnels, Astro génère des
-      pages statiques ultra-rapides et n'envoie du JavaScript que lorsque c'est
-      vraiment nécessaire.
-    </p>
-    <p>
-      L'architecture repose sur un __monorepo__ qui héberge blog et portfolio.
-      Les composants essentiels comme le Header, le Footer ou les layouts sont
-      centralisés dans un package partagé et réutilisés dans les deux
-      applications. Cette approche évite la duplication de code et garantit une
-      cohérence visuelle parfaite.
-    </p>
-    <p>
-      Pour le styling, j'ai choisi d'écrire du __CSS pur__ plutôt que d'utiliser
-      Tailwind. Je voulais un contrôle total sur l'apparence et créer une
-      identité visuelle unique. Le contenu est écrit en __MDX__ pour combiner la
-      simplicité du Markdown avec la puissance des composants React.
-    </p>
-  </div>
-  <img
-    class="picture"
-    height={500}
-    src={"/project/portfolio/7.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
-  <img
-    class="picture"
-    height={500}
-    src={"/project/portfolio/8.png"}
-    alt="project"
-    style={{ objectFit: "cover" }}
-  />
-</GridBlock>
-
-<GridBlock>
   <div>
     <h2>Infrastructure & Déploiement</h2>
     <p>
@@ -180,26 +166,21 @@ import GridBlock from "../../components/GridBlock.astro";
     />
 </p>
   </div>
-</GridBlock>
 
-<GridBlock>
-  <div>
-    <video src="/project/portfolio/v3.mp4" loop autoplay muted playsinline />
-  </div>
-  <div>
-    <h2>Performance et SEO</h2>
-    <p>
-      Le référencement naturel a été une priorité dès la conception. Chaque page
-      dispose de métadonnées complètes, d'un sitemap XML généré automatiquement
-      et d'un fichier robots.txt optimisé.
-    </p>
-    <p>
-      La structure HTML est sémantique et accessible, avec des balises
-      appropriées pour faciliter l'indexation. Les URLs sont propres et
-      descriptives, et le site génère automatiquement les Open Graph tags pour
-      un partage optimal sur les réseaux sociaux.
-    </p>
-  </div>
-</GridBlock>
-
-</GridProject>
+<div>
+  <video src="/project/portfolio/v3.mp4" loop autoplay muted playsinline />
+</div>
+<div>
+  <h2>Performance et SEO</h2>
+  <p>
+    Le référencement naturel a été une priorité dès la conception. Chaque page
+    dispose de métadonnées complètes, d'un sitemap XML généré automatiquement et
+    d'un fichier robots.txt optimisé.
+  </p>
+  <p>
+    La structure HTML est sémantique et accessible, avec des balises appropriées
+    pour faciliter l'indexation. Les URLs sont propres et descriptives, et le
+    site génère automatiquement les Open Graph tags pour un partage optimal sur
+    les réseaux sociaux.
+  </p>
+</div>
