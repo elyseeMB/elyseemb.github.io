@@ -14,7 +14,7 @@ const __ = await getTranslator(Astro.currentLocale);
 
 <Layout>
   <div class="container-narrow">
-    <div class="container">
+    <div class="container home">
       <Hero />
       <Skills />
       <Projects />
@@ -23,3 +23,9 @@ const __ = await getTranslator(Astro.currentLocale);
     </div>
   </div>
 </Layout>
+
+<style>
+  .home {
+    overflow: hidden;
+  }
+</style>
