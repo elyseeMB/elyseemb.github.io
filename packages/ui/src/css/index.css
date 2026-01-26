@@ -29,6 +29,7 @@
 @import "./modules/outline.css";
 @import "./modules/skeleton.css";
 @import "./modules/markdown.css";
+@import "./modules/prose.css";
 
 /* BLOCKS */
 @import "./blocks/presentation.css";
