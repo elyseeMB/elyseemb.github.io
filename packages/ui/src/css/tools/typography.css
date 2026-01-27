@@ -17,19 +17,6 @@ h6 {
   color: var(--color-primary) !important;
 }
 
-h1,
-h1 span {
-  font-family: "Instrument Serif" !important;
-  font-style: italic;
-  font-weight: 400;
-  color: var(--color-primary);
-}
-
-h1 {
-  font-size: 6.1rem;
-  /* line-height: 0.9; */
-}
-
 h2:not(:where([data-markdown] *)) {
   font-family: "Instrument Serif" !important;
   font-size: 2rem;
@@ -42,10 +29,12 @@ h3:not(:where([data-markdown] *)) {
 
 :where([data-markdown]) {
   h1 {
-    font-family: "Inter" !important;
-    font-weight: normal;
+    font-family: "Zalando Sans Expanded", sans-serif;
+    font-weight: 450;
     font-style: normal;
-    font-size: 1.2rem !important;
+    line-height: 1.065;
+    margin-bottom: 1em;
+    font-size: 3.8rem;
   }
 
   .outline__wrapper {
@@ -59,7 +48,7 @@ h3:not(:where([data-markdown] *)) {
   ul li,
   em,
   strong {
-    font-family: "IBM Plex Serif" !important;
+    font-family: "Inter" !important;
   }
 }
 
@@ -76,8 +65,7 @@ h5,
 h6,
 *,
 body {
-  font-family: "Inter" !important;
-  color: var(--color-secondary);
+  /* color: var(--color-secondary); */
 }
 
 strong {

@@ -12,7 +12,7 @@ interface Props {
 const { item } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(item);
 
-const { seo: seoProps, taxonomies, author, pubDate } = item.data;
+const { seo: seoProps, taxonomies, author, pubDate, thumbnail } = item.data;
 
 const metaData = {
   title: item.data.title,
@@ -29,7 +29,7 @@ const seo = seoProps ? seoProps : metaData;
 <Layout {...seo}>
   <section data-markdown>
     <div class="container">
-      <div class="container-narrow">
+      <div class="medium">
         <Info
           item={item}
           showSummary={false}
@@ -39,23 +39,23 @@ const seo = seoProps ? seoProps : metaData;
       </div>
     </div>
 
-    <!-- <div class="container">
-      <div class="container-narrow">
-        <div class="heading">
-          <div class="cover">
-            <img src={thumbnail} alt="" />
-          </div>
+    <div class="container">
+      <div class="heading">
+        <div class="cover animate-fade-in animation-delay-300">
+          <img src={thumbnail} alt="" />
         </div>
       </div>
-    </div> -->
+    </div>
 
     <div class="container">
-      <div class="wrapper-content">
-        <Prose>
-          <Content />
-        </Prose>
-        <div class="wrapper-outline">
-          <Outline client:load />
+      <div class="medium">
+        <div class="wrapper-content">
+          <Prose>
+            <Content />
+          </Prose>
+          <div class="wrapper-outline">
+            <Outline client:load />
+          </div>
         </div>
       </div>
     </div>
@@ -82,6 +82,10 @@ const seo = seoProps ? seoProps : metaData;
     gap: 0.5rem;
   }
 
+  .wrapper-content > * {
+    min-width: 0;
+  }
+
   .wrapper-content {
     display: block;
   }
@@ -93,8 +97,11 @@ const seo = seoProps ? seoProps : metaData;
   @media screen and (min-width: 1200px) {
     .wrapper-content {
       width: 100%;
-      display: grid !important;
-      grid-template-columns: 1fr 600px 1fr !important;
+
+      display: flex;
+      justify-content: space-between;
+      gap: 5rem;
+      /* grid-template-columns: 600px 1fr; */
       padding: 0;
     }
 
@@ -109,13 +116,9 @@ const seo = seoProps ? seoProps : metaData;
   .content {
     padding-bottom: 5rem;
   }
-  h1 {
-    text-align: left;
-    padding-top: 3rem;
-    line-height: 1.4;
-  }
 
   .cover {
+    padding-bottom: 5rem;
     width: 100%;
   }
 

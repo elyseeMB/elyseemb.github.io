@@ -5,28 +5,107 @@ const __ = await getTranslator(Astro.currentLocale);
 const { pathname } = Astro.url;
 const href = getLink(Astro, "/articles");
 const isActive = pathname.startsWith(href);
+import Button from "@portfolio/ui/Button";
 ---
 
 <div class="container-narrow">
   <HeaderComponent>
-    <div class="actions">
-      <a href="https://eembouz.com">Portfolio</a>
-      <a
-        href={href}
-        aria-current={isActive ? "page" : undefined}
-        class="aria-[current=page]:text-[var(--contrast)]! transition-colors duration-300"
-      >
-        {__("Tous mes articles")}
-      </a>
-    </div>
+    <ul class="flex-header actions">
+      <li class="btn btn-link">
+        <a
+          href="https://eembouz.com"
+          class="btn-click magnetic link-header"
+          data-strength="40"
+          data-strength-text="10"
+        >
+          <span class="btn-text">
+            <span class="btn-text-inner">Portfolio</span>
+          </span>
+        </a>
+      </li>
+
+      <li class="btn btn-link">
+        <a
+          href={href}
+          class="btn-click magnetic link-header"
+          aria-current={isActive ? "page" : undefined}
+          class="aria-[current=page]:text-[var(--contrast)]! transition-colors duration-300"
+          data-strength="40"
+          data-strength-text="10"
+        >
+          <span class="btn-text">
+            <span class="btn-text-inner">{__("Articles")}</span>
+          </span>
+        </a>
+      </li>
+    </ul>
   </HeaderComponent>
 </div>
 
 <style>
-  .actions {
+  .link-header {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column-reverse;
+    align-items: center;
+    position: relative;
+    transition: 0.6s;
+  }
+
+  a[aria-current="page"]::before {
+    position: absolute;
+    content: "";
+    top: 60px;
+    display: block;
+    background: var(--contrast);
+    border-radius: 100%;
+    opacity: 1;
+    transform: scale(1);
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+    width: 7px;
+    height: 7px;
+  }
+
+  .link-header::before {
+    position: absolute;
+    content: "";
+    top: 60px;
+    display: block;
+    background: var(--primary);
+    border-radius: 100%;
+    opacity: 0;
+    transform: scale(0);
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+
+    width: 7px;
+    height: 7px;
+  }
+
+  .link-header:hover::before {
+    opacity: 1;
+    transform: scale(2.2);
+  }
+
+  ul.flex-header,
+  ul.flex-header li {
+    all: unset;
+  }
+
+  ul li {
+    display: flex;
+    flex-direction: initial;
+    align-items: center;
+    text-decoration: none;
+    list-style: none;
+  }
+
+  ul.flex-header.actions {
     display: flex;
     align-items: center;
-    gap: 2rem;
   }
 
   .link {

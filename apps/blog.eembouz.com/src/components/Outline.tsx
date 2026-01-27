@@ -90,7 +90,7 @@ export function Outline() {
             )}`}
           >
             <a
-              class="relative inline-block pr-4 text-neutral-500!"
+              class="relative inline-block pr-4 "
               key={heading.id}
               href={"#" + heading.id}
             >
