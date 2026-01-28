@@ -156,3 +156,38 @@ const seo = seoProps ? seoProps : metaData;
     }
   }
 </style>
+
+<script>
+  const h2 = Array.from(document.querySelectorAll("h2"));
+  const element = document.getElementById("mindmap");
+
+  let observers: IntersectionObserver[] = [];
+
+  const handleClick = () => {
+    observers.forEach((observer) => observer.disconnect());
+    observers = [];
+
+    h2.forEach((item) => {
+      const observer = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          element!.dataset.target = entry.target.id;
+          element!.dispatchEvent(
+            new CustomEvent("mindmap", {
+              detail: entry.target.id,
+            })
+          );
+        }
+      });
+      observer.observe(item);
+      observers.push(observer);
+    });
+  };
+
+  element!.addEventListener("click", handleClick);
+
+  // Nettoyage au déchargement de la page
+  addEventListener("beforeunload", () => {
+    observers.forEach((observer) => observer.disconnect());
+  });
+</script>

@@ -38,10 +38,17 @@ const url =
   props.data.contentType === ContentType["SERIE"]
     ? buildUrlForSeries(props)
     : buildUrl(props);
+
+const isArticlePage = Astro.url.pathname.includes("articles");
 ---
 
 <article
-  class={clx(className, "item flex items-center justify-between gap-4 py-14")}
+  data-thumbnail={props.data.thumbnail}
+  data-overlay
+  class={clx(
+    className,
+    "relative item flex items-center justify-between gap-4 py-4"
+  )}
 >
   <div class="item__info">
     <Link href={url}>
@@ -54,7 +61,7 @@ const url =
       }
     </Link>
   </div>
-  <div>
+  <div class="max-w-[150px]">
     <div class="meta">
       <DateFormate isShowYear={options.showYear} date={props.data.pubDate} />
     </div>
@@ -67,3 +74,107 @@ const url =
     padding: 0.5rem 0 0 0;
   }
 </style>
+
+<script>
+  class Overlay {
+    private static wrapper: HTMLElement | null = null;
+    private static inner: HTMLElement | null = null;
+    private static currentTitle: string | null = null;
+
+    static init() {
+      const items = document.querySelectorAll("[data-overlay]");
+
+      items.forEach((item) => {
+        item.addEventListener("mouseenter", (e) => {
+          new Overlay(item as HTMLElement, e as MouseEvent);
+        });
+
+        item.addEventListener("mouseleave", () => {
+          if (Overlay.wrapper) {
+            Overlay.wrapper.style.display = "none";
+            Overlay.currentTitle = null;
+          }
+        });
+      });
+    }
+
+    constructor(target: HTMLElement, event: MouseEvent) {
+      this.handle(target, event);
+    }
+
+    handle(target: HTMLElement, event: MouseEvent) {
+      if (!Overlay.wrapper) {
+        Overlay.wrapper = document.createElement("div");
+        Overlay.wrapper.id = "global-overlay";
+        Overlay.wrapper.setAttribute(
+          "class",
+          "fixed pointer-events-none w-[300px] aspect-square bg-transparent z-[1] hidden items-center justify-center overflow-hidden"
+        );
+
+        Overlay.inner = document.createElement("div");
+        Overlay.inner.setAttribute(
+          "style",
+          `
+          transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s ease;
+          color: white;
+          font-weight: bold;
+          text-align: center;
+          padding: 0 20px;
+        `
+        );
+
+        Overlay.wrapper.appendChild(Overlay.inner);
+        document.body.appendChild(Overlay.wrapper);
+      }
+
+      const wrapper = Overlay.wrapper;
+      const inner = Overlay.inner!;
+      const newTitle = target.dataset.thumbnail || "";
+
+      if (Overlay.currentTitle !== newTitle) {
+        inner.style.opacity = "0";
+
+        setTimeout(() => {
+          inner.style.transition = "none";
+          inner.innerHTML = `<img class="rounded-lg object-fill" src=${newTitle} />`;
+
+          requestAnimationFrame(() => {
+            inner.style.transition =
+              "transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s ease";
+            inner.style.transform = "translateY(0)";
+            inner.style.opacity = "1";
+          });
+        }, 100);
+
+        Overlay.currentTitle = newTitle;
+      }
+
+      wrapper.style.display = "flex";
+
+      const moveAt = (e: MouseEvent) => {
+        const x = e.clientX - wrapper.offsetWidth / 2 + 170;
+        const y = e.clientY - wrapper.offsetHeight / 2;
+        wrapper.style.left = x + "px";
+        wrapper.style.top = y + "px";
+      };
+
+      moveAt(event);
+      const onMouseMove = (e: MouseEvent) => moveAt(e);
+      target.addEventListener("mousemove", onMouseMove);
+
+      target.addEventListener(
+        "mouseleave",
+        () => {
+          target.removeEventListener("mousemove", onMouseMove);
+        },
+        { once: true }
+      );
+    }
+  }
+
+  Overlay.init();
+
+  document.addEventListener("astro:page-load", () => {
+    Overlay.init();
+  });
+</script>

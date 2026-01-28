@@ -55,6 +55,45 @@ export function Outline() {
     }
   }, [headings]);
 
+  useEffect(() => {
+    const next = (el) => {
+      const array = [];
+      let currentElement = el.nextElementSibling;
+
+      while (currentElement && currentElement.tagName !== "H2") {
+        if (currentElement.tagName === "P") {
+          array.push(currentElement);
+        }
+        currentElement = currentElement.nextElementSibling;
+      }
+      return array;
+    };
+    const el = document.getElementById("mindmap");
+
+    const listener = (e) => {
+      if (!e.target) {
+        return;
+      }
+      const target = document.getElementById(e.target.dataset.target);
+      if (!target) {
+        return;
+      }
+
+      const arrayTarget = new Map(
+        Array.from({ length: 2 }, () => [target, next(target)])
+      );
+
+      arrayTarget.get(target).forEach((i) => {
+        console.log(i);
+        // i.setAttribute("class", "opacity-[0.5] transition");
+      });
+    };
+
+    el?.addEventListener("mindmap", listener);
+
+    return () => el?.removeEventListener("mindmap", listener);
+  }, []);
+
   const handleClick: MouseEventHandler<HTMLLIElement> = (e) => {
     e.preventDefault();
 
