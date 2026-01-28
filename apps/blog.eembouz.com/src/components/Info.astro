@@ -29,13 +29,14 @@ const getTaxonomies = await Promise.all(
       )
     : []
 );
+const cleanTitle = title.replace(/[^\p{L}\p{N}\s'’]/gu, "");
 ---
 
 <div class="info">
   <Breadcrumb contentTypeId={item.data.contentType} />
 
   <h1 class="animate-slide-in animate-fade-in">
-    {title.replace(/[^\p{L}\p{N}\s]/gu, "")}
+    {cleanTitle}
   </h1>
 
   <div
@@ -89,5 +90,6 @@ const getTaxonomies = await Promise.all(
     display: grid;
     grid-template-columns: 1fr;
     gap: 0.5rem;
+    font-size: 0.9rem;
   }
 </style>
