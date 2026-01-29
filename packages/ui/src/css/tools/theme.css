@@ -27,7 +27,7 @@
   --rounded: 0.3rem;
   --hover-primary: transparent;
   --filter-brightness: none;
-  --border-btn: 1.5px solid rgba(255, 255, 255, 0.126);
+  --border-btn: 1.5px solid var(--border);
 
   --contrast: rgb(0, 122, 236);
   --size: 16px;
@@ -189,7 +189,7 @@ footer .btn-fixed {
 
 .btn-click {
   cursor: pointer;
-  border: 1px solid var(--primary);
+  border: var(--border-btn);
   color: var(--primary);
   background: transparent;
   border-radius: 2.125em;

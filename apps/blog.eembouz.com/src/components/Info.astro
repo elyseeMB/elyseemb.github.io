@@ -6,15 +6,25 @@ import Writer from "./Writer.astro";
 import type { ReferenceDataEntry } from "astro:content";
 import { getEntry } from "astro:content";
 import Button from "@portfolio/ui/Button";
+import DateFormate from "./DateFormate.astro";
+import { date } from "astro:schema";
+import clsx from "clsx";
 
 interface Props {
+  className?: string;
   item: CollectionEntry<"series"> | CollectionEntry<"blog">;
   readingTime?: number;
   showSummary?: boolean;
   taxonomies?: ReferenceDataEntry<"taxonomies", string>[] | undefined;
 }
 
-const { item, readingTime, showSummary = true, taxonomies } = Astro.props;
+const {
+  item,
+  readingTime,
+  showSummary = true,
+  taxonomies,
+  className,
+} = Astro.props;
 
 const { title, pubDate, author, contentType, summary, ...props } = item.data;
 
@@ -32,16 +42,19 @@ const getTaxonomies = await Promise.all(
 const cleanTitle = title.replace(/[^\p{L}\p{N}\s'’]/gu, "");
 ---
 
-<div class="info">
-  <Breadcrumb contentTypeId={item.data.contentType} />
+<div class={clsx(className, "info")}>
+  <div
+    class="flex items-center gap-4 animate-fade-in -mb-10 animation-delay-200"
+  >
+    <Breadcrumb contentTypeId={item.data.contentType} />
+    <span class="font-light">{formatDate}</span>
+  </div>
 
   <h1 class="animate-slide-in animate-fade-in">
     {cleanTitle}
   </h1>
 
-  <div
-    class="meta grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-5 pb-[5rem]"
-  >
+  <div class="meta grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-5">
     <div class="animate-slide-in animation-delay-100">
       <Button>
         <span
@@ -88,8 +101,8 @@ const cleanTitle = title.replace(/[^\p{L}\p{N}\s'’]/gu, "");
   .info {
     font-family: "Inter";
     display: grid;
+    gap: 3rem;
     grid-template-columns: 1fr;
-    gap: 0.5rem;
     font-size: 0.9rem;
   }
 </style>

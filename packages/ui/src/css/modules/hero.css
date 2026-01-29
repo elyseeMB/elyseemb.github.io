@@ -1,14 +1,14 @@
 /* HERO */
 .hero {
   position: relative;
-  display: grid;
+  /* display: grid;
   width: 100%;
   place-items: center;
-  height: 100%;
+  height: 100%; */
   font-size: var(--size);
   z-index: 1;
   padding-bottom: 5rem;
-  padding-top: 3rem;
+  /* padding-top: 3rem; */
 }
 
 /* .hero::before {

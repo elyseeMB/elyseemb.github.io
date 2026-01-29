@@ -1,31 +1,37 @@
 :root {
-  --container-padding: clamp(2.5em, 8vw, 8em);
+  --container-padding: clamp(2em, 8vw, 8em);
   --container-width: calc(100vw - var(--container-padding) * 2);
 }
 
-/* petits écrans */
+/* 
 @media only screen and (max-width: 499px) {
   :root {
     --container-padding: 2rem;
   }
 }
 
-/* Tablettes et écrans moyens */
 @media only screen and (min-width: 500px) and (max-width: 1024px) {
   :root {
     --container-padding: 32px;
   }
 }
 
-/* Écrans larges */
 @media only screen and (min-width: 1370px) {
   :root {
     --container-padding: 20px;
     --container-width: 1330px;
   }
+} */
+
+@media screen and (min-width: 1200px) {
+  .stack {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding-block: 2.5rem;
+  }
 }
 
-.container > * {
+.container {
   margin: 0 auto;
   padding-left: var(--container-padding);
   padding-right: var(--container-padding);
@@ -37,9 +43,9 @@
   padding-right: calc(var(--container-padding) * 2);
 }
 
-.container-narrow {
+/* .container-narrow {
   --container-width: 600px;
-}
+} */
 
 .page-wrapper {
   display: flex;
@@ -47,28 +53,4 @@
   min-height: 100vh;
   width: 100%;
   padding-top: 3rem;
-}
-
-.stack {
-  padding-block: 2rem;
-  display: grid;
-  /* Responsive grid qui s'adapte à tous les écrans */
-  grid-template-columns: repeat(auto-fill, minmax(min(500px, 100%), 1fr));
-  gap: 1.5rem;
-}
-
-/* Ajustements spécifiques pour iPhone XR */
-@media only screen and (max-width: 414px) {
-  .stack {
-    padding-block: 1.5rem;
-    grid-template-columns: 1fr; /* Une seule colonne sur très petits écrans */
-    gap: 1rem;
-  }
-}
-
-/* Pour les écrans entre iPhone XR et iPad */
-@media only screen and (min-width: 415px) and (max-width: 768px) {
-  .stack {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  }
 }

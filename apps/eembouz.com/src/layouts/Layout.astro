@@ -45,6 +45,7 @@ const {
 </html>
 
 <script>
+  import { onLoadClientRouter } from "@portfolio/ui/client";
   import { langs } from "../../config.ts";
 
   function trim(str: string, char: string): string {
@@ -101,7 +102,7 @@ const {
 
   redirectLang();
 
-  document.addEventListener("astro:page-load", () => {
+  onLoadClientRouter(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       document.documentElement.classList.add("dark");
       document.documentElement.style.colorScheme = "dark";

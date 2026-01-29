@@ -31,10 +31,10 @@
   overflow: hidden;
 }
 
-.item__info h3 {
+/* .item__info h3 {
   font-size: 1.1rem !important;
   font-style: bold;
-}
+} */
 
 .item__info > * {
   font-size: 0.9rem !important;

@@ -67,14 +67,6 @@ pre {
     border-radius: 0;
   }
 
-  .prose h2 {
-    font-size: 1.2rem !important;
-  }
-
-  .prose h3 {
-    font-size: 1rem !important;
-  }
-
   .bg-secondary {
     background-color: var(--outline-wrapper);
   }

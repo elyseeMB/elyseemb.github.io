@@ -17,15 +17,10 @@ h6 {
   color: var(--color-primary) !important;
 }
 
-h2:not(:where([data-markdown] *)) {
+/* h2:not(:where([data-markdown] *)) {
   font-family: "Instrument Serif" !important;
   font-size: 2rem;
-}
-
-h3:not(:where([data-markdown] *)) {
-  font-family: "Instrument Serif" !important;
-  font-size: 1.4rem;
-}
+} */
 
 :where([data-markdown]) {
   h1 {
@@ -33,12 +28,12 @@ h3:not(:where([data-markdown] *)) {
     font-weight: 450;
     font-style: normal;
     line-height: 1.065;
-    margin-bottom: 1em;
     font-size: 3.8rem;
   }
 
   .outline__wrapper {
     ul li {
+      font-weight: normal;
       font-family: "Inter" !important;
     }
   }
@@ -48,6 +43,7 @@ h3:not(:where([data-markdown] *)) {
   ul li,
   em,
   strong {
+    font-weight: 200;
     font-family: "Inter" !important;
   }
 }

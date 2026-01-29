@@ -27,10 +27,11 @@ const seo = seoProps ? seoProps : metaData;
 ---
 
 <Layout {...seo}>
-  <section data-markdown>
-    <div class="container">
-      <div class="medium">
+  <section data-markdown class="w-full">
+    <div class="container medium max-w-6xl">
+      <div class="grid grid-cols-1 lg:grid-cols-5 pb-10 lg:pb-[5rem]">
         <Info
+          className="col-span-1 lg:col-span-4"
           item={item}
           showSummary={false}
           taxonomies={taxonomies}
@@ -39,25 +40,24 @@ const seo = seoProps ? seoProps : metaData;
       </div>
     </div>
 
-    <div class="container">
+    <div class="container mx-auto max-w-6xl">
       <div class="heading">
         <div class="cover animate-fade-in animation-delay-300">
-          <img src={thumbnail} alt="" />
+          <img src={thumbnail} class="w-full h-auto object-cover" alt="" />
         </div>
       </div>
     </div>
 
-    <div class="container">
-      <div class="medium">
-        <div class="container-narrow">
-          <div class="wrapper-content">
-            <Prose>
-              <Content />
-            </Prose>
-            <div class="wrapper-outline">
-              <Outline client:load />
-            </div>
-          </div>
+    <div class="container medium mx-auto max-w-6xl">
+      <div class="grid grid-cols-1 lg:grid-cols-6 gap-8">
+        <div class="col-span-1 lg:col-span-4">
+          <Prose>
+            <Content />
+          </Prose>
+        </div>
+
+        <div class="wrapper-outline col-span-1 lg:col-span-2">
+          <Outline client:load />
         </div>
       </div>
     </div>
@@ -99,7 +99,6 @@ const seo = seoProps ? seoProps : metaData;
   @media screen and (min-width: 1200px) {
     .wrapper-content {
       width: 100%;
-
       display: flex;
       justify-content: space-between;
       gap: 5rem;
@@ -109,7 +108,7 @@ const seo = seoProps ? seoProps : metaData;
 
     .wrapper-outline {
       display: block;
-      grid-column: 3;
+      /* grid-column: 3; */
       margin-bottom: 5rem;
       justify-self: end;
     }

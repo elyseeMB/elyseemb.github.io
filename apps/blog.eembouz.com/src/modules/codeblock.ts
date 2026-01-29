@@ -1,4 +1,6 @@
-document.addEventListener("astro:page-load", () => {
+import { onLoadClientRouter } from "@portfolio/ui/client";
+
+onLoadClientRouter(() => {
   const codeBlocks = document.querySelectorAll<HTMLElement>("pre.astro-code");
 
   if (!codeBlocks) {

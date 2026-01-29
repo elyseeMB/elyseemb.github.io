@@ -1,3 +1,5 @@
+import { onLoadClientRouter } from "@portfolio/ui/client";
+
 class Magnetic {
   private requestId: number | null = null;
   private currentX = 0;
@@ -134,7 +136,7 @@ class Magnetic {
 //   new Magnetic(item);
 // }
 
-document.addEventListener("astro:page-load", () => {
+onLoadClientRouter(() => {
   const items = document.querySelectorAll<HTMLElement>(".magnetic");
   for (const item of items) {
     new Magnetic(item);

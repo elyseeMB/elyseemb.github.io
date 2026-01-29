@@ -64,10 +64,6 @@ tr:hover {
   color: oklch(75% 0.15 70); /* orange compatible ton système */
 }
 
-.info {
-  color: var(--chart-3); /* bleu froid */
-}
-
 /* Style responsive */
 @media (max-width: 768px) {
   table {

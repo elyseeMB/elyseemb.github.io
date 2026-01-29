@@ -25,11 +25,11 @@ const options: OptionsCollection = {
 
 <section class="blog">
   <div class="container">
-    {
+    <!-- {
       title && (
         <h3 class="title animate-slide-in animation-delay-300">{title}</h3>
       )
-    }
+    } -->
     <div
       data-list__articles
       class="flex flex-1 flex-col divide-y divide-[var(--border-color)]"
@@ -41,13 +41,12 @@ const options: OptionsCollection = {
       }
     </div>
   </div>
-  <div class="w-[400px]"></div>
+  <!-- <div class="w-[400px]"></div> -->
 </section>
 
 <style>
   .blog {
     display: flex;
-
     padding-bottom: 5rem;
   }
   .blog a {
@@ -73,12 +72,11 @@ const options: OptionsCollection = {
   @media screen and (min-width: 1200px) {
     .blog {
       width: 100%;
-
       display: flex;
       justify-content: space-between;
       gap: 5rem;
       /* grid-template-columns: 600px 1fr; */
-      padding: 0;
+      padding-block: 5rem;
     }
   }
 </style>
