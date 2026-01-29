@@ -12,7 +12,8 @@
     "./Prose": "./src/components/Prose.astro",
     "./Button": "./src/components/Button.astro",
     "./ButtonCircle": "./src/components/ButtonCircle.astro",
-    "./client": "./src/modules/client.ts"
+    "./client": "./src/modules/client.ts",
+    "./hookds": "./src/hooks/hooks.ts"
   },
   "peerDependencies": {
     "@astrojs/preact": "^4.1.0",

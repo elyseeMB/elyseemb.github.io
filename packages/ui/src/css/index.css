@@ -63,10 +63,6 @@ pre {
     padding-right: calc(var(--container-padding) * 2);
   }
 
-  .prose pre {
-    border-radius: 0;
-  }
-
   .bg-secondary {
     background-color: var(--outline-wrapper);
   }

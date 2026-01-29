@@ -30,22 +30,6 @@ h6 {
     line-height: 1.065;
     font-size: 3.8rem;
   }
-
-  .outline__wrapper {
-    ul li {
-      font-weight: normal;
-      font-family: "Inter" !important;
-    }
-  }
-
-  p,
-  ul,
-  ul li,
-  em,
-  strong {
-    font-weight: 200;
-    font-family: "Inter" !important;
-  }
 }
 
 p:not(:where([data-markdown] *)) {
@@ -56,29 +40,6 @@ p:not(:where([data-markdown] *)) {
   text-wrap: pretty;
 }
 
-h4,
-h5,
-h6,
-*,
-body {
-  /* color: var(--color-secondary); */
-}
-
 strong {
   color: var(--color-primary);
-}
-
-ul li:not(:where([data-markdown] *)),
-ol li:not(:where([data-markdown] *)) {
-  list-style: decimal;
-  line-height: 1.6;
-}
-
-ul:not(:where([data-markdown] *)),
-ol:not(:where([data-markdown] *)) {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding-block: 1rem;
-  margin-left: 50px;
 }

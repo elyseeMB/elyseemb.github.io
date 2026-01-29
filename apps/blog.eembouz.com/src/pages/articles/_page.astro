@@ -2,7 +2,7 @@
 import { render, type CollectionEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import { Outline } from "../../components/Outline.jsx";
-import Prose from "../../components/Prose.astro";
+import Prose from "@portfolio/ui/Prose";
 import Info from "../../components/Info.astro";
 
 interface Props {
@@ -56,9 +56,7 @@ const seo = seoProps ? seoProps : metaData;
           </Prose>
         </div>
 
-        <div class="wrapper-outline col-span-1 lg:col-span-2">
-          <Outline client:load />
-        </div>
+        <Outline client:load />
       </div>
     </div>
   </section>
@@ -185,8 +183,7 @@ const seo = seoProps ? seoProps : metaData;
 
   element!.addEventListener("click", handleClick);
 
-  // Nettoyage au déchargement de la page
-  addEventListener("beforeunload", () => {
+  element?.addEventListener("beforeunload", () => {
     observers.forEach((observer) => observer.disconnect());
   });
 </script>
