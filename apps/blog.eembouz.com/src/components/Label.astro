@@ -1,0 +1,19 @@
+---
+import clsx from "clsx";
+
+interface Props {
+  title: string;
+  className?: string;
+}
+
+const { title, className } = Astro.props;
+---
+
+<span
+  class={clsx(
+    "relative text-sm uppercase flex items-center gap-2 before:content-[''] before:inset-0 before:w-2 before:h-2 before:bg-[var(--primary)] before:block",
+    className
+  )}
+>
+  {title}
+</span>

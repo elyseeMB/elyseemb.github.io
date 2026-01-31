@@ -25,14 +25,14 @@ const { title, description } = Astro.props;
 const href = getLink(Astro, "/articles");
 ---
 
-<section class="hero container">
+<section class="hero">
   <div class="title">
     <h1 class="split">
       {title}
     </h1>
 
     <div class="wrapper-description">
-      <p class="description animate-slide-in animation-delay-300">
+      <p class="description animate-fade-in animation-delay-300">
         {description}
       </p>
     </div>
@@ -107,12 +107,14 @@ const href = getLink(Astro, "/articles");
   }
 
   .title h1 {
-    font-family: "Zalando Sans Expanded", sans-serif;
+    font-family: "Work Sans", sans-serif;
+    text-transform: uppercase;
     text-align: left;
+    font-weight: 700;
     font-size: 4.4rem;
     letter-spacing: -1px;
     overflow: hidden;
-    line-height: 1.2;
+    line-height: 1;
   }
 
   @media screen and (min-width: 1350px) {

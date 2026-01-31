@@ -48,6 +48,22 @@ html {
   animation: slideInX var(--spring-smooth) 850ms both;
 }
 
+/* prettier-ignore */
+@utility animate-blur-in {
+  animation: blurIn var(--spring-smooth) 850ms both;
+}
+
+@keyframes blurIn {
+  from {
+    opacity: 0;
+    filter: blur(15px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
 @keyframes slideInX {
   from {
     opacity: 0;

@@ -8,39 +8,37 @@ const isActive = pathname.startsWith(href);
 import Button from "@portfolio/ui/Button";
 ---
 
-<div class="container-narrow">
-  <HeaderComponent>
-    <ul class="flex-header actions">
-      <li class="btn btn-link">
-        <a
-          href="https://eembouz.com"
-          class="btn-click magnetic link-header"
-          data-strength="25"
-          data-strength-text="10"
-        >
-          <span class="btn-text">
-            <span class="btn-text-inner">Portfolio</span>
-          </span>
-        </a>
-      </li>
+<HeaderComponent>
+  <ul class="flex-header actions">
+    <li class="btn btn-link">
+      <a
+        href="https://eembouz.com"
+        class="btn-click magnetic link-header"
+        data-strength="25"
+        data-strength-text="10"
+      >
+        <span class="btn-text">
+          <span class="btn-text-inner">Portfolio</span>
+        </span>
+      </a>
+    </li>
 
-      <li class="btn btn-link">
-        <a
-          href={href}
-          class="btn-click magnetic link-header"
-          aria-current={isActive ? "page" : undefined}
-          class="aria-[current=page]:text-[var(--contrast)]! transition-colors duration-300"
-          data-strength="25"
-          data-strength-text="10"
-        >
-          <span class="btn-text">
-            <span class="btn-text-inner">{__("Articles")}</span>
-          </span>
-        </a>
-      </li>
-    </ul>
-  </HeaderComponent>
-</div>
+    <li class="btn btn-link">
+      <a
+        href={href}
+        class="btn-click magnetic link-header"
+        aria-current={isActive ? "page" : undefined}
+        class="aria-[current=page]:text-[var(--contrast)]! transition-colors duration-300"
+        data-strength="25"
+        data-strength-text="10"
+      >
+        <span class="btn-text">
+          <span class="btn-text-inner">{__("Articles")}</span>
+        </span>
+      </a>
+    </li>
+  </ul>
+</HeaderComponent>
 
 <style>
   .link-header {
@@ -58,7 +56,6 @@ import Button from "@portfolio/ui/Button";
     top: 60px;
     display: block;
     background: var(--contrast);
-    border-radius: 100%;
     opacity: 1;
     transform: scale(1);
     transition:
@@ -74,7 +71,6 @@ import Button from "@portfolio/ui/Button";
     top: 60px;
     display: block;
     background: var(--primary);
-    border-radius: 100%;
     opacity: 0;
     transform: scale(0);
     transition:

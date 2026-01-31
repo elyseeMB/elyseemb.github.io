@@ -9,6 +9,9 @@ import Button from "@portfolio/ui/Button";
 import DateFormate from "./DateFormate.astro";
 import { date } from "astro:schema";
 import clsx from "clsx";
+import Label from "./Label.astro";
+import BlockInfo from "./BlockInfo.astro";
+import ContentType from "./ContentType.astro";
 
 interface Props {
   className?: string;
@@ -39,70 +42,59 @@ const getTaxonomies = await Promise.all(
       )
     : []
 );
-const cleanTitle = title.replace(/[^\p{L}\p{N}\s'’]/gu, "");
+const cleanTitle = title.replace(/[^\p{L}\p{N}\s'']/gu, "");
 ---
 
-<div class={clsx(className, "info")}>
-  <div
-    class="flex items-center gap-4 animate-fade-in -mb-10 animation-delay-200"
+<div
+  class={clsx(
+    className,
+    "info grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5 pb-10 lg:pb-[5rem]"
+  )}
+>
+  <BlockInfo
+    className="flex flex-col gap-4 md:col-span-2 lg:col-span-2 animate-blur-in"
   >
-    <Breadcrumb contentTypeId={item.data.contentType} />
-    <span class="font-light">{formatDate}</span>
-  </div>
+    <Label title="Info" />
+    <h1 class="text-sm text-balance uppercase w-full lg:w-2/3">
+      {cleanTitle}
+    </h1>
+    <p class="uppercase text-[var(--color-secondary)] text-[0.7rem]">
+      {item.data.summary}
+    </p>
+  </BlockInfo>
 
-  <h1 class="animate-slide-in animate-fade-in">
-    {cleanTitle}
-  </h1>
+  <div class="lg:col-start-4 lg:col-span-2 grid grid-cols-2">
+    <BlockInfo
+      className="flex flex-col gap-4 uppercase text-[0.7rem] text-[var(--color-secondary)] animate-blur-in animation-delay-200"
+    >
+      <Label title="Meta" />
+      <div class="flex flex-col items-start gap-1">
+        <Writer author={author} />
+        <ReadingTime time={readingTime!} />
+        <span class="uppercase">{formatDate}</span>
+      </div>
+    </BlockInfo>
 
-  <div class="meta grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-5">
-    <div class="animate-slide-in animation-delay-100">
-      <Button>
-        <span
-          class="btn-click magnetic"
-          data-strength="45"
-          data-strength-text="25"
-        >
-          <div class="btn-fill"></div>
-          <span class="btn-text">
-            <span class="btn-text-inner change">
-              <span class="w-fit">
-                <Writer author={author} />
-              </span>
-            </span>
-          </span>
-        </span>
-      </Button>
-    </div>
+    <BlockInfo
+      className="flex flex-col gap-4 animate-blur-in animation-delay-300"
+    >
+      <Label title="Taxonomy" />
 
-    <ReadingTime time={readingTime!} />
-    {
-      showSummary && (
-        <div class="summary leading-7 animate-slide-in animation-delay-300">
-          {summary}
-        </div>
-      )
-    }
-    <!-- {
-      getTaxonomies && (
-        <div class="tags animate-slide-in animation-delay-300">
-          {getTaxonomies.map((taxonomy) => (
-            <div class="tag">{taxonomy?.data.name}</div>
-          ))}
-        </div>
-      )
-    } -->
+      {
+        getTaxonomies && (
+          <div class="flex flex-col gap-1 uppercase text-[0.7rem] text-[var(--color-secondary)]">
+            {getTaxonomies.map((taxonomy) => (
+              <div>{taxonomy?.data.name}</div>
+            ))}
+          </div>
+        )
+      }
+    </BlockInfo>
   </div>
 </div>
 
 <style>
-  .meta > * {
-    font-family: "Inter";
-  }
   .info {
-    font-family: "Inter";
-    display: grid;
-    gap: 3rem;
-    grid-template-columns: 1fr;
-    font-size: 0.9rem;
+    font-family: "Work Sans", sans-serif;
   }
 </style>

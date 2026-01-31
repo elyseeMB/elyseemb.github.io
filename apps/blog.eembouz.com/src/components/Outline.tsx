@@ -150,9 +150,9 @@ export function Outline() {
   const handleOpen = () => setIsExpanded(true);
 
   return (
-    <div class="relative w-max">
+    <div class="relative w-max hidden md:block lg:block">
       <div
-        class="fixed inset-y-0 right-0 z-40 w-20 "
+        class="fixed inset-y-0 right-0 z-40 w-10 "
         onMouseEnter={handleOpen}
       />
 

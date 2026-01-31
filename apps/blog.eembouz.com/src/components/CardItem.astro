@@ -47,20 +47,23 @@ const isArticlePage = Astro.url.pathname.includes("articles");
   data-overlay
   class={clx(
     className,
-    "relative item flex items-center justify-between gap-4 py-4"
+    "blog-article uppercase relative item flex items-center justify-between gap-4 py-4"
   )}
 >
-  <div class="flex items-center gap-15">
-    <div class="flex items-center gap-2 relative">
+  <div
+    class="flex flex-col gap-1 text-sm lg:text-lg lg:grid lg:grid-cols-5 w-full"
+  >
+    <div class="flex items-center gap-2 relative col-1">
       <div
-        class="before:absolute before:content-[''] block w-2 h-2 inset-0 bg-[var(--primary)]"
+        class="before:content-[''] block w-2 h-2 inset-0 bg-[var(--primary)]"
       >
       </div>
       <DateFormate isShowYear={options.showYear} date={props.data.pubDate} />
     </div>
+
     <Link href={url}>
       {options.showBadge && <Badge contentTypeId={props.data.contentType} />}
-      <h3 class="text-3xl font-mediumww">{props.data.title}</h3>
+      <h3>{props.data.title}</h3>
       {
         options.description && (
           <p class="item__description">{props.data.summary}</p>
@@ -71,12 +74,17 @@ const isArticlePage = Astro.url.pathname.includes("articles");
 </article>
 
 <style>
+  .blog-article {
+    font-family: "Work Sans", sans-serif;
+  }
+
   article p {
     font-size: 0.9rem;
     padding: 0.5rem 0 0 0;
   }
 </style>
 
+<!-- 
 <script>
   import { onLoadClientRouter } from "@portfolio/ui/client";
   class Overlay {
@@ -180,4 +188,4 @@ const isArticlePage = Astro.url.pathname.includes("articles");
   onLoadClientRouter(() => {
     Overlay.init();
   });
-</script>
+</script> -->

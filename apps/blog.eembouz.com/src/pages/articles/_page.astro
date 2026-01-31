@@ -4,6 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import { Outline } from "../../components/Outline.jsx";
 import Prose from "@portfolio/ui/Prose";
 import Info from "../../components/Info.astro";
+import { undefined } from "astro:schema";
 
 interface Props {
   item: CollectionEntry<"blog">;
@@ -28,36 +29,37 @@ const seo = seoProps ? seoProps : metaData;
 
 <Layout {...seo}>
   <section data-markdown class="w-full">
-    <div class="container medium max-w-6xl">
-      <div class="grid grid-cols-1 lg:grid-cols-5 pb-10 lg:pb-[5rem]">
-        <Info
-          className="col-span-1 lg:col-span-4"
-          item={item}
-          showSummary={false}
-          taxonomies={taxonomies}
-          readingTime={remarkPluginFrontmatter.stats.minutes}
-        />
-      </div>
+    <div class="container medium">
+      <Info
+        item={item}
+        showSummary={false}
+        taxonomies={taxonomies}
+        readingTime={remarkPluginFrontmatter.stats.minutes}
+      />
     </div>
 
-    <div class="container mx-auto max-w-6xl">
-      <div class="heading">
-        <div class="cover animate-fade-in animation-delay-300">
-          <img src={thumbnail} class="w-full h-auto object-cover" alt="" />
+    {
+      thumbnail && (
+        <div class="container medium">
+          <div class="heading">
+            <div class="cover animate-fade-in animation-delay-300">
+              <img
+                src={thumbnail}
+                class="w-full aspect-video h-auto object-cover"
+                alt=""
+              />
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )
+    }
 
-    <div class="container medium mx-auto max-w-6xl">
-      <div class="grid grid-cols-1 lg:grid-cols-6 gap-8">
-        <div class="col-span-1 lg:col-span-4">
-          <Prose>
-            <Content />
-          </Prose>
-        </div>
+    <div class="container medium">
+      <Prose>
+        <Content />
+      </Prose>
 
-        <Outline client:load />
-      </div>
+      <Outline client:load />
     </div>
   </section>
 </Layout>

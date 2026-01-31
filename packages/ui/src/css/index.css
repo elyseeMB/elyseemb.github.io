@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@import "./modules/prose.css";
 
 /* LAYOUT */
 @import "./layout/layout.css";
@@ -29,7 +30,6 @@
 @import "./modules/outline.css";
 @import "./modules/skeleton.css";
 @import "./modules/markdown.css";
-@import "./modules/prose.css";
 
 /* BLOCKS */
 @import "./blocks/presentation.css";

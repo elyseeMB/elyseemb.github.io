@@ -24,22 +24,20 @@ const options: OptionsCollection = {
 ---
 
 <section class="blog">
-  <div class="container">
-    <!-- {
+  <!-- {
       title && (
         <h3 class="title animate-slide-in animation-delay-300">{title}</h3>
       )
     } -->
-    <div class="flex flex-col divide-y divide-[var(--secondary)]">
-      <div
-        class="flex items-center gap-26 pb-5 animate-fade-in animation-delay-300"
-      >
-        <div>/ DATE</div>
-        <div>/ NAME</div>
-      </div>
-      <div data-list__articles class="flex flex-1 flex-col">
-        {doc.map((collection) => <Card {...collection} options={options} />)}
-      </div>
+  <div class="flex flex-col divide-y divide-[var(--secondary)]">
+    <div
+      class="hidden pb-5 lg:bloc lg:text-sm lg:grid lg:grid-cols-5 w-full animate-fade-in animation-delay-300"
+    >
+      <div>/ DATE</div>
+      <div>/ NAME</div>
+    </div>
+    <div data-list__articles class="flex flex-1 flex-col">
+      {doc.map((collection) => <Card {...collection} options={options} />)}
     </div>
   </div>
   <!-- <div class="w-[400px]"></div> -->
@@ -47,37 +45,10 @@ const options: OptionsCollection = {
 
 <style>
   .blog {
-    display: flex;
     padding-bottom: 5rem;
   }
+
   .blog a {
     display: inline-flex;
-  }
-
-  @media screen and (max-width: 590px) {
-    .blog article.item h3 {
-      line-height: 1.6;
-    }
-  }
-
-  .blog h3.title {
-    font-family: "Inter" !important;
-    font-weight: 100;
-    font-size: 2rem !important;
-  }
-
-  .blog p {
-    padding: 0;
-  }
-
-  @media screen and (min-width: 1200px) {
-    .blog {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      gap: 5rem;
-      /* grid-template-columns: 600px 1fr; */
-      padding-block: 5rem;
-    }
   }
 </style>

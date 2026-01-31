@@ -26,30 +26,35 @@ const { info, links, contacts, property } = Astro.props;
 
 const locale = Astro.currentLocale?.includes("fr") ? "/" : Astro.currentLocale;
 const url = new URL(locale ?? "/en", Astro.url.origin);
+
 ---
 
-<footer>
-  <div class="container">
-    <div class="grid">
+<footer class="medium text-[0.7rem] uppercase">
+    <div class="grid-footer">
       <div class="left">
-     
 
         <div class="extra">
+          <span class="about"> 
+           {info?.description}
+          </span>
           <div class="contacts">
               <div class="btn-fixed">
-                <div class="btn btn-round is-inview" data-scroll="" data-scroll-speed="-1" data-scroll-direction="horizontal" data-scroll-position="bottom" data-scroll-offset="-50%, 0" style="transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -13.7, 0, 0, 1);">
-                    <a href="mailto:contact@eembouz.com" class="btn-click magnetic " data-strength="100" data-strength-text="50" style="transform: rotate(0.001deg);">
-                        <div class="btn-fill" style="transform: translate(0px, -76%);"></div>
-                        <span class="btn-text" style="transform: rotate(0.001deg);">
-                            <span class="btn-text-inner">Get in touch</span>
+                <div class="btn btn-round">
+                 
+                    <a href={contacts?.items[0].href} class="btn-click magnetic " data-strength="100" data-strength-text="50">
+                        <div class="btn-fill"></div>
+                        <span style="text-align: center;" class="btn-text">
+                            <span class="btn-text-inner">
+                              {contacts?.items[0].title}
+                            </span>
                         </span>
                     </a>
             </div>
             </div>
           </div>
 
+
           <div class="legacy">
-            <!-- <Redirect>{property?.name}</Redirect> -->
             <span class="declaration"
               >
               Copyright © <span id="footer-year"></span> elysee Mboussa . All rights reserved.</span
@@ -59,16 +64,16 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
       </div>
 
       <div class="right">
-        <div class="contact">
-          <div class="info">
+        <div class="uppercase">
+          <div class="flex flex-col gap-2">
             { links && (
-              <h4>{links.title} </h4>
-              <ul class="links">
+              <h4>{links.title}</h4>
+              <ul class="flex flex-col gap-2 text-sm">
                 {
                   links &&
                     links.items.map((link) => (
                       <a href={link.href}>
-                        <li> {link.title} </li>
+                        <li>{link.title}</li>
                       </a>
                     ))
                 }
@@ -79,14 +84,12 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
         </div>
       </div>
     </div>
-  </div>
 </footer>
 
 <style scoped>
   
-  footer * {
-
-    font-size: 0.8rem ;
+  footer {
+    font-family: "Work Sans", sans-serif;
   }
 
   footer h4 {
@@ -97,8 +100,7 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
   footer {
     /* font-family: "JetBrains Mono"; */
     display: grid;
-    width: 100%;
-    height: 630px;
+   
     margin-top: 10rem ;
   }
 
@@ -127,7 +129,7 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
     gap: 4rem;
   }
 
-  .grid {
+  .grid-footer {
     display: flex;
     flex-direction: column-reverse;
     align-items: flex-start;
@@ -136,7 +138,7 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
     gap: 3rem;
   }
 
-  footer .grid .left {
+  footer .grid-footer .left {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -148,15 +150,15 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
       height: 100%;
     }
     
-    footer .grid .left {
+    footer .grid-footer .left {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       gap: 4rem;
-      grid-column: 1 / span 3;
+      grid-column: 1 / span 4;
     }
 
-    footer .grid {
+    footer .grid-footer {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       padding-block: 5rem;
@@ -219,15 +221,21 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
   .links a:hover {
     text-decoration: underline;
   }
+
+  .extra .about {
+    text-wrap: balance;
+    width: 300px;
+  }
 </style>
 
 
 
 
 
-<script is:inline>
-  import onLoadClientRouter from "@portfolio/ui/onLoadClientRouter"
-  onLoadClientRouter( () => {
+<script>
+  import {onLoadClientRouter} from "@portfolio/ui/client"
+
+  onLoadClientRouter(() => {
     document.getElementById("footer-year").innerText = new Date().getFullYear();
   })
 </script>

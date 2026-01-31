@@ -4,12 +4,16 @@ import Button from "@portfolio/ui/Button";
 
 interface Props {
   time: number;
+  icon?: boolean;
 }
 
-const { time } = Astro.props;
+const { time, icon = false } = Astro.props;
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
+<span> {Math.ceil(time) + " " + "min"}</span>
+
+<!-- 
 <div class="animate-slide-in animation-delay-200">
   <Button>
     <span class="btn-click magnetic" data-strength="45" data-strength-text="25">
@@ -42,4 +46,4 @@ const __ = await getTranslator(Astro.currentLocale);
       </span>
     </span>
   </Button>
-</div>
+</div> -->
