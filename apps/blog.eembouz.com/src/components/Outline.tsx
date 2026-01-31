@@ -1,10 +1,6 @@
 import type { MouseEventHandler } from "preact/compat";
 import { useEffect, useRef, useState } from "preact/hooks";
-import { useAsyncEffect } from "@portfolio/ui/hookds"; // J'ai retiré useToggle car on passe à useState
-import {
-  onDisconnectedClientRouter,
-  onLoadClientRouter,
-} from "@portfolio/ui/client";
+import { useAsyncEffect } from "@portfolio/ui/hookds";
 
 export function Outline() {
   const el = useRef<HTMLDivElement>(null);
@@ -167,7 +163,7 @@ export function Outline() {
           class="magnetic pointer-events-auto"
           onMouseEnter={handleOpen}
         >
-          <div class="relative flex flex-col items-center rounded gap-3 p-3 hover:bg-[var(--secondary)]/30">
+          <div class="relative flex flex-col items-center rounded-lg gap-3 p-3 hover:bg-[var(--secondary)]/30">
             {Array.from(
               { length: headings.heading_level_2?.length ?? 0 },
               (_, k) => {

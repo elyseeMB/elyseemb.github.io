@@ -10,13 +10,20 @@ const optionsDate = (isShowYear: boolean): Intl.DateTimeFormatOptions => {
 };
 
 const { date, isShowYear } = Astro.props;
+
+const dateFormate = new Intl.DateTimeFormat(
+  Astro.currentLocale,
+  optionsDate(isShowYear ?? false) ?? { dateStyle: "short" }
+).format(date);
+
+const tranformDate = (date: string) => {
+  if (!isShowYear) {
+    return date.replaceAll("/", ".");
+  }
+  return date;
+};
 ---
 
 <span>
-  {
-    new Intl.DateTimeFormat(
-      Astro.currentLocale,
-      optionsDate(isShowYear ?? false) ?? { dateStyle: "short" }
-    ).format(date)
-  }
+  {tranformDate(dateFormate)}
 </span>

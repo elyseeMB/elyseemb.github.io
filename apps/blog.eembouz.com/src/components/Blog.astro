@@ -5,6 +5,7 @@ import type { CollectionEntry } from "astro:content";
 import Collection from "./Collection.astro";
 import type { ItemDisplayed, OptionsCollection } from "../../config.ts";
 import { itemNormalizer } from "../functions/article.ts";
+import Card from "./Card.astro";
 
 interface Props {
   title?: string;
@@ -18,7 +19,6 @@ const { title, limit } = Astro.props;
 const doc = itemNormalizer(allPages);
 
 const options: OptionsCollection = {
-  description: true,
   showYear: false,
 };
 ---
@@ -30,15 +30,16 @@ const options: OptionsCollection = {
         <h3 class="title animate-slide-in animation-delay-300">{title}</h3>
       )
     } -->
-    <div
-      data-list__articles
-      class="flex flex-1 flex-col divide-y divide-[var(--border-color)]"
-    >
-      {
-        doc.map((collection) => (
-          <Collection {...collection} options={options} />
-        ))
-      }
+    <div class="flex flex-col divide-y divide-[var(--secondary)]">
+      <div
+        class="flex items-center gap-26 pb-5 animate-fade-in animation-delay-300"
+      >
+        <div>/ DATE</div>
+        <div>/ NAME</div>
+      </div>
+      <div data-list__articles class="flex flex-1 flex-col">
+        {doc.map((collection) => <Card {...collection} options={options} />)}
+      </div>
     </div>
   </div>
   <!-- <div class="w-[400px]"></div> -->

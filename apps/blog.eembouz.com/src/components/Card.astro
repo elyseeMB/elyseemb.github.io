@@ -7,6 +7,7 @@ import {
 import { between } from "../functions/helper.ts";
 import Article from "./Article.astro";
 import ItemSerie from "./ItemSerie.astro";
+import CardItem from "./CardItem.astro";
 
 interface Props {
   year: Collection["year"];
@@ -30,7 +31,7 @@ const isSeriesPage = Astro.url.pathname.includes("series");
 
 <div
   class:list={[
-    "flex flex-col md:flex-row gap-2",
+    "flex flex-col md:flex-row gap-2 border-b border-[var(--secondary)]/75 border-collapse ",
     { "animate-slide-in animation-delay-300": !isArticlePage },
   ]}
 >
@@ -42,33 +43,17 @@ const isSeriesPage = Astro.url.pathname.includes("series");
 
   <div
     data-list__articles
-    class="flex flex-1 flex-col divide-y divide-[var(--border-color)]"
+    class="flex flex-1 flex-col divide-y divide-[var(--secondary)]"
   >
     {
-      items.map((article, index) =>
-        isSeriesPage ? (
-          <ItemSerie
-            className={`relative animate-slide-in animation-delay-${between(
-              index * 100,
-              0,
-              300
-            )}`}
-            props={article.props}
-            options={baseOptions}
-          />
-        ) : (
-          <Article
-            data-overlay={true}
-            className={`relative animate-slide-in animation-delay-${between(
-              index * 100,
-              0,
-              300
-            )}`}
-            props={article.props}
-            options={baseOptions}
-          />
-        )
-      )
+      items.map((article, index) => (
+        <CardItem
+          data-overlay={true}
+          className={`relative`}
+          props={article.props}
+          options={baseOptions}
+        />
+      ))
     }
   </div>
 </div>
