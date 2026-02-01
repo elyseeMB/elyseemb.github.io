@@ -17,14 +17,14 @@
   },
   "peerDependencies": {
     "@astrojs/preact": "^4.1.0",
+    "@tailwindcss/vite": "^4.1.17",
     "astro": "^5.10.0",
     "preact": "^10.26.9",
-    "@tailwindcss/vite": "^4.1.17",
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
+    "@preact/preset-vite": "^2.10.3",
     "@tailwindcss/typography": "^0.5.19",
-    "@preact/preset-vite": "^2.10.1",
     "typescript": "~5.8.3"
   }
 }
