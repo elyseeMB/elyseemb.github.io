@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import { filterLang, filterSeries } from "../libs/i18n.ts";
+import { filterLang, filterSeries, getTranslator } from "../libs/i18n.ts";
 import type { CollectionEntry } from "astro:content";
 import Collection from "./Collection.astro";
 import type { ItemDisplayed, OptionsCollection } from "../../config.ts";
@@ -21,6 +21,7 @@ const doc = itemNormalizer(allPages);
 const options: OptionsCollection = {
   showYear: false,
 };
+const __ = await getTranslator(Astro.currentLocale);
 ---
 
 <section class="blog">
@@ -33,8 +34,8 @@ const options: OptionsCollection = {
     <div
       class="hidden pb-5 lg:bloc lg:text-sm lg:grid lg:grid-cols-5 w-full animate-fade-in animation-delay-300"
     >
-      <div>/ DATE</div>
-      <div>/ NAME</div>
+      <div>{__("/ DATE")}</div>
+      <div>{__("/ TITRE")}</div>
     </div>
     <div data-list__articles class="flex flex-1 flex-col">
       {doc.map((collection) => <Card {...collection} options={options} />)}
