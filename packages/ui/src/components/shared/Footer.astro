@@ -1,5 +1,4 @@
 ---
-import Redirect from "../Redirect.astro";
 type Info = {
   title: string;
   description: string;
@@ -26,36 +25,19 @@ const { info, links, contacts, property } = Astro.props;
 
 const locale = Astro.currentLocale?.includes("fr") ? "/" : Astro.currentLocale;
 const url = new URL(locale ?? "/en", Astro.url.origin);
+
 ---
 
-<footer>
-  <div class="container">
-    <div class="grid">
+<footer class="medium text-[0.7rem] uppercase">
+    <div class="grid-footer">
       <div class="left">
-        <div class="info">
-          <h4>{info?.title}</h4>
-          <p>
-            {info?.description}
-          </p>
-        </div>
 
-        <div class="extra">
-          <div class="contacts">
-            {contacts && (
-            <h4>{contacts.title}</h4>
-            <ul class="links">
-                 { contacts.items.map((contact) => (
-                    <a href={contact.href}>
-                      <li> {contact.title} </li>
-                    </a>
-                  ))}
-              </ul>
-                  )
-              }
-          </div>
+        <div class="flex flex-col gap-2 lg:gap-8 justify-between items-start lg:grid grid-cols-5">
+          <span class="lg:col-span-3"> 
+           {info?.description}
+          </span>
 
-          <div class="legacy">
-            <Redirect>{property?.name}</Redirect>
+          <div class="legacy lg:row-start-2">
             <span class="declaration"
               >
               Copyright © <span id="footer-year"></span> elysee Mboussa . All rights reserved.</span
@@ -64,17 +46,32 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
         </div>
       </div>
 
+      <div class="contacts lg:row-start-1 lg:col-span-4">
+        <div class="btn-fixed">
+          <div class="btn btn-round">
+              <a href={contacts?.items[0].href} class="btn-click magnetic " data-strength="100" data-strength-text="50">
+                  <div class="btn-fill"></div>
+                  <span style="text-align: center;" class="btn-text">
+                      <span class="btn-text-inner">
+                        {contacts?.items[0].title}
+                      </span>
+                  </span>
+              </a>
+      </div>
+      </div>
+    </div>
+
       <div class="right">
-        <div class="contact">
-          <div class="info">
+        <div class="uppercase">
+          <div class="flex flex-col gap-2">
             { links && (
-              <h4>{links.title} </h4>
-              <ul class="links">
+              <h4>{links.title}</h4>
+              <ul class="flex flex-col gap-2 text-sm">
                 {
                   links &&
                     links.items.map((link) => (
                       <a href={link.href}>
-                        <li> {link.title} </li>
+                        <li>{link.title}</li>
                       </a>
                     ))
                 }
@@ -85,28 +82,18 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
         </div>
       </div>
     </div>
-  </div>
 </footer>
 
 <style scoped>
   
-  footer * {
-    font-size: 0.8rem ;
-    font-family: "JetBrains Mono" !important;
+  footer {
+    font-family: "Work Sans", sans-serif;
   }
 
-  footer h4 {
-    padding-block: 1rem;
-    color: var(--muted-foreground);
-  }
 
   footer {
-    font-family: "JetBrains Mono";
     display: grid;
-    width: 100%;
-    height: 630px;
-    background-color: var(--background-footer);
-    border-top: 1.5px solid var(--border-color);
+    margin-top: 10rem ;
   }
 
   footer p {
@@ -116,25 +103,10 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
     text-wrap: balance;
   }
 
-  footer ul {
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-  }
-  footer ul li {
-    padding: 0;
-    list-style: none;
-    margin: 0;
-  }
 
-  footer .extra {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 4rem;
-  }
 
-  .grid {
+
+  .grid-footer {
     display: flex;
     flex-direction: column-reverse;
     align-items: flex-start;
@@ -143,7 +115,8 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
     gap: 3rem;
   }
 
-  footer .grid .left {
+  footer .grid-footer .left {
+    width: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -155,15 +128,15 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
       height: 100%;
     }
     
-    footer .grid .left {
+    footer .grid-footer .left {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       gap: 4rem;
-      grid-column: 1 / span 3;
+      grid-column: 1 / span 4;
     }
 
-    footer .grid {
+    footer .grid-footer {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       padding-block: 5rem;
@@ -180,8 +153,15 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
 
 
 
+  footer .contacts {
+    margin-block: 2rem;
+    width: 100%;
+    border-bottom: 1px solid var(--secondary);
+    position: relative;
+  }
+  
   .contacts ul li  {
-    color: var(--color-primary) ;
+    /* color: var(--color-primary) ; */
   }
 
   .legacy {
@@ -219,14 +199,17 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
   .links a:hover {
     text-decoration: underline;
   }
+
 </style>
 
 
 
 
 
-<script is:inline>
-  document.addEventListener("astro:page-load", () => {
+<script>
+  import {onLoadClientRouter} from "@portfolio/ui/client"
+
+  onLoadClientRouter(() => {
     document.getElementById("footer-year").innerText = new Date().getFullYear();
   })
 </script>

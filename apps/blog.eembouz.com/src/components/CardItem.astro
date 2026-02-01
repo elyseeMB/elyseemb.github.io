@@ -1,0 +1,85 @@
+---
+import {
+  ContentType,
+  type ItemDisplayed,
+  type OptionsCollection,
+} from "../../config.ts";
+import Badge from "./Badge.astro";
+import DateFormate from "./DateFormate.astro";
+import Link from "./Link.astro";
+import clx from "clsx";
+
+interface Props {
+  props: ItemDisplayed["props"];
+  options: OptionsCollection;
+  className?: string;
+}
+
+const { props, options, className } = Astro.props;
+
+function buildUrl(item: ItemDisplayed["props"]): string {
+  return (
+    "/" +
+    (item.id.includes("/")
+      ? item.id.replace("/", "/articles/")
+      : `articles/${item.id}`)
+  );
+}
+
+function buildUrlForSeries({ id }: ItemDisplayed["props"]): string {
+  const segments = id.split("__")[0].split("/").filter(Boolean);
+
+  return segments.length > 1
+    ? `/${segments[0]}/series/${segments.slice(1).join("/")}`
+    : `/series/${segments[0]}`;
+}
+
+const url =
+  props.data.contentType === ContentType["SERIE"]
+    ? buildUrlForSeries(props)
+    : buildUrl(props);
+
+const isArticlePage = Astro.url.pathname.includes("articles");
+---
+
+<article
+  data-thumbnail={props.data.thumbnail}
+  data-overlay
+  class={clx(
+    className,
+    "blog-article uppercase relative item flex items-center justify-between gap-4 py-4"
+  )}
+>
+  <div
+    class="flex flex-col gap-1 text-sm lg:text-lg lg:grid lg:grid-cols-5 w-full"
+  >
+    <div class="flex items-center gap-2 relative col-1">
+      <div
+        class="before:content-[''] block w-2.5 h-2.5 inset-0 bg-[var(--primary)]"
+      >
+      </div>
+      <DateFormate isShowYear={options.showYear} date={props.data.pubDate} />
+    </div>
+
+    <Link href={url}>
+      {options.showBadge && <Badge contentTypeId={props.data.contentType} />}
+      <h3>{props.data.title}</h3>
+      {
+        options.description && (
+          <p class="item__description">{props.data.summary}</p>
+        )
+      }
+    </Link>
+  </div>
+</article>
+
+<style>
+  .blog-article {
+    font-family: "Work Sans", sans-serif;
+  }
+
+  article p {
+    font-size: 0.9rem;
+    padding: 0.5rem 0 0 0;
+  }
+</style>

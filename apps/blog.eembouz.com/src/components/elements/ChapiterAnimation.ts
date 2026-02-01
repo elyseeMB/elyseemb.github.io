@@ -6,6 +6,8 @@ export class ChapiterAnimation {
   //@ts-ignore it's initialize
   wrapper: HTMLElement;
 
+  private controller = new AbortController();
+
   constructor(private item: HTMLElement | null) {
     if (!item) {
       return;
@@ -20,19 +22,32 @@ export class ChapiterAnimation {
     this.wrapper.style.opacity = "0";
     this.wrapper.style.pointerEvents = "none";
     parent?.prepend(this.wrapper);
-    parent?.addEventListener("mouseleave", () => {
-      this.wrapper.style.opacity = "0";
-    });
+    parent?.addEventListener(
+      "mouseleave",
+      () => {
+        this.wrapper.style.opacity = "0";
+      },
+      { signal: this.controller.signal }
+    );
 
     this.itemSizes = new Map(
       this.children.map((child, index) => [index, child])
     );
 
     this.children.forEach((item, index) => {
-      item.addEventListener("mouseenter", (e) =>
-        this.handleMouseenter(e, index)
+      item.addEventListener(
+        "mouseenter",
+        (e) => this.handleMouseenter(e, index),
+        {
+          signal: this.controller.signal,
+        }
       );
     });
+  }
+
+  destroy() {
+    this.wrapper.remove();
+    this.controller.abort();
   }
 
   handleMouseenter = (e: MouseEvent, index: number) => {

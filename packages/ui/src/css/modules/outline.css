@@ -17,8 +17,9 @@
 @media screen and (min-width: 1200px) {
   .outline__wrapper {
     display: block;
-    position: sticky;
-    top: 20px;
+    position: fix;
+    top: 50%;
+    left: 5px;
     height: fit-content;
     font-size: 0.9rem;
     z-index: 100;

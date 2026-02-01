@@ -1,0 +1,35 @@
+---
+import Hero from "../components/Hero.astro";
+import type { CollectionEntry } from "astro:content";
+import Skills from "../components/Skills.astro";
+import Projects from "../components/Projets.astro";
+import Layout from "../layouts/Layout.astro";
+import Inspiration from "../components/Inspiration.astro";
+import Hobbies from "../components/Hobbies.astro";
+import { getTranslator } from "../libs/i18n.ts";
+
+export type PropsProjet = CollectionEntry<"projects">;
+const __ = await getTranslator(Astro.currentLocale);
+---
+
+<Layout>
+  <div class="container medium home">
+    <Hero />
+    <Skills />
+    <Projects />
+    <Inspiration />
+  </div>
+  <Hobbies />
+</Layout>
+
+<style is:global>
+  .home {
+    overflow: hidden;
+  }
+
+  [data-h3-portfolio] {
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-family: "Work Sans", sans-serif;
+  }
+</style>

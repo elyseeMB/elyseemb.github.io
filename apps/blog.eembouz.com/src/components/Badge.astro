@@ -40,7 +40,6 @@ const badgeIsActive = url.pathname === buildUrl(url.pathname);
 
 <style>
   .badge {
-    font-family: "JetBrains Mono" !important;
     position: relative;
     font-size: 0.9rem;
     display: flex;
@@ -49,6 +48,7 @@ const badgeIsActive = url.pathname === buildUrl(url.pathname);
     justify-items: center;
     gap: 0.5rem;
     z-index: 10;
+    color: var(--primary);
   }
 
   .badge::before {

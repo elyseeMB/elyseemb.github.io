@@ -2,7 +2,7 @@
 import { render, type CollectionEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import { Outline } from "../../components/Outline.jsx";
-import Prose from "../../components/Prose.astro";
+import Prose from "@portfolio/ui/Prose";
 import Info from "../../components/Info.astro";
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 const { item } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(item);
 
-const { seo: seoProps, taxonomies, author, pubDate } = item.data;
+const { seo: seoProps, taxonomies, author, pubDate, thumbnail } = item.data;
 
 const metaData = {
   title: item.data.title,
@@ -27,37 +27,38 @@ const seo = seoProps ? seoProps : metaData;
 ---
 
 <Layout {...seo}>
-  <section data-markdown>
-    <div class="container">
-      <div class="container-narrow">
-        <Info
-          item={item}
-          showSummary={false}
-          taxonomies={taxonomies}
-          readingTime={remarkPluginFrontmatter.stats.minutes}
-        />
-      </div>
+  <section data-markdown class="w-full">
+    <div class="container medium">
+      <Info
+        item={item}
+        showSummary={false}
+        taxonomies={taxonomies}
+        readingTime={remarkPluginFrontmatter.stats.minutes}
+      />
     </div>
 
-    <!-- <div class="container">
-      <div class="container-narrow">
-        <div class="heading">
-          <div class="cover">
-            <img src={thumbnail} alt="" />
+    {
+      thumbnail && (
+        <div class="container medium">
+          <div class="heading">
+            <div class="cover animate-fade-in animation-delay-300">
+              <img
+                src={thumbnail}
+                class="w-full aspect-video h-auto object-cover"
+                alt=""
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </div> -->
+      )
+    }
 
-    <div class="container">
-      <div class="wrapper-content">
-        <Prose>
-          <Content />
-        </Prose>
-        <div class="wrapper-outline">
-          <Outline client:load />
-        </div>
-      </div>
+    <div class="container medium">
+      <Prose>
+        <Content />
+      </Prose>
+
+      <Outline client:load />
     </div>
   </section>
 </Layout>
@@ -82,6 +83,10 @@ const seo = seoProps ? seoProps : metaData;
     gap: 0.5rem;
   }
 
+  .wrapper-content > * {
+    min-width: 0;
+  }
+
   .wrapper-content {
     display: block;
   }
@@ -93,14 +98,16 @@ const seo = seoProps ? seoProps : metaData;
   @media screen and (min-width: 1200px) {
     .wrapper-content {
       width: 100%;
-      display: grid !important;
-      grid-template-columns: 1fr 600px 1fr !important;
+      display: flex;
+      justify-content: space-between;
+      gap: 5rem;
+      /* grid-template-columns: 600px 1fr; */
       padding: 0;
     }
 
     .wrapper-outline {
       display: block;
-      grid-column: 3;
+      /* grid-column: 3; */
       margin-bottom: 5rem;
       justify-self: end;
     }
@@ -109,13 +116,9 @@ const seo = seoProps ? seoProps : metaData;
   .content {
     padding-bottom: 5rem;
   }
-  h1 {
-    text-align: left;
-    padding-top: 3rem;
-    line-height: 1.4;
-  }
 
   .cover {
+    padding-bottom: 5rem;
     width: 100%;
   }
 
@@ -151,3 +154,37 @@ const seo = seoProps ? seoProps : metaData;
     }
   }
 </style>
+
+<script>
+  const h2 = Array.from(document.querySelectorAll("h2"));
+  const element = document.getElementById("mindmap");
+
+  let observers: IntersectionObserver[] = [];
+
+  const handleClick = () => {
+    observers.forEach((observer) => observer.disconnect());
+    observers = [];
+
+    h2.forEach((item) => {
+      const observer = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          element!.dataset.target = entry.target.id;
+          element!.dispatchEvent(
+            new CustomEvent("mindmap", {
+              detail: entry.target.id,
+            })
+          );
+        }
+      });
+      observer.observe(item);
+      observers.push(observer);
+    });
+  };
+
+  element!.addEventListener("click", handleClick);
+
+  element?.addEventListener("beforeunload", () => {
+    observers.forEach((observer) => observer.disconnect());
+  });
+</script>
