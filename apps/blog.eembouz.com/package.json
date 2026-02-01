@@ -25,7 +25,8 @@
   },
   "peerDependencies": {
     "@tailwindcss/vite": "^4.1.17",
-    "tailwindcss": "^4.1.17"
+    "tailwindcss": "^4.1.17",
+    "@tailwindcss/typography": "^0.5.19"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.1",

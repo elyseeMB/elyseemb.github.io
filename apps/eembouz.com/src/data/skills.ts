@@ -10,22 +10,23 @@ export async function getSkills(lang: string | undefined): Promise<Skill[]> {
         {
           name: "React",
           href: "https://react.dev/",
-          description: __(
-            "Bibliothèque d'interfaces utilisateur web et natives"
-          ),
+          description: __("Molière dans toute sa compréhension et inéluctable"),
+        },
+        {
+          name: "Svelte",
+          href: "https://svelte.dev/",
+          description: __("... le shakespeare des interfaces web"),
         },
         {
           name: "Vue",
           href: "https://vuejs.org/",
-          description: __(
-            "Framework simple et flexible pour construire des interfaces interactives."
-          ),
+          description: __("Le couteau suisse... polyvalence et harmonie"),
         },
         {
           name: "Astro",
           href: "https://astro.build/",
           description: __(
-            "Framework orienté performance pour créer des sites statiques modernes."
+            "... le lac silencieux qui regorge de plein de mystères"
           ),
         },
       ],
@@ -37,18 +38,18 @@ export async function getSkills(lang: string | undefined): Promise<Skill[]> {
           name: "AdonisJS",
           href: "https://adonisjs.com/",
           description: __(
-            "Framework Node.js complet, inspiré de Laravel, idéal pour les API."
+            "La Rolls royce des frameworks de l'écosystème Node.js"
           ),
         },
         {
           name: "Fastify",
           href: "https://fastify.dev/",
-          description: __("Framework backend rapide et léger pour Node.js."),
+          description: __("Rapidité et légèreté sont mes prénoms pour Node.js"),
         },
         {
           name: "Golang",
           href: "https://go.dev/",
-          description: __("Langage compilé, rapide et concurrent."),
+          description: __("Le loup déguisé du troupeau des langages"),
         },
       ],
     },
@@ -58,19 +59,19 @@ export async function getSkills(lang: string | undefined): Promise<Skill[]> {
         {
           name: "PostgreSQL",
           href: "https://www.postgresql.org/",
-          description: __(
-            "Base de données relationnelle robuste et open source."
-          ),
+          description: __("L'usine à gaz des bases de données relationnelles"),
         },
         {
           name: "MySQL",
           href: "https://www.mysql.com/",
-          description: __("SGBD populaire, rapide et facile à intégrer."),
+          description: __("... le premier de sa classe"),
         },
         {
           name: "SQLite",
           href: "https://www.sqlite.org/",
-          description: __("Base de données légère et embarquée, sans serveur."),
+          description: __(
+            "Le portefeuille clé : léger et embarqué, sans serveur"
+          ),
         },
       ],
     },
@@ -81,29 +82,23 @@ export async function getSkills(lang: string | undefined): Promise<Skill[]> {
           name: "Git",
           href: "https://git-scm.com/",
           description: __(
-            "Système de versionnement pour collaborer efficacement."
+            "... je vois tout, entends tout, détecte tout : qui suis-je ?"
           ),
         },
         {
           name: "Docker",
           href: "https://www.docker.com/",
-          description: __(
-            "Conteneurisation d'applications pour une meilleure portabilité."
-          ),
+          description: __("... plus d'excuses, ça marche partout"),
         },
         {
           name: "Linux",
           href: "https://www.linux.org/",
-          description: __(
-            "Système d'exploitation stable, utilisé en développement et en production."
-          ),
+          description: __("... le Dragon Ball Z des systèmes d'exploitation"),
         },
         {
           name: "Ansible",
           href: "https://docs.ansible.com/ansible/latest/index.html",
-          description: __(
-            "Outil d'automatisation pour la gestion des serveurs."
-          ),
+          description: __("L'électricien avant l'emménagement"),
         },
       ],
     },

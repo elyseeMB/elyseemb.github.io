@@ -1,0 +1,59 @@
+---
+import {
+  ContentType,
+  type Collection,
+  type OptionsCollection,
+} from "../../config.ts";
+import { between } from "../functions/helper.ts";
+import Article from "./Article.astro";
+import ItemSerie from "./ItemSerie.astro";
+import CardItem from "./CardItem.astro";
+
+interface Props {
+  year: Collection["year"];
+  items: Collection["items"];
+  options?: OptionsCollection;
+  className?: string;
+}
+
+const { year, items, options, className } = Astro.props;
+
+const baseOptions: OptionsCollection = {
+  showBadge: false,
+  description: false,
+  showYear: true,
+  ...options,
+};
+
+const isArticlePage = Astro.url.pathname.includes("articles");
+const isSeriesPage = Astro.url.pathname.includes("series");
+---
+
+<div
+  class:list={[
+    "flex flex-col md:flex-row gap-2 border-b border-[var(--secondary)]/75 border-collapse ",
+    { "animate-blur-in animation-delay-300": !isArticlePage },
+  ]}
+>
+  {
+    baseOptions.showYear && (
+      <span class="text-[1.2rem] w-1/6 pt-4 animate-slide-in">{year}</span>
+    )
+  }
+
+  <div
+    data-list__articles
+    class="flex flex-1 flex-col divide-y divide-[var(--secondary)]"
+  >
+    {
+      items.map((article, index) => (
+        <CardItem
+          data-overlay={true}
+          className={`relative`}
+          props={article.props}
+          options={baseOptions}
+        />
+      ))
+    }
+  </div>
+</div>

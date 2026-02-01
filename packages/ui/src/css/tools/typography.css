@@ -1,3 +1,12 @@
+@font-face {
+  font-family: "Departure Mono";
+  src:
+    url("../../fonts/DepartureMono-Regular.woff2") format("woff2"),
+    url("../../fonts/DepartureMono-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* TYPOGRAPHIE */
 h1,
 h2,
@@ -8,49 +17,14 @@ h6 {
   color: var(--color-primary) !important;
 }
 
-h1,
-h1 span {
-  font-family: "Instrument Serif" !important;
-  font-style: italic;
-  font-weight: 400;
-  color: var(--color-primary);
-}
-
-h1 {
-  font-size: 6.1rem;
-  /* line-height: 0.9; */
-}
-
-h2:not(:where([data-markdown] *)) {
+/* h2:not(:where([data-markdown] *)) {
   font-family: "Instrument Serif" !important;
   font-size: 2rem;
-}
-
-h3:not(:where([data-markdown] *)) {
-  font-family: "Instrument Serif" !important;
-  font-size: 1.4rem;
-}
+} */
 
 :where([data-markdown]) {
   h1 {
-    font-family: "Inter" !important;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 1.2rem !important;
-  }
-
-  .outline__wrapper {
-    ul li {
-      font-family: "Inter" !important;
-    }
-  }
-
-  p,
-  ul,
-  ul li,
-  em,
-  strong {
-    font-family: "IBM Plex Serif" !important;
+    font-family: "Work Sans", sans-serif;
   }
 }
 
@@ -62,34 +36,6 @@ p:not(:where([data-markdown] *)) {
   text-wrap: pretty;
 }
 
-h4,
-h5,
-h6,
-*,
-body {
-  font-family: "Inter" !important;
-  color: var(--color-secondary);
-}
-
-button {
-  font-family: "JetBrains Mono" !important;
-}
-
 strong {
   color: var(--color-primary);
-}
-
-ul li:not(:where([data-markdown] *)),
-ol li:not(:where([data-markdown] *)) {
-  list-style: decimal;
-  line-height: 1.6;
-}
-
-ul:not(:where([data-markdown] *)),
-ol:not(:where([data-markdown] *)) {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding-block: 1rem;
-  margin-left: 50px;
 }
