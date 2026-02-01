@@ -1,7 +1,9 @@
 @import "tailwindcss";
-
 @plugin "@tailwindcss/typography";
 @import "./modules/prose.css";
+
+@source "../**/*.{astro,ts,tsx}";
+@source "../../../../apps/**/*.{astro,ts,tsx}";
 
 /* LAYOUT */
 @import "./layout/layout.css";

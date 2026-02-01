@@ -1,5 +1,4 @@
 ---
-import Redirect from "../Redirect.astro";
 type Info = {
   title: string;
   description: string;
@@ -33,28 +32,14 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
     <div class="grid-footer">
       <div class="left">
 
-        <div class="extra">
-          <span class="about"> 
+        <div class="flex flex-col gap-2 lg:gap-8 justify-between items-start lg:grid grid-cols-5">
+          <span class="lg:col-span-3"> 
            {info?.description}
           </span>
-          <div class="contacts">
-              <div class="btn-fixed">
-                <div class="btn btn-round">
-                 
-                    <a href={contacts?.items[0].href} class="btn-click magnetic " data-strength="100" data-strength-text="50">
-                        <div class="btn-fill"></div>
-                        <span style="text-align: center;" class="btn-text">
-                            <span class="btn-text-inner">
-                              {contacts?.items[0].title}
-                            </span>
-                        </span>
-                    </a>
-            </div>
-            </div>
-          </div>
+       
 
 
-          <div class="legacy">
+          <div class="legacy lg:row-start-2">
             <span class="declaration"
               >
               Copyright © <span id="footer-year"></span> elysee Mboussa . All rights reserved.</span
@@ -62,6 +47,21 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
           </div>
         </div>
       </div>
+
+      <div class="contacts lg:row-start-1 lg:col-span-4">
+        <div class="btn-fixed">
+          <div class="btn btn-round">
+              <a href={contacts?.items[0].href} class="btn-click magnetic " data-strength="100" data-strength-text="50">
+                  <div class="btn-fill"></div>
+                  <span style="text-align: center;" class="btn-text">
+                      <span class="btn-text-inner">
+                        {contacts?.items[0].title}
+                      </span>
+                  </span>
+              </a>
+      </div>
+      </div>
+    </div>
 
       <div class="right">
         <div class="uppercase">
@@ -92,15 +92,9 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
     font-family: "Work Sans", sans-serif;
   }
 
-  footer h4 {
-    padding-block: 1rem;
-    color: var(--muted-foreground);
-  }
 
   footer {
-    /* font-family: "JetBrains Mono"; */
     display: grid;
-   
     margin-top: 10rem ;
   }
 
@@ -111,24 +105,8 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
     text-wrap: balance;
   }
 
-  footer ul {
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-  }
-  footer ul li {
-    padding: 0;
-    list-style: none;
-    margin: 0;
-  }
 
-  footer .extra {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 4rem;
-  }
+
 
   .grid-footer {
     display: flex;
@@ -178,14 +156,14 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
 
 
   footer .contacts {
+    margin-block: 2rem;
+    width: 100%;
     border-bottom: 1px solid var(--secondary);
     position: relative;
   }
   
   .contacts ul li  {
-
- 
-    color: var(--color-primary) ;
+    /* color: var(--color-primary) ; */
   }
 
   .legacy {
@@ -224,10 +202,6 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
     text-decoration: underline;
   }
 
-  .extra .about {
-    text-wrap: balance;
-    width: 300px;
-  }
 </style>
 
 

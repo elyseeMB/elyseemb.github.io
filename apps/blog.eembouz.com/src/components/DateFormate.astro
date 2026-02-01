@@ -17,10 +17,7 @@ const dateFormate = new Intl.DateTimeFormat(
 ).format(date);
 
 const tranformDate = (date: string) => {
-  if (!isShowYear) {
-    return date.replaceAll("/", ".");
-  }
-  return date;
+  return date.replaceAll("/", ".");
 };
 ---
 

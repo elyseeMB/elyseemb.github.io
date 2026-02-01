@@ -21,16 +21,14 @@
     "mdast-util-to-string": "^4.0.0",
     "nanostores": "^1.1.0",
     "preact": "^10.26.9",
-    "reading-time": "^1.5.0",
-    "@tailwindcss/vite": "^4.1.17",
-    "tailwindcss": "^4.1.17"
+    "reading-time": "^1.5.0"
   },
   "peerDependencies": {
     "@tailwindcss/vite": "^4.1.17",
-    "tailwindcss": "^4.1.17"
+    "tailwindcss": "^4.1.17",
+    "@tailwindcss/typography": "^0.5.19"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.19",
     "@preact/preset-vite": "^2.10.1",
     "typescript": "~5.8.3"
   },

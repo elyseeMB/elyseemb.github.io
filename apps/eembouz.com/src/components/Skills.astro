@@ -7,7 +7,7 @@ const __ = await getTranslator(lang);
 const skills = await getSkills(lang);
 ---
 
-<section class="skills animate-fade-in animation-delay-300">
+<section class="skills animate-blur-in animation-delay-300">
   <h3 data-h3-portfolio class="skills__title">
     {__(prefixWithSlash("favorite tech"))}
   </h3>
@@ -60,9 +60,9 @@ const skills = await getSkills(lang);
   }
 
   .techo__name {
-    font-family: "Inter" !important;
+    font-family: "Inter";
     letter-spacing: normal;
-    font-weight: 100 !important;
+    font-weight: 100;
     padding-bottom: 1rem;
   }
 

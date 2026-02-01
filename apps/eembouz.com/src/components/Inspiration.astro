@@ -6,7 +6,7 @@ const inspirations = await getCollection("inspirations");
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
-<section class="inspirations animate-fade-in animation-delay-300">
+<section class="inspirations animate-blur-in animation-delay-300">
   <h3 data-h3-portfolio class="inspirations__title">
     {__(prefixWithSlash("My inspirations"))}
   </h3>

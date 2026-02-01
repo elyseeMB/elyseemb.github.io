@@ -5,7 +5,6 @@ const __ = await getTranslator(Astro.currentLocale);
 const { pathname } = Astro.url;
 const href = getLink(Astro, "/articles");
 const isActive = pathname.startsWith(href);
-import Button from "@portfolio/ui/Button";
 ---
 
 <HeaderComponent>

@@ -32,7 +32,7 @@ const isSeriesPage = Astro.url.pathname.includes("series");
 <div
   class:list={[
     "flex flex-col md:flex-row gap-2 border-b border-[var(--secondary)]/75 border-collapse ",
-    { "animate-slide-in animation-delay-300": !isArticlePage },
+    { "animate-blur-in animation-delay-300": !isArticlePage },
   ]}
 >
   {
