@@ -32,6 +32,13 @@
             }
           ]
         },
+        "techno": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
         "seo": {
           "type": "object",
           "properties": {

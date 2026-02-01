@@ -13,7 +13,7 @@ function initSplitAnimation() {
     el.innerHTML = words
       .map(
         (word, index) =>
-          `<span class="animate-perspective-in animation-delay-${between(
+          `<span class="animate-blur-in animation-delay-${between(
             (index + 1) * 200,
             0,
             300

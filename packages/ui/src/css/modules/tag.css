@@ -1,5 +1,5 @@
 .tags {
-  font-family: "JetBrains Mono" !important;
+  font-family: "Departure Mono" !important;
   display: flex;
   align-items: flex-start;
   gap: 1rem;
@@ -7,12 +7,26 @@
 }
 
 .tag {
-  font-family: "JetBrains Mono" !important;
-  padding-inline: 0.2rem;
+  position: relative;
+  font-family: "Departure Mono" !important;
+  padding-inline: 0.5rem;
+  padding-block: 0.2rem;
   width: max-content;
-  background-color: var(--contrast);
-  color: white;
+  background-color: var(--secondary);
+  color: var(--primary);
   font-size: 0.8rem;
-  border-radius: 0.3rem;
+  border-radius: 1rem;
   border: var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tag::before {
+  display: block;
+  content: "";
+  background-color: var(--contrast);
+  width: 13px;
+  height: 13px;
+  border-radius: 100%;
 }

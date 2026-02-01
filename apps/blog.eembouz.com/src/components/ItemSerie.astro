@@ -24,9 +24,7 @@ function buildUrl(item: ItemDisplayed["props"]): string {
 }
 ---
 
-<article
-  class={clx(className, "item flex items-center justify-between gap-4 py-4")}
->
+<article class={clx(className, "item flew")}>
   <div class="item__info">
     <Link href={buildUrl(props)}>
       {options.showBadge && <Badge contentTypeId={props.data.contentType} />}

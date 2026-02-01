@@ -1,61 +1,80 @@
 ---
+
 interface Props {
+  action?: {
+    name: string;
+    url: string;
+  };
   title: string;
   description: string;
   job?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, action } = Astro.props;
 ---
 
-<section class="hero container-narrow">
-  <div class="wrapper">
-    <div class="title">
-      <h1 class="split">
-        {title}
-      </h1>
-    </div>
+<section class="hero flex flex-col gap-5">
+  <div class="title text-xl uppercase">
+    <h1 class="split">
+      {title}
+    </h1>
 
-    <p class="description animate-slide-in animation-delay-300">
-      {description}
-    </p>
+    <div class="flex items-center lg:grid grid-cols-5">
+      <p
+        class="description uppercase text-sm! lg:col-span-3 animate-blur-in animation-delay-300"
+      >
+        {description}
+      </p>
+  </div>
+
+        {action && (
+          <div class="about description animate-fade-in animation-delay-300">
+          <div class="btn-fixed">
+            <div class="btn btn-round is-inview">
+              <a
+                href={action.url}
+                class="btn-click magnetic"
+                data-strength="100"
+                data-strength-text="50"
+              >
+                <div class="btn-fill"></div>
+                <span class="btn-text" style="transform: rotate(0.001deg);">
+                  <span class="btn-text-inner text-center">
+                    {action.name}
+                  </span>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        )
+      }
   </div>
 </section>
 
 <style>
-  .title {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  .hero {
+    font-family: "Work Sans", sans-serif;
   }
 
-  .description {
-    /* color: var(--color-primary); */
-    font-style: italic;
-    margin: 0;
-    padding: 0;
+  .about .btn-fixed {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    z-index: 20;
   }
 
-  .title h1 {
-    text-align: left;
-    font-size: 2.5rem;
-    letter-spacing: -1px;
-    overflow: hidden;
-    line-height: 1.1;
+  .about {
+    margin-top: 5rem;
+    font-size: 0.8rem;
+    position: relative;
+    border-bottom: 1px solid var(--border);
   }
 
-  @media screen and (min-width: 1350px) {
-    .description {
-      max-width: 650px !important;
-    }
-  }
-
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 100%;
-    height: 100%;
+  .wrapper-description {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
   }
 
   /* Desktop (769px et plus) */

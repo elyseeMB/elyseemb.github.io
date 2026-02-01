@@ -1,0 +1,12 @@
+---
+import type { ContentType as Type } from "../../config.ts";
+import Badge from "./Badge.astro";
+
+interface Props {
+  name: Type;
+}
+
+const { name } = Astro.props;
+---
+
+<Badge contentTypeId={name} />
