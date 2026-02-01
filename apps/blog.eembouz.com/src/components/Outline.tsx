@@ -194,7 +194,7 @@ export function Outline() {
             onClick={(e) => {
               console.log(e);
             }}
-            className="absolute top-1/2 -translate-y-1/2 right-[calc(100%+1rem)] z-50 w-max max-h-[calc(100vh-4rem)] rounded-lg overflow-y-auto border border-[var(--secondary)] bg-[var(--secondary)] dark:bg-[var(--background)] p-[1rem] animate-slide-x-in pointer-events-auto"
+            className="absolute top-1/2 -translate-y-1/2 right-[calc(100%+1rem)] z-60 w-max max-h-[calc(100vh-4rem)] rounded-lg overflow-y-auto border border-[var(--secondary)] bg-[var(--secondary)] dark:bg-[var(--background)] p-[1rem] animate-slide-x-in pointer-events-auto"
           >
             <ul ref={ulRef} id="chapiter-animation" className="flex flex-col">
               {headings.heading_level_2?.map((heading, index) => (
