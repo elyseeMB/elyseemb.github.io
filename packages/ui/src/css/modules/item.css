@@ -7,16 +7,10 @@
   transition: background-color 0.3s;
   opacity: 1;
   transition: opacity 0.5s ease;
-  /* padding: 0.5rem; */
-  /* border-block: 1px solid rgb(255, 255, 255); */
 }
 
 :has(.item:hover) .item:not(:hover) {
   opacity: 0.5;
-}
-
-.item__title {
-  font-family: "Inter" !important;
 }
 
 .item:hover h3 {
@@ -25,41 +19,7 @@
 
 .item__description {
   display: -webkit-box;
-  /* text-wrap: balance; */
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   overflow: hidden;
-}
-
-/* .item__info h3 {
-  font-size: 1.1rem !important;
-  font-style: bold;
-} */
-
-.item__info > * {
-  font-size: 0.9rem !important;
-  font-weight: normal !important;
-}
-
-.item__info {
-  display: flex;
-  align-items: start;
-  gap: 1rem;
-  /* display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.5rem; */
-}
-
-.item__img img {
-  width: 100%;
-  display: block;
-  border-radius: var(--rounded);
-  max-width: 200px;
-}
-
-/* petits écrans */
-@media only screen and (max-width: 800px) {
-  .item__img {
-    display: none;
-  }
 }

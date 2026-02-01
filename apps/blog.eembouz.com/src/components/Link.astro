@@ -1,28 +1,18 @@
 ---
 interface Props {
   href: string;
-  class?: string; // Ajout pour permettre de surcharger si besoin
+  class?: string;
 }
 const { href, class: className } = Astro.props;
 ---
 
-<a href={href} class:list={["w-full md:col-span-4 relative block", className]}>
+<a
+  href={href}
+  class:list={[
+    "relatvie w-full h-full md:col-span-4 relative block",
+    className,
+  ]}
+>
   <span aria-hidden="true" class="absolute inset-0 w-full h-full"></span>
   <slot />
 </a>
-
-<style>
-  /* J'ai migré le .absolute en classe Tailwind "absolute inset-0" ci-dessus pour simplifier */
-
-  a {
-    width: fit-content;
-    height: 100%;
-  }
-
-  /* Sur mobile, on veut souvent que le lien prenne toute la largeur disponible */
-  @media (max-width: 768px) {
-    a {
-      width: 100%;
-    }
-  }
-</style>
