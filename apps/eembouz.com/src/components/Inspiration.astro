@@ -1,13 +1,16 @@
 ---
 import { getCollection } from "astro:content";
 import { getTranslator } from "../libs/i18n.ts";
+import { prefixWithSlash } from "../functions/string.ts";
 const inspirations = await getCollection("inspirations");
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
-<section class="inspirations animate-slide-in animation-delay-300">
-  <h3 class="inspirations__title">{__("My inspirations")}</h3>
-  <div class="grid">
+<section class="inspirations animate-fade-in animation-delay-300">
+  <h3 data-h3-portfolio class="inspirations__title">
+    {__(prefixWithSlash("My inspirations"))}
+  </h3>
+  <div class="flex flex-col text-[var(--color-secondary)]">
     {
       inspirations.map((inspiration) => (
         <div class="frameworks">
@@ -28,7 +31,6 @@ const __ = await getTranslator(Astro.currentLocale);
 
 <style>
   .inspirations__title {
-    font-size: 2.5rem !important;
     padding-bottom: 0.5rem;
   }
 
@@ -120,14 +122,5 @@ const __ = await getTranslator(Astro.currentLocale);
   .frameworks .list .framework__name {
     text-decoration: underline;
     color: var(--color-primary) !important;
-  }
-
-  .frameworks .framework__description {
-    grid-column: 2 / span 4;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
   }
 </style>

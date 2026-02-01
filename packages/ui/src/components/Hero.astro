@@ -1,5 +1,5 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 export function getLink(
   astro: { currentLocale?: string },
@@ -13,7 +13,6 @@ export function getLink(
     ? getRelativeLocaleUrl(astro.currentLocale, path)
     : path;
 }
-
 
 interface Props {
   title: string;
@@ -32,58 +31,46 @@ const href = getLink(Astro, "/articles");
     </h1>
 
     <div class="wrapper-description">
-      <p class="description animate-fade-in animation-delay-300">
+      <p class="description animate-blur-in animation-delay-300">
         {description}
       </p>
     </div>
 
     <div class="about description animate-fade-in animation-delay-300">
       <div class="btn-fixed">
-          <div
-            class="btn btn-round is-inview"
-            data-scroll=""
-            data-scroll-speed="-1"
-            data-scroll-direction="horizontal"
-            data-scroll-position="bottom"
-            data-scroll-offset="-50%, 0"
-            style="transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -13.7, 0, 0, 1);"
+        <div class="btn btn-round is-inview">
+          <a
+            href={href}
+            class="btn-click magnetic"
+            data-strength="100"
+            data-strength-text="50"
           >
-            <a
-              href={href}
-              class="btn-click magnetic"
-              data-strength="100"
-              data-strength-text="50"
-              style="transform: rotate(0.001deg);"
-            >
-              <div class="btn-fill" style="transform: translate(0px, -76%);">
-              </div>
-              <span class="btn-text" style="transform: rotate(0.001deg);">
-                <span class="btn-text-inner">recents</span>
-              </span>
-            </a>
+            <div class="btn-fill"></div>
+            <span class="btn-text" style="transform: rotate(0.001deg);">
+              <span class="btn-text-inner">recents</span>
+            </span>
+          </a>
         </div>
       </div>
     </div>
-
-
   </div>
 </section>
 
 <style>
   .about .btn-fixed {
-  position: absolute;
-  right: 0;
-  top: 0;
-  transform: translate(-50%, -50%);
-  z-index: 20;
-}
-  
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+  }
+
   .about {
     font-size: 0.8rem;
     position: relative;
     border-bottom: 1px solid var(--border);
   }
-  
+
   .title {
     display: flex;
     flex-direction: column;
@@ -96,22 +83,21 @@ const href = getLink(Astro, "/articles");
   }
 
   .description {
-    /* color: var(--color-primary); */
+    font-family: "Work Sans", sans-serif;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
     margin: 0;
     padding: 0;
-    font-size: 18px;
-    line-height: 1.6;
-    font-weight: 200;
+    text-wrap: pretty;
     grid-column: 1 / span 3;
-    /* width: 480px; */
   }
 
   .title h1 {
     font-family: "Work Sans", sans-serif;
     text-transform: uppercase;
     text-align: left;
-    font-weight: 700;
-    font-size: 4.4rem;
+    font-size: 1.5rem;
     letter-spacing: -1px;
     overflow: hidden;
     line-height: 1;

@@ -32,14 +32,11 @@ const {
   </head>
   <body>
     <BlurEffect />
-
-    <div class="bg-noise">
-      <div class="page-wrapper">
-        <Header />
-        <slot />
-        <Footer />
-      </div>
+    <Header />
+    <div class="page-wrapper">
+      <slot />
     </div>
+    <Footer />
     <ClientRouter />
   </body>
 </html>

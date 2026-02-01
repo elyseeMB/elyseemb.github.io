@@ -1,16 +1,17 @@
 ---
 import { getSkills } from "../data/skills";
+import { prefixWithSlash } from "../functions/string.ts";
 import { getTranslator } from "../libs/i18n.ts";
 const lang = Astro.currentLocale;
 const __ = await getTranslator(lang);
 const skills = await getSkills(lang);
 ---
 
-<section class="skills animate-slide-in animation-delay-300">
-  <h3 class="skills__title">
-    {__("favorite tech")}
+<section class="skills animate-fade-in animation-delay-300">
+  <h3 data-h3-portfolio class="skills__title">
+    {__(prefixWithSlash("favorite tech"))}
   </h3>
-  <div class="grid">
+  <div class="flex flex-col text-[var(--color-secondary)]">
     {
       skills.map((skill) => (
         <div class={skill.name}>
@@ -38,7 +39,6 @@ const skills = await getSkills(lang);
 
 <style>
   .skills__title {
-    font-size: 2.5rem !important;
     padding-bottom: 0.5rem;
   }
 
@@ -85,30 +85,6 @@ const skills = await getSkills(lang);
     }
   }
 
-  @media only screen and (max-width: 930px) {
-    .frameworks .list li {
-      list-style: disc;
-      padding-bottom: 0.5rem;
-      text-wrap: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 700px;
-      display: block;
-    }
-  }
-
-  @media only screen and (max-width: 700px) {
-    .frameworks .list li {
-      list-style: disc;
-      padding-bottom: 0.5rem;
-      text-wrap: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 400px;
-      display: block;
-    }
-  }
-
   @media only screen and (max-width: 500px) {
     .frameworks .list li {
       list-style: disc;
@@ -130,14 +106,5 @@ const skills = await getSkills(lang);
   .frameworks .list .framework__name {
     text-decoration: underline;
     color: var(--color-primary) !important;
-  }
-
-  .frameworks .framework__description {
-    grid-column: 2 / span 4;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
   }
 </style>

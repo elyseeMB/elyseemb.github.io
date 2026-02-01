@@ -4,22 +4,68 @@ import { getTranslator } from "../../libs/i18n.ts";
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
-<div class="container-narrow">
-  <HeaderComponent>
-    <div class="actions">
-      <a href="https://blog.eembouz.com">{__("Blog")}</a>
-      <button class="btn btn-primary">
-        <a href="mailto:contact@eembouz.com"> {__("Me contactez")} </a>
-      </button>
-    </div>
-  </HeaderComponent>
-</div>
+<HeaderComponent>
+  <ul class="flex-header actions">
+    <li class="btn btn-link">
+      <a
+        href="https://blog.eembouz.com"
+        class="btn-click magnetic link-header"
+        data-strength="25"
+        data-strength-text="10"
+      >
+        <span class="btn-text">
+          <span class="btn-text-inner">
+            {__("Blog")}
+          </span>
+        </span>
+      </a>
+    </li>
+
+    <li class="btn btn-link">
+      <a
+        href="mailto:contact@eembouz.com"
+        class="btn-click magnetic link-header"
+        data-strength="25"
+        data-strength-text="10"
+      >
+        <span class="btn-text">
+          <span class="btn-text-inner">{__("Me contactez")}</span>
+        </span>
+      </a>
+    </li>
+  </ul>
+</HeaderComponent>
 
 <style>
-  .actions {
-    color: var(--color-primary);
+  ul.flex-header,
+  ul.flex-header li {
+    all: unset;
+  }
+
+  ul li {
+    display: flex;
+    flex-direction: initial;
+    align-items: center;
+    text-decoration: none;
+    list-style: none;
+  }
+
+  ul.flex-header.actions {
     display: flex;
     align-items: center;
-    gap: 2rem;
+  }
+
+  .link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s;
+    border-radius: var(--rounded);
+    background-color: rgba(53, 53, 53, 0.249);
+    padding: 0.5rem 0.8rem;
+  }
+
+  .link:hover {
+    background-color: var(--hover-primary);
   }
 </style>

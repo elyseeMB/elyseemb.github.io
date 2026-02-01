@@ -3,28 +3,32 @@ import { PhotoGrid } from "./PhotoGrid.tsx";
 import { SkeletonGallery } from "@portfolio/ui/Skeleton";
 import hobbiesData from "../data/hobbies-gallery.json";
 import { getTranslator } from "../libs/i18n.ts";
+import { prefixWithSlash } from "../functions/string.ts";
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
-<section class="hobbies animate-slide-in animation-delay-300">
-  <h3 class="hobbies__title">{__("My Hobbies")}</h3>
-  <PhotoGrid
-    maxRows={4}
-    client:only="preact"
-    images={hobbiesData}
-    rowHeight={170}
-    gap="0.5rem"
-  >
-    <div slot="fallback">
-      <SkeletonGallery length={9} />
-    </div>
-  </PhotoGrid>
+<section class="hobbies animate-fade-in animation-delay-300">
+  <div class="container medium home">
+    <h3 class="hobbies__title">{__(prefixWithSlash("My Hobbies"))}</h3>
+  </div>
+  <div class="container">
+    <PhotoGrid
+      maxRows={4}
+      client:only="preact"
+      images={hobbiesData}
+      rowHeight={200}
+      gap="5rem"
+    >
+      <div slot="fallback">
+        <SkeletonGallery length={9} />
+      </div>
+    </PhotoGrid>
+  </div>
 </section>
 
 <style>
   .hobbies__title {
-    font-size: 2.5rem !important;
-    padding-bottom: 0.5rem;
+    padding-bottom: 1rem;
   }
 
   .hobbies {
