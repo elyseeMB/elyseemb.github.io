@@ -67,10 +67,12 @@ const __ = await getTranslator(Astro.currentLocale);
 
   <div class="lg:col-start-4 lg:col-span-2 grid grid-cols-2">
     <BlockInfo
-      className="flex flex-col gap-4 uppercase text-[0.7rem] text-[var(--color-secondary)] animate-blur-in animation-delay-200"
+      className="flex flex-col gap-4 uppercase text-[0.7rem] animate-blur-in animation-delay-200"
     >
       <Label title={__("Métriques")} />
-      <div class="flex flex-col items-start gap-1">
+      <div
+        class="flex flex-col items-start gap-1 text-[var(--color-secondary)]"
+      >
         <Writer author={author} />
         <ReadingTime time={readingTime!} />
         <span class="uppercase">{formatDate}</span>
