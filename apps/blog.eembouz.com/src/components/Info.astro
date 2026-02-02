@@ -58,7 +58,7 @@ const __ = await getTranslator(Astro.currentLocale);
   >
     <Label title={__("Résumé")} />
     <h1 class="text-sm text-balance uppercase w-full lg:w-2/3">
-      {item.data.title}
+      {cleanTitle}
     </h1>
     <p class="uppercase text-[var(--color-secondary)] text-[0.7rem]">
       {item.data.summary}
