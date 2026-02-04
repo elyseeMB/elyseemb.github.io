@@ -2,7 +2,7 @@
 title: "Convolutional neural networks"
 author: "elysee"
 summary: "Un réseau neuronal convolutionnel (Convolutional Neural Network, ou CNN) est un type d’algorithme d’apprentissage profond supervisé (deep learning) qui confère à un ordinateur une forme de « vision » : il peut ainsi analyser et reconnaître des objets du monde visuel."
-thumbnail: "/iclh-diagram-convolutional-neural-networks.png"
+thumbnail: "/convolutional-neural-networks/iclh-diagram-convolutional-neural-networks.png"
 taxonomies: ["ia", "deep-learning"]
 pubDate: 2025-08-12
 ---
@@ -70,7 +70,7 @@ Certains hyper-paramètres du filtre restent fixes durant le processus, par cont
 
 **Après l'opération de convolution, le CNN applique immédiatement la fonction ReLU** (**Re**ctified **L**inear **U**nit - Unité Linéaire Rectifiée). Cette fonction d'activation agit comme un filtre sélectif qui élimine les signaux faibles (valeurs négatives) pour ne conserver que les activations significatives (valeurs positives).
 
-<img src="/Relu-activation-function.webp" alt="Fonction d'activation ReLU" />
+<img src="/convolutional-neural-networks/Relu-activation-function.webp" alt="Fonction d'activation ReLU" />
 
 **Principe de fonctionnement :**
 
@@ -88,7 +88,7 @@ Carte de caractéristiques après ReLU : `[0, 5, 0, 8, 0, 4]`
 Cette étape transforme donc un simple calcul mathématique en un véritable processus de reconnaissance intelligent.
 
 <img
-  src="/iclh-diagram-convolutional-neural-networks.png"
+  src="/convolutional-neural-networks/iclh-diagram-convolutional-neural-networks.png"
   alt="Diagramme des réseaux neuronaux convolutionnels"
 />
 
@@ -112,7 +112,7 @@ Il est fréquent qu'une hiérarchisation de couches soit appliquée pour analyse
 
 Cette approche hiérarchique permet au réseau de construire une compréhension progressive de l'image, où chaque couche affine et enrichit l'analyse de la précédente. In fine, la couche convolutionnelle convertit l'image en valeurs numériques structurées, permettant au réseau neuronal d'interpréter et d'extraire les motifs pertinents pour la classification finale.
 
-<img src="/hierarchy.png" alt="Hiérarchie des caractéristiques CNN" />
+<img src="/convolutional-neural-networks/hierarchy.png" alt="Hiérarchie des caractéristiques CNN" />
 
 ## **Couche de sous-échantillonnage ou de pooling** (_Pooling layer_)
 

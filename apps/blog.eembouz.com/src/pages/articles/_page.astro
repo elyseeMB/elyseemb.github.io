@@ -155,6 +155,7 @@ const seo = seoProps ? seoProps : metaData;
   }
 </style>
 
+<!-- 
 <script>
   const h2 = Array.from(document.querySelectorAll("h2"));
   const element = document.getElementById("mindmap");
@@ -184,7 +185,8 @@ const seo = seoProps ? seoProps : metaData;
 
   element!.addEventListener("click", handleClick);
 
-  element?.addEventListener("beforeunload", () => {
+  element?.addEventListener("astro:before-preparation", () => {
+    console.log("ici");
     observers.forEach((observer) => observer.disconnect());
   });
-</script>
+</script> -->

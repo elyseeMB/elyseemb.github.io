@@ -1,4 +1,7 @@
 @layer components {
+  .prose pre {
+    margin-block: 0 !important;
+  }
 }
 
 .prose {

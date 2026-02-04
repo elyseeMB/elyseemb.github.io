@@ -49,7 +49,7 @@ const isSeriesPage = Astro.url.pathname.includes("series");
       items.map((article, index) => (
         <CardItem
           data-overlay={true}
-          className={`relative`}
+          className="relative"
           props={article.props}
           options={baseOptions}
         />
