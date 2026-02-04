@@ -1,0 +1,30 @@
+---
+import Seo from "../components/Seo.astro";
+import "../styles.css";
+
+const {
+  title,
+  description,
+  author,
+  publishedDate,
+  image,
+  url = Astro.url.href,
+  typeContent,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <Seo
+    title={title}
+    author={author}
+    publishedDate={publishedDate}
+    description={description}
+    typeContent={typeContent}
+    image={image}
+    url={url}
+  />
+  <body>
+    <slot />
+  </body>
+</html>

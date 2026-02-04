@@ -12,6 +12,7 @@ import clsx from "clsx";
 import Label from "./Label.astro";
 import BlockInfo from "./BlockInfo.astro";
 import ContentType from "./ContentType.astro";
+import { getTranslator } from "../libs/i18n.ts";
 
 interface Props {
   className?: string;
@@ -43,6 +44,7 @@ const getTaxonomies = await Promise.all(
     : []
 );
 const cleanTitle = title.replace(/[^\p{L}\p{N}\s'']/gu, "");
+const __ = await getTranslator(Astro.currentLocale);
 ---
 
 <div
@@ -54,7 +56,7 @@ const cleanTitle = title.replace(/[^\p{L}\p{N}\s'']/gu, "");
   <BlockInfo
     className="flex flex-col gap-4 md:col-span-2 lg:col-span-2 animate-blur-in"
   >
-    <Label title="Info" />
+    <Label title={__("Résumé")} />
     <h1 class="text-sm text-balance uppercase w-full lg:w-2/3">
       {cleanTitle}
     </h1>
@@ -65,10 +67,12 @@ const cleanTitle = title.replace(/[^\p{L}\p{N}\s'']/gu, "");
 
   <div class="lg:col-start-4 lg:col-span-2 grid grid-cols-2">
     <BlockInfo
-      className="flex flex-col gap-4 uppercase text-[0.7rem] text-[var(--color-secondary)] animate-blur-in animation-delay-200"
+      className="flex flex-col gap-4 uppercase text-[0.7rem] animate-blur-in animation-delay-200"
     >
-      <Label title="Meta" />
-      <div class="flex flex-col items-start gap-1">
+      <Label title={__("Métriques")} />
+      <div
+        class="flex flex-col items-start gap-1 text-[var(--color-secondary)]"
+      >
         <Writer author={author} />
         <ReadingTime time={readingTime!} />
         <span class="uppercase">{formatDate}</span>
@@ -78,7 +82,7 @@ const cleanTitle = title.replace(/[^\p{L}\p{N}\s'']/gu, "");
     <BlockInfo
       className="flex flex-col gap-4 animate-blur-in animation-delay-300"
     >
-      <Label title="Taxonomy" />
+      <Label title={__("Taxonomie")} />
 
       {
         getTaxonomies && (

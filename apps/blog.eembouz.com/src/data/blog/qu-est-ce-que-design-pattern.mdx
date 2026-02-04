@@ -2,13 +2,10 @@
 title: "Qu’est-ce qu’un design pattern ?"
 author: elysee
 summary: "Les design patterns sont des solutions éprouvées et validées par les pionniers de l’informatique. Ils ont été conçus pour structurer et organiser le code de manière claire, lisible et efficace."
-thumbnail: "/design_pattern.png"
+thumbnail: "/qu-est-ce-que-design-pattern/design_pattern.png"
 taxonomies: ["best-practices-clean-code", "programming"]
 pubDate: 2025-07-12
 ---
-
-import BlockDesignPattern from "../../components/blog/pattern/BlockDesignPattern.tsx";
-import DisplayList from "../../components/blog/pattern/DisplayList.tsx";
 
 Les **design patterns** sont des solutions éprouvées et validées par les
 pionniers de l'informatique. Ils ont été conçus pour **structurer et organiser
@@ -29,15 +26,11 @@ patterns** : des solutions **nommées, génériques et réutilisables**,
 documentées pour faciliter la collaboration et la compréhension dans les
 projets logiciels.
 
-<blockquote>
-  <em>
-    historiquement, Le concept de design pattern est inspiré du travail de
-    **Christopher Alexander** dans l’architecture, puis formalisé en
-    informatique par les **"Gang of Four"** en 1994. Ces patterns sont devenus
-    une base incontournable pour structurer le code, éviter les redondances, et
-    faciliter la maintenance des applications à grande échelle.
-  </em>
-</blockquote>
+> historiquement, Le concept de design pattern est inspiré du travail de
+> **Christopher Alexander** dans l'architecture, puis formalisé en
+> informatique par les **"Gang of Four"** en 1994. Ces patterns sont devenus
+> une base incontournable pour structurer le code, éviter les redondances, et
+> faciliter la maintenance des applications à grande échelle.
 
 ## Pourquoi devrais je apprendre des modèles ?
 
@@ -63,20 +56,14 @@ programmation** et sont appelés **modèles universels** ou **patterns de haut
 niveau**. Ils s’opposent aux **idiomes**, qui sont des solutions plus
 spécifiques, propres à un langage particulier et souvent de bas niveau.
 
-<blockquote>
 - Les **patterns architecturaux** définissent la structure globale d’une
-  application ou d’un système (ex. MVC, Client-Serveur, Microservices).
-
-- Les **patterns de conception** (design patterns au sens plus classique) concernent
-  l’organisation du code à l’intérieur des composants (ex. Singleton, Factory,
-  Observer).
-
-- Les **idiomes** sont des constructions propres à un langage, qui
-  exploitent ses spécificités syntaxiques et sémantiques.
-
- </blockquote>
-
-<DisplayList client:only />
+  > - Les **patterns architecturaux** définissent la structure globale d'une
+  >   application ou d'un système (ex. MVC, Client-Serveur, Microservices).
+  > - Les **patterns de conception** (design patterns au sens plus classique) concernent
+  >   l'organisation du code à l'intérieur des composants (ex. Singleton, Factory,
+  >   Observer).
+  > - Les **idiomes** sont des constructions propres à un langage, qui
+  >   exploitent ses spécificités syntaxiques et sémantiques.
 
 ---
 
@@ -516,19 +503,17 @@ On caches la complexité du store et exposes une API simple.
 
 ## Illustrations en pseudo-code
 
-<blockquote>
-  Bien que cet article ait pour objectif de fournir une **implémentation
-  concrète** des design patterns dans un contexte réel (React + Zustand),
-  certains modèles comme **Singleton** ou **Factory Method** s’intègrent
-  naturellement dans l’architecture de mon store. En revanche, d’autres modèles
-  comme **Builder**, **Strategy** ou **Decorator** sont plus **conceptuels**
-  dans ce contexte. Ils seront donc illustrés de manière plus **générique en
-  pseudo-code** pour faciliter leur compréhension. Ces exemples ne sont **pas
-  destinés à être copiés tels quels** dans un projet Zustand ou React, mais
-  plutôt à vous aider à **saisir l’idée générale** derrière chaque pattern. Vous
-  verrez ensuite comment **adapter ces concepts** dans un projet réel si
-  nécessaire.
-</blockquote>
+> Bien que cet article ait pour objectif de fournir une **implémentation
+> concrète** des design patterns dans un contexte réel (React + Zustand),
+> certains modèles comme **Singleton** ou **Factory Method** s’intègrent
+> naturellement dans l’architecture de mon store. En revanche, d’autres modèles
+> comme **Builder**, **Strategy** ou **Decorator** sont plus **conceptuels**
+> dans ce contexte. Ils seront donc illustrés de manière plus **générique en
+> pseudo-code** pour faciliter leur compréhension. Ces exemples ne sont **pas
+> destinés à être copiés tels quels** dans un projet Zustand ou React, mais
+> plutôt à vous aider à **saisir l’idée générale** derrière chaque pattern. Vous
+> verrez ensuite comment **adapter ces concepts** dans un projet réel si
+> nécessaire.
 
 ### Builder (construire un objet étape par étape)
 
