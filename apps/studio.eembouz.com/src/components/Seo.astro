@@ -1,0 +1,113 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  author?: string;
+  publishedDate?: string;
+  image?: string;
+  url?: string;
+  typeContent?: "website" | "article";
+}
+
+const {
+  title = "Emmanuelito elysee",
+  description = `admin for portfolio & blog`,
+  image = `${Astro.url.origin}/og-image.jpg`,
+  url = Astro.url,
+  typeContent = "website",
+  author,
+  publishedDate,
+} = Astro.props;
+
+const typeWebsite = "Studio";
+const name = "Elysee-Mboussa";
+const fullTitle = `${title} | ${typeWebsite}`;
+---
+
+<title>{fullTitle}</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content={description} />
+<link rel="canonical" href={url} />
+<meta name="author" content={author} />
+<meta property="article:published_time" content={publishedDate} />
+
+<link
+  rel="icon"
+  type="image/png"
+  href={`${Astro.url.origin}/favicon-512.png`}
+  sizes="512x512"
+/>
+<link
+  rel="icon"
+  type="image/svg+xml"
+  href={`${Astro.url.origin}/favicon.svg`}
+/>
+<link
+  rel="apple-touch-icon"
+  href={`${Astro.url.origin}/apple-touch-icon.png`}
+/>
+<link rel="manifest" href={`${Astro.url.origin}/site.webmanifest`} />
+<link rel="sitemap" href={`${Astro.url.origin}/sitemap-index.xml`} />
+<link
+  rel="icon"
+  type="image/png"
+  href={`${Astro.url.origin}/favicon-96x96.png`}
+  sizes="96x96"
+/>
+<link
+  rel="apple-touch-icon"
+  sizes="180x180"
+  href={`${Astro.url.origin}/apple-touch-icon.png`}
+/>
+<meta name="theme-color" content="#1e1e1e" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+  rel="stylesheet"
+/>
+
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content={name} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:type" content={typeContent} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={image} />
+<meta property="og:url" content={url} />
+<meta name="robots" content="index, follow" />
+<meta
+  name="google-site-verification"
+  content="hyeUNyeanb3BYVbCmMJKMIiXusraMSWPSCNMBn83Sk8"
+/>
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+<meta name="twitter:site" content="@EmmanuelitoElysee" />
+
+<script is:inline type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Emmanuelito elysee",
+    "url": "https://studio.eembouz.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://studio.eembouz.com",
+      "query-input": "required name=search_term_string"
+    }
+  }
+</script>
+
+<script is:inline type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Emmanuelito Elysee",
+    "url": "https://studio.eembouz.com/",
+    "logo": "https://studio.eembouz.com/favicon-512.png"
+  }
+</script>
