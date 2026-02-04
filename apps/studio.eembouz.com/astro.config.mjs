@@ -9,7 +9,6 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
   integrations: [react(), markdoc(), keystatic(), mdx()],
   adapter: cloudflare(),
-
   server: {
     root: ".apps/studio.eembouz.com",
     port: 5000,
