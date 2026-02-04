@@ -10,6 +10,7 @@ export default config({
   collections: {
     // --- COLLECTION BLOG FR ---
     post_fr: collection({
+      entryLayout: "content",
       label: "Post_fr",
       slugField: "title",
       path: "apps/blog.eembouz.com/src/data/blog/*",
@@ -17,11 +18,14 @@ export default config({
       schema: {
         title: fields.slug({ name: { label: "Title" } }),
         isDraft: fields.checkbox({ label: "Draft", defaultValue: false }),
+
+        // Configuration Image : Racine de public + sous-dossier slug
         thumbnail: fields.image({
           label: "Thumbnail",
-          directory: "apps/blog.eembouz.com/public/images/posts",
-          publicPath: "/images/posts/",
+          directory: "apps/blog.eembouz.com/public/{{slug}}",
+          publicPath: "/{{slug}}/",
         }),
+
         summary: fields.text({ label: "Summary", multiline: true }),
         pubDate: fields.date({ label: "Publication Date" }),
         author: fields.relationship({
@@ -30,29 +34,26 @@ export default config({
           validation: { isRequired: true },
         }),
         taxonomies: fields.array(
-          fields.relationship({
-            label: "Taxonomy",
-            collection: "taxonomies",
-          }),
+          fields.relationship({ label: "Taxonomy", collection: "taxonomies" }),
           {
             label: "Taxonomies",
             itemLabel: (props) => props.value || "Select taxonomy",
           }
         ),
+
         content: fields.mdx({
           label: "Content",
           options: {
             image: {
-              directory: "apps/blog.eembouz.com/public/images/posts",
-              publicPath: "/images/posts/",
+              directory: "apps/blog.eembouz.com/public/{{slug}}",
+              publicPath: "/{{slug}}/",
             },
           },
           components: {
             blockquote: wrapper({ label: "Blockquote", schema: {} }),
-            hr: block({ label: "Horizontal Rule", schema: {} }),
+            hr: wrapper({ label: "Horizontal Rule", schema: {} }),
             em: inline({ label: "Italic", schema: {} }),
             strong: inline({ label: "Bold", schema: {} }),
-            // AJOUT DE WIDTH/HEIGHT ICI
             img: block({
               label: "Image",
               schema: {
@@ -62,8 +63,6 @@ export default config({
                 height: fields.text({ label: "Height" }),
               },
             }),
-            em: inline({ label: "Italic", schema: {} }),
-            // AJOUT DE WIDTH/HEIGHT ICI AUSSI
             iframe: block({
               label: "Iframe",
               schema: {
@@ -71,7 +70,7 @@ export default config({
                 width: fields.text({ label: "Width" }),
                 height: fields.text({ label: "Height" }),
                 title: fields.text({ label: "Title" }),
-                loading: fields.text({ label: "Loading (lazy/eager)" }),
+                loading: fields.text({ label: "Loading" }),
                 style: fields.text({ label: "Style CSS" }),
               },
             }),
@@ -89,6 +88,7 @@ export default config({
 
     // --- COLLECTION BLOG EN ---
     post_en: collection({
+      entryLayout: "content",
       label: "Post_en",
       slugField: "title",
       path: "apps/blog.eembouz.com/src/data/blog/en/*",
@@ -98,8 +98,8 @@ export default config({
         isDraft: fields.checkbox({ label: "Draft", defaultValue: false }),
         thumbnail: fields.image({
           label: "Thumbnail",
-          directory: "apps/blog.eembouz.com/public/images/posts",
-          publicPath: "/images/posts/",
+          directory: "apps/blog.eembouz.com/public/{{slug}}",
+          publicPath: "/{{slug}}/",
         }),
         summary: fields.text({ label: "Summary", multiline: true }),
         pubDate: fields.date({ label: "Publication Date" }),
@@ -109,10 +109,7 @@ export default config({
           validation: { isRequired: true },
         }),
         taxonomies: fields.array(
-          fields.relationship({
-            label: "Taxonomy",
-            collection: "taxonomies",
-          }),
+          fields.relationship({ label: "Taxonomy", collection: "taxonomies" }),
           {
             label: "Taxonomies",
             itemLabel: (props) => props.value || "Select taxonomy",
@@ -122,13 +119,15 @@ export default config({
           label: "Content",
           options: {
             image: {
-              directory: "apps/blog.eembouz.com/public/images/posts",
-              publicPath: "/images/posts/",
+              directory: "apps/blog.eembouz.com/public/{{slug}}",
+              publicPath: "/{{slug}}/",
             },
           },
           components: {
             blockquote: wrapper({ label: "Blockquote", schema: {} }),
-            hr: block({ label: "Horizontal Rule", schema: {} }),
+            hr: wrapper({ label: "Horizontal Rule", schema: {} }),
+            em: inline({ label: "Italic", schema: {} }),
+            strong: inline({ label: "Bold", schema: {} }),
             img: block({
               label: "Image",
               schema: {
@@ -138,18 +137,21 @@ export default config({
                 height: fields.text({ label: "Height" }),
               },
             }),
-            em: inline({ label: "Italic", schema: {} }),
             iframe: block({
               label: "Iframe",
               schema: {
                 src: fields.text({ label: "Src" }),
                 width: fields.text({ label: "Width" }),
                 height: fields.text({ label: "Height" }),
+                title: fields.text({ label: "Title" }),
+                loading: fields.text({ label: "Loading" }),
+                style: fields.text({ label: "Style CSS" }),
               },
             }),
             div: wrapper({
               label: "Div Container",
               schema: {
+                class: fields.text({ label: "Class" }),
                 className: fields.text({ label: "Class Name" }),
               },
             }),
@@ -159,6 +161,7 @@ export default config({
     }),
 
     authors: collection({
+      entryLayout: "content",
       label: "Authors",
       slugField: "name",
       path: "apps/blog.eembouz.com/src/data/authors/*",
@@ -170,6 +173,7 @@ export default config({
     }),
 
     taxonomies: collection({
+      entryLayout: "content",
       label: "Taxonomies",
       slugField: "name",
       path: "apps/blog.eembouz.com/src/data/taxonomies/*",
