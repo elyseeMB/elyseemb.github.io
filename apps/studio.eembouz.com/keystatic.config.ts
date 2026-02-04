@@ -8,10 +8,9 @@ export default config({
   },
 
   collections: {
-    // --- COLLECTION BLOG FR ---
     post_fr: collection({
       entryLayout: "content",
-      label: "Post_fr",
+      label: "/fr/Post",
       slugField: "title",
       path: "apps/blog.eembouz.com/src/data/blog/*",
       format: { contentField: "content" },
@@ -19,11 +18,10 @@ export default config({
         title: fields.slug({ name: { label: "Title" } }),
         isDraft: fields.checkbox({ label: "Draft", defaultValue: false }),
 
-        // Configuration Image : Racine de public + sous-dossier slug
         thumbnail: fields.image({
           label: "Thumbnail",
-          directory: "apps/blog.eembouz.com/public/{{slug}}",
-          publicPath: "/{{slug}}/",
+          directory: "apps/blog.eembouz.com/public",
+          publicPath: "/",
         }),
 
         summary: fields.text({ label: "Summary", multiline: true }),
@@ -45,8 +43,8 @@ export default config({
           label: "Content",
           options: {
             image: {
-              directory: "apps/blog.eembouz.com/public/{{slug}}",
-              publicPath: "/{{slug}}/",
+              directory: "apps/blog.eembouz.com/public",
+              publicPath: "/",
             },
           },
           components: {
@@ -86,10 +84,9 @@ export default config({
       },
     }),
 
-    // --- COLLECTION BLOG EN ---
     post_en: collection({
       entryLayout: "content",
-      label: "Post_en",
+      label: "/en/Post",
       slugField: "title",
       path: "apps/blog.eembouz.com/src/data/blog/en/*",
       format: { contentField: "content" },
@@ -98,8 +95,8 @@ export default config({
         isDraft: fields.checkbox({ label: "Draft", defaultValue: false }),
         thumbnail: fields.image({
           label: "Thumbnail",
-          directory: "apps/blog.eembouz.com/public/{{slug}}",
-          publicPath: "/{{slug}}/",
+          directory: "apps/blog.eembouz.com/public",
+          publicPath: "/",
         }),
         summary: fields.text({ label: "Summary", multiline: true }),
         pubDate: fields.date({ label: "Publication Date" }),
@@ -119,8 +116,8 @@ export default config({
           label: "Content",
           options: {
             image: {
-              directory: "apps/blog.eembouz.com/public/{{slug}}",
-              publicPath: "/{{slug}}/",
+              directory: "apps/blog.eembouz.com/public",
+              publicPath: "/",
             },
           },
           components: {
