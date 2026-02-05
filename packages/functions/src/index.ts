@@ -1,1 +1,1 @@
-export { classNames, getMatches } from "./dom.ts";
+export { classNames } from "./dom.ts";
