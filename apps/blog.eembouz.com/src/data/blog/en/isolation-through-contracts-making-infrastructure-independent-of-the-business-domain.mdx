@@ -36,7 +36,7 @@ Email dispatch is a perfect example to illustrate this concept. It is an infrast
 
 TypeScript
 
-```Typescript
+```typescript
 export abstract class SearchInterface {
   public abstract search(q: string): Promise<SearchResult>
 }
@@ -48,7 +48,7 @@ With this contract in place, this allows the business domain to manipulate searc
 
 TypeScript
 
-```Typescript
+```typescript
 export abstract class IndexerInterface<T = unknown> {
   public abstract IndexSingleDocument(items: SearchDocument): Promise<T>
   public abstract indexMultipleDocuments(items: SearchDocument[]): Promise<T>
@@ -65,7 +65,7 @@ To visualize how all these blocks stack up, let’s take the example of a search
 
 TypeScript
 
-```Typescript
+```typescript
 const registry = {
   [SEARCH_ENGINE.TYPESENSE]: {
     search: TypesenseSearch,
@@ -86,7 +86,7 @@ This dictionary is used to bind/associate interfaces to their implementations in
 
 TypeScript
 
-```Typescript
+```typescript
 export class SearchManager {
   private searchDrivers: Map<TYPE_SEARCH, SearchInterface> = new Map()
   private indexerDrivers: Map<TYPE_SEARCH, IndexerInterface> = new Map()
@@ -145,7 +145,7 @@ SearchController The controller for research
 
 TypeScript
 
-```Typescript
+```typescript
 export default class SearchesController {
 
   @inject()
