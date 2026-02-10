@@ -13,6 +13,7 @@ export async function getPublishedPosts<C extends keyof AnyEntryMap>(
 ) {
   const allPosts = await getCollection(
     collection,
+    // @ts-ignore
     collection === "blog" ? (post) => post.data.status === "public" : undefined
   );
 

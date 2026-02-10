@@ -72,6 +72,12 @@
             ]
           }
         },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "thumbnail": {
           "type": "string"
         },
