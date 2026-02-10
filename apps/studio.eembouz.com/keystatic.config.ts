@@ -4,8 +4,8 @@ import { StatusPost, StatusPostText } from "./enum/status.ts";
 
 export default config({
   storage: {
-    kind: "github",
-    repo: "elyseeMB/elyseemb.github.io",
+    kind: "local",
+    // repo: "elyseeMB/elyseemb.github.io",
   },
 
   collections: {
@@ -45,6 +45,7 @@ export default config({
             description: "Reference associated with the article",
           }),
           {
+            itemLabel: (props) => props.value || "Select reference",
             label: "References",
             description: "Reference associated with the article",
           }
