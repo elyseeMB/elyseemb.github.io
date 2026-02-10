@@ -4,8 +4,8 @@ import { StatusPost, StatusPostText } from "./enum/status.ts";
 
 export default config({
   storage: {
-    kind: "local",
-    // repo: "elyseeMB/elyseemb.github.io",
+    kind: "github",
+    repo: "elyseeMB/elyseemb.github.io",
   },
 
   collections: {
