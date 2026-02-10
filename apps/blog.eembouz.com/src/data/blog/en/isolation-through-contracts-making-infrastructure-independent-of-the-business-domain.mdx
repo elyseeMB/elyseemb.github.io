@@ -34,8 +34,6 @@ In the continuity of this article, the term **communication layer** refers to en
 
 Email dispatch is a perfect example to illustrate this concept. It is an infrastructure peripheral to our application which, even in the event of an interruption, must not block the execution of the system's core.
 
-TypeScript
-
 ```typescript
 export abstract class SearchInterface {
   public abstract search(q: string): Promise<SearchResult>
@@ -63,8 +61,6 @@ To visualize how all these blocks stack up, let’s take the example of a search
 
 #### The binding dictionary
 
-TypeScript
-
 ```typescript
 const registry = {
   [SEARCH_ENGINE.TYPESENSE]: {
@@ -83,8 +79,6 @@ const registry = {
 This dictionary is used to bind/associate interfaces to their implementations in the injection container.
 
 #### The SearchManager
-
-TypeScript
 
 ```typescript
 export class SearchManager {
@@ -142,8 +136,6 @@ export class SearchManager {
 ### Usage in a controller
 
 SearchController The controller for research
-
-TypeScript
 
 ```typescript
 export default class SearchesController {
