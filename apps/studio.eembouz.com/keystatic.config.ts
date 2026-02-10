@@ -1,5 +1,6 @@
 import { config, fields, collection, singleton } from "@keystatic/core";
 import { block, wrapper, inline } from "@keystatic/core/content-components";
+import { StatusPost, StatusPostText } from "./enum/status.ts";
 
 export default config({
   storage: {
@@ -16,15 +17,22 @@ export default config({
       format: { contentField: "content" },
       schema: {
         title: fields.slug({ name: { label: "Title" } }),
-        isDraft: fields.checkbox({ label: "Draft", defaultValue: false }),
-
+        disclaimer: fields.text({ label: "Disclaimer", multiline: true }),
+        summary: fields.text({ label: "Summary", multiline: true }),
+        status: fields.select({
+          label: "Role",
+          description: "The person's role at the company",
+          options: Object.entries(StatusPost).map(([label, _]) => ({
+            label: label,
+            value: label.toLowerCase(),
+          })),
+          defaultValue: StatusPostText["1"].toLowerCase(),
+        }),
         thumbnail: fields.image({
           label: "Thumbnail",
           directory: "apps/blog.eembouz.com/public",
           publicPath: "/",
         }),
-
-        summary: fields.text({ label: "Summary", multiline: true }),
         pubDate: fields.date({ label: "Publication Date" }),
         author: fields.relationship({
           label: "Author",
@@ -92,13 +100,22 @@ export default config({
       format: { contentField: "content" },
       schema: {
         title: fields.slug({ name: { label: "Title" } }),
-        isDraft: fields.checkbox({ label: "Draft", defaultValue: false }),
+        disclaimer: fields.text({ label: "Disclaimer", multiline: true }),
+        summary: fields.text({ label: "Summary", multiline: true }),
+        status: fields.select({
+          label: "Role",
+          description: "The person's role at the company",
+          options: Object.entries(StatusPost).map(([label, _]) => ({
+            label: label,
+            value: label.toLowerCase(),
+          })),
+          defaultValue: StatusPostText["1"].toLowerCase(),
+        }),
         thumbnail: fields.image({
           label: "Thumbnail",
           directory: "apps/blog.eembouz.com/public",
           publicPath: "/",
         }),
-        summary: fields.text({ label: "Summary", multiline: true }),
         pubDate: fields.date({ label: "Publication Date" }),
         author: fields.relationship({
           label: "Author",

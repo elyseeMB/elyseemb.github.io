@@ -1,18 +1,20 @@
 ---
 import { getCollection } from "astro:content";
-import { filterLang, filterSeries, getTranslator } from "../libs/i18n.ts";
-import type { CollectionEntry } from "astro:content";
-import Collection from "./Collection.astro";
-import type { ItemDisplayed, OptionsCollection } from "../../config.ts";
+import type { OptionsCollection } from "../../config.ts";
 import { itemNormalizer } from "../functions/article.ts";
+import { filterLang, getTranslator } from "../libs/i18n.ts";
 import Card from "./Card.astro";
+import { getPublishedPosts } from "../libs/pushisedPost.ts";
 
 interface Props {
   title?: string;
   limit?: number;
 }
 
-const allPages = await getCollection("blog", filterLang(Astro.currentLocale));
+const allPages = await getPublishedPosts(
+  "blog",
+  filterLang(Astro.currentLocale)
+);
 
 const { title, limit } = Astro.props;
 
