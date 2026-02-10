@@ -1,7 +1,7 @@
 ---
 import fs from "fs/promises";
 import { parse } from "node-html-parser";
-import SkeletonBlock from "./SkeletonBlock.tsx";
+import SkeletonBlock from "./SkeletonBlock.astro";
 import { getTranslator } from "../libs/i18n.ts";
 const __ = await getTranslator(Astro.currentLocale);
 
