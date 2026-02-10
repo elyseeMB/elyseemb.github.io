@@ -32,9 +32,7 @@ L'envoi d'e-mail est un exemple parfait pour illustrer ce concept. Il s'agit d'u
 
 ```ts
 export abstract class SearchInterface {
-
   public abstract search(q: string): Promise<SearchResult>
-
 }
 ```
 
@@ -44,11 +42,8 @@ Avec ce contrat en place, cela permet au domaine métier de manipuler des concep
 
 ```ts
 export abstract class IndexerInterface<T = unknown> {
-
   public abstract IndexSingleDocument(items: SearchDocument): Promise<T>
-
   public abstract indexMultipleDocuments(items: SearchDocument[]): Promise<T>
-
 }
 ```
 
@@ -62,25 +57,15 @@ Pour visualiser comment tous ces **blocs** s'empilent, prenons l'exemple d'une i
 
 ```ts
 const registry = {
-
   [SEARCH_ENGINE.TYPESENSE]: {
-
     search: TypesenseSearch,
-
     indexer: TypesenseIndexer,
-
     client: TypesenseClient,
-
   },
-
   [SEARCH_ENGINE.MEILISEARCH]: {
-
     search: MeilisearchSearch,
-
     indexer: MeilisearchIndexer,
-
     client: MeilisearchClient,
-
   },
 
 }
@@ -92,99 +77,56 @@ Ce dictionnaire sert à **lier/associer** les interfaces à leurs implémentatio
 
 ```ts
 export class SearchManager {
-
   private searchDrivers: Map<TYPE_SEARCH, SearchInterface> = new Map()
-
   private indexerDrivers: Map<TYPE_SEARCH, IndexerInterface> = new Map()
-
   private clientDrivers: Map<TYPE_SEARCH, ClientHttpInterface> = new Map()
-
-  
 
   constructor(protected app: ApplicationService) {}
 
-  
-
   public get getEngine(): TYPE_SEARCH {
-
     return env.get('SEARCH_ENGINE') as TYPE_SEARCH
-
   }
-
-  
 
   public async client(name?: TYPE_SEARCH): Promise<ClientHttpInterface> {
-
     return this.getDriver('client', this.clientDrivers, name)
-
   }
-
-  
 
   public async register(name?: TYPE_SEARCH): Promise<SearchInterface> {
-
     return this.getDriver('search', this.searchDrivers, name)
-
   }
 
-  
-
   public async indexer(name?: TYPE_SEARCH): Promise<IndexerInterface> {
-
     return this.getDriver('indexer', this.indexerDrivers, name)
-
   }
 
   
 
   private async getDriver<T>(
-
     type: 'search' | 'indexer' | 'client',
-
     cache: Map<TYPE_SEARCH, T>,
-
     name?: TYPE_SEARCH
-
   ): Promise<T> {
-
     const engine = name || this.getEngine
-
   
-
     if (cache.has(engine)) {
-
       return cache.get(engine)!
-
     }
 
-  
-
     const driver = await this.resolve<T>(engine, type)
-
     cache.set(engine, driver)
-
     return driver
-
   }
 
   
 
   private async resolve<T>(engine: TYPE_SEARCH, type: 'search' | 'indexer' | 'client'): Promise<T> {
-
     const config = registry[engine]
-
   
-
     if (!config) {
-
       throw new Error(`${type} for "${engine}" not implemented`)
-
     }
-
     return (await this.app.container.make(config[type])) as T
-
   }
-
 }
 ```
 
@@ -199,31 +141,18 @@ export default class SearchesController {
 
   @inject()
   async handle({ response, request }: HttpContext, manager: SearchManager) {
-
     const q = request.qs().q ?? ''
-
     const searchTypesense = await manager.register(SEARCH_ENGINE.TYPESENSE)
-
     const searchMeilisearch = await manager.register(SEARCH_ENGINE.MEILISEARCH)
 
-  
-
     const resultsTypesense = await searchTypesense.search(q)
-
     const resultsMeilisearch = await searchMeilisearch.search(q)
 
-  
-
     return response.json({
-
       typesense: resultsTypesense,
-
       meilisearch: resultsMeilisearch,
-
     })
-
   }
-
 }
 ```
 
