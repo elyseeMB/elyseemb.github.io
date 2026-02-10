@@ -4,6 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import { Outline } from "../../components/Outline.jsx";
 import Prose from "@portfolio/ui/Prose";
 import Info from "../../components/Info.astro";
+import Disclaimer from "../../components/Disclaimer.astro";
 
 interface Props {
   item: CollectionEntry<"blog">;
@@ -12,7 +13,14 @@ interface Props {
 const { item } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(item);
 
-const { seo: seoProps, taxonomies, author, pubDate, thumbnail } = item.data;
+const {
+  seo: seoProps,
+  taxonomies,
+  author,
+  pubDate,
+  thumbnail,
+  disclaimer,
+} = item.data;
 
 const metaData = {
   title: item.data.title,
@@ -55,9 +63,9 @@ const seo = seoProps ? seoProps : metaData;
 
     <div class="container medium">
       <Prose>
+        {disclaimer && <Disclaimer disclaimer={disclaimer} />}
         <Content />
       </Prose>
-
       <Outline client:load />
     </div>
   </section>
