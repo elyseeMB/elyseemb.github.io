@@ -43,7 +43,11 @@ export default config({
           fields.url({
             label: "References",
             description: "Reference associated with the article",
-          })
+          }),
+          {
+            label: "References",
+            description: "Reference associated with the article",
+          }
         ),
 
         thumbnail: fields.image({
@@ -153,6 +157,16 @@ export default config({
           })),
           defaultValue: StatusPostText["1"].toLowerCase(),
         }),
+        references: fields.array(
+          fields.url({
+            label: "References",
+            description: "Reference associated with the article",
+          }),
+          {
+            label: "References",
+            description: "Reference associated with the article",
+          }
+        ),
         thumbnail: fields.image({
           label: "Thumbnail",
           description: "Main image used as the article thumbnail or preview",
