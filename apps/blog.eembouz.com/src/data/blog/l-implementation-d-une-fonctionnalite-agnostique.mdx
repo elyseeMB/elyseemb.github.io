@@ -1,11 +1,13 @@
 ---
 title: L'implémentation d'une fonctionnalité agnostique.
-isDraft: true
+status: draft
 author: elysee
 taxonomies:
   - best-practices-clean-code
   - programming
+pubDate: 2026-08-12
 ---
+
 Avant même d'écrire une seule ligne de code, l'une des plus grandes priorités dans le processus de création d'une app est de faire un bilan global et d'identifier les tenants et aboutissants du domaine métier ; c'est ainsi que le choix d'une stack s'impose. Par ailleurs, dans l'architecture d'une app, plusieurs services d'infrastructure peuvent se greffer autour du Kernel (core), cœur de l'application. L'implémentation de ces couches se doit d'être agnostique au domaine métier : cette isolation permet de mieux scaler et de garantir une unicité globale de la nature de l'application, indépendamment des spécificités fonctionnelles qu'elle porte.
 
 > **Petit aparté :** Si la littérature technique souligne souvent que le Cœur (Métier) doit être agnostique de la Stack (Infrastructure), il est tout aussi crucial de considérer l'inverse. Concevoir des services d'infrastructure qui ignorent tout des spécificités métier permet de créer des outils transversaux (recherche, logs, stockage, mailer) **découplés par couches de communication**.
@@ -16,23 +18,19 @@ L'envoi d'e-mail est un exemple parfait pour illustrer ce concept. Il s'agit d'u
 
 ```ts
 export abstract class SearchInterface {
-
-  public abstract search(q: string): Promise<SearchResult>
-
+  public abstract search(q: string): Promise<SearchResult>;
 }
 ```
 
-*exemple d'une interface pour la recherche*
+_exemple d'une interface pour la recherche_
 
 Avec ce contrat en place cela permet au domaine métier de manipuler des concepts de recherche sans jamais avoir conscience de la stack technique sous-jacente.
 
 ```ts
 export abstract class IndexerInterface<T = unknown> {
+  public abstract IndexSingleDocument(items: SearchDocument): Promise<T>;
 
-  public abstract IndexSingleDocument(items: SearchDocument): Promise<T>
-
-  public abstract indexMultipleDocuments(items: SearchDocument[]): Promise<T>
-
+  public abstract indexMultipleDocuments(items: SearchDocument[]): Promise<T>;
 }
 ```
 
@@ -45,144 +43,95 @@ Pour visualiser comment tous ces **blocs** s’empilent, prenons l’exemple d'u
 ## la recherche
 
 ```ts
-  export class SearchManager {
+export class SearchManager {
+  private searchDrivers: Map<TYPE_SEARCH, SearchInterface> = new Map();
+  private indexerDrivers: Map<TYPE_SEARCH, IndexerInterface> = new Map();
 
-  private searchDrivers: Map<TYPE_SEARCH, SearchInterface> = new Map()
-  
-  private indexerDrivers: Map<TYPE_SEARCH, IndexerInterface> = new Map()
+  constructor(protected app: ApplicationService) {}
 
-  
-
-  constructor(protected app: ApplicationService) {}
-
-  
-
-  public get getEngine(): TYPE_SEARCH {
-
-    return env.get('SEARCH_ENGINE') as TYPE_SEARCH
-
-  }
-
-  
-
-  /**
+  public get getEngine(): TYPE_SEARCH {
+    return env.get("SEARCH_ENGINE") as TYPE_SEARCH;
+  } /**
 
    * search
 
    */
 
-  public async search(name?: TYPE_SEARCH): Promise<SearchInterface> {
+  public async search(name?: TYPE_SEARCH): Promise<SearchInterface> {
+    const engine = name || (env.get("SEARCH_ENGINE") as TYPE_SEARCH);
 
-    const engine = name || (env.get('SEARCH_ENGINE') as TYPE_SEARCH)
+    if (this.searchDrivers.has(engine)) {
+      return this.searchDrivers.get(engine)!;
+    }
 
-    if (this.searchDrivers.has(engine)) {
+    const search = await this.getDriver<SearchInterface>(engine, "search");
 
-      return this.searchDrivers.get(engine)!
+    this.searchDrivers.set(engine, search);
 
-    }
-
-    const search = await this.getDriver<SearchInterface>(engine, 'search')
-
-    this.searchDrivers.set(engine, search)
-
-    return search
-
-  }
-
-  
-
-  /**
+    return search;
+  } /**
 
    * indexer
 
    */
 
-  public async indexer(name?: TYPE_SEARCH): Promise<IndexerInterface> {
+  public async indexer(name?: TYPE_SEARCH): Promise<IndexerInterface> {
+    const engine = name || (env.get("SEARCH_ENGINE") as TYPE_SEARCH);
 
-    const engine = name || (env.get('SEARCH_ENGINE') as TYPE_SEARCH)
+    if (this.indexerDrivers.has(engine)) {
+      return this.indexerDrivers.get(engine)!;
+    }
 
-    if (this.indexerDrivers.has(engine)) {
+    const indexer = await this.getDriver<IndexerInterface>(engine, "indexer");
 
-      return this.indexerDrivers.get(engine)!
+    this.indexerDrivers.set(engine, indexer);
 
-    }
+    return indexer;
+  }
 
-    const indexer = await this.getDriver<IndexerInterface>(engine, 'indexer')
+  private async getDriver<T>(
+    engine: TYPE_SEARCH,
+    type: "search" | "indexer"
+  ): Promise<T> {
+    const driversConfig = {
+      [SEARCH_ENGINE.TYPESENSE]: {
+        search: TypesenseSearch,
 
-    this.indexerDrivers.set(engine, indexer)
+        indexer: TypesenseIndexer,
+      },
 
-    return indexer
+      [SEARCH_ENGINE.MEILISEARCH]: {
+        search: MeilisearchSearch,
 
-  }
+        indexer: MeilisearchIndexer,
+      },
+    };
 
-  
+    const config = driversConfig[engine];
 
-  private async getDriver<T>(engine: TYPE_SEARCH, type: 'search' | 'indexer'): Promise<T> {
+    if (!config) {
+      throw new Error(
+        `Search engine "${engine}" is not fully implemented for type "${type}".`
+      );
+    }
 
-    const driversConfig = {
-
-      [SEARCH_ENGINE.TYPESENSE]: {
-
-        search: TypesenseSearch,
-
-        indexer: TypesenseIndexer,
-
-      },
-
-      [SEARCH_ENGINE.MEILISEARCH]: {
-
-        search: MeilisearchSearch,
-
-        indexer: MeilisearchIndexer,
-
-      },
-
-    }
-
-  
-
-    const config = driversConfig[engine]
-
-  
-
-    if (!config) {
-
-      throw new Error(`Search engine "${engine}" is not fully implemented for type "${type}".`)
-
-    }
-
-  
-
-    return (await this.app.container.make(config[type])) as T
-
-  }
-
+    return (await this.app.container.make(config[type])) as T;
+  }
 }
 ```
 
-`SearchManager`  sélectionne le moteur souhaité (env ou paramètre), l'instancie dynamiquement via le container et retourne l'interface correspondante. Cette approche permet de basculer d'un moteur de recherche à un autre.
+`SearchManager` sélectionne le moteur souhaité (env ou paramètre), l'instancie dynamiquement via le container et retourne l'interface correspondante. Cette approche permet de basculer d'un moteur de recherche à un autre.
 
 ```ts
-  export default class SearchesController {
+export default class SearchesController {
+  @inject()
+  async handle({ response, request }: HttpContext, manager: SearchManager) {
+    const q = request.qs().q ?? "";
+    const search = await manager.register(SEARCH_ENGINE.MEILISEARCH);
+    const results = await search.search(q);
 
-  @inject()
-
-  async handle({ response, request }: HttpContext, manager: SearchManager) {
-
-    const q = request.qs().q ?? ''
-    
-    
-    const search = await manager.register(SEARCH_ENGINE.MEILISEARCH)
-    
-
-    const results = await search.search(q)
-
-  
-
-    return response.json(results.getItems())
-
-  }
-
+    return response.json(results.getItems());
+  }
 }
 ```
 

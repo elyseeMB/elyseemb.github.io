@@ -5,8 +5,12 @@ import { filterLang, getTranslator, filterSeries } from "../../libs/i18n.ts";
 import Collection from "../../components/Collection.astro";
 import { type OptionsCollection } from "../../../config.ts";
 import { itemNormalizer } from "../../functions/article.ts";
+import { getPublishedPosts } from "../../libs/pushisedPost.ts";
 
-const allPages = await getCollection("blog", filterLang(Astro.currentLocale));
+const allPages = await getPublishedPosts(
+  "blog",
+  filterLang(Astro.currentLocale)
+);
 
 const __ = await getTranslator(Astro.currentLocale);
 
