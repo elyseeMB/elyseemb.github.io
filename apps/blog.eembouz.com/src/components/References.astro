@@ -1,43 +1,119 @@
 ---
+import fs from "fs/promises";
+import { parse } from "node-html-parser";
+import SkeletonBlock from "./SkeletonBlock.astro";
+import { getTranslator } from "../libs/i18n.ts";
+const __ = await getTranslator(Astro.currentLocale);
+
 interface Props {
   references: string[];
 }
 
 const { references } = Astro.props;
 
-async function getOpenGraphImage(url: string) {
+const CACHE_FILE = ".cache/link-previews.json";
+
+let cache: Record<string, { image: string | null; title: string }> = {};
+try {
+  const data = await fs.readFile(CACHE_FILE, "utf-8");
+  cache = JSON.parse(data);
+} catch {
+  console.log("No cache found");
+}
+
+async function getLinkPreview(url: string) {
+  if (cache[url]) {
+    return cache[url];
+  }
+
   try {
-    const html = await fetch(url).then((r) => r.text());
-    const ogImageMatch = html.match(
-      /<meta\s+property=["']og:image["']\s+content=["']([^"']+)["']/i
-    );
-    const twitterImageMatch = html.match(
-      /<meta\s+name=["']twitter:image["']\s+content=["']([^"']+)["']/i
-    );
-    return ogImageMatch?.[1] || twitterImageMatch?.[1] || null;
+    const html = await fetch(url, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+        Accept: "text/html",
+      },
+    }).then((r) => r.text());
+
+    const dom = parse(html);
+
+    const ogImage = dom
+      .querySelector('meta[property="og:image"]')
+      ?.getAttribute("content");
+    const twitterImage = dom
+      .querySelector('meta[name="twitter:image"]')
+      ?.getAttribute("content");
+
+    const ogTitle = dom
+      .querySelector('meta[property="og:title"]')
+      ?.getAttribute("content");
+    const twitterTitle = dom
+      .querySelector('meta[name="twitter:title"]')
+      ?.getAttribute("content");
+    const title = dom.querySelector("title")?.textContent;
+
+    const result = {
+      image: ogImage || twitterImage || null,
+      title: ogTitle || twitterTitle || title || url,
+    };
+
+    cache[url] = result;
+
+    return result;
   } catch (error) {
-    console.error("Erreur fetch:", error);
-    return null;
+    const fallback = { image: null, title: url };
+    cache[url] = fallback;
+    return fallback;
   }
 }
 
 const metaImages = await Promise.all(
   references.map(async (url) => ({
     url,
-    image: await getOpenGraphImage(url),
+    ...(await getLinkPreview(url)),
   }))
 );
+
+await fs.mkdir(".cache", { recursive: true });
+await fs.writeFile(CACHE_FILE, JSON.stringify(cache, null, 2));
 ---
 
-<div class="references">
-  {
-    metaImages.map(({ url, image }) => (
-      <div class="reference-card">
-        {image && <img src={image} alt="Preview" class="preview-image" />}
-        <a href={url} target="_blank" rel="noopener noreferrer">
-          {url}
-        </a>
-      </div>
-    ))
-  }
+<div class="flex flex-col gap-5 pt-5 border-t border-[var(--secondary)]">
+  <span class="text-xl">
+    {__("Sources")}
+  </span>
+  <div class="grid grid-cols-1 divide-y divide-[var(--secondary)]">
+    {
+      metaImages.length > 0 ? (
+        metaImages.map(({ url, image, title }) => (
+          <div class=" h-fit relative flex  items-start justify-between ">
+            {image ? (
+              <img
+                src={image}
+                alt="Preview"
+                class="object-cover h-20 aspect-video p-0! m-0!"
+                loading="lazy"
+              />
+            ) : (
+              <SkeletonBlock />
+            )}
+            <a
+              class="text-sm before:absolute before:inset-0 before:content-[''] before:w-full before:h-full decoration-0 no-underline hover:underline"
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {title}
+            </a>
+          </div>
+        ))
+      ) : (
+        <>
+          {Array.from({ length: 3 }, (_, k) => (
+            <SkeletonBlock />
+          ))}
+        </>
+      )
+    }
+  </div>
 </div>

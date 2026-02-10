@@ -9,22 +9,19 @@ disclaimer: >-
   L'objectif est de partager des pistes concrètes, pas d'imposer un dogme
   architectural.
 summary: >-
-  Une approche pragmatique pour découpler vos services d'infrastructure du
-  domaine métier grâce à des contrats et l'injection de dépendances. L'isolation
-  par couches de communication garantit scalabilité et flexibilité
-  technologique.
-status: draft
+  Découplez votre domaine métier de l'infrastructure via des interfaces et
+  l'injection de dépendances. Cette architecture en couches facilite l'évolution
+  technique et le passage à l'échelle.
+status: public
 references:
   - https://github.com/elyseeMB/SearchLayer
-  - https://medium.com/better-programming/building-a-sync-bridge-ccbd9fd920b5
-  - https://grafikart.fr/blog/je-deteste-plus-tailwindcss
-  - https://romainlanz.com/articles/l-ia-est-un-outil-pas-un-pilote
-thumbnail: /l-implementation-d-une-fonctionnalite-agnostique/thumbnail.png
+thumbnail: >-
+  /isolation-par-contrats-rendre-l-infrastructure-independante-du-metier/thumbnail.png
 pubDate: 2026-02-10
 author: elysee
 taxonomies:
-  - best-practices-clean-code
   - programming
+  - best-practices-clean-code
 ---
 Avant même d'écrire une seule ligne de code, l'une des plus grandes priorités dans le processus de création d'une app est de faire un bilan global et d'identifier les tenants et aboutissants du domaine métier ; c'est ainsi que le choix d'une stack s'impose. Par ailleurs, dans l'architecture d'une app, plusieurs services d'infrastructure peuvent se greffer autour du Kernel (core), cœur de l'application. L'implémentation de ces couches se doit d'être agnostique au domaine métier : cette isolation permet de mieux scaler et de garantir une unicité globale de la nature de l'application, indépendamment des spécificités fonctionnelles qu'elle porte.
 
@@ -162,8 +159,7 @@ export default class SearchesController {
 }
 ```
 
-> **Note :** Cet exemple dépend de votre projet et de vos besoins. Il est
-> volontairement simplifié pour illustrer le concept.
+> **Note :** Cet exemple dépend de votre projet et de vos besoins. Il est volontairement simplifié pour illustrer le concept.
 
 ## Conclusion
 

@@ -164,6 +164,7 @@ export default config({
             description: "Reference associated with the article",
           }),
           {
+            itemLabel: (props) => props.value || "Select reference",
             label: "References",
             description: "Reference associated with the article",
           }
