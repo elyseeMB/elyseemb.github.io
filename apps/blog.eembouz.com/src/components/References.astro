@@ -18,11 +18,7 @@ try {
   const data = await fs.readFile(CACHE_FILE, "utf-8");
   cache = JSON.parse(data);
 } catch {
-  return {
-    url,
-    image: null,
-    title: url,
-  };
+  console.log("No cache found");
 }
 
 async function getLinkPreview(url: string) {
