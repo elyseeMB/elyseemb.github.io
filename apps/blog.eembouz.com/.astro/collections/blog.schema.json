@@ -10,6 +10,9 @@
         "slug": {
           "type": "string"
         },
+        "disclaimer": {
+          "type": "string"
+        },
         "contentType": {
           "type": "number",
           "enum": [
@@ -18,9 +21,14 @@
           ],
           "default": 1
         },
-        "isDraft": {
-          "type": "boolean",
-          "default": false
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "public",
+            "private"
+          ],
+          "default": "draft"
         },
         "taxonomies": {
           "type": "array",

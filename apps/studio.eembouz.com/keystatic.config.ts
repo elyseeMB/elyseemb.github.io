@@ -1,5 +1,6 @@
 import { config, fields, collection, singleton } from "@keystatic/core";
 import { block, wrapper, inline } from "@keystatic/core/content-components";
+import { StatusPost, StatusPostText } from "./enum/status.ts";
 
 export default config({
   storage: {
@@ -15,25 +16,54 @@ export default config({
       path: "apps/blog.eembouz.com/src/data/blog/*",
       format: { contentField: "content" },
       schema: {
-        title: fields.slug({ name: { label: "Title" } }),
-        isDraft: fields.checkbox({ label: "Draft", defaultValue: false }),
-
+        title: fields.slug({
+          name: { label: "Title", description: "The article’s title" },
+        }),
+        disclaimer: fields.text({
+          label: "Disclaimer",
+          description:
+            "A legal or informational disclaimer related to the article",
+          multiline: true,
+        }),
+        summary: fields.text({
+          label: "Summary",
+          description: "A short summary of the article’s content",
+          multiline: true,
+        }),
+        status: fields.select({
+          label: "Status",
+          description: "The current status of the article",
+          options: Object.entries(StatusPost).map(([label, _]) => ({
+            label: label,
+            value: label.toLowerCase(),
+          })),
+          defaultValue: StatusPostText["1"].toLowerCase(),
+        }),
         thumbnail: fields.image({
           label: "Thumbnail",
+          description: "Main image used as the article thumbnail or preview",
           directory: "apps/blog.eembouz.com/public",
           publicPath: "/",
         }),
-
-        summary: fields.text({ label: "Summary", multiline: true }),
-        pubDate: fields.date({ label: "Publication Date" }),
+        pubDate: fields.date({
+          label: "Publication Date",
+          description: "The date the article is published",
+        }),
         author: fields.relationship({
           label: "Author",
+          description: "The author responsible for this article",
           collection: "authors",
           validation: { isRequired: true },
         }),
         taxonomies: fields.array(
-          fields.relationship({ label: "Taxonomy", collection: "taxonomies" }),
+          fields.relationship({
+            label: "Taxonomy",
+            description: "Category or tag associated with the article",
+            collection: "taxonomies",
+          }),
+
           {
+            description: "Categories or tags used to organize the articl",
             label: "Taxonomies",
             itemLabel: (props) => props.value || "Select taxonomy",
           }
@@ -41,6 +71,7 @@ export default config({
 
         content: fields.mdx({
           label: "Content",
+          description: "Main body content of the article",
           options: {
             image: {
               directory: "apps/blog.eembouz.com/public",
@@ -91,22 +122,52 @@ export default config({
       path: "apps/blog.eembouz.com/src/data/blog/en/*",
       format: { contentField: "content" },
       schema: {
-        title: fields.slug({ name: { label: "Title" } }),
-        isDraft: fields.checkbox({ label: "Draft", defaultValue: false }),
+        title: fields.slug({
+          name: { label: "Title", description: "The article’s title" },
+        }),
+        disclaimer: fields.text({
+          label: "Disclaimer",
+          description:
+            "A legal or informational disclaimer related to the article",
+          multiline: true,
+        }),
+        summary: fields.text({
+          label: "Summary",
+          description: "A short summary of the article’s content",
+          multiline: true,
+        }),
+        status: fields.select({
+          label: "Status",
+          description: "The current status of the article",
+          options: Object.entries(StatusPost).map(([label, _]) => ({
+            label: label,
+            value: label.toLowerCase(),
+          })),
+          defaultValue: StatusPostText["1"].toLowerCase(),
+        }),
         thumbnail: fields.image({
           label: "Thumbnail",
+          description: "Main image used as the article thumbnail or preview",
           directory: "apps/blog.eembouz.com/public",
           publicPath: "/",
         }),
-        summary: fields.text({ label: "Summary", multiline: true }),
-        pubDate: fields.date({ label: "Publication Date" }),
+        pubDate: fields.date({
+          label: "Publication Date",
+          description: "The date the article is published",
+        }),
         author: fields.relationship({
           label: "Author",
+          description: "The author responsible for this article",
           collection: "authors",
           validation: { isRequired: true },
         }),
         taxonomies: fields.array(
-          fields.relationship({ label: "Taxonomy", collection: "taxonomies" }),
+          fields.relationship({
+            label: "Taxonomy",
+            description: "Category or tag associated with the article",
+            collection: "taxonomies",
+          }),
+
           {
             label: "Taxonomies",
             itemLabel: (props) => props.value || "Select taxonomy",
@@ -114,6 +175,7 @@ export default config({
         ),
         content: fields.mdx({
           label: "Content",
+          description: "Main body content of the article",
           options: {
             image: {
               directory: "apps/blog.eembouz.com/public",

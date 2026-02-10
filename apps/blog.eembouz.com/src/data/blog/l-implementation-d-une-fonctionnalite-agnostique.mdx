@@ -1,0 +1,138 @@
+---
+title: L'implémentation d'une fonctionnalité agnostique.
+status: draft
+author: elysee
+taxonomies:
+  - best-practices-clean-code
+  - programming
+pubDate: 2026-08-12
+---
+
+Avant même d'écrire une seule ligne de code, l'une des plus grandes priorités dans le processus de création d'une app est de faire un bilan global et d'identifier les tenants et aboutissants du domaine métier ; c'est ainsi que le choix d'une stack s'impose. Par ailleurs, dans l'architecture d'une app, plusieurs services d'infrastructure peuvent se greffer autour du Kernel (core), cœur de l'application. L'implémentation de ces couches se doit d'être agnostique au domaine métier : cette isolation permet de mieux scaler et de garantir une unicité globale de la nature de l'application, indépendamment des spécificités fonctionnelles qu'elle porte.
+
+> **Petit aparté :** Si la littérature technique souligne souvent que le Cœur (Métier) doit être agnostique de la Stack (Infrastructure), il est tout aussi crucial de considérer l'inverse. Concevoir des services d'infrastructure qui ignorent tout des spécificités métier permet de créer des outils transversaux (recherche, logs, stockage, mailer) **découplés par couches de communication**.
+
+Dans la continuité de cet article, le terme couche de communication désigne les couches d’entrée (HTTP, CLI, broker) qui implémentent des contrats définis par le cœur applicatif. Qu'il s'agisse d'une requête transmise via une API REST (HTTP), d'une instruction saisie dans un terminal (CLI), ou même d'un message provenant d'un broker (RabbitMQ/Kafka), cette couche est annexe au domaine métier ; elle a pour unique responsabilité de traduire un signal extérieur en une commande compréhensible par notre service.
+
+L'envoi d'e-mail est un exemple parfait pour illustrer ce concept. Il s'agit d'une infrastructure annexe à notre application qui, même en cas d'interruption, ne doit pas bloquer l’exécution du cœur du système.
+
+```ts
+export abstract class SearchInterface {
+  public abstract search(q: string): Promise<SearchResult>;
+}
+```
+
+_exemple d'une interface pour la recherche_
+
+Avec ce contrat en place cela permet au domaine métier de manipuler des concepts de recherche sans jamais avoir conscience de la stack technique sous-jacente.
+
+```ts
+export abstract class IndexerInterface<T = unknown> {
+  public abstract IndexSingleDocument(items: SearchDocument): Promise<T>;
+
+  public abstract indexMultipleDocuments(items: SearchDocument[]): Promise<T>;
+}
+```
+
+L'Indexer sert ici de pivot : il définit le contrat que nos couches de communication (HTTP, CLI) devront respecter. Que l'ordre provienne d'une action utilisateur ou d'une maintenance en CLI, l'appel à ces méthodes garantit une exécution identique.
+
+## Exemple d'implémentation
+
+Pour visualiser comment tous ces **blocs** s’empilent, prenons l’exemple d'une implémentation de recherche. Cette approche permet d'intégrer n'importe quel moteur de recherche selon vos besoins, qu'ils soient globaux ou spécifiques. Par exemple, on peut utiliser Typesense pour l'optimisation de données de géolocalisation, ou Meilisearch pour traiter de grandes quantités de texte. Le SearchManager ci-dessous orchestre cette flexibilité en choisissant un moteur (via l'environnement ou un paramètre) et en retournant l'interface correspondante grâce au conteneur d'injection de dépendances.
+
+## la recherche
+
+```ts
+export class SearchManager {
+  private searchDrivers: Map<TYPE_SEARCH, SearchInterface> = new Map();
+  private indexerDrivers: Map<TYPE_SEARCH, IndexerInterface> = new Map();
+
+  constructor(protected app: ApplicationService) {}
+
+  public get getEngine(): TYPE_SEARCH {
+    return env.get("SEARCH_ENGINE") as TYPE_SEARCH;
+  } /**
+
+   * search
+
+   */
+
+  public async search(name?: TYPE_SEARCH): Promise<SearchInterface> {
+    const engine = name || (env.get("SEARCH_ENGINE") as TYPE_SEARCH);
+
+    if (this.searchDrivers.has(engine)) {
+      return this.searchDrivers.get(engine)!;
+    }
+
+    const search = await this.getDriver<SearchInterface>(engine, "search");
+
+    this.searchDrivers.set(engine, search);
+
+    return search;
+  } /**
+
+   * indexer
+
+   */
+
+  public async indexer(name?: TYPE_SEARCH): Promise<IndexerInterface> {
+    const engine = name || (env.get("SEARCH_ENGINE") as TYPE_SEARCH);
+
+    if (this.indexerDrivers.has(engine)) {
+      return this.indexerDrivers.get(engine)!;
+    }
+
+    const indexer = await this.getDriver<IndexerInterface>(engine, "indexer");
+
+    this.indexerDrivers.set(engine, indexer);
+
+    return indexer;
+  }
+
+  private async getDriver<T>(
+    engine: TYPE_SEARCH,
+    type: "search" | "indexer"
+  ): Promise<T> {
+    const driversConfig = {
+      [SEARCH_ENGINE.TYPESENSE]: {
+        search: TypesenseSearch,
+
+        indexer: TypesenseIndexer,
+      },
+
+      [SEARCH_ENGINE.MEILISEARCH]: {
+        search: MeilisearchSearch,
+
+        indexer: MeilisearchIndexer,
+      },
+    };
+
+    const config = driversConfig[engine];
+
+    if (!config) {
+      throw new Error(
+        `Search engine "${engine}" is not fully implemented for type "${type}".`
+      );
+    }
+
+    return (await this.app.container.make(config[type])) as T;
+  }
+}
+```
+
+`SearchManager` sélectionne le moteur souhaité (env ou paramètre), l'instancie dynamiquement via le container et retourne l'interface correspondante. Cette approche permet de basculer d'un moteur de recherche à un autre.
+
+```ts
+export default class SearchesController {
+  @inject()
+  async handle({ response, request }: HttpContext, manager: SearchManager) {
+    const q = request.qs().q ?? "";
+    const search = await manager.register(SEARCH_ENGINE.MEILISEARCH);
+    const results = await search.search(q);
+
+    return response.json(results.getItems());
+  }
+}
+```
+
+## indexation

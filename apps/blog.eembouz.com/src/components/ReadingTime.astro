@@ -11,7 +11,31 @@ const { time, icon = false } = Astro.props;
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
-<span> {Math.ceil(time) + " " + "min"}</span>
+<div class="flex items-center gap-2">
+  {
+    icon && (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-clock3-icon lucide-clock-3"
+      >
+        <>
+          <path d="M12 6v6h4" />
+          <circle cx="12" cy="12" r="10" />
+        </>
+      </svg>
+    )
+  }
+
+  <span> {Math.ceil(time) + " " + "min"}</span>
+</div>
 
 <!-- 
 <div class="animate-slide-in animation-delay-200">
