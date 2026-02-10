@@ -1,0 +1,43 @@
+---
+interface Props {
+  references: string[];
+}
+
+const { references } = Astro.props;
+
+async function getOpenGraphImage(url: string) {
+  try {
+    const html = await fetch(url).then((r) => r.text());
+    const ogImageMatch = html.match(
+      /<meta\s+property=["']og:image["']\s+content=["']([^"']+)["']/i
+    );
+    const twitterImageMatch = html.match(
+      /<meta\s+name=["']twitter:image["']\s+content=["']([^"']+)["']/i
+    );
+    return ogImageMatch?.[1] || twitterImageMatch?.[1] || null;
+  } catch (error) {
+    console.error("Erreur fetch:", error);
+    return null;
+  }
+}
+
+const metaImages = await Promise.all(
+  references.map(async (url) => ({
+    url,
+    image: await getOpenGraphImage(url),
+  }))
+);
+---
+
+<div class="references">
+  {
+    metaImages.map(({ url, image }) => (
+      <div class="reference-card">
+        {image && <img src={image} alt="Preview" class="preview-image" />}
+        <a href={url} target="_blank" rel="noopener noreferrer">
+          {url}
+        </a>
+      </div>
+    ))
+  }
+</div>
