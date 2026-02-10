@@ -11,6 +11,7 @@ const blog = defineCollection({
     contentType: z.nativeEnum(ContentType).default(1),
     status: z.enum(["draft", "public", "private"]).default("draft"),
     taxonomies: z.array(reference("taxonomies")).optional(),
+    references: z.array(z.string()).optional(),
     thumbnail: z.string().optional(),
     summary: z.string().optional(),
     pubDate: z.coerce.date().optional(),

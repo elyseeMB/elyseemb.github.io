@@ -5,6 +5,7 @@ import { Outline } from "../../components/Outline.jsx";
 import Prose from "@portfolio/ui/Prose";
 import Info from "../../components/Info.astro";
 import Disclaimer from "../../components/Disclaimer.astro";
+import { References } from "../../components/References.jsx";
 
 interface Props {
   item: CollectionEntry<"blog">;
@@ -20,6 +21,7 @@ const {
   pubDate,
   thumbnail,
   disclaimer,
+  references,
 } = item.data;
 
 const metaData = {
@@ -65,7 +67,9 @@ const seo = seoProps ? seoProps : metaData;
       <Prose>
         {disclaimer && <Disclaimer disclaimer={disclaimer} />}
         <Content />
+        {references && <References references={references} client:visible />}
       </Prose>
+
       <Outline client:load />
     </div>
   </section>
