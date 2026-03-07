@@ -33,40 +33,36 @@ const formatDate = Intl.DateTimeFormat(Astro.currentLocale, {
 const getTaxonomies = await Promise.all(
   taxonomies
     ? taxonomies?.map(
-        async (taxonomy) => await getEntry(taxonomy.collection, taxonomy.id)
+        async (taxonomy) => await getEntry(taxonomy.collection, taxonomy.id),
       )
-    : []
+    : [],
 );
 const cleanTitle = title.replace(/[^\p{L}\p{N}\s'']/gu, "");
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
-<div
-  class={clsx(
-    className,
-    "info grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5 pb-10 lg:pb-[5rem]"
-  )}
->
+<div class={clsx(className, "flex flex-col")}>
   <BlockInfo
     className="flex flex-col gap-4 md:col-span-2 lg:col-span-2 animate-blur-in"
   >
     <Label title={__("Résumé")} />
-    <h1 class="text-sm text-balance uppercase w-full">
+    <h1 class="lg:text-[3rem] lg:leading-none text-balance w-full">
       {cleanTitle}
     </h1>
-    <p class="uppercase text-[var(--color-secondary)] text-[0.7rem]">
+    <p
+      class="text-[var(--color-secondary)] text-[0.7rem] max-w-full lg:max-w-2/4"
+    >
       {item.data.summary}
     </p>
   </BlockInfo>
 
-  <div class="lg:col-start-4 lg:col-span-2 grid grid-cols-2">
+  <hr class="my-5 border-[var(--secondary)]" />
+
+  <div class="flex flex-col">
     <BlockInfo
       className="flex flex-col gap-4 uppercase text-[0.7rem] animate-blur-in animation-delay-200"
     >
-      <Label title={__("Métriques")} />
-      <div
-        class="flex flex-col items-start gap-1 text-[var(--color-secondary)]"
-      >
+      <div class="flex items-start gap-5 text-[var(--color-secondary)]">
         <Writer icon author={author} />
         <ReadingTime icon time={readingTime!} />
         <span class="uppercase flex items-center gap-2">
@@ -93,16 +89,16 @@ const __ = await getTranslator(Astro.currentLocale);
       </div>
     </BlockInfo>
 
+    <hr class="my-5 border-[var(--secondary)]" />
+
     <BlockInfo
       className="flex flex-col gap-4 animate-blur-in animation-delay-300"
     >
-      <Label title={__("Taxonomie")} />
-
       {
         getTaxonomies && (
-          <div class="flex flex-col gap-1 uppercase text-[0.7rem] text-[var(--color-secondary)]">
+          <div class="flex gap-2 text-[0.7rem] text-[var(--color-secondary)]">
             {getTaxonomies.map((taxonomy) => (
-              <div>{taxonomy?.data.name}</div>
+              <div class="italic">{taxonomy?.data.name}</div>
             ))}
           </div>
         )
