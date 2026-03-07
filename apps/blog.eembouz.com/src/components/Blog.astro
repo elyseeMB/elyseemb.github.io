@@ -13,7 +13,7 @@ interface Props {
 
 const allPages = await getPublishedPosts(
   "blog",
-  filterLang(Astro.currentLocale)
+  filterLang(Astro.currentLocale),
 );
 
 const { title, limit } = Astro.props;
@@ -22,6 +22,7 @@ const doc = itemNormalizer(allPages);
 
 const options: OptionsCollection = {
   showYear: false,
+  description: true,
 };
 const __ = await getTranslator(Astro.currentLocale);
 ---

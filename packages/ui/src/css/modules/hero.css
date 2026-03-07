@@ -23,7 +23,7 @@
 
 .hero::before {
   left: 10px;
-  top: 5px;
+  top: 150px;
 }
 
 .hero::after {

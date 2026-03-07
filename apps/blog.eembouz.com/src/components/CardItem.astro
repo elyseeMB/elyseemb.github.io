@@ -47,13 +47,13 @@ const isArticlePage = Astro.url.pathname.includes("articles");
   data-overlay
   class={clx(
     className,
-    "blog-article uppercase relative item flex items-center justify-between gap-4 py-4"
+    "blog-article relative item flex items-center justify-between gap-4 py-4",
   )}
 >
   <div
     class="flex flex-col items-start gap-1 text-sm lg:text-lg lg:grid lg:grid-cols-5 w-full"
   >
-    <div class="flex items-center gap-2 relative col-1">
+    <div class="flex items-center gap-2 relative col-1 text-sm uppercase">
       <div
         class="before:content-[''] block w-2.5 h-2.5 inset-0 bg-[var(--primary)]"
       >
@@ -63,10 +63,10 @@ const isArticlePage = Astro.url.pathname.includes("articles");
 
     <Link href={url}>
       {options.showBadge && <Badge contentTypeId={props.data.contentType} />}
-      <h3>{props.data.title}</h3>
+      <h3 class="uppercase">{props.data.title}</h3>
       {
         options.description && (
-          <p class="item__description">{props.data.summary}</p>
+          <p class="leading-normal! text-white!">{props.data.summary}</p>
         )
       }
     </Link>

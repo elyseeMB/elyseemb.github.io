@@ -1,12 +1,5 @@
 ---
-import {
-  ContentType,
-  type Collection,
-  type OptionsCollection,
-} from "../../config.ts";
-import { between } from "../functions/helper.ts";
-import Article from "./Article.astro";
-import ItemSerie from "./ItemSerie.astro";
+import { type Collection, type OptionsCollection } from "../../config.ts";
 import CardItem from "./CardItem.astro";
 
 interface Props {
@@ -46,7 +39,7 @@ const isSeriesPage = Astro.url.pathname.includes("series");
     class="flex flex-1 flex-col divide-y divide-[var(--secondary)]"
   >
     {
-      items.map((article, index) => (
+      items.map((article) => (
         <CardItem
           data-overlay={true}
           className="relative"

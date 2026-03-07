@@ -13,7 +13,7 @@ export default new Map([
 ["src/data/blog/en/histoire-du-design-graphique.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fblog%2Fen%2Fhistoire-du-design-graphique.mdx&astroContentModuleFlag=true")],
 ["src/data/blog/en/i18n-(internationalisation).mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fblog%2Fen%2Fi18n-%28internationalisation%29.mdx&astroContentModuleFlag=true")],
 ["src/data/blog/en/isolation-through-contracts-making-infrastructure-independent-of-the-business-domain.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fblog%2Fen%2Fisolation-through-contracts-making-infrastructure-independent-of-the-business-domain.mdx&astroContentModuleFlag=true")],
-["src/data/blog/en/load-balancer.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fblog%2Fen%2Fload-balancer.mdx&astroContentModuleFlag=true")],
 ["src/data/blog/en/lazy-loading.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fblog%2Fen%2Flazy-loading.mdx&astroContentModuleFlag=true")],
+["src/data/blog/en/load-balancer.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fblog%2Fen%2Fload-balancer.mdx&astroContentModuleFlag=true")],
 ["src/data/blog/en/qu-est-ce-que-design-pattern.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fdata%2Fblog%2Fen%2Fqu-est-ce-que-design-pattern.mdx&astroContentModuleFlag=true")]]);
 		
