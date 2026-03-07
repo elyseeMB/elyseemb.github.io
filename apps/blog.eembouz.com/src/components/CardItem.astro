@@ -66,7 +66,7 @@ const isArticlePage = Astro.url.pathname.includes("articles");
       <h3 class="uppercase">{props.data.title}</h3>
       {
         options.description && (
-          <p class="leading-normal! text-white!">{props.data.summary}</p>
+          <p class="leading-normal!">{props.data.summary}</p>
         )
       }
     </Link>
