@@ -46,11 +46,11 @@ const __ = await getTranslator(Astro.currentLocale);
     className="flex flex-col gap-4 md:col-span-2 lg:col-span-2 animate-blur-in"
   >
     <Label title={__("Résumé")} />
-    <h1 class="lg:text-[3rem] lg:leading-none text-balance w-full">
+    <h1 class="lg:text-[1rem] leading-tight text-balance w-full">
       {cleanTitle}
     </h1>
     <p
-      class="text-[var(--color-secondary)] text-[0.7rem] max-w-full lg:max-w-2/4"
+      class="text-[var(--color-secondary)] text-[0.7rem] max-w-full lg:max-w-2/3"
     >
       {item.data.summary}
     </p>
