@@ -5,7 +5,14 @@ interface Props {
 }
 
 const optionsDate = (isShowYear: boolean): Intl.DateTimeFormatOptions => {
-  if (!isShowYear) return { dateStyle: "short" };
+  if (!isShowYear) {
+    return !Astro.url.pathname.includes("articles")
+      ? {
+          month: "short",
+          year: "numeric",
+        }
+      : { dateStyle: "short" };
+  }
   return { month: "2-digit", day: "2-digit" };
 };
 
@@ -13,7 +20,7 @@ const { date, isShowYear } = Astro.props;
 
 const dateFormate = new Intl.DateTimeFormat(
   Astro.currentLocale,
-  optionsDate(isShowYear ?? false) ?? { dateStyle: "short" }
+  optionsDate(isShowYear ?? false) ?? { dateStyle: "short" },
 ).format(date);
 
 const tranformDate = (date: string) => {

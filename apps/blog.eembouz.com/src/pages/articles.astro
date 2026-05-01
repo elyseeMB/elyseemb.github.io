@@ -5,8 +5,12 @@ import { filterLang, filterSeries, getTranslator } from "../libs/i18n.ts";
 import Collection from "../components/Collection.astro";
 import type { OptionsCollection } from "../../config.ts";
 import { itemNormalizer } from "../functions/article.ts";
+import { getPublishedPosts } from "../libs/pushisedPost.ts";
 
-const allPages = await getCollection("blog", filterLang(Astro.currentLocale));
+const allPages = await getPublishedPosts(
+  "blog",
+  filterLang(Astro.currentLocale)
+);
 
 const __ = await getTranslator(Astro.currentLocale);
 
@@ -32,12 +36,6 @@ const options: OptionsCollection = {
 </Layout>
 
 <style>
-  .blog-posts h3.title {
-    font-family: "Inter" !important;
-    font-weight: 100;
-    font-size: 2rem !important;
-  }
-
   .blog-posts {
     padding-block: 3rem;
     display: grid;

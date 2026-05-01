@@ -4,10 +4,22 @@ import { getTranslator } from "../libs/i18n.ts";
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
-<HeroComponent
-  title="Elysee Mboussa"
-  job="solfware engineer"
-  description={__(
-    "Ingénieur logiciel, Je conçois des solutions numériques fiables et durables. Sur Mon blog, je partage mon parcours créatif et technologique."
-  )}
-/>
+<HeroComponent title="Elysee Mboussa">
+  <div slot="description" class="animate-blur-in animation-delay-300">
+    <p>
+      {
+        __(
+          "Ingénieur logiciel, Je conçois des solutions numériques fiables et durables. Sur Mon blog, je partage mon parcours créatif et technologique.",
+        )
+      }
+    </p>
+
+    <p>
+      {
+        __(
+          "Je m'intéresse à l'écosystème web dans sa globalité — chaque projet amène ses propres contraintes, et j'aime explorer les approches qui y répondent le mieux. J'aime construire des interfaces qui ont du sens, des backends qui tiennent la route, et des environnements qui tournent partout.",
+        )
+      }
+    </p>
+  </div>
+</HeroComponent>

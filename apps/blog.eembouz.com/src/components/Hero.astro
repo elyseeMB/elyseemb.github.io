@@ -6,10 +6,14 @@ const href = getLink(Astro, "/articles");
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
-<HeroComponent
-  title={__("Blog - Conseils, découvertes et inspirations ")}
-  action={{ name: __("Mes derniers articles"), url: href }}
-  description={__(
-    "Curieux de sciences, développeur, compositeur et amateur d'art. Je partage mes réflexions sur la programmation, la musique, la science ou parfois des analyses originales sur la littérature."
-  )}
-/>
+<HeroComponent title={__("Blog - Conseils, découvertes et inspirations ")}>
+  <div slot="description" class="animate-blur-in animation-delay-300">
+    <p>
+      {
+        __(
+          "Curieux de sciences, développeur, compositeur et amateur d'art. Je partage mes réflexions sur la programmation, la musique, la science ou parfois des analyses originales sur la littérature.",
+        )
+      }
+    </p>
+  </div>
+</HeroComponent>

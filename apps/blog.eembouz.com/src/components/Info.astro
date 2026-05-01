@@ -1,18 +1,12 @@
 ---
-import { type CollectionEntry } from "astro:content";
-import ReadingTime from "./ReadingTime.astro";
-import Breadcrumb from "../components/Breadcrumb.astro";
-import Writer from "./Writer.astro";
 import type { ReferenceDataEntry } from "astro:content";
-import { getEntry } from "astro:content";
-import Button from "@portfolio/ui/Button";
-import DateFormate from "./DateFormate.astro";
-import { date } from "astro:schema";
+import { getEntry, type CollectionEntry } from "astro:content";
 import clsx from "clsx";
-import Label from "./Label.astro";
-import BlockInfo from "./BlockInfo.astro";
-import ContentType from "./ContentType.astro";
 import { getTranslator } from "../libs/i18n.ts";
+import BlockInfo from "./BlockInfo.astro";
+import Label from "./Label.astro";
+import ReadingTime from "./ReadingTime.astro";
+import Writer from "./Writer.astro";
 
 interface Props {
   className?: string;
@@ -39,56 +33,66 @@ const formatDate = Intl.DateTimeFormat(Astro.currentLocale, {
 const getTaxonomies = await Promise.all(
   taxonomies
     ? taxonomies?.map(
-        async (taxonomy) => await getEntry(taxonomy.collection, taxonomy.id)
+        async (taxonomy) => await getEntry(taxonomy.collection, taxonomy.id),
       )
-    : []
+    : [],
 );
 const cleanTitle = title.replace(/[^\p{L}\p{N}\s'']/gu, "");
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
-<div
-  class={clsx(
-    className,
-    "info grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5 pb-10 lg:pb-[5rem]"
-  )}
->
+<div class={clsx(className, "flex flex-col gap-5")}>
   <BlockInfo
     className="flex flex-col gap-4 md:col-span-2 lg:col-span-2 animate-blur-in"
   >
     <Label title={__("Résumé")} />
-    <h1 class="text-sm text-balance uppercase w-full lg:w-2/3">
+    <h1 class="text-base lg:text-2xl leading-tight text-balance w-full">
       {cleanTitle}
     </h1>
-    <p class="uppercase text-[var(--color-secondary)] text-[0.7rem]">
+    <p class="text-[var(--color-secondary)] text-base lg:text-xl">
       {item.data.summary}
     </p>
   </BlockInfo>
 
-  <div class="lg:col-start-4 lg:col-span-2 grid grid-cols-2">
+  <div class="flex flex-col gap-5">
     <BlockInfo
-      className="flex flex-col gap-4 uppercase text-[0.7rem] animate-blur-in animation-delay-200"
+      className="flex flex-col gap-4 text-base animate-blur-in animation-delay-200"
     >
-      <Label title={__("Métriques")} />
-      <div
-        class="flex flex-col items-start gap-1 text-[var(--color-secondary)]"
-      >
-        <Writer author={author} />
-        <ReadingTime time={readingTime!} />
-        <span class="uppercase">{formatDate}</span>
+      <div class="flex items-start gap-5 text-[var(--color-secondary)]">
+        <Writer icon author={author} />
+        <ReadingTime icon time={readingTime!} />
+        <span class="flex items-center gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-calendar-icon lucide-calendar"
+            ><path d="M8 2v4"></path><path d="M16 2v4"></path><rect
+              width="18"
+              height="18"
+              x="3"
+              y="4"
+              rx="2"></rect><path d="M3 10h18"></path></svg
+          >
+          {formatDate}</span
+        >
       </div>
     </BlockInfo>
 
     <BlockInfo
       className="flex flex-col gap-4 animate-blur-in animation-delay-300"
     >
-      <Label title={__("Taxonomie")} />
-
       {
         getTaxonomies && (
-          <div class="flex flex-col gap-1 uppercase text-[0.7rem] text-[var(--color-secondary)]">
+          <div class="flex gap-2 text-base text-[var(--color-secondary)]">
             {getTaxonomies.map((taxonomy) => (
-              <div>{taxonomy?.data.name}</div>
+              <div class="italic">{taxonomy?.data.name}</div>
             ))}
           </div>
         )
@@ -99,6 +103,5 @@ const __ = await getTranslator(Astro.currentLocale);
 
 <style>
   .info {
-    font-family: "Work Sans", sans-serif;
   }
 </style>

@@ -24,14 +24,10 @@ h6 {
 
 :where([data-markdown]) {
   h1 {
-    font-family: "Work Sans", sans-serif;
   }
 }
 
 p:not(:where([data-markdown] *)) {
-  color: var(--color-secondary);
-  font-size: var(--size);
-  line-height: var(--line-height);
   padding-block: 1rem;
   text-wrap: pretty;
 }

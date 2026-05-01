@@ -47,12 +47,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background-color: var(--background);
-}
-
 pre {
   background: var(--secondary) !important;
+}
+
+@layer base {
+  [data-link] {
+    @apply relative inline-block;
+  }
+
+  [data-link]::before {
+    @apply absolute content-[''] w-full h-[1px] bg-current bottom-0.5;
+  }
 }
 
 @layer utilities {
@@ -71,7 +77,7 @@ pre {
   }
 
   .from-background {
-    --tw-gradient-from: var(--background);
+    /* --tw-gradient-from: var(--background); */
   }
 }
 

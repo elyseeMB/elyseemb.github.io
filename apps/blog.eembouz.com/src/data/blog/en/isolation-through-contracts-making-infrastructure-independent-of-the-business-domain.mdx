@@ -1,0 +1,169 @@
+---
+title: >-
+  Isolation through contracts - making infrastructure independent of the
+  business domain
+disclaimer: >-
+  This article suggests a pragmatic decoupling approach, but it does not claim
+  to strictly follow Clean Architecture or Hexagonal Architecture principles. I
+  use tools provided by the framework (IoC container, event managers) to
+  facilitate communication between layers, which represents a pragmatic
+  compromise rather than hermetic partitioning. The goal is to share concrete
+  ideas, not to impose architectural dogma.
+summary: >-
+  Decouple infrastructure from business logic using interfaces and dependency
+  injection. This layered isolation ensures long-term scalability and technical
+  flexibility.
+status: public
+references:
+  - https://github.com/elyseeMB/SearchLayer
+thumbnail: >-
+  /isolation-through-contracts-making-infrastructure-independent-of-the-business-domain/thumbnail.png
+pubDate: 2026-02-10
+author: elysee
+taxonomies:
+  - programming
+  - best-practices-clean-code
+---
+
+Before writing a single line of code, one of the highest priorities in the app creation process is to perform a global assessment and identify the ins and outs of the business domain; this is how the choice of a stack becomes clear. Furthermore, in an architecture of an app, several infrastructure services can be attached to the **Kernel (core)**, the heart of the application. The implementation of these layers must be **agnostic to the business domain**: this isolation allows for better scalability and guarantees a global uniqueness of the application's nature, regardless of the functional specificities it carries.
+
+> **A quick aside:** If technical literature often highlights that the Heart (Business) must be agnostic of the Stack (Infrastructure), it is just as crucial to consider the reverse. Designing infrastructure services that ignore everything about business specificities allows for the creation of **transversal tools** (search, logs, storage, mailer) decoupled by communication layers.
+
+## Defining Clear Contracts
+
+In the continuity of this article, the term **communication layer** refers to entry layers (HTTP, CLI, broker) that implement contracts defined by the application core. Whether it is a request transmitted via a REST API (HTTP), an instruction entered in a terminal (CLI), or even a message from a broker (RabbitMQ/Kafka), this layer is peripheral to the business domain; its sole responsibility is to translate an external signal into a command understandable by our service.
+
+Email dispatch is a perfect example to illustrate this concept. It is an infrastructure peripheral to our application which, even in the event of an interruption, must not block the execution of the system's core.
+
+```typescript
+export abstract class SearchInterface {
+  public abstract search(q: string): Promise<SearchResult>;
+}
+```
+
+_example of a search interface_
+
+With this contract in place, this allows the business domain to manipulate search concepts without ever being aware of the underlying technical stack.
+
+TypeScript
+
+```typescript
+export abstract class IndexerInterface<T = unknown> {
+  public abstract IndexSingleDocument(items: SearchDocument): Promise<T>;
+  public abstract indexMultipleDocuments(items: SearchDocument[]): Promise<T>;
+}
+```
+
+The **Indexer** serves as a pivot here: it defines the contract that our communication layers (HTTP, CLI) must respect. Whether the order comes from a user action or a CLI maintenance task, calling these methods guarantees identical execution.
+
+## Implementation Example: The SearchManager
+
+To visualize how all these blocks stack up, let’s take the example of a search implementation. This approach allows for the integration of any search engine according to your needs, whether they are global or specific. For example, we can use **Typesense** for optimizing geolocation data, or **Meilisearch** for processing large amounts of text. The `SearchManager` below orchestrates this flexibility by choosing an engine (via the environment or a parameter) and returning the corresponding interface thanks to the dependency injection container.
+
+#### The binding dictionary
+
+```typescript
+const registry = {
+  [SEARCH_ENGINE.TYPESENSE]: {
+    search: TypesenseSearch,
+    indexer: TypesenseIndexer,
+    client: TypesenseClient,
+  },
+  [SEARCH_ENGINE.MEILISEARCH]: {
+    search: MeilisearchSearch,
+    indexer: MeilisearchIndexer,
+    client: MeilisearchClient,
+  },
+};
+```
+
+This dictionary is used to bind/associate interfaces to their implementations in the injection container.
+
+#### The SearchManager
+
+```typescript
+export class SearchManager {
+  private searchDrivers: Map<TYPE_SEARCH, SearchInterface> = new Map();
+  private indexerDrivers: Map<TYPE_SEARCH, IndexerInterface> = new Map();
+  private clientDrivers: Map<TYPE_SEARCH, ClientHttpInterface> = new Map();
+
+  constructor(protected app: ApplicationService) {}
+
+  public get getEngine(): TYPE_SEARCH {
+    return env.get("SEARCH_ENGINE") as TYPE_SEARCH;
+  }
+
+  public async client(name?: TYPE_SEARCH): Promise<ClientHttpInterface> {
+    return this.getDriver("client", this.clientDrivers, name);
+  }
+
+  public async register(name?: TYPE_SEARCH): Promise<SearchInterface> {
+    return this.getDriver("search", this.searchDrivers, name);
+  }
+
+  public async indexer(name?: TYPE_SEARCH): Promise<IndexerInterface> {
+    return this.getDriver("indexer", this.indexerDrivers, name);
+  }
+
+  private async getDriver<T>(
+    type: "search" | "indexer" | "client",
+    cache: Map<TYPE_SEARCH, T>,
+    name?: TYPE_SEARCH,
+  ): Promise<T> {
+    const engine = name || this.getEngine;
+
+    if (cache.has(engine)) {
+      return cache.get(engine)!;
+    }
+
+    const driver = await this.resolve<T>(engine, type);
+    cache.set(engine, driver);
+    return driver;
+  }
+
+  private async resolve<T>(
+    engine: TYPE_SEARCH,
+    type: "search" | "indexer" | "client",
+  ): Promise<T> {
+    const config = registry[engine];
+
+    if (!config) {
+      throw new Error(`${type} for "${engine}" not implemented`);
+    }
+    return (await this.app.container.make(config[type])) as T;
+  }
+}
+```
+
+`SearchManager` selects the desired engine (env or parameter), instantiates it dynamically via the container and returns the corresponding interface. This approach allows switching from one search engine to another.
+
+### Usage in a controller
+
+SearchController The controller for research
+
+```typescript
+export default class SearchesController {
+  @inject()
+  async handle({ response, request }: HttpContext, manager: SearchManager) {
+    const q = request.qs().q ?? "";
+    const searchTypesense = await manager.register(SEARCH_ENGINE.TYPESENSE);
+    const searchMeilisearch = await manager.register(SEARCH_ENGINE.MEILISEARCH);
+
+    const resultsTypesense = await searchTypesense.search(q);
+    const resultsMeilisearch = await searchMeilisearch.search(q);
+
+    return response.json({
+      typesense: resultsTypesense,
+      meilisearch: resultsMeilisearch,
+    });
+  }
+}
+```
+
+> **Note :** This example depends on your project and your needs. It is voluntarily simplified to illustrate the concept.
+
+## Conclusion
+
+In this example, I am using the **AdonisJS IoC container** which, by its internal operation, greatly facilitates this organization. Nevertheless, the code remains generic and can be transposed to another language or framework.
+
+The objective is not to impose a strict directive in the implementation of your features, but rather to propose avenues for improvement in the structuring of your projects. Each project has its own needs, its technical stack and its organization. Today, I address this approach, but tomorrow, on a concrete project, my vision could evolve and refine.

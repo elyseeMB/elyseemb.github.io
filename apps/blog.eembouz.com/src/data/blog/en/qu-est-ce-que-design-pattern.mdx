@@ -1,5 +1,6 @@
 ---
 title: "What is a Design Pattern?"
+status: public
 author: elysee
 summary: "Design patterns are proven and validated solutions established by computing pioneers. They were conceived to structure and organize code in clear, readable, and efficient manners."
 thumbnail: "/qu-est-ce-que-design-pattern/design_pattern.png"
@@ -58,11 +59,9 @@ specific solutions, language-particular and often low-level.
 
 > - **Architectural patterns** define the global structure of an
 >   application or system (e.g., MVC, Client-Server, Microservices).
-> 
 > - **Design patterns** (in the more classical sense) concern
 >   code organization within components (e.g., Singleton, Factory,
 >   Observer).
-> 
 > - **Idioms** are language-specific constructions that
 >   exploit syntactic and semantic specificities.
 
@@ -504,17 +503,16 @@ We hide store complexity and expose a simple API.
 
 ## Illustrations in Pseudo-code
 
->   Although this article aims to provide **concrete implementation** of design
->   patterns in a real context (React + Zustand), certain models like
->   **Singleton** or **Factory Method** integrate naturally into my store
->   architecture. However, other models like **Builder**, **Strategy**, or
->   **Decorator** are more **conceptual** in this context. They will therefore be
->   illustrated more **generically in pseudo-code** to facilitate comprehension.
->   These examples are **not intended for direct copying** into Zustand or React
->   projects, but rather to help you **grasp the general concept** behind each
->   pattern. You will subsequently see how to **adapt these concepts** in a real
->   project if necessary.
-> 
+> Although this article aims to provide **concrete implementation** of design
+> patterns in a real context (React + Zustand), certain models like
+> **Singleton** or **Factory Method** integrate naturally into my store
+> architecture. However, other models like **Builder**, **Strategy**, or
+> **Decorator** are more **conceptual** in this context. They will therefore be
+> illustrated more **generically in pseudo-code** to facilitate comprehension.
+> These examples are **not intended for direct copying** into Zustand or React
+> projects, but rather to help you **grasp the general concept** behind each
+> pattern. You will subsequently see how to **adapt these concepts** in a real
+> project if necessary.
 
 ### Builder (constructing objects step-by-step)
 
