@@ -4,7 +4,11 @@ import Redirect from "../Redirect.astro";
 
 <header class="fixed left-0 top-0 text-sm w-full uppercase">
   <div class="container medium">
-    <div class="w-full flex items-end justify-end">
+    <div class="w-full flex items-center justify-between">
+      <Redirect>
+        <slot name="header-redirect" />
+      </Redirect>
+      <div class="relative -mr-5 ml-auto flex items-center">
       <!-- <div class="logo">
         <Redirect>
           <svg
@@ -35,6 +39,7 @@ import Redirect from "../Redirect.astro";
         >
       </div> -->
       <slot />
+      </div>
     </div>
   </div>
 </header>

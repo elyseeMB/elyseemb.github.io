@@ -1,7 +1,7 @@
 ---
 type Info = {
   title: string;
-  description: string;
+  description?: string;
 };
 
 type Link = {
@@ -31,8 +31,7 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
 <footer class="medium">
     <div class="grid-footer">
 
-      <div class="left font-serif text-base">
-        <div class="flex flex-col gap-2 lg:gap-8 justify-between items-start lg:grid grid-cols-5">
+      <div class="font-serif text-base">
           <span class="lg:col-span-3"> 
            {info?.description}
           </span>
@@ -43,7 +42,6 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
               Copyright © <span id="footer-year"></span> elysee Mboussa . All rights reserved.</span
             >
           </div>
-        </div>
       </div>
 
       <!-- <div class="contacts lg:row-start-1 lg:col-span-4">

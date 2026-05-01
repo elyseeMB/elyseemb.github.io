@@ -27,11 +27,11 @@ export class ChapiterAnimation {
       () => {
         this.wrapper.style.opacity = "0";
       },
-      { signal: this.controller.signal }
+      { signal: this.controller.signal },
     );
 
     this.itemSizes = new Map(
-      this.children.map((child, index) => [index, child])
+      this.children.map((child, index) => [index, child]),
     );
 
     this.children.forEach((item, index) => {
@@ -40,7 +40,7 @@ export class ChapiterAnimation {
         (e) => this.handleMouseenter(e, index),
         {
           signal: this.controller.signal,
-        }
+        },
       );
     });
   }
@@ -77,7 +77,7 @@ export class ChapiterAnimation {
         transform-origin: 50% 50% 0px;
         z-index: -1;
         opacity: 1;
-        transition: all 0.25s ease;`
+        transition: all 0.15s ease;`,
     );
   };
 }

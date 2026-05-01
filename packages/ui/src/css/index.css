@@ -47,10 +47,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background-color: var(--background);
-}
-
 pre {
   background: var(--secondary) !important;
 }
@@ -81,7 +77,7 @@ pre {
   }
 
   .from-background {
-    --tw-gradient-from: var(--background);
+    /* --tw-gradient-from: var(--background); */
   }
 }
 

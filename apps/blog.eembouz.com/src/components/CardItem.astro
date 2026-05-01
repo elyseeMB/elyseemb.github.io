@@ -53,7 +53,9 @@ const isArticlePage = Astro.url.pathname.includes("articles");
   <div
     class="flex flex-col items-start gap-1 text-sm lg:text-lg lg:grid lg:grid-cols-5 w-full"
   >
-    <div class="flex items-center gap-2 relative col-1 text-sm uppercase">
+    <div
+      class="text-[var(--color-secondary)] flex items-center gap-2 relative col-1 text-sm"
+    >
       <div
         class="before:content-[''] block w-2.5 h-2.5 inset-0 bg-[var(--primary)]"
       >
@@ -63,10 +65,12 @@ const isArticlePage = Astro.url.pathname.includes("articles");
 
     <Link href={url}>
       {options.showBadge && <Badge contentTypeId={props.data.contentType} />}
-      <h3 class="uppercase">{props.data.title}</h3>
+      <h3 class="lg:text-xl">{props.data.title}</h3>
       {
         options.description && (
-          <p class="leading-normal!">{props.data.summary}</p>
+          <p class="leading-relaxed text-lg! text-[var(--color-secondary)]">
+            {props.data.summary}
+          </p>
         )
       }
     </Link>
@@ -75,7 +79,6 @@ const isArticlePage = Astro.url.pathname.includes("articles");
 
 <style>
   .blog-article {
-    font-family: "Work Sans", sans-serif;
   }
 
   article p {

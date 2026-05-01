@@ -24,20 +24,19 @@ const isSeriesPage = Astro.url.pathname.includes("series");
 
 <div
   class:list={[
-    "flex flex-col md:flex-row gap-2 border-b border-[var(--secondary)]/75 border-collapse ",
+    "flex flex-col md:flex-row gap-2",
     { "animate-blur-in animation-delay-300": !isArticlePage },
   ]}
 >
   {
     baseOptions.showYear && (
-      <span class="text-[1.2rem] w-1/6 pt-4 animate-slide-in">{year}</span>
+      <span class="text-[1.2rem] text-amber-100! w-1/6 pt-4 animate-slide-in">
+        {year}
+      </span>
     )
   }
 
-  <div
-    data-list__articles
-    class="flex flex-1 flex-col divide-y divide-[var(--secondary)]"
-  >
+  <div data-list__articles class="flex flex-1 flex-col">
     {
       items.map((article) => (
         <CardItem
