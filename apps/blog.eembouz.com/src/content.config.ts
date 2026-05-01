@@ -7,9 +7,11 @@ const blog = defineCollection({
   schema: z.object({
     title: z.string(),
     slug: z.string().optional(),
+    disclaimer: z.string().optional(),
     contentType: z.nativeEnum(ContentType).default(1),
-    isDraft: z.boolean().default(false),
+    status: z.enum(["draft", "public", "private"]).default("draft"),
     taxonomies: z.array(reference("taxonomies")).optional(),
+    references: z.array(z.string()).optional(),
     thumbnail: z.string().optional(),
     summary: z.string().optional(),
     pubDate: z.coerce.date().optional(),

@@ -30,15 +30,13 @@ const isSeriesPage = Astro.url.pathname.includes("series");
 
 <div
   class:list={[
-    "flex flex-col md:flex-row gap-2",
+    "flex flex-col md:flex-row gap-2 text-sm lg:text-lg",
     { "animate-blur-in animation-delay-300": !isArticlePage },
   ]}
 >
   {
     baseOptions.showYear && (
-      <span class="text-[1.2rem] w-1/6 pt-4 animate-fade-in animation-delay-300">
-        {year}
-      </span>
+      <span class="w-1/6 pt-4 animate-fade-in animation-delay-300">{year}</span>
     )
   }
 

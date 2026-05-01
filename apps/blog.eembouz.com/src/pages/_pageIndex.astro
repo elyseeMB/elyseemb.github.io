@@ -4,11 +4,15 @@ import type { CollectionEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import Blog from "../components/Blog.astro";
-import { getTranslator } from "../libs/i18n.ts";
+import { filterLang, getTranslator } from "../libs/i18n.ts";
+import { getPublishedPosts } from "../libs/pushisedPost.ts";
 
 export type PropsBlog = CollectionEntry<"blog">;
 
-const articles = await getCollection("blog");
+const articles = await getPublishedPosts(
+  "blog",
+  filterLang(Astro.currentLocale),
+);
 
 const __ = await getTranslator(Astro.currentLocale);
 ---

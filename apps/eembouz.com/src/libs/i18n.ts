@@ -24,10 +24,18 @@ export async function getTranslator(lang: string = "fr") {
   };
 }
 
-export function getLink(astro: { currentLocale?: string }, path: string) {
-  if (path === "/" && astro.currentLocale !== "en") {
+export function getLink(
+  astro: { currentLocale?: string },
+  path: string,
+): string {
+  if (
+    path === "/" &&
+    astro.currentLocale !== "fr" &&
+    astro.currentLocale !== "zh"
+  ) {
     return `/${astro.currentLocale}`;
   }
+
   return astro.currentLocale
     ? getRelativeLocaleUrl(astro.currentLocale, path)
     : path;

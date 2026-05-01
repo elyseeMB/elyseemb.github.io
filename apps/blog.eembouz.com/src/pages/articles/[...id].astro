@@ -3,13 +3,14 @@ import type { GetStaticPaths } from "astro";
 import { filterLang } from "../../libs/i18n.ts";
 import { getCollection } from "astro:content";
 export const getStaticPaths = (async () => {
-  const posts = await getCollection("blog", filterLang("fr"));
+  const posts = await getPublishedPosts("blog", filterLang("fr"));
   return posts.map((item) => ({
     params: { id: item.id },
     props: { item },
   }));
 }) satisfies GetStaticPaths;
 import Page from "./_page.astro";
+import { getPublishedPosts } from "../../libs/pushisedPost.ts";
 ---
 
 <Page {...Astro.props} />

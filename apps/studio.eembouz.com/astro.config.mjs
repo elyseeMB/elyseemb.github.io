@@ -12,4 +12,9 @@ export default defineConfig({
   server: {
     port: 5000,
   },
+  vite: {
+    optimizeDeps: {
+      include: ["react/jsx-runtime", "react", "react-dom"],
+    },
+  },
 });
