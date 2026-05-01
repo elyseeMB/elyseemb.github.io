@@ -150,6 +150,10 @@
   --sh-comment: hsl(var(--muted-foreground) / 60%);
 }
 
+body {
+  background-color: var(--background);
+}
+
 @media (prefers-color-scheme: dark) {
   .astro-code,
   .astro-code span {

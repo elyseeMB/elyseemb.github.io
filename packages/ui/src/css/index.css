@@ -47,10 +47,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background-color: var(--background);
-}
-
 pre {
   background: var(--secondary) !important;
 }
