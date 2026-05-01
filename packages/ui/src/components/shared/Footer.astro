@@ -28,10 +28,10 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
 
 ---
 
-<footer class="medium text-[0.7rem] uppercase">
+<footer class="medium">
     <div class="grid-footer">
-      <div class="left">
 
+      <div class="left font-serif text-base">
         <div class="flex flex-col gap-2 lg:gap-8 justify-between items-start lg:grid grid-cols-5">
           <span class="lg:col-span-3"> 
            {info?.description}
@@ -46,7 +46,7 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
         </div>
       </div>
 
-      <div class="contacts lg:row-start-1 lg:col-span-4">
+      <!-- <div class="contacts lg:row-start-1 lg:col-span-4">
         <div class="btn-fixed">
           <div class="btn btn-round">
               <a href={contacts?.items[0].href} class="btn-click magnetic " data-strength="100" data-strength-text="50">
@@ -59,20 +59,49 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
               </a>
       </div>
       </div>
-    </div>
+    </div> -->
 
       <div class="right">
-        <div class="uppercase">
-          <div class="flex flex-col gap-2">
+        <div>
+          <div class="flex flex-col gap-5">
             { links && (
-              <h4>{links.title}</h4>
-              <ul class="flex flex-col gap-2 text-sm">
+              <h4 class="font-mono tracking-tighter uppercase">{links.title}
+              </h4>
+              <ul class="flex flex-col gap-5 text-base">
                 {
                   links &&
                     links.items.map((link) => (
-                      <a href={link.href}>
-                        <li>{link.title}</li>
-                      </a>
+                       <li class="group relative framework text-[var(--color-secondary)]  hover:text-[var(--color-primary)] transition">
+                          <a
+                            class="absolute inset-0 rounded-lg z-10"
+                            href={link.href}
+                            aria-label={link.title}
+                          />
+
+                          <div class="relative inline-block pointer-events-none">
+                            <span data-link class="framework__name">
+                              {link.title}
+                            </span>
+
+                            <span class="absolute left-full ml-2 top-1/2 -translate-y-1/2">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out"
+                              >
+                                <path d="M7 7h10v10" />
+                                <path d="M7 17 17 7" />
+                              </svg>
+                            </span>
+                          </div>
+                        </li>
                     ))
                 }
               </ul>
@@ -85,15 +114,15 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
 </footer>
 
 <style scoped>
-  
+
+
   footer {
-    font-family: "Work Sans", sans-serif;
+    padding-bottom: 10rem;
   }
 
 
   footer {
     display: grid;
-    margin-top: 10rem ;
   }
 
   footer p {
@@ -108,11 +137,10 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
 
   .grid-footer {
     display: flex;
+    gap: 2rem;
     flex-direction: column-reverse;
     align-items: flex-start;
     justify-content: center;
-    padding-block: 3rem;
-    gap: 3rem;
   }
 
   footer .grid-footer .left {
@@ -123,26 +151,6 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
       gap: 2rem;
     }
   
-  @media screen and (min-width: 1200px) {
-    footer {
-      height: 100%;
-    }
-    
-    footer .grid-footer .left {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 4rem;
-      grid-column: 1 / span 4;
-    }
-
-    footer .grid-footer {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      padding-block: 5rem;
-    }
-  }
-
 
 
   .newsletter {
@@ -172,7 +180,6 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
   }
 
   .legacy .declaration {
-    font-size: 0.7rem;
     text-wrap: nowrap;
   }
 
