@@ -19,8 +19,10 @@ jobs:
           filters: |
             main-site:
               - 'apps/eembouz.com/**'
+              - 'packages/**' 
             blog:
               - 'apps/blog.eembouz.com/**'
+              - 'packages/**'
 
   deploy-main-site:
     needs: changes
