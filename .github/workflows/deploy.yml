@@ -19,7 +19,7 @@ jobs:
           filters: |
             main-site:
               - 'apps/eembouz.com/**'
-              - 'packages/**' 
+              - 'packages/**'
             blog:
               - 'apps/blog.eembouz.com/**'
               - 'packages/**'
