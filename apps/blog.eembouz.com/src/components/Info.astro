@@ -41,31 +41,27 @@ const cleanTitle = title.replace(/[^\p{L}\p{N}\s'']/gu, "");
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
-<div class={clsx(className, "flex flex-col")}>
+<div class={clsx(className, "flex flex-col gap-5")}>
   <BlockInfo
     className="flex flex-col gap-4 md:col-span-2 lg:col-span-2 animate-blur-in"
   >
     <Label title={__("Résumé")} />
-    <h1 class="lg:text-[1rem] leading-tight text-balance w-full">
+    <h1 class="text-base lg:text-2xl leading-tight text-balance w-full">
       {cleanTitle}
     </h1>
-    <p
-      class="text-[var(--color-secondary)] text-[0.7rem] max-w-full lg:max-w-2/3"
-    >
+    <p class="text-[var(--color-secondary)] text-base lg:text-xl">
       {item.data.summary}
     </p>
   </BlockInfo>
 
-  <hr class="my-5 border-[var(--secondary)]" />
-
-  <div class="flex flex-col">
+  <div class="flex flex-col gap-5">
     <BlockInfo
-      className="flex flex-col gap-4 uppercase text-[0.7rem] animate-blur-in animation-delay-200"
+      className="flex flex-col gap-4 text-base animate-blur-in animation-delay-200"
     >
       <div class="flex items-start gap-5 text-[var(--color-secondary)]">
         <Writer icon author={author} />
         <ReadingTime icon time={readingTime!} />
-        <span class="uppercase flex items-center gap-2">
+        <span class="flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="14"
@@ -89,14 +85,12 @@ const __ = await getTranslator(Astro.currentLocale);
       </div>
     </BlockInfo>
 
-    <hr class="my-5 border-[var(--secondary)]" />
-
     <BlockInfo
       className="flex flex-col gap-4 animate-blur-in animation-delay-300"
     >
       {
         getTaxonomies && (
-          <div class="flex gap-2 text-[0.7rem] text-[var(--color-secondary)]">
+          <div class="flex gap-2 text-base text-[var(--color-secondary)]">
             {getTaxonomies.map((taxonomy) => (
               <div class="italic">{taxonomy?.data.name}</div>
             ))}
@@ -109,6 +103,5 @@ const __ = await getTranslator(Astro.currentLocale);
 
 <style>
   .info {
-    font-family: "Work Sans", sans-serif;
   }
 </style>

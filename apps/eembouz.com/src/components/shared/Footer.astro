@@ -1,18 +1,13 @@
 ---
 import FooterComponent from "@portfolio/ui/Footer";
 import { getTranslator } from "../../libs/i18n.ts";
+import { prefixWithSlash } from "../../functions/string.ts";
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
 <FooterComponent
-  info={{
-    title: __("A propos"),
-    description: __(
-      "Ingénieur de formation en réseaux et telecom, j'ai développé une expertise complémentaire en infrastructure logicielle et développement."
-    ),
-  }}
   links={{
-    title: __("Réseaux"),
+    title: prefixWithSlash(__("Réseaux")),
     items: [
       {
         title: "Github",

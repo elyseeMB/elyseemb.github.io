@@ -1,12 +1,11 @@
 ---
-
 interface Props {
   action?: {
     name: string;
     url: string;
   };
   title: string;
-  description: string;
+  description?: string;
   job?: string;
 }
 
@@ -14,49 +13,37 @@ const { title, description, action } = Astro.props;
 ---
 
 <section class="hero flex flex-col gap-5">
-  <div class="title text-xl uppercase">
+  <div class="title">
     <h1 class="split">
       {title}
     </h1>
-
-    <div class="flex items-center lg:grid grid-cols-5">
-      <p
-        class="description uppercase text-sm! lg:col-span-5 animate-blur-in animation-delay-300"
-      >
-        {description}
-      </p>
+    <slot name="description" />
   </div>
 
-        {action && (
-          <div class="about description animate-fade-in animation-delay-300">
-          <div class="btn-fixed">
-            <div class="btn btn-round is-inview">
-              <a
-                href={action.url}
-                class="btn-click magnetic"
-                data-strength="100"
-                data-strength-text="50"
-              >
-                <div class="btn-fill"></div>
-                <span class="btn-text" style="transform: rotate(0.001deg);">
-                  <span class="btn-text-inner text-center">
-                    {action.name}
-                  </span>
-                </span>
-              </a>
-            </div>
+  {
+    action && (
+      <div class="about description animate-fade-in animation-delay-300">
+        <div class="btn-fixed">
+          <div class="btn btn-round is-inview">
+            <a
+              href={action.url}
+              class="btn-click magnetic"
+              data-strength="100"
+              data-strength-text="50"
+            >
+              <div class="btn-fill" />
+              <span class="btn-text" style="transform: rotate(0.001deg);">
+                <span class="btn-text-inner text-center">{action.name}</span>
+              </span>
+            </a>
           </div>
         </div>
-        )
-      }
-  </div>
+      </div>
+    )
+  }
 </section>
 
 <style>
-  .hero {
-    font-family: "Work Sans", sans-serif;
-  }
-
   .about .btn-fixed {
     position: absolute;
     right: 0;
