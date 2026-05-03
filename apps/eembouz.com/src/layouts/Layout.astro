@@ -14,6 +14,7 @@ const {
   image,
   url = Astro.url.href,
   typeContent,
+  fullWidth,
 } = Astro.props;
 ---
 
@@ -31,12 +32,21 @@ const {
     <ThemeManager />
   </head>
   <body class="font-serif text-lg lg:text-xl">
-    <BlurEffect />
-    <Header />
-    <div class="page-wrapper">
-      <slot />
+    <div class="mx-auto flex max-w-[652px] flex-col px-5">
+      <Header />
     </div>
-    <Footer />
+
+    <div class:list={[fullWidth ? "container-full" : "container"]}>
+      <div class="page-wrapper">
+        <BlurEffect />
+        <slot />
+      </div>
+    </div>
+
+    <div class="mx-auto max-w-[652px] mb-16 px-5">
+      <Footer />
+    </div>
+
     <ClientRouter />
   </body>
 </html>

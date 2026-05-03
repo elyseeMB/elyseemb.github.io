@@ -67,16 +67,6 @@ pre {
 }
 
 @layer utilities {
-  .container {
-    margin: 0 auto;
-    max-width: 100%;
-  }
-
-  .medium {
-    padding-left: calc(var(--container-padding) * 2);
-    padding-right: calc(var(--container-padding) * 2);
-  }
-
   .bg-secondary {
     background-color: var(--outline-wrapper);
   }

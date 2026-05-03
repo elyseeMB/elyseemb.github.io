@@ -9,7 +9,7 @@ const { error } = Astro.props;
 ---
 
 <Layout>
-  <div class="container">
+  <div>
     <div class="wrapper">
       <div>
         {error instanceof Error ? error.message : "Unknown error"}<div></div>

@@ -24,28 +24,26 @@ const metaData = {
 const seo = seoProps ? seoProps : metaData;
 ---
 
-<Layout {...seo}>
-  <div class="container">
-    <section class="projects">
-      <div class="meta">
-        <MetaDescription
-          thumbnail={thumbnail}
-          title={title}
-          summary={summary}
-          techno={techno}
-        />
-      </div>
+<Layout {...seo} fullWidth>
+  <section class="projects">
+    <div class="meta">
+      <MetaDescription
+        thumbnail={thumbnail}
+        title={title}
+        summary={summary}
+        techno={techno}
+      />
+    </div>
 
-      <div class="content">
-        <Prose>
-          <Content />
-        </Prose>
-      </div>
-    </section>
-  </div>
+    <div class="content">
+      <Prose>
+        <Content />
+      </Prose>
+    </div>
+  </section>
 </Layout>
 
-<style>
+<style scoped>
   .projects {
     position: relative;
     display: flex;

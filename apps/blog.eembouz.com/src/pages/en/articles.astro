@@ -9,7 +9,7 @@ import { getPublishedPosts } from "../../libs/pushisedPost.ts";
 
 const allPages = await getPublishedPosts(
   "blog",
-  filterLang(Astro.currentLocale)
+  filterLang(Astro.currentLocale),
 );
 
 const __ = await getTranslator(Astro.currentLocale);
@@ -22,7 +22,7 @@ const options: OptionsCollection = {
 ---
 
 <Layout>
-  <div class="container medium">
+  <div>
     <section class="blog-posts">
       <div class="divide-y divide-[var(--border-color)]">
         {

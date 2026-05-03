@@ -13,7 +13,7 @@ const __ = await getTranslator(Astro.currentLocale);
 ---
 
 <Layout>
-  <div class="container medium home">
+  <div class="home">
     <Hero />
     <Projects />
     <Inspiration />
@@ -23,9 +23,9 @@ const __ = await getTranslator(Astro.currentLocale);
 </Layout>
 
 <style is:global>
-  .home {
+  /* .home {
     overflow: hidden;
-  }
+  } */
 
   [data-h3-portfolio] {
     text-transform: uppercase;
