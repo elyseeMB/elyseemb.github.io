@@ -18,9 +18,11 @@ const {
   url = Astro.url.href,
   typeContent,
 } = Astro.props;
+
+const lang = Astro.currentLocale;
 ---
 
-<html lang="fr">
+<html transition:name="root" transition:animate="none" lang={lang}>
   <head>
     <Seo
       title={title}
@@ -50,7 +52,7 @@ const {
       <Footer />
     </div>
 
-    <ClientRouter />
+    <ClientRouter transition:animate="none" />
   </body>
 </html>
 

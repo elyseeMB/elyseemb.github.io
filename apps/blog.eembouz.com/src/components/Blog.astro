@@ -30,12 +30,12 @@ const __ = await getTranslator(Astro.currentLocale);
 <section class="blog">
   <!-- {
       title && (
-        <h3 class="title animate-slide-in animation-delay-300">{title}</h3>
+        <h3 class="title">{title}</h3>
       )
     } -->
   <div class="flex flex-col divide-y divide-[var(--secondary)]">
-    <div
-      class="hidden pb-5 lg:bloc lg:text-sm lg:grid lg:grid-cols-5 w-full animate-fade-in animation-delay-300"
+  <div
+      class="hidden pb-5 lg:bloc lg:text-sm lg:grid lg:grid-cols-5 w-full"
     >
       <div>{__("/ DATE")}</div>
       <div>{__("/ TITRE")}</div>

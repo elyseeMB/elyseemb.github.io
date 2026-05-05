@@ -13,20 +13,20 @@ const { title, summary, techno } = Astro.props;
   <div class="meta">
     <div class="container-narrow">
       <div class="info">
-        <h1 class="animate-slide-in animation-delay-100">
+        <h1>
           {title.replace(/[^\p{L}\p{N}\s]/gu, "").trim()}
         </h1>
       </div>
 
       <div
-        class="description leading-normal animate-slide-in animation-delay-100"
+        class="description leading-normal"
       >
         <p>{summary}</p>
       </div>
 
       <div class="techno">
         <div
-          class="tags animate-fade-in animation-delay-300 list-none decoration-none flex flex-wrap gap-1"
+          class="tags list-none decoration-none flex flex-wrap gap-1"
         >
           {techno.map((i) => <span class="tag"> {i} </span>)}
         </div>

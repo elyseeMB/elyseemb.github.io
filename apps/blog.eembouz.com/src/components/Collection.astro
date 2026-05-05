@@ -31,12 +31,11 @@ const isSeriesPage = Astro.url.pathname.includes("series");
 <div
   class:list={[
     "flex flex-col md:flex-row gap-2 text-sm lg:text-lg",
-    { "animate-blur-in animation-delay-300": !isArticlePage },
   ]}
 >
   {
     baseOptions.showYear && (
-      <span class="w-1/6 pt-4 animate-fade-in animation-delay-300">{year}</span>
+      <span class="w-1/6 pt-4">{year}</span>
     )
   }
 
@@ -48,22 +47,14 @@ const isSeriesPage = Astro.url.pathname.includes("series");
       items.map((article, index) =>
         isSeriesPage ? (
           <ItemSerie
-            className={`relative animate-blur-in animation-delay-${between(
-              index * 100,
-              0,
-              300,
-            )}`}
+            className="relative"
             props={article.props}
             options={baseOptions}
           />
         ) : (
           <Article
             data-overlay={true}
-            className={`relative animate-blur-in animation-delay-${between(
-              index * 100,
-              0,
-              300,
-            )}`}
+            className="relative"
             props={article.props}
             options={baseOptions}
           />

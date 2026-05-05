@@ -25,7 +25,7 @@ export function Chapiter({ items }: Props) {
   }, [items]);
 
   return (
-    <div class="relative outline__wrapper w-max animate-fade-in animation-delay-200 pb-[5rem]">
+    <div class="relative outline__wrapper w-max pb-[5rem]">
       <ul ref={ulRef} id="chapiter-animation text-lg!" className="">
         {items.map((item, index) => (
           <ChapiterItem
@@ -60,9 +60,9 @@ function ChapiterItem({
   const animationDelay = between(index * 100, 0, 300);
 
   return (
-    <li
-      className={`relative px-2 py-2 flex items-center cursor-pointer animate-slide-in animation-delay-${animationDelay}`}
-    >
+      <li
+        className="relative px-2 py-2 flex items-center cursor-pointer"
+      >
       <a
         class="block pr-4 text-neutral-500! z-10 before:content-[''] before:absolute before:-z-10 before:inset-0 before:w-full before:h-full"
         href={itemPath}

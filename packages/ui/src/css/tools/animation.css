@@ -24,67 +24,7 @@ html {
   }
 }
 
-/* prettier-ignore */
-@utility animate-fade-in {
-  animation: fadeIn 0.5s ease-in-out both;
-}
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* prettier-ignore */
-@utility animate-slide-in {
-  animation: slideIn var(--spring-smooth) 850ms both;
-}
-
-/* prettier-ignore */
-@utility animate-slide-x-in {
-  animation: slideInX var(--spring-smooth) 850ms both;
-}
-
-/* prettier-ignore */
-@utility animate-blur-in {
-  animation: blurIn var(--spring-smooth) 850ms both;
-}
-
-@keyframes blurIn {
-  from {
-    opacity: 0;
-    filter: blur(15px);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0);
-  }
-}
-
-@keyframes slideInX {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0%);
-  }
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0%);
-  }
-}
 
 /* prettier-ignore */
 @utility animate-perspective-in {
@@ -101,11 +41,6 @@ html {
     transform: translateY(0%) rotateX(0deg);
   }
 }
-/* prettier-ignore */
-@utility animation-delay-* {
-  animation-delay: --value(integer)ms;
-}
-
 /** Rotate animation for the YCombinator button **/
 /* prettier-ignore */
 @property --animate-duration {

@@ -78,16 +78,12 @@ export function Outline() {
   };
 
   return (
-    <div className="relative overflow-y-auto font-sans outline__wrapper w-max animate-fade-in  animation-delay-200">
+    <div className="relative overflow-y-auto font-sans outline__wrapper w-max">
       <ul ref={ulRef} id="chapiter-animation" className="">
         {headings.heading_level_2?.map((heading, index) => (
           <li
             onClick={handleClick}
-            className={`px-2 py-2 flex items-center cursor-pointer animate-fade-in animation-delay-${between(
-              index * 100,
-              0,
-              300,
-            )}`}
+            className="px-2 py-2 flex items-center cursor-pointer"
           >
             <a
               class="relative inline-block pr-4 text-neutral-500!"
