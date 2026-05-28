@@ -52,4 +52,9 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+
+  redirects: {
+    "/en/articles/isolation-par-contrats-rendre-l-infrastructure-independante-du-metier/":
+      "/en/articles/isolation-through-contracts-making-infrastructure-independent-of-the-business-domain/",
+  },
 });

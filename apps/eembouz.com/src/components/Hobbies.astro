@@ -8,17 +8,17 @@ const __ = await getTranslator(Astro.currentLocale);
 ---
 
 <section class="hobbies animate-blur-in animation-delay-300">
-  <div class="container medium home">
-    <h3 data-h3-portfolio class="hobbies__title">
+  <div class="home">
+    <h3 data-h3-portfolio class="hobbies__title font-mono tracking-tighter">
       {prefixWithSlash(__("My Hobbies"))}
     </h3>
   </div>
-  <div class="container">
+  <div>
     <PhotoGrid
-      maxRows={4}
+      maxRows={2}
       client:only="preact"
       images={hobbiesData}
-      rowHeight={200}
+      rowHeight={140}
       gap="0.5rem"
     >
       <div slot="fallback">

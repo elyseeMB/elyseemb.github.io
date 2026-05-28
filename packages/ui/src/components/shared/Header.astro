@@ -2,10 +2,13 @@
 import Redirect from "../Redirect.astro";
 ---
 
-<header class="fixed left-0 top-0 text-sm w-full uppercase">
-  <div class="container">
-    <div class="flex">
-      <div class="logo">
+<nav class="text-sm w-full uppercase z-100 py-4 mb-4">
+  <div class="w-full flex items-center justify-between">
+    <Redirect>
+      <slot name="header-redirect" />
+    </Redirect>
+    <div class="relative -mr-5 ml-auto flex items-center">
+      <!-- <div class="logo">
         <Redirect>
           <svg
             width="40"
@@ -33,23 +36,15 @@ import Redirect from "../Redirect.astro";
             ></path>
           </svg></Redirect
         >
-      </div>
+      </div> -->
       <slot />
     </div>
   </div>
-</header>
+</nav>
 
 <style>
   header {
     padding-block: 1rem;
     z-index: 50;
-  }
-
-  header .flex {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    /* max-width: 100%; */
-    margin: 0;
   }
 </style>

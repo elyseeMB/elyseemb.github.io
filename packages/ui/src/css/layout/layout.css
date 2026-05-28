@@ -3,36 +3,17 @@
   --container-width: calc(100vw - var(--container-padding) * 2);
 }
 
-.container {
-  margin: 0 auto;
-  padding-left: var(--container-padding);
-  padding-right: var(--container-padding);
-  max-width: 100em;
-}
-
-.medium {
-  padding-left: var(--container-padding);
-  padding-right: var(--container-padding);
-}
-
-@media screen and (min-width: 768px) {
-  .medium {
-    padding-left: calc(var(--container-padding) * 1.5);
-    padding-right: calc(var(--container-padding) * 1.5);
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  .medium {
-    padding-left: calc(var(--container-padding) * 4.3);
-    padding-right: calc(var(--container-padding) * 4.3);
-  }
-}
-
 .page-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   width: 100%;
-  padding-top: 7rem;
+}
+
+@utility container {
+  @apply mx-auto flex max-w-[652px] flex-col px-5 lg:px-5;
+}
+
+@utility container-full {
+  @apply mx-auto flex w-full max-w-[1200px] flex-col px-6;
 }

@@ -38,7 +38,7 @@ const seo = seoProps ? seoProps : metaData;
 
 <Layout {...seo}>
   <section data-markdown class="w-full">
-    <div class="container medium">
+    <div>
       <Info
         item={item}
         showSummary={false}
@@ -47,9 +47,9 @@ const seo = seoProps ? seoProps : metaData;
       />
     </div>
 
-    {
+    <!-- {
       thumbnail && (
-        <div class="container medium">
+        <div >
           <div class="heading">
             <div class="cover animate-fade-in animation-delay-300">
               <img
@@ -61,16 +61,18 @@ const seo = seoProps ? seoProps : metaData;
           </div>
         </div>
       )
-    }
+    } -->
 
-    <div class="container medium">
+    <div class="pt-10">
       <Prose>
         {disclaimer && <Disclaimer disclaimer={disclaimer} />}
         <Content />
         {references && <References references={references} />}
       </Prose>
 
-      <Outline client:load />
+      <div class="wrapper-outline">
+        <Outline client:load />
+      </div>
     </div>
   </section>
 </Layout>
@@ -118,6 +120,9 @@ const seo = seoProps ? seoProps : metaData;
     }
 
     .wrapper-outline {
+      position: fixed;
+      top: 25%;
+      left: 2%;
       display: block;
       /* grid-column: 3; */
       margin-bottom: 5rem;
@@ -130,7 +135,7 @@ const seo = seoProps ? seoProps : metaData;
   }
 
   .cover {
-    padding-bottom: 5rem;
+    padding-block: 2rem;
     width: 100%;
   }
 
@@ -166,39 +171,3 @@ const seo = seoProps ? seoProps : metaData;
     }
   }
 </style>
-
-<!-- 
-<script>
-  const h2 = Array.from(document.querySelectorAll("h2"));
-  const element = document.getElementById("mindmap");
-
-  let observers: IntersectionObserver[] = [];
-
-  const handleClick = () => {
-    observers.forEach((observer) => observer.disconnect());
-    observers = [];
-
-    h2.forEach((item) => {
-      const observer = new IntersectionObserver((entries) => {
-        const entry = entries[0];
-        if (entry.isIntersecting) {
-          element!.dataset.target = entry.target.id;
-          element!.dispatchEvent(
-            new CustomEvent("mindmap", {
-              detail: entry.target.id,
-            })
-          );
-        }
-      });
-      observer.observe(item);
-      observers.push(observer);
-    });
-  };
-
-  element!.addEventListener("click", handleClick);
-
-  element?.addEventListener("astro:before-preparation", () => {
-    console.log("ici");
-    observers.forEach((observer) => observer.disconnect());
-  });
-</script> -->

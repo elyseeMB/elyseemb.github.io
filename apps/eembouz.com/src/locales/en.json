@@ -13,6 +13,7 @@
   "favorite tech": "favorite tech",
   "Ingénieur de formation en réseaux et telecom, j'ai développé une expertise complémentaire en infrastructure logicielle et développement.": "Trained as a network and telecom engineer, I have developed complementary expertise in software infrastructure and development.",
   "Ingénieur logiciel, Je conçois des solutions numériques fiables et durables. Sur Mon blog, je partage mon parcours créatif et technologique.": "As a software engineer, I design reliable and sustainable digital solutions. On my blog, I share my creative and technological journey.",
+  "Je m'intéresse à l'écosystème web dans sa globalité — chaque projet amène ses propres contraintes, et j'aime explorer les approches qui y répondent le mieux. J'aime construire des interfaces qui ont du sens, des backends qui tiennent la route, et des environnements qui tournent partout.": "I take an interest in the web ecosystem as a whole — every project brings its own constraints, and I enjoy exploring the approaches that best address them. I like building interfaces that make sense, backends that hold up, and environments that run anywhere.",
   "L'électricien avant l'emménagement": "The electrician before move-in day",
   "L'usine à gaz des bases de données relationnelles": "The gas plant of relational databases",
   "La Rolls royce des frameworks de l'écosystème Node.js": "The Rolls royce of the Node.js ecosystem",
@@ -23,7 +24,14 @@
   "My Hobbies": "My Hobbies",
   "My inspirations": "My inspirations",
   "Projects completed": "Projects completed",
+  "Raccourcisseur d'URL": "URL shortener",
   "Rapidité et légèreté sont mes prénoms pour Node.js": "Speed and lightness are my middle names for Node.js",
   "Réseaux": "Networking",
-  "Statistiques": "Stats"
+  "Statistiques": "Stats",
+  "En cours": "Active",
+  "Valable": "Archived",
+  "Un espace de veille pour suivre et organiser les découvertes qui comptent": "A space to track and organize discoveries that matter",
+  "Une citation chaque matin — un recueil de textes de philosophes, poètes et penseurs du monde entier": "One quote every morning — a collection of texts from philosophers, poets, and thinkers around the world",
+  "Éditeur Markdown moderne et intuitif": "A modern and intuitive Markdown editor",
+  "Plateforme personnelle de partage technique": "Personal technical sharing platform"
 }

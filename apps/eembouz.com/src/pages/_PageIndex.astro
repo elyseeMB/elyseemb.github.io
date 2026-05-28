@@ -13,23 +13,21 @@ const __ = await getTranslator(Astro.currentLocale);
 ---
 
 <Layout>
-  <div class="container medium home">
+  <div class="home">
     <Hero />
-    <Skills />
     <Projects />
     <Inspiration />
+
+    <Hobbies />
   </div>
-  <Hobbies />
 </Layout>
 
 <style is:global>
-  .home {
+  /* .home {
     overflow: hidden;
-  }
+  } */
 
   [data-h3-portfolio] {
-    font-size: 1rem;
     text-transform: uppercase;
-    font-family: "Work Sans", sans-serif;
   }
 </style>

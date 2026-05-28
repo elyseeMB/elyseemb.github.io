@@ -154,3 +154,8 @@
     line-height: 1.5;
   }
 }
+
+.prose .astro-code,
+.prose .astro-code * {
+  font-size: 0.9rem;
+}
