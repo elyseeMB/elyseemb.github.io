@@ -7,14 +7,12 @@
         "title": {
           "type": "string"
         },
-        "summary": {
-          "type": "string"
-        },
         "description": {
           "type": "string"
         },
-        "thumbnail": {
-          "type": "string"
+        "link": {
+          "type": "string",
+          "format": "uri"
         },
         "pubDate": {
           "anyOf": [
@@ -32,48 +30,23 @@
             }
           ]
         },
-        "techno": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "default": []
-        },
-        "seo": {
-          "type": "object",
-          "properties": {
-            "title": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            },
-            "image": {
-              "type": "string"
-            },
-            "canonicalURL": {
-              "type": "string",
-              "format": "uri"
-            },
-            "typeContent": {
-              "type": "string",
-              "default": "website"
-            },
-            "tags": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          "additionalProperties": false
+        "status": {
+          "type": "string",
+          "enum": [
+            "en_cours",
+            "valable"
+          ],
+          "default": "en_cours"
         },
         "$schema": {
           "type": "string"
         }
       },
       "required": [
-        "title"
+        "title",
+        "description",
+        "link",
+        "pubDate"
       ],
       "additionalProperties": false
     }

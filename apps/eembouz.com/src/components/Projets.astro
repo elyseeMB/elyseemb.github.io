@@ -1,24 +1,14 @@
 ---
 import { getCollection } from "astro:content";
-import { getTranslator, filterLang } from "../libs/i18n.ts";
-import type { CollectionEntry } from "astro:content";
+import { getTranslator } from "../libs/i18n.ts";
 import { prefixWithSlash } from "../functions/string.ts";
 
 const projects = await getCollection(
   "projects",
-  filterLang(Astro.currentLocale),
+  ({ data }) => data.status === "en_cours",
 );
 
 const __ = await getTranslator(Astro.currentLocale);
-
-function buildUrl(item: CollectionEntry<"projects">): string {
-  return (
-    "/" +
-    (item.id.includes("/")
-      ? item.id.replace("/", "/projects/")
-      : `projects/${item.id}`)
-  );
-}
 ---
 
 <section
@@ -31,8 +21,8 @@ function buildUrl(item: CollectionEntry<"projects">): string {
     {
       projects
         .sort((a, b) =>
-          new Date(a.data.pubDate!).getTime() <
-          new Date(b.data.pubDate!).getTime()
+          new Date(a.data.pubDate).getTime() <
+          new Date(b.data.pubDate).getTime()
             ? 1
             : -1,
         )
@@ -40,7 +30,9 @@ function buildUrl(item: CollectionEntry<"projects">): string {
           <ul class="list">
             <li class="group relative framework hover:bg-[var(--accent)] transition rounded-lg px-4 py-2 -ml-4">
               <a
-                href={buildUrl(project)}
+                href={project.data.link}
+                target="_blank"
+                rel="noopener noreferrer"
                 class="absolute inset-0 rounded-lg z-10"
                 aria-label={project.data.title}
               />
@@ -70,7 +62,7 @@ function buildUrl(item: CollectionEntry<"projects">): string {
               </div>
 
               <span class="framework__description flex items-center gap-1 pointer-events-none">
-                {__(project.data.description!)}
+                {__(project.data.description)}
               </span>
             </li>
           </ul>
