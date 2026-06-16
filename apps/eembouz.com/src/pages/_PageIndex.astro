@@ -1,7 +1,6 @@
 ---
 import Hero from "../components/Hero.astro";
 import type { CollectionEntry } from "astro:content";
-import Skills from "../components/Skills.astro";
 import Projects from "../components/Projets.astro";
 import Layout from "../layouts/Layout.astro";
 import Inspiration from "../components/Inspiration.astro";
@@ -11,7 +10,10 @@ import Writings from "../components/Writings.astro";
 import { getCollection } from "astro:content";
 
 export type PropsProjet = CollectionEntry<"projects">;
-const writings = await getCollection("writings");
+const writings = await getCollection(
+  "writings",
+  ({ data }) => data.status === "online",
+);
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
