@@ -17,7 +17,11 @@ const __ = await getTranslator(Astro.currentLocale);
           <ul class="list">
             <div class="link">
               <li class="framework group cursor-pointer hover:text-[var(--color-primary)] transition">
-                <a class="group block w-full" href={inspiration.data.link}>
+                <a
+                  target="_blank"
+                  class="group block w-full"
+                  href={inspiration.data.link}
+                >
                   <span data-link class="relative framework__name">
                     {inspiration.data.title}
                     <span class="absolute left-full ml-2 top-1/2 -translate-y-1/2">

@@ -71,6 +71,7 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
                     links.items.map((link) => (
                        <li class="group relative framework text-[var(--color-secondary)]  hover:text-[var(--color-primary)] transition">
                           <a
+                            target="_blank"
                             class="absolute inset-0 rounded-lg z-10"
                             href={link.href}
                             aria-label={link.title}

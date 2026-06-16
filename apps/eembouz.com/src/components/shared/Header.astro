@@ -4,10 +4,6 @@ import { getLink, getTranslator } from "../../libs/i18n.ts";
 const { pathname } = Astro.url;
 const __ = await getTranslator(Astro.currentLocale);
 const isMainPage = pathname === getLink(Astro, "/");
-console.log(pathname);
-
-console.log(isMainPage);
-console.log(getLink(Astro, "/"));
 ---
 
 <HeaderComponent>
@@ -38,8 +34,9 @@ console.log(getLink(Astro, "/"));
   <ul class="flex-header actions">
     <li class="btn btn-link">
       <a
+        target="_blank"
         href="https://blog.eembouz.com"
-        class="btn-click magnetic link-header"
+        class="btn-click magnetic link-header focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
         data-strength="25"
         data-strength-text="10"
       >
@@ -54,7 +51,7 @@ console.log(getLink(Astro, "/"));
     <li class="btn btn-link">
       <a
         href="mailto:contact@eembouz.com"
-        class="btn-click magnetic link-header"
+        class="btn-click magnetic link-header focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
         data-strength="25"
         data-strength-text="10"
       >
