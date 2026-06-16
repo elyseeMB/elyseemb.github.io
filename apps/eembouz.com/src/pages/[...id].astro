@@ -1,0 +1,84 @@
+---
+import { getCollection } from "astro:content";
+import { render } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+
+export const getStaticPaths = async () => {
+  const items = await getCollection(
+    "writings",
+    ({ data }) => data.status === "online",
+  );
+  return items.map((writing) => ({
+    params: { id: writing.id },
+    props: { writing },
+  }));
+};
+
+const { writing } = Astro.props;
+const { Content } = await render(writing);
+
+const { title, pubDate, thumbnail } = writing.data;
+
+const seo = {
+  title,
+  typeContent: "article" as const,
+  image: thumbnail ? `${Astro.url.origin}${thumbnail}` : undefined,
+};
+---
+
+<Layout {...seo}>
+  <section data-markdown class="w-full animate-blur-in animation-delay-300">
+    <div class="grid grid-cols-1 gap-5 font-sans">
+      <h1 class="text-4xl font-bold">{title}</h1>
+      <span class="text-sm text-[var(--color-secondary)]">
+        {pubDate.toDateString()}
+      </span>
+    </div>
+
+    <div class="pt-10">
+      <div class="prose font-sans leading-relaxed!">
+        <Content />
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .projects__title {
+    padding-bottom: 0.5rem;
+  }
+
+  .writings {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 5rem;
+  }
+
+  .techo__name {
+    font-family: "Inter" !important;
+    letter-spacing: normal;
+    font-weight: 100 !important;
+    padding-bottom: 1rem;
+  }
+
+  .frameworks .list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    line-height: 1.6;
+  }
+
+  /* @media only screen and (min-width: 500px) and (max-width: 1024px) {
+    .frameworks .link {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  } */
+
+  .frameworks .list li {
+    padding-bottom: 0.5rem;
+  }
+
+  .frameworks .list .framework__name {
+    color: var(--color-primary);
+  }
+</style>

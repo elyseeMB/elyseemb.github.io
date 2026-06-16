@@ -4,10 +4,6 @@ import { getLink, getTranslator } from "../../libs/i18n.ts";
 const { pathname } = Astro.url;
 const __ = await getTranslator(Astro.currentLocale);
 const isMainPage = pathname === getLink(Astro, "/");
-console.log(pathname);
-
-console.log(isMainPage);
-console.log(getLink(Astro, "/"));
 ---
 
 <HeaderComponent>

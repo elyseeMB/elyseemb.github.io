@@ -7,6 +7,7 @@ import Layout from "../layouts/Layout.astro";
 import Inspiration from "../components/Inspiration.astro";
 import Hobbies from "../components/Hobbies.astro";
 import { getTranslator } from "../libs/i18n.ts";
+import Writings from "../components/Writings.astro";
 
 export type PropsProjet = CollectionEntry<"projects">;
 const __ = await getTranslator(Astro.currentLocale);
@@ -16,6 +17,7 @@ const __ = await getTranslator(Astro.currentLocale);
   <div class="home">
     <Hero />
     <Projects />
+    <Writings />
     <Inspiration />
 
     <Hobbies />
