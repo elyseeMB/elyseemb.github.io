@@ -8,8 +8,10 @@ import Inspiration from "../components/Inspiration.astro";
 import Hobbies from "../components/Hobbies.astro";
 import { getTranslator } from "../libs/i18n.ts";
 import Writings from "../components/Writings.astro";
+import { getCollection } from "astro:content";
 
 export type PropsProjet = CollectionEntry<"projects">;
+const writings = await getCollection("writings");
 const __ = await getTranslator(Astro.currentLocale);
 ---
 
@@ -17,9 +19,8 @@ const __ = await getTranslator(Astro.currentLocale);
   <div class="home">
     <Hero />
     <Projects />
-    <Writings />
+    {writings.length >= 1 && <Writings />}
     <Inspiration />
-
     <Hobbies />
   </div>
 </Layout>
