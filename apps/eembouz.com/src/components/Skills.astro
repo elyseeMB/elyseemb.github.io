@@ -18,16 +18,14 @@ const skills = await getSkills(lang);
           <div class="frameworks">
             <ul class="list">
               {skill.frameworks?.map((framework) => (
-                <div class="link">
-                  <li class="framework">
-                    <a href={framework.href}>
-                      <span class="framework__name"> {__(framework.name)}</span>
-                    </a>
-                    <span class="framework__description">
-                      {__(framework.description ?? "")}
-                    </span>
-                  </li>
-                </div>
+                <li class="framework">
+                  <a href={framework.href}>
+                    <span class="framework__name"> {__(framework.name)}</span>
+                  </a>
+                  <span class="framework__description">
+                    {__(framework.description ?? "")}
+                  </span>
+                </li>
               ))}
             </ul>
           </div>

@@ -63,8 +63,8 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
         <div>
           <div class="flex flex-col gap-5">
             { links && (
-              <h4 class="font-mono tracking-tighter uppercase">{links.title}
-              </h4>
+              <span class="font-mono tracking-tighter uppercase">{links.title}
+              </span>
               <ul class="flex flex-col gap-5 text-base">
                 {
                   links &&
