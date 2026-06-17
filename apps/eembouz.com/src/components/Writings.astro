@@ -14,9 +14,9 @@ const __ = await getTranslator(Astro.currentLocale);
 <section
   class="writings flex flex-col gap-2 animate-blur-in animation-delay-300"
 >
-  <h3 data-h3-portfolio class="projects__title font-mono tracking-tighter">
+  <h2 data-h3-portfolio class="projects__title font-mono tracking-tighter">
     {prefixWithSlash(__("Writing"))}
-  </h3>
+  </h2>
   <div class="flex flex-col text-[var(--color-secondary)]">
     {
       writings.map((writing) => (
