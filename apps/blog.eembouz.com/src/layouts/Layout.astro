@@ -38,13 +38,14 @@ const {
     <div class="mx-auto flex max-w-[652px] flex-col px-5">
       <Header />
     </div>
-
-    <div class="container">
-      <div class="page-wrapper">
-        <BlurEffect />
-        <slot />
+    <main>
+      <div class="container">
+        <div class="page-wrapper">
+          <BlurEffect />
+          <slot />
+        </div>
       </div>
-    </div>
+    </main>
 
     <div class="mx-auto max-w-[652px] mb-16 px-5">
       <Footer />
