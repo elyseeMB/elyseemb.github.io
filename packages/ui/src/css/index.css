@@ -47,15 +47,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background-color: var(--background);
-}
-
 pre {
   background: var(--secondary) !important;
 }
 
 @layer base {
+  a {
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.3em;
+  }
+
   [data-link] {
     @apply relative inline-block;
   }
@@ -66,16 +67,6 @@ pre {
 }
 
 @layer utilities {
-  .container {
-    margin: 0 auto;
-    max-width: 100%;
-  }
-
-  .medium {
-    padding-left: calc(var(--container-padding) * 2);
-    padding-right: calc(var(--container-padding) * 2);
-  }
-
   .bg-secondary {
     background-color: var(--outline-wrapper);
   }

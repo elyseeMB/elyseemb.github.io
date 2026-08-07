@@ -1,12 +1,12 @@
 ---
-import { getTranslator } from "../libs/i18n.ts";
+import { useTranslations } from "../i18n/utils.ts";
 
 interface Props {
   disclaimer: string;
 }
 
 const { disclaimer } = Astro.props;
-const __ = await getTranslator(Astro.currentLocale);
+const t = useTranslations(Astro.currentLocale);
 ---
 
 <div
@@ -31,7 +31,7 @@ const __ = await getTranslator(Astro.currentLocale);
     data-slot="alert-title"
     class="[&_a]:hover:text-foreground font-medium group-has-[>svg]/alert:col-start-2 [&_a]:underline [&_a]:underline-offset-3"
   >
-    {__("Précision")}
+    {t("article.disclaimer")}
   </div>
   <div
     data-slot="alert-description"

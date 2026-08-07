@@ -1,31 +1,34 @@
 ---
 import Hero from "../components/Hero.astro";
 import type { CollectionEntry } from "astro:content";
-import Skills from "../components/Skills.astro";
 import Projects from "../components/Projets.astro";
 import Layout from "../layouts/Layout.astro";
 import Inspiration from "../components/Inspiration.astro";
 import Hobbies from "../components/Hobbies.astro";
-import { getTranslator } from "../libs/i18n.ts";
+import Writings from "../components/Writings.astro";
+import { getCollection } from "astro:content";
 
 export type PropsProjet = CollectionEntry<"projects">;
-const __ = await getTranslator(Astro.currentLocale);
+const writings = await getCollection(
+  "writings",
+  ({ data }) => data.status === "online",
+);
 ---
 
 <Layout>
-  <div class="container medium home">
+  <div class="home">
     <Hero />
     <Projects />
+    {writings.length >= 1 && <Writings />}
     <Inspiration />
-
-    <Hobbies />
+    <!-- <Hobbies /> -->
   </div>
 </Layout>
 
 <style is:global>
-  .home {
+  /* .home {
     overflow: hidden;
-  }
+  } */
 
   [data-h3-portfolio] {
     text-transform: uppercase;

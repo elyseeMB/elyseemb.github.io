@@ -1,27 +1,28 @@
 ---
 import { getCollection } from "astro:content";
-import { getTranslator } from "../libs/i18n.ts";
+import { useTranslations } from "../i18n/utils.ts";
 import { prefixWithSlash } from "../functions/string.ts";
 const inspirations = await getCollection("inspirations");
-const __ = await getTranslator(Astro.currentLocale);
+const t = useTranslations(Astro.currentLocale);
 ---
 
 <section class="inspirations animate-blur-in animation-delay-300">
-  <h3 data-h3-portfolio class="inspirations__title font-mono tracking-tighter">
-    {prefixWithSlash(__("My inspirations"))}
-  </h3>
+  <h2 data-h3-portfolio class="inspirations__title font-mono tracking-tighter">
+    {prefixWithSlash(t("inspirations.title"))}
+  </h2>
   <div class="flex flex-col text-[var(--color-secondary)]">
     {
       inspirations.map((inspiration) => (
         <div class="frameworks">
           <ul class="list">
-            <div class="link">
-              <li class="framework group cursor-pointer hover:text-[var(--color-primary)] transition">
-                <a data-link href={inspiration.data.link}>
-                  <span class="relative framework__name">
-                    {inspiration.data.title}
-                  </span>
-
+            <li class="framework group cursor-pointer hover:text-[var(--color-primary)] transition">
+              <a
+                target="_blank"
+                class="group block w-full"
+                href={inspiration.data.link}
+              >
+                <span data-link class="relative framework__name">
+                  {inspiration.data.title}
                   <span class="absolute left-full ml-2 top-1/2 -translate-y-1/2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -39,9 +40,9 @@ const __ = await getTranslator(Astro.currentLocale);
                       <path d="M7 17 17 7" />
                     </svg>
                   </span>
-                </a>
-              </li>
-            </div>
+                </span>
+              </a>
+            </li>
           </ul>
         </div>
       ))

@@ -3,6 +3,7 @@ import markdoc from "@astrojs/markdoc";
 import sitemap from "@astrojs/sitemap";
 import preact from "@astrojs/preact";
 import mdx from "@astrojs/mdx";
+import cloudflare from "@astrojs/cloudflare";
 import { remarkReadingTime } from "./src/modules/remark-reading-time.mjs";
 import tailwindcss from "@tailwindcss/vite";
 
@@ -14,9 +15,7 @@ export default defineConfig({
   prefetch: false,
   trailingSlash: "ignore",
   site: "https://blog.eembouz.com/",
-  build: {
-    format: "directory",
-  },
+  output: "static",
 
   image: {
     service: passthroughImageService(),
@@ -37,6 +36,8 @@ export default defineConfig({
     locales: ["en", "fr"],
   },
   base: "/",
+
+  adapter: cloudflare(),
 
   integrations: [
     mdx(),

@@ -1,0 +1,11 @@
+{
+  "name": "@portfolio/i18n",
+  "description": "Typed internationalization helpers for Astro apps",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "peerDependencies": {
+    "astro": "^5.0.0"
+  }
+}

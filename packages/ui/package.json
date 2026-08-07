@@ -3,11 +3,11 @@
   "exports": {
     "./Header": "./src/components/shared/Header.astro",
     "./Footer": "./src/components/shared/Footer.astro",
-    "./LangRedirect": "./src/components/LangRedirect.astro",
     "./Hero": "./src/components/Hero.astro",
     "./Layout": "./src/layouts/Layout.astro",
     "./GlobalCSS": "./src/css/index.css",
     "./Skeleton": "./src/components/Skeleton.tsx",
+    "./Smooth": "./src/components/Smooth.astro",
     "./ThemeManager": "./src/components/ThemeManager.astro",
     "./Prose": "./src/components/Prose.astro",
     "./Button": "./src/components/Button.astro",

@@ -19,7 +19,7 @@ const { year, items, options, className } = Astro.props;
 
 const baseOptions: OptionsCollection = {
   showBadge: false,
-  description: false,
+  description: true,
   showYear: true,
   ...options,
 };
@@ -51,7 +51,7 @@ const isSeriesPage = Astro.url.pathname.includes("series");
             className={`relative animate-blur-in animation-delay-${between(
               index * 100,
               0,
-              300
+              300,
             )}`}
             props={article.props}
             options={baseOptions}
@@ -62,12 +62,12 @@ const isSeriesPage = Astro.url.pathname.includes("series");
             className={`relative animate-blur-in animation-delay-${between(
               index * 100,
               0,
-              300
+              300,
             )}`}
             props={article.props}
             options={baseOptions}
           />
-        )
+        ),
       )
     }
   </div>
