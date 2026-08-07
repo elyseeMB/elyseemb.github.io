@@ -55,7 +55,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: apps/eembouz.com
-          command: pages deploy apps/eembouz.com/dist --project-name=eembouz-com --branch=main
+          command: pages deploy dist --project-name=eembouz-com --branch=main
 
   deploy-blog:
     needs: changes
@@ -88,4 +88,4 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: apps/blog.eembouz.com
-          command: pages deploy apps/blog.eembouz.com/dist --project-name=blog-eembouz-com --branch=main
+          command: pages deploy dist --project-name=blog-eembouz-com --branch=main
