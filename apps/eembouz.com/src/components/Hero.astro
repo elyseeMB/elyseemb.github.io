@@ -1,25 +1,34 @@
 ---
 import HeroComponent from "@portfolio/ui/Hero";
-import { getTranslator } from "../libs/i18n.ts";
-const __ = await getTranslator(Astro.currentLocale);
+import { useTranslations } from "../i18n/utils.ts";
+const t = useTranslations(Astro.currentLocale);
 ---
 
-<HeroComponent title="Elysee Mboussa">
-  <div slot="description" class="animate-blur-in animation-delay-300">
-    <p>
-      {
-        __(
-          "Ingénieur logiciel, Je conçois des solutions numériques fiables et durables. Sur Mon blog, je partage mon parcours créatif et technologique.",
-        )
-      }
-    </p>
-
-    <p>
-      {
-        __(
-          "Je m'intéresse à l'écosystème web dans sa globalité — chaque projet amène ses propres contraintes, et j'aime explorer les approches qui y répondent le mieux. J'aime construire des interfaces qui ont du sens, des backends qui tiennent la route, et des environnements qui tournent partout.",
-        )
-      }
-    </p>
+<div>
+  <div class="pb-10 gap-10 flex flex-col justify-center items-center">
+    <h1>Hi !</h1>
+    <div
+      class="w-100 m-auto rotate-4 flex flex-col gap-2 p-5 rounded-lg bg-[var(--accent)] dark:bg-white"
+    >
+      <img src="/hero_img.jpg" class="object-cover aspect-square" alt="" />
+      <p class="font-mono text-black text-xs">corniche Brazzaville</p>
+    </div>
   </div>
-</HeroComponent>
+  <HeroComponent title="Elysee Mboussa">
+    <div slot="description" class="animate-blur-in animation-delay-300">
+      <p>
+        {t("home.description.prefix")}{" "}
+        <a href="blog.eembouz.com" class="underline hover:text-primary">
+          {t("home.description.link")}
+        </a>
+        {t("home.description.suffix")}{" "}
+        <a
+          href="mailto:contact@eembouz.com"
+          class="underline hover:text-primary"
+        >
+          {t("home.contact")}
+        </a>
+      </p>
+    </div>
+  </HeroComponent>
+</div>

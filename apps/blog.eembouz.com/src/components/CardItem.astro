@@ -65,7 +65,7 @@ const isArticlePage = Astro.url.pathname.includes("articles");
 
     <Link href={url}>
       {options.showBadge && <Badge contentTypeId={props.data.contentType} />}
-      <h3 class="lg:text-xl">{props.data.title}</h3>
+      <h3 class="text-lg lg:text-xl">{props.data.title}</h3>
       {
         options.description && (
           <p class="leading-relaxed text-lg! text-[var(--color-secondary)]">

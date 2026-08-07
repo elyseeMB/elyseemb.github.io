@@ -9,11 +9,13 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^12.6.12",
     "@astrojs/markdoc": "^0.15.10",
     "@astrojs/mdx": "^4.3.13",
     "@astrojs/preact": "^4.1.3",
     "@astrojs/sitemap": "^3.7.0",
     "@portfolio/functions": "workspace:*",
+    "@portfolio/i18n": "workspace:*",
     "@portfolio/ui": "workspace:*",
     "astro": "^5.17.1",
     "highlight.js": "^11.11.1",

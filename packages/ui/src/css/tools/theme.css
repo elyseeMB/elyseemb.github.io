@@ -103,7 +103,7 @@
   --hover-primary: rgba(0, 122, 236, 0.242);
 
   --background-footer: #6c6c6c26;
-  --url-image: url("/noise.png");
+  /* --url-image: url("/noise.png"); */
 
   --background: #121212;
 
@@ -148,6 +148,10 @@
   --sh-jsxliterals: #d8a1c7;
   --sh-sign: #c1d1d8;
   --sh-comment: hsl(var(--muted-foreground) / 60%);
+}
+
+body {
+  background-color: var(--background);
 }
 
 @media (prefers-color-scheme: dark) {

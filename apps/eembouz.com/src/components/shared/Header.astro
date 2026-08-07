@@ -1,13 +1,9 @@
 ---
 import HeaderComponent from "@portfolio/ui/Header";
-import { getLink, getTranslator } from "../../libs/i18n.ts";
+import { getLink, useTranslations } from "../../i18n/utils.ts";
 const { pathname } = Astro.url;
-const __ = await getTranslator(Astro.currentLocale);
-const isMainPage = pathname === getLink(Astro, "/");
-console.log(pathname);
-
-console.log(isMainPage);
-console.log(getLink(Astro, "/"));
+const t = useTranslations(Astro.currentLocale);
+const isMainPage = pathname === getLink(Astro.currentLocale, "/");
 ---
 
 <HeaderComponent>
@@ -38,14 +34,15 @@ console.log(getLink(Astro, "/"));
   <ul class="flex-header actions">
     <li class="btn btn-link">
       <a
+        target="_blank"
         href="https://blog.eembouz.com"
-        class="btn-click magnetic link-header"
+        class="btn-click magnetic link-header focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
         data-strength="25"
         data-strength-text="10"
       >
         <span class="btn-text">
           <span class="btn-text-inner">
-            {__("Blog")}
+            {t("nav.blog")}
           </span>
         </span>
       </a>
@@ -54,12 +51,12 @@ console.log(getLink(Astro, "/"));
     <li class="btn btn-link">
       <a
         href="mailto:contact@eembouz.com"
-        class="btn-click magnetic link-header"
+        class="btn-click magnetic link-header focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
         data-strength="25"
         data-strength-text="10"
       >
         <span class="btn-text">
-          <span class="btn-text-inner">{__("contact")}</span>
+          <span class="btn-text-inner">{t("nav.contact")}</span>
         </span>
       </a>
     </li>

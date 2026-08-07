@@ -265,6 +265,61 @@ export default config({
         name: fields.slug({ name: { label: "Name" } }),
       },
     }),
+
+    projects: collection({
+      entryLayout: "form",
+      label: "Projects",
+      slugField: "title",
+      path: "apps/eembouz.com/src/data/projects/*",
+      format: { data: "json" },
+      schema: {
+        title: fields.slug({ name: { label: "Title" } }),
+        description: fields.text({
+          label: "Description",
+          multiline: true,
+        }),
+        link: fields.url({ label: "URL" }),
+        pubDate: fields.date({ label: "Publication Date" }),
+        status: fields.select({
+          label: "Status",
+          options: [
+            { label: "En cours", value: "en_cours" },
+            { label: "Valable", value: "valable" },
+          ],
+          defaultValue: "en_cours",
+        }),
+      },
+    }),
+
+    writings: collection({
+      entryLayout: "content",
+      label: "Writings",
+      slugField: "title",
+      path: "apps/eembouz.com/src/data/writings/*",
+      format: { contentField: "content" },
+      schema: {
+        title: fields.slug({ name: { label: "Title" } }),
+        pubDate: fields.date({ label: "Publication Date" }),
+        status: fields.select({
+          label: "Status",
+          options: [
+            { label: "Draft", value: "draft" },
+            { label: "Online", value: "online" },
+          ],
+          defaultValue: "draft",
+        }),
+        thumbnail: fields.image({
+          label: "Thumbnail",
+          description: "Image used for OG tags",
+          directory: "apps/eembouz.com/public",
+          publicPath: "/",
+        }),
+        content: fields.mdx({
+          label: "Content",
+          description: "Main body content of the writing",
+        }),
+      },
+    }),
   },
 
   singletons: {

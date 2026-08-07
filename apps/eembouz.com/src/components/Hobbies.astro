@@ -2,16 +2,16 @@
 import { PhotoGrid } from "./PhotoGrid.tsx";
 import { SkeletonGallery } from "@portfolio/ui/Skeleton";
 import hobbiesData from "../data/hobbies-gallery.json";
-import { getTranslator } from "../libs/i18n.ts";
+import { useTranslations } from "../i18n/utils.ts";
 import { prefixWithSlash } from "../functions/string.ts";
-const __ = await getTranslator(Astro.currentLocale);
+const t = useTranslations(Astro.currentLocale);
 ---
 
 <section class="hobbies animate-blur-in animation-delay-300">
   <div class="home">
-    <h3 data-h3-portfolio class="hobbies__title font-mono tracking-tighter">
-      {prefixWithSlash(__("My Hobbies"))}
-    </h3>
+    <h2 data-h3-portfolio class="hobbies__title font-mono tracking-tighter">
+      {prefixWithSlash(t("hobbies.title"))}
+    </h2>
   </div>
   <div>
     <PhotoGrid

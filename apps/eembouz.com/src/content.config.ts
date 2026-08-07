@@ -1,25 +1,24 @@
 import { glob } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
 
-const projects = defineCollection({
-  loader: glob({ pattern: "**/*.mdx", base: "./src/data/projects" }),
+const writings = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.md", base: "./src/data/writings" }),
   schema: z.object({
     title: z.string(),
-    summary: z.string().optional(),
-    description: z.string().optional(),
+    pubDate: z.coerce.date(),
+    status: z.enum(["draft", "online"]).default("draft"),
     thumbnail: z.string().optional(),
-    pubDate: z.coerce.date().optional(),
-    techno: z.array(z.string()).optional().default([]),
-    seo: z
-      .object({
-        title: z.string().optional(),
-        description: z.string().optional(),
-        image: z.string().optional(),
-        canonicalURL: z.string().url().optional(),
-        typeContent: z.string().optional().default("website"),
-        tags: z.array(z.string()).optional(),
-      })
-      .optional(),
+  }),
+});
+
+const projects = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.json", base: "./src/data/projects" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    link: z.string().url(),
+    pubDate: z.coerce.date(),
+    status: z.enum(["en_cours", "valable"]).default("en_cours"),
   }),
 });
 
@@ -51,4 +50,4 @@ const gallery = defineCollection({
   }),
 });
 
-export const collections = { projects, inspirations, gallery };
+export const collections = { projects, inspirations, gallery, writings };

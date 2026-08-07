@@ -38,7 +38,7 @@ const seo = seoProps ? seoProps : metaData;
 
 <Layout {...seo}>
   <section data-markdown class="w-full">
-    <div class="container medium">
+    <div>
       <Info
         item={item}
         showSummary={false}
@@ -49,7 +49,7 @@ const seo = seoProps ? seoProps : metaData;
 
     <!-- {
       thumbnail && (
-        <div class="container medium">
+        <div >
           <div class="heading">
             <div class="cover animate-fade-in animation-delay-300">
               <img
@@ -63,7 +63,7 @@ const seo = seoProps ? seoProps : metaData;
       )
     } -->
 
-    <div class="container medium pt-10">
+    <div class="pt-10">
       <Prose>
         {disclaimer && <Disclaimer disclaimer={disclaimer} />}
         <Content />

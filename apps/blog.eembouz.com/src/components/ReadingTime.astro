@@ -1,5 +1,4 @@
 ---
-import { getTranslator } from "../libs/i18n.ts";
 import Button from "@portfolio/ui/Button";
 
 interface Props {
@@ -8,7 +7,6 @@ interface Props {
 }
 
 const { time, icon = false } = Astro.props;
-const __ = await getTranslator(Astro.currentLocale);
 ---
 
 <div class="flex items-center gap-2">
@@ -44,7 +42,7 @@ const __ = await getTranslator(Astro.currentLocale);
       <div class="btn-fill 0"></div>
       <span class="btn-text">
         <span class="btn-text-inner change">
-          <span class="">
+          <span >
             <div class="flex items-center gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
