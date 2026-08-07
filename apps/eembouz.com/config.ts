@@ -1,1 +1,1 @@
-export const langs = ["en", "zh"] as const;
+export const langs = ["fr", "zh"] as const;

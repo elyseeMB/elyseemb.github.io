@@ -9,7 +9,6 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.12",
     "@astrojs/markdoc": "^0.15.10",
     "@astrojs/mdx": "^4.3.13",
     "@astrojs/preact": "^4.1.3",
@@ -32,8 +31,7 @@
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.3",
-    "typescript": "~5.8.3",
-    "wrangler": "^4.119.0"
+    "typescript": "~5.8.3"
   },
   "packageManager": "pnpm@9.15.2+sha1.0ffb02f94047016ec7e088030337455b4c94bb34"
 }

@@ -19,7 +19,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang={Astro.currentLocale}>
   <head>
     <Seo
       title={title}
@@ -43,61 +43,6 @@ const {
 
 <script>
   import { onLoadClientRouter } from "@portfolio/ui/client";
-  import { langs } from "../../config.ts";
-
-  function trim(str: string, char: string): string {
-    if (char.length !== 1) {
-      throw new Error("Char must be single character");
-    }
-    if (str == null || str.length === 0) return str;
-    if (!char) return str;
-
-    const c = char.charCodeAt(0);
-    let start = 0;
-    let end = str.length - 1;
-    while (start <= end && str.charCodeAt(start) === c) start++;
-    while (end >= start && str.charCodeAt(end) === c) end--;
-    return str.slice(start, end + 1);
-  }
-
-  function redirectLang() {
-    const storedLang = localStorage.getItem("lang");
-    const currentPath = window.location.pathname;
-    const browserLang = navigator.language.split("-")[0].toLowerCase();
-
-    // Extraire la langue de l'URL si présente
-    const pathLang = currentPath.split("/")[1];
-    const isValidPathLang = langs.includes(pathLang as any);
-
-    // Si l'URL contient déjà une langue valide, l'utiliser et la stocker
-    if (isValidPathLang && pathLang !== "fr") {
-      localStorage.setItem("lang", pathLang);
-      return;
-    }
-
-    if (storedLang) {
-      if (storedLang !== "fr" && !currentPath.startsWith("/" + storedLang)) {
-        window.location.href = "/" + trim(storedLang + currentPath, "/");
-      }
-      return;
-    }
-
-    let targetLang = "fr";
-
-    if (langs.includes(browserLang as any)) {
-      targetLang = browserLang;
-    } else if (browserLang !== "fr") {
-      targetLang = "en";
-    }
-
-    localStorage.setItem("lang", targetLang);
-
-    if (targetLang !== "fr" && !currentPath.startsWith("/" + targetLang)) {
-      window.location.href = "/" + trim(targetLang + currentPath, "/");
-    }
-  }
-
-  redirectLang();
 
   onLoadClientRouter(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {

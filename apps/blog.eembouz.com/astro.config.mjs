@@ -3,7 +3,6 @@ import markdoc from "@astrojs/markdoc";
 import sitemap from "@astrojs/sitemap";
 import preact from "@astrojs/preact";
 import mdx from "@astrojs/mdx";
-import cloudflare from "@astrojs/cloudflare";
 import { remarkReadingTime } from "./src/modules/remark-reading-time.mjs";
 import tailwindcss from "@tailwindcss/vite";
 
@@ -32,12 +31,10 @@ export default defineConfig({
   },
 
   i18n: {
-    defaultLocale: "fr",
+    defaultLocale: "en",
     locales: ["en", "fr"],
   },
   base: "/",
-
-  adapter: cloudflare(),
 
   integrations: [
     mdx(),
@@ -55,7 +52,7 @@ export default defineConfig({
   },
 
   redirects: {
-    "/en/articles/isolation-par-contrats-rendre-l-infrastructure-independante-du-metier/":
-      "/en/articles/isolation-through-contracts-making-infrastructure-independent-of-the-business-domain/",
+    "/articles/isolation-par-contrats-rendre-l-infrastructure-independante-du-metier/":
+      "/articles/isolation-through-contracts-making-infrastructure-independent-of-the-business-domain/",
   },
 });

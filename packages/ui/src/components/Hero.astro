@@ -4,7 +4,7 @@ interface Props {
     name: string;
     url: string;
   };
-  title: string;
+  title?: string;
   description?: string;
   job?: string;
 }
@@ -14,9 +14,7 @@ const { title, description, action } = Astro.props;
 
 <section class="hero flex flex-col gap-5">
   <div class="title">
-    <h1 class="split">
-      {title}
-    </h1>
+    {title && <h1 class="split">{title}</h1>}
     <slot name="description" />
   </div>
 

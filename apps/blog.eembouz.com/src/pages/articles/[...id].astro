@@ -2,7 +2,7 @@
 import type { GetStaticPaths } from "astro";
 import { filterByLocale } from "../../i18n/utils.ts";
 export const getStaticPaths = (async () => {
-  const posts = await getPublishedPosts("blog", filterByLocale("fr"));
+  const posts = await getPublishedPosts("blog", filterByLocale("en"));
   return posts.map((item) => ({
     params: { id: item.id },
     props: { item },

@@ -1,0 +1,15 @@
+---
+import type { GetStaticPaths } from "astro";
+import { filterByLocale } from "../../../i18n/utils.ts";
+import Page from "../../articles/_page.astro";
+import { getPublishedPosts } from "../../../libs/pushisedPost.ts";
+export const getStaticPaths = (async () => {
+  const posts = await getPublishedPosts("blog", filterByLocale("fr"));
+  return posts.map((item) => ({
+    params: { id: item.id.split("/").at(-1) },
+    props: { item },
+  }));
+}) satisfies GetStaticPaths;
+---
+
+<Page {...Astro.props} />
