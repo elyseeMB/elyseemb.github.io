@@ -1,94 +1,94 @@
 ---
-title: "Le Load Balancer"
+title: "Load Balancing"
 status: public
 author: "elysee"
-summary: "Le load balancing, ou équilibrage de charge, est une technique utilisée pour améliorer la disponibilité, la scalabilité et la résilience des applications web modernes en répartissant le trafic entre plusieurs serveurs."
+summary: "Load balancing, or load distribution, is a technique utilized to improve the availability, scalability, and resilience of modern web applications by distributing traffic among multiple servers."
 thumbnail: "/load-balancer/load_balancer.png"
 taxonomies: ["devops"]
 pubDate: 2025-07-21
 ---
 
-Chaque jour, des milliers d’utilisateurs se connectent pour consulter leurs
-e-mails, échanger des messages ou travailler sur leurs projets. Un nombre
-incalculable de paquets réseau transitent chaque seconde entre des milliers de
-serveurs, tous optimisés pour répondre le plus rapidement possible et
-distribuer efficacement les ressources.
+Daily, thousands of users connect to consult their
+emails, exchange messages, or work on their projects. An
+incalculable number of network packets transit each second between thousands of
+servers, all optimized to respond as rapidly as possible and
+efficiently distribute resources.
 
-Mais qui dit **multiplication des utilisateurs**, dit aussi **requêtes
-simultanées**, risques de surcharge, lenteurs, voire pannes.
+However, **user multiplication** entails **simultaneous
+requests**, overload risks, slowdowns, or even failures.
 
-Dans cette course à la performance et à la réactivité, de nombreuses techniques
-sont mises en œuvre pour garantir une distribution fluide et équilibrée de la
-charge : **le load balancing** en est l’une des clés.
+In this performance and reactivity race, numerous techniques
+are implemented to guarantee fluid and balanced load
+distribution: **load balancing** constitutes one of the keys.
 
-**Le Load Balancing** est un processus clé en informatique, souvent utilisé
-dans l’architecture des systèmes distribués. Il permet de répartir un ensemble
-de tâches ou de requêtes sur plusieurs ressources (comme des serveurs) afin de
-**réduire la surcharge**, **améliorer les performances globales** et
-**garantir une haute disponibilité**. Il s’applique principalement **au niveau
-des protocoles d’application** tels que **HTTP/HTTPS, FTP, SMTP, DNS, SSH**,
-etc., pour gérer efficacement le trafic réseau.
+**Load Balancing** is a key process in computing, frequently utilized
+in distributed systems architecture. It enables distributing a set
+of tasks or requests across multiple resources (such as servers) to
+**reduce overload**, **improve global performance**, and
+**guarantee high availability**. It primarily applies **at the
+application protocol level** such as **HTTP/HTTPS, FTP, SMTP, DNS, SSH**,
+etc., to efficiently manage network traffic.
 
 <img
   src="/load-balancer/illustration_load-balancer.png"
-  alt="Schéma d'un load balancer distribuant le trafic"
+  alt="Diagram of a load balancer distributing traffic"
 />
 
-Concrètement, au lieu que chaque client s’adresse directement à un serveur
-donné, toutes les requêtes sont envoyées à une **adresse réseau centrale** —
-celle du load balancer. Celui-ci se charge alors de **rediriger le trafic**
-vers les serveurs disponibles, selon différents critères (algorithmes, charge
-actuelle, disponibilité, etc.).
+Concretely, instead of each client directly addressing a given
+server, all requests are sent to a **central network address** —
+that of the load balancer. This then **redirects traffic**
+toward available servers according to different criteria (algorithms, current
+load, availability, etc.).
 
-Ce mécanisme permet d’éviter les surcharges, d’améliorer les performances globales du système et de garantir une haute disponibilité du service.
+This mechanism prevents overloads, improves system global performance, and guarantees high service availability.
 
-## Load Balancing : niveau 4 vs niveau 7
+## Load Balancing: Level 4 vs. Level 7
 
-Il existe plusieurs types de load balancers, selon le niveau du **modèle OSI** sur
-lequel ils opèrent :
+Several load balancer types exist according to the **OSI model** level on
+which they operate:
 
-- **Niveau 4 (transport)** : l’équilibrage se fait sur la base des adresses IP, des ports TCP ou UDP. Le load balancer ne « voit » pas le contenu des requêtes, il se contente de router le trafic selon des règles de bas niveau.  
-   Exemple : **HAProxy** ou **AWS Network Load Balancer**.
-- **Niveau 7 (application)** : l’équilibrage se fait en analysant le contenu des requêtes HTTP, comme l’URL, les cookies, ou les en-têtes. Cela permet une répartition plus fine et contextuelle.  
-   Exemple : **NGINX**, **Traefik**, ou **AWS Application Load Balancer**.
+- **Level 4 (transport)**: balancing occurs based on IP addresses, TCP or UDP ports. The load balancer doesn't "see" request content; it merely routes traffic according to low-level rules.  
+   Example: **HAProxy** or **AWS Network Load Balancer**.
+- **Level 7 (application)**: balancing occurs by analyzing HTTP request content, such as URLs, cookies, or headers. This enables finer and more contextual distribution.  
+   Example: **NGINX**, **Traefik**, or **AWS Application Load Balancer**.
 
-Ce choix dépend du type d’application, du besoin en personnalisation et des performances attendues.
+This choice depends on application type, customization requirements, and expected performance.
 
-## Principaux algorithmes d’équilibrage:
+## Principal Balancing Algorithms:
 
-### Le Round Robin DNS :
+### Round Robin DNS:
 
-<img src="/load-balancer/round_robin.png" alt="round_rogin" />
+<img src="/load-balancer/round_robin.png" alt="round_robin" />
 
-Le **Round Robin DNS** est un algorithme d’équilibrage de charge qui permet de
-répartir le trafic entre plusieurs serveurs en associant **plusieurs adresses
-IP** à un **même nom de domaine**.
+**Round Robin DNS** is a load balancing algorithm that enables
+distributing traffic among multiple servers by associating **multiple IP
+addresses** with a **single domain name**.
 
-Contrairement à d'autres méthodes, cette technique **ne nécessite aucun
-équipement physique** dédié. Elle repose sur le fonctionnement du **serveur
-DNS autoritaire** ([authoritative
+Unlike other methods, this technique **requires no dedicated
+physical equipment**. It relies on **authoritative DNS
+server** functioning ([authoritative
 nameserver](https://www.cloudflare.com/learning/dns/dns-server-types/#authoritative-nameserver)).
 
-Elle est facile à mettre en place via l’interface de gestion DNS de votre fournisseur :
+It is easily implemented via your provider's DNS management interface:
 
-- en ajoutant **plusieurs enregistrements A** (pour IPv4),
-- ou des **enregistrements AAAA** (pour IPv6).
+- by adding **multiple A records** (for IPv4),
+- or **AAAA records** (for IPv6).
 
-**Avantage** : simplicité de configuration.  
-**Limite** : pas de gestion intelligente de la charge réelle (le DNS ne “voit” pas si un serveur est saturé ou indisponible).
+**Advantage**: configuration simplicity.  
+**Limitation**: no intelligent real load management (DNS doesn't "see" if a server is saturated or unavailable).
 
-## load balancers logiciels et matériels:
+## Software and Hardware Load Balancers:
 
-## -- logicielles:
+## -- Software:
 
-### [Nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/) :
+### [Nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/):
 
-nginx est un logiciel open-source qui fait office de **serveur web**, de
-**reverse proxy** et de **load balancer**. Il est reconnu pour sa **faible
-consommation mémoire** et sa **grande rapidité**, ce qui en fait un choix
-privilégié dans les environnements à fort trafic.
+nginx is open-source software functioning as a **web server**,
+**reverse proxy**, and **load balancer**. It is recognized for its **low
+memory consumption** and **high speed**, making it a
+preferred choice in high-traffic environments.
 
-Pour configurer Nginx comme load balancer, on utilise la directive `upstream` dans le fichier de configuration, qui permet de déclarer plusieurs serveurs backend :
+To configure Nginx as a load balancer, the `upstream` directive is used in the configuration file, enabling declaration of multiple backend servers:
 
 ```nginx
 http {
@@ -108,16 +108,16 @@ http {
 }
 ```
 
-Par défaut, Nginx applique le **round robin**, mais il supporte aussi :
+By default, Nginx applies **round robin**, but also supports:
 
-- `least_conn` : vers le serveur avec le moins de connexions actives
-- `ip_hash` : pour garder la session sur le même serveur
+- `least_conn`: toward the server with fewest active connections
+- `ip_hash`: to maintain session on the same server
 
-## choisir une méthode d’équilibrage de charge:
+## Choosing a Load Balancing Method:
 
-[NGINX](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/#choosing-a-load-balancing-method "Choosing a Load Balancing Method") en charge quatre méthodes d'équilibrage de charge : Round Robin, Least Connections, IP Hash et Generic Hash.
+[NGINX](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/#choosing-a-load-balancing-method "Choosing a Load Balancing Method") supports four load balancing methods: Round Robin, Least Connections, IP Hash, and Generic Hash.
 
-> **Note:** Lors de la configuration d'une méthode autre que Round Robin, mettez la directive correspondante ([`hash`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#hash), [`ip_hash`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#ip_hash), [`least_conn`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_conn), [`least_time`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_time), ou [`random`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#random)) au-dessus de la liste de `server` directives dans le [`upstream {}`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#upstream) bloc.
+> **Note:** When configuring a method other than Round Robin, place the corresponding directive ([`hash`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#hash), [`ip_hash`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#ip_hash), [`least_conn`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_conn), [`least_time`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_time), or [`random`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#random)) above the `server` directive list in the [`upstream {}`](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#upstream) block.
 
 1- **Round Robin (Default)**
 
@@ -129,14 +129,13 @@ upstream backend {
 }
 ```
 
-    Contrairement au Round Robin DNS, les reverse proxies comme **NGINX** permettent un équilibrage de charge **plus intelligent** et dynamique, avec prise en compte des connexions actives, de l’adresse IP du client, ou de la clé de hachage.
+    Unlike Round Robin DNS, reverse proxies like **NGINX** enable **more intelligent** and dynamic load balancing, with consideration of active connections, client IP address, or hash key.
 
 2- **[Least
-Connections](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_conn) –**
- Une requête est envoyée au serveur avec le moins de connexions actives. Cette
-méthode prend également [poids du
-serveur](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/#weights) en
-considération.
+Connections](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#least_conn) –**
+A request is sent to the server with fewest active connections. This
+method also considers [server
+weight](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/#weights).
 
 ```nginx
 upstream backend {
@@ -147,12 +146,12 @@ upstream backend {
 ```
 
 3- **[IP
-Hash](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#ip_hash) –**
-Le serveur auquel une requête est envoyée est déterminé à partir de l'adresse
-IP du client. Dans ce cas, soit les trois premiers octets de l'adresse IPv4,
-soit l'adresse IPv6 entière sont utilisés pour calculer la valeur de hachage.
-La méthode garantit que les requêtes provenant de la même adresse parviennent
-au même serveur, sauf si celui-ci n'est pas disponible.
+Hash](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#ip_hash) –**
+The server to which a request is sent is determined from the
+client IP address. In this case, either the first three octets of the IPv4 address
+or the entire IPv6 address are used to calculate the hash value.
+The method guarantees that requests from the same address reach
+the same server, unless unavailable.
 
 ```nginx
 upstream backend {
@@ -162,12 +161,12 @@ upstream backend {
 }
 ```
 
-Si l'un des serveurs doit être temporairement retiré de la rotation de
-chargement‑équilibrage, il peut être marqué avec
-le [down](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#down) paramètre.
-Cela préserve le hachage actuel des adresses IP des clients. Les requêtes qui
-devaient être traitées par ce serveur sont automatiquement envoyées au serveur
-suivant du groupe.
+If a server must be temporarily removed from load-balancing
+rotation, it can be marked with
+the [down](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#down) parameter.
+This preserves current client IP address hashing. Requests that
+should have been processed by this server are automatically sent to the next
+server in the group.
 
 ```nginx
 upstream backend {
@@ -177,11 +176,11 @@ upstream backend {
 }
 ```
 
-4- **Generic [Hash](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#hash) –**
-Le serveur auquel une requête est envoyée est déterminé à partir d'une clé
-définie par l'utilisateur‑. Cette clé peut être une chaîne de texte, une
-variable ou une combinaison. Par exemple, la clé peut être une adresse IP
-source et un port appariés. Cet exemple utilise un URI :
+4- **Generic [Hash](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#hash) –**
+The server to which a request is sent is determined from a
+user-defined key. This key can be a text string, a
+variable, or a combination. For example, the key can be a paired source IP
+address and port. This example uses a URI:
 
 ```nginx
 upstream backend {
@@ -191,57 +190,57 @@ upstream backend {
 }
 ```
 
-    L'optionnel [cohérent](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#hash) paramètre au `hash` la directive permet [ketama](http://www.last.fm/user/RJ/journal/2007/04/10/rz_libketama_-_a_consistent_hashing_algo_for_memcache_clients) cohérent‑équilibrage de charge de hachage. Les requêtes sont réparties uniformément sur tous les serveurs en amont en fonction de la valeur de clé hachée définie par l'utilisateur‑. Si un serveur en amont est ajouté ou supprimé d'un groupe en amont, seules quelques clés sont remappées, ce qui minimise les échecs de cache. Ceci est utile pour équilibrer la charge des serveurs de cache ou d’autres applications qui accumulent de l’état.
+    The optional [consistent](https://nginx.org/en/docs/http/ngx_http_upstream_module.html#hash) parameter to the `hash` directive enables [ketama](http://www.last.fm/user/RJ/journal/2007/04/10/rz_libketama_-_a_consistent_hashing_algo_for_memcache_clients) consistent hash load balancing. Requests are uniformly distributed across all upstream servers based on user-defined hashed key value. If an upstream server is added or removed from an upstream group, only a few keys are remapped, minimizing cache misses. This is useful for load-balancing cache servers or other applications that accumulate state.
 
 ### [HAProxy](https://www.haproxy.com/blog/haproxy-configuration-basics-load-balance-your-servers):
 
-HAProxy est un logiciel gratuit et open source qui offre une haute disponibilité et un équilibrage de charge pour les applications basées sur TCP et HTTP. Il répartit le trafic réseau entrant sur plusieurs serveurs pour garantir une utilisation et une évolutivité optimales.
+HAProxy is free, open-source software offering high availability and load balancing for TCP and HTTP-based applications. It distributes incoming network traffic across multiple servers to guarantee optimal utilization and scalability.
 
-**HAProxy** et **NGINX** peuvent tous deux faire de l’équilibrage de charge,
-mais ils ont des **différences importantes** dans leur conception, leur
-comportement et leurs cas d’usage préférés.
+**HAProxy** and **NGINX** can both perform load balancing,
+but they have **important differences** in their design,
+behavior, and preferred use cases.
 
-## NGINX vs HAProxy : Comparaison d’usage
+## NGINX vs HAProxy: Usage Comparison
 
 <div class="table-container">
 
-| Critère                      | **NGINX**                           | **HAProxy**                              |
-| ---------------------------- | ----------------------------------- | ---------------------------------------- |
-| **Fonction principale**      | Serveur HTTP + reverse proxy        | Load balancer (spécialisé)               |
-| **Performance brute**        | Excellente en HTTP, bon généraliste | Meilleure sur les charges réseau élevées |
-| **Équilibrage niveau**       | L7 (HTTP) + partiel L4              | L4 (TCP) + L7 (HTTP) très optimisé       |
-| **Support HTTPS natif**      | Oui (certbot, etc.)                 | Possible, mais plus complexe             |
-| **Configuration**            | Simple, fichiers de config lisibles | Plus verbeux mais très précis            |
-| **Monitoring / stats**       | Basique (module de status)          | Très détaillé (dashboard intégré)        |
-| **Utilisation fréquente**    | Reverse proxy web, CDN, cache       | Load balancing pur, haute disponibilité  |
-| **Consommation mémoire**     | Faible                              | Ultra-optimisée aussi                    |
-| **Hot reload / live update** | Pas toujours sans coupure           | Oui, sans perturber les connexions       |
+| Criterion                    | **NGINX**                          | **HAProxy**                            |
+| ---------------------------- | ---------------------------------- | -------------------------------------- |
+| **Primary function**         | HTTP server + reverse proxy        | Load balancer (specialized)            |
+| **Raw performance**          | Excellent in HTTP, good generalist | Better on high network loads           |
+| **Balancing level**          | L7 (HTTP) + partial L4             | L4 (TCP) + highly optimized L7 (HTTP)  |
+| **Native HTTPS support**     | Yes (certbot, etc.)                | Possible, but more complex             |
+| **Configuration**            | Simple, readable config files      | More verbose but very precise          |
+| **Monitoring / stats**       | Basic (status module)              | Very detailed (integrated dashboard)   |
+| **Frequent usage**           | Web reverse proxy, CDN, cache      | Pure load balancing, high availability |
+| **Memory consumption**       | Low                                | Ultra-optimized also                   |
+| **Hot reload / live update** | Not always without interruption    | Yes, without disturbing connections    |
 
 </div>
 
-## Load Balancer matériel
+## Hardware Load Balancer
 
-    En support physique, En version matérielle, ce sont des dispositifs physiques installés dans des datacenters spécifiques. Bien qu'il soient capable de gérer et dispatcher un grand volume de trafic sur différent réseau, Ils offrent moins de flexibilité et leurs coûts sont assez élevés.
+    In physical form, hardware versions are physical devices installed in specific datacenters. Although capable of handling and dispatching large traffic volumes across different networks, they offer less flexibility and their costs are quite elevated.
 
 <div class="table-container">
 
-| Nom                             | Description                                                                                                                            |
-| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| **F5 BIG-IP**                   | Le plus connu. Très utilisé en entreprise. Permet du L4 et L7 avec des fonctions avancées (SSL offloading, firewall applicatif, etc.). |
-| **Cisco ACE / ACI**             | Intégré dans les solutions réseau Cisco. Moins courant aujourd’hui, mais très robuste dans certains data centers.                      |
-| **Barracuda Load Balancer ADC** | Connu pour sa simplicité, bon rapport qualité/prix, adapté aux PME. Propose aussi des fonctions de sécurité.                           |
+| Name                            | Description                                                                                                                          |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| **F5 BIG-IP**                   | Most recognized. Widely used in enterprises. Enables L4 and L7 with advanced functions (SSL offloading, application firewall, etc.). |
+| **Cisco ACE / ACI**             | Integrated into Cisco network solutions. Less common today, but very robust in certain data centers.                                 |
+| **Barracuda Load Balancer ADC** | Known for simplicity, good quality/price ratio, suitable for SMEs. Also offers security functions.                                   |
 
 </div>
 
 ---
 
-> Dans cet article, nous avons clarifié et expliqué quelques-uns des algorithmes de **load balancing** les plus utilisés.  
-> Mais cette liste est loin d’être exhaustive : des outils comme **HAProxy** proposent d'autres méthodes avancées de répartition, ainsi que des fonctionnalités clés telles que :
+> In this article, we clarified and explained some of the most utilized **load balancing** algorithms.  
+> However, this list is far from exhaustive: tools like **HAProxy** offer other advanced distribution methods, as well as key functionalities such as:
 >
-> - les **health checks** (vérification automatique de l’état des serveurs),
-> - la **redondance** avec des load balancers en mode **actif/passif**,
-> - la **reprise automatique** en cas de panne.
+> - **health checks** (automatic server state verification),
+> - **redundancy** with load balancers in **active/passive** mode,
+> - **automatic recovery** in case of failure.
 >
-> De leur côté, des solutions commerciales comme **NGINX Plus** offrent également des fonctionnalités étendues, incluant une gestion fine des sessions, des métriques en temps réel, ou encore le support natif de protocoles spécifiques.
+> Commercial solutions like **NGINX Plus** also offer extended functionalities, including fine session management, real-time metrics, or native support for specific protocols.
 
-En résumé, le **load balancing** est un composant essentiel des architectures modernes, garantissant **performance, fiabilité et scalabilité**. Qu’il soit implémenté par des solutions logicielles comme **NGINX** ou **HAProxy**, ou par du matériel spécialisé, il joue un rôle de chef d’orchestre entre les utilisateurs et les serveurs. Le choix du bon algorithme ou de la bonne solution dépendra toujours du **contexte d’usage**, du **budget**, et des **contraintes techniques**.
+In summary, **load balancing** is an essential component of modern architectures, guaranteeing **performance, reliability, and scalability**. Whether implemented through software solutions like **NGINX** or **HAProxy**, or specialized hardware, it plays an orchestral conductor role between users and servers. The choice of the appropriate algorithm or solution will always depend on **usage context**, **budget**, and **technical constraints**.

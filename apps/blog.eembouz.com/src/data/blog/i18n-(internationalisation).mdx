@@ -1,43 +1,43 @@
 ---
-title: "Internationalisation : Une Approche Native"
-author: "elysee"
+title: "Internationalization: A Native Approach"
 status: public
-summary: "Architecture i18n/l10n en React utilisant les standards web natifs."
+author: "elysee"
+summary: "i18n/l10n architecture in React using native web standards."
 thumbnail: "/i18n-(internationalisation)/Internationalisation.png"
 taxonomies: ["programming"]
 pubDate: 2025-12-07
 ---
 
-**I18n** et **L10n** sont les abréviations respectives d'**internationalisation** et de **localisation**. Il s'agit d'un workflow conventionnel qui consiste à préparer et adapter une application web au multilinguisme et aux différentes cultures.
+**I18n** and **L10n** are the respective abbreviations for **internationalization** and **localization**. This is a conventional workflow that consists of preparing and adapting a web application for multilingualism and different cultures.
 
-Dans cet article, je vous propose une approche architecturale en React basée sur les Contextes, les Hooks, et centrée sur l'API native du navigateur **[Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)**. L'objectif ? Maîtriser le flux de données et comprendre l'approche des frameworks qui proposent des solutions toutes faites, en construisant la nôtre from scratch.
+In this article, I propose an architectural approach in React based on Contexts, Hooks, and centered on the browser's native **[Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)** API. The goal? Master the data flow and understand the approach of frameworks that offer ready-made solutions, by building our own from scratch.
 
-## La structure de l'API
+## API Structure
 
-L'approche repose sur trois piliers fondamentaux :
+The approach relies on three fundamental pillars:
 
-1- **Global State Management** : Un `TranslatorProvider` qui entoure l'application et distribue via le Context API la locale active, le dictionnaire de traductions chargé dynamiquement, et la fonction de traduction.
+1- **Global State Management**: A `TranslatorProvider` that wraps the application and distributes via the Context API the active locale, the dynamically loaded translation dictionary, and the translation function.
 
-Le hook `useTranslator` expose ensuite une API unifiée pour accéder aux traductions (`__`), aux formats de dates (`dateFormat`) et aux formats numériques (`numberFormat`).
+The `useTranslator` hook then exposes a unified API to access translations (`__`), date formats (`dateFormat`), and numeric formats (`numberFormat`).
 
-2- **Standardisation Native** : Déléguer la complexité du formatage (dates, nombres, pluriels) à l'API **`Intl`** du navigateur.
+2- **Native Standardization**: Delegate the complexity of formatting (dates, numbers, plurals) to the browser's **`Intl`** API.
 
-3- **Outillage Statique** : Un script d'analyse statique qui extrait automatiquement les clés de traduction du code source via regex, puis synchronise les fichiers JSON de chaque locale en ajoutant les nouvelles clés et supprimant celles devenues obsolètes. Cela garantit que les dictionnaires restent toujours cohérents avec le code.
+3- **Static Tooling**: A static analysis script that automatically extracts translation keys from the source code via regex, then synchronizes the JSON files for each locale by adding new keys and removing obsolete ones. This ensures that dictionaries always remain consistent with the code.
 
-## L'Architecture de Données
+## Data Architecture
 
-Mon approche dans la structuration des données s'est naturellement tournée vers JSON. Étant donné le nombre de méthodes natives du navigateur qui permettent un parsing de ce format (`JSON.parse`, `fetch`, etc.), j'ai choisi de m'appuyer sur cette simplicité.
+My approach to data structuring naturally turned to JSON. Given the number of native browser methods that allow parsing of this format (`JSON.parse`, `fetch`, etc.), I chose to rely on this simplicity.
 
 ```json
 {
-  "Bonjour": "Hello",
-  "Au revoir": "Goodbye"
+  "Hello": "Bonjour",
+  "Goodbye": "Au revoir"
 }
 ```
 
 ### State Management (State Sharing)
 
-L'architecture s'appuie sur le pattern **Provider/Consumer** de React. Le `TranslatorProvider` met le dictionnaire à disposition du Context, et les composants le consomment via le hook `useTranslator`.
+The architecture relies on React's **Provider/Consumer** pattern. The `TranslatorProvider` makes the dictionary available to the Context, and components consume it via the `useTranslator` hook.
 
 ```typescript
 // TranslatorProvider.tsx
@@ -92,14 +92,14 @@ export function useTranslator() {
 }
 ```
 
-**Pourquoi cette approche ?**
-Elle sépare le chargement `loader` de la distribution `Provider`. Cela rend le système agnostique : les traductions peuvent venir d'un fichier JSON local, d'une API REST ou d'un CMS headless.
+**Why this approach?**
+It separates the `loader` loading from the `Provider` distribution. This makes the system agnostic: translations can come from a local JSON file, a REST API, or a headless CMS.
 
-## Abstraction autour d'Intl
+## Abstraction around Intl
 
-L'API Intl du navigateur couvre la plupart des besoins d'internationalisation pour une application web. Elle contient l'intégralité des règles linguistiques et typographiques mondiales : formats de dates par pays, symboles monétaires, règles de pluralisation, etc.
+The browser's Intl API covers most internationalization needs for a web application. It contains all the world's linguistic and typographic rules: date formats by country, currency symbols, pluralization rules, etc.
 
-Une **façade légère** suffit pour adapter cette API à nos besoins. L'idée est d'encapsuler la verbosité d'`Intl` (constructeurs, options multiples) derrière des fonctions simples (`dateFormat`, `numberFormat`) qui respectent automatiquement la locale active.
+A **lightweight facade** is sufficient to adapt this API to our needs. The idea is to encapsulate the verbosity of `Intl` (constructors, multiple options) behind simple functions (`dateFormat`, `numberFormat`) that automatically respect the active locale.
 
 ```typescript
 // useTranslator.ts
@@ -108,26 +108,26 @@ const styleForNumber = (options: Options): Intl.NumberFormatOptions => {
     case "currency":
       return {
         style: "currency",
-        // La devise est déduite dynamiquement de la locale (ex: FR -> EUR)
+        // Currency is dynamically deduced from the locale (e.g., FR -> EUR)
         currency: CurrencyCode[langV.toUpperCase()],
       };
     case "unit":
       return {
         style: "unit",
-        unit: options.unit, // ex: "kilometer"
+        unit: options.unit, // e.g., "kilometer"
       };
     // ...
   }
 };
 ```
 
-Cette fonction agit comme un **normalisateur** qui garantit le respect des conventions typographiques selon la locale active : espace insécable, position du symbole monétaire, séparateur décimal (virgule ou point).
+This function acts as a **normalizer** that ensures compliance with typographic conventions according to the active locale: non-breaking space, currency symbol position, decimal separator (comma or period).
 
-## Automatisation de la Maintenance
+## Maintenance Automation
 
-Pour des raisons de maintenance et d'expérience développeur, j'ai implémenté un script qui analyse le code source et synchronise automatiquement les fichiers de traduction.
+For maintenance and developer experience reasons, I implemented a script that analyzes the source code and automatically synchronizes translation files.
 
-L'outil scanne tous les fichiers TypeScript/React pour détecter les appels à `__()` via regex, puis met à jour les dictionnaires de chaque locale.
+The tool scans all TypeScript/React files to detect calls to `__()` via regex, then updates the dictionaries for each locale.
 
 ```typescript
 // scripts/collect.ts
@@ -143,33 +143,33 @@ function collectStrings() {
   return strings;
 }
 
-// Synchronisation : ajout des nouvelles clés, suppression des obsolètes
+// Synchronization: adding new keys, removing obsolete ones
 for (const newKey of keys.difference(existingKeys)) {
   dict.set(newKey, "");
 }
 ```
 
-Une simple commande (`node scripts/collect.ts` ou via votre task runner) garantit que les fichiers JSON restent parfaitement alignés avec le code.
+A simple command (`node scripts/collect.ts` or via your task runner) ensures that JSON files remain perfectly aligned with the code.
 
-## Application Concrète
+## Concrete Application
 
-L'interface ci-dessous réagit au changement de locale :
+The interface below reacts to locale changes:
 
-- Formats de date adaptés
-- Devises localisées (€ vs $)
-- Unités régionales (km, °C)
+- Adapted date formats
+- Localized currencies (€ vs $)
+- Regional units (km, °C)
 
 <iframe
   src="https://elyseemb.github.io/i18Tp/"
   width="100%"
   height="800px"
   style="border-radius: 18px;"
-  title="Démonstration du système i18n natif"
+  title="Native i18n system demonstration"
   loading="lazy"
 ></iframe>
 
 ## Conclusion
 
-Cette architecture illustre que les navigateurs modernes fournissent déjà de nombreuses abstractions puissantes. Ces standards sont optimisés, maintenus par les éditeurs de navigateurs.
+This architecture illustrates that modern browsers already provide many powerful abstractions. These standards are optimized and maintained by browser vendors.
 
-L'implémentation complète (Provider, Hook, script d'extraction) est disponible sur [GitHub](https://github.com/elyseeMB/i18Tp) pour expérimentation et adaptation à vos projets.
+The complete implementation (Provider, Hook, extraction script) is available on [GitHub](https://github.com/elyseeMB/i18Tp) for experimentation and adaptation to your projects.
