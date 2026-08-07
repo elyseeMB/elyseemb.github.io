@@ -1,1 +1,1 @@
-# Blog
+# Blog - Tips, discoveries and inspirations
