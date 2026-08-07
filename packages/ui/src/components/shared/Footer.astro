@@ -19,12 +19,11 @@ interface Props {
   links?: {title:string; items: Link[]};
   contacts?: {title:string; items: Link[]};
   property?: Property;
+  languages?: { code: string; label: string; href: string; current?: boolean }[];
+  languageLabel?: string;
 }
 
-const { info, links, contacts, property } = Astro.props;
-
-const locale = Astro.currentLocale?.includes("fr") ? "/" : Astro.currentLocale;
-const url = new URL(locale ?? "/en", Astro.url.origin);
+const { info, links, contacts, property, languages, languageLabel } = Astro.props;
 
 ---
 
@@ -41,6 +40,22 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
               >
               Copyright © <span id="footer-year"></span> elysee Mboussa . All rights reserved.</span
             >
+            {
+              languages && languages.length > 1 && (
+                <label class="language-select">
+                  <span class="sr-only">{languageLabel}</span>
+                  <select data-language-select>
+                    {
+                      languages.map((lang) => (
+                        <option value={lang.href} selected={lang.current}>
+                          {lang.label}
+                        </option>
+                      ))
+                    }
+                  </select>
+                </label>
+              )
+            }
           </div>
       </div>
 
@@ -192,6 +207,25 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
     text-decoration: underline;
   }
 
+  .language-select {
+    display: block;
+    width: max-content;
+  }
+
+  .language-select select {
+    background: transparent;
+    border: 1px solid var(--muted-foreground);
+    border-radius: var(--rounded);
+    color: var(--color-secondary);
+    padding: 0.25rem 0.5rem;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .language-select select:hover {
+    border-color: var(--color-primary);
+  }
+
   .info a > * {
     color:  var(--color-primary);
   }
@@ -216,6 +250,16 @@ const url = new URL(locale ?? "/en", Astro.url.origin);
   import {onLoadClientRouter} from "@portfolio/ui/client"
 
   onLoadClientRouter(() => {
-    document.getElementById("footer-year").innerText = new Date().getFullYear();
+    const year = document.getElementById("footer-year");
+    if (year) {
+      year.innerText = new Date().getFullYear().toString();
+    }
+  })
+
+  document.addEventListener("change", (event) => {
+    const target = event.target as HTMLSelectElement | null;
+    if (target?.matches?.("select[data-language-select]")) {
+      window.location.href = target.value;
+    }
   })
 </script>

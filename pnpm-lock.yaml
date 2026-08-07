@@ -27,6 +27,9 @@ importers:
 
   apps/blog.eembouz.com:
     dependencies:
+      '@astrojs/cloudflare':
+        specifier: ^12.6.12
+        version: 12.6.12(@types/node@24.1.0)(astro@5.17.1(@types/node@24.1.0)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.57.1)(typescript@5.8.3))(jiti@2.6.1)(lightningcss@1.30.2)
       '@astrojs/markdoc':
         specifier: ^0.15.10
         version: 0.15.10(@types/react@19.2.11)(astro@5.17.1(@types/node@24.1.0)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.57.1)(typescript@5.8.3))(react@19.2.0)
@@ -42,6 +45,9 @@ importers:
       '@portfolio/functions':
         specifier: workspace:*
         version: link:../../packages/functions
+      '@portfolio/i18n':
+        specifier: workspace:*
+        version: link:../../packages/i18n
       '@portfolio/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -85,6 +91,9 @@ importers:
 
   apps/eembouz.com:
     dependencies:
+      '@astrojs/cloudflare':
+        specifier: ^12.6.12
+        version: 12.6.12(@types/node@24.1.0)(astro@5.17.1(@types/node@24.1.0)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.57.1)(typescript@5.8.3))(jiti@2.6.1)(lightningcss@1.30.2)
       '@astrojs/markdoc':
         specifier: ^0.15.10
         version: 0.15.10(@types/react@19.2.11)(astro@5.17.1(@types/node@24.1.0)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.57.1)(typescript@5.8.3))(react@19.2.0)
@@ -100,6 +109,9 @@ importers:
       '@astrojs/sitemap':
         specifier: ^3.7.0
         version: 3.7.0
+      '@portfolio/i18n':
+        specifier: workspace:*
+        version: link:../../packages/i18n
       '@portfolio/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -169,6 +181,12 @@ importers:
         version: 18.3.1(react@18.3.1)
 
   packages/functions: {}
+
+  packages/i18n:
+    dependencies:
+      astro:
+        specifier: ^5.0.0
+        version: 5.17.1(@types/node@24.1.0)(idb-keyval@6.2.2)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.57.1)(typescript@5.8.3)
 
   packages/ui:
     dependencies:
@@ -3589,6 +3607,7 @@ packages:
   tsconfck@3.1.6:
     resolution: {integrity: sha512-ks6Vjr/jEw0P1gmOVwutM3B7fWxoWBL2KRDb1JfqGVawBmO5UsvmWOQFGHBPl5yxYz4eERr19E6L7NMv+Fej4w==}
     engines: {node: ^18 || >=20}
+    deprecated: unmaintained
     hasBin: true
     peerDependencies:
       typescript: ^5.0.0

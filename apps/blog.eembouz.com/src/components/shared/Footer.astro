@@ -1,15 +1,25 @@
 ---
 import FooterComponent from "@portfolio/ui/Footer";
-import { getTranslator } from "../../libs/i18n.ts";
-const __ = await getTranslator(Astro.currentLocale);
+import { getLink, stripLocalePrefix, useTranslations, langs } from "../../i18n/utils.ts";
+import { defaultLang, languages as languageNames } from "../../i18n/ui.ts";
+
+const t = useTranslations(Astro.currentLocale);
+
+const currentPath = stripLocalePrefix(Astro.url.pathname);
+const languages = Object.entries(languageNames).map(([code, label]) => ({
+  code,
+  label,
+  href: getLink(code, currentPath),
+  current: code === Astro.currentLocale,
+}));
 ---
 
 <FooterComponent
   info={{
-    title: __("A propos"),
+    title: t("footer.about"),
   }}
   links={{
-    title: __("Réseaux"),
+    title: t("footer.networks"),
     items: [
       {
         title: "Github",
@@ -20,16 +30,16 @@ const __ = await getTranslator(Astro.currentLocale);
         href: "https://www.linkedin.com/in/%CE%BEmmanuelito-mboussa-49099932a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
       },
       {
-        title: __("Statistiques"),
+        title: t("footer.stats"),
         href: "https://analytics.eembouz.com/share/nctiJRtBLbtlHzc0",
       },
     ],
   }}
   contacts={{
-    title: __("Contact"),
+    title: t("footer.contact"),
     items: [
       {
-        title: __("Entrer en contact"),
+        title: t("footer.getInTouch"),
         href: "mailto:contact@eembouz.com",
       },
     ],
@@ -38,4 +48,6 @@ const __ = await getTranslator(Astro.currentLocale);
     name: "blog.eembouz.com",
     url: "https://blog.eembouz.com",
   }}
+  languages={languages}
+  languageLabel={t("footer.language")}
 />

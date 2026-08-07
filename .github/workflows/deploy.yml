@@ -1,4 +1,4 @@
-name: Deploy Apps to Separate Repos
+name: Deploy Apps to Cloudflare Pages
 
 on:
   push:
@@ -49,15 +49,12 @@ jobs:
       - name: Build main site
         run: pnpm turbo run build --filter=eembouz.com
 
-      - name: Deploy to elyseemb/eembouz.com
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
         with:
-          personal_token: ${{ secrets.PERSONAL_TOKEN_PORTFOLIO }}
-          external_repository: elyseemb/eembouz.com
-          publish_dir: apps/eembouz.com/dist
-          publish_branch: main
-          cname: eembouz.com
-          commit_message: "Deploy main site: ${{ github.sha }}"
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy apps/eembouz.com/dist --project-name=eembouz-com --branch=main
 
   deploy-blog:
     needs: changes
@@ -84,12 +81,9 @@ jobs:
       - name: Build blog
         run: pnpm turbo run build --filter=blog.eembouz.com
 
-      - name: Deploy to elyseemb/blog.eembouz.com
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
         with:
-          personal_token: ${{ secrets.PERSONAL_TOKEN_PORTFOLIO }}
-          external_repository: elyseemb/blog.eembouz.com
-          publish_dir: apps/blog.eembouz.com/dist
-          publish_branch: main
-          cname: blog.eembouz.com
-          commit_message: "Deploy blog: ${{ github.sha }}"
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy apps/blog.eembouz.com/dist --project-name=blog-eembouz-com --branch=main
