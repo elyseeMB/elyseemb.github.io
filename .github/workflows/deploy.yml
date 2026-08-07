@@ -44,7 +44,7 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Build main site
         run: pnpm turbo run build --filter=eembouz.com
@@ -54,6 +54,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: apps/eembouz.com
           command: pages deploy apps/eembouz.com/dist --project-name=eembouz-com --branch=main
 
   deploy-blog:
@@ -76,7 +77,7 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Build blog
         run: pnpm turbo run build --filter=blog.eembouz.com
@@ -86,4 +87,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: apps/blog.eembouz.com
           command: pages deploy apps/blog.eembouz.com/dist --project-name=blog-eembouz-com --branch=main
