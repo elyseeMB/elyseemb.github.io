@@ -3,23 +3,23 @@ import type { CollectionEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import Blog from "../components/Blog.astro";
-import { filterLang, getTranslator } from "../libs/i18n.ts";
+import { filterByLocale, useTranslations } from "../i18n/utils.ts";
 import { getPublishedPosts } from "../libs/pushisedPost.ts";
 
 export type PropsBlog = CollectionEntry<"blog">;
 
 const articles = await getPublishedPosts(
   "blog",
-  filterLang(Astro.currentLocale),
+  filterByLocale(Astro.currentLocale),
 );
 
-const __ = await getTranslator(Astro.currentLocale);
+const t = useTranslations(Astro.currentLocale);
 ---
 
 <Layout>
   <div class="home">
     <Hero />
-    {articles.length >= 1 && <Blog title={__("Mes derniers articles")} />}
+    {articles.length >= 1 && <Blog title={t("home.latestArticles")} />}
   </div>
 </Layout>
 

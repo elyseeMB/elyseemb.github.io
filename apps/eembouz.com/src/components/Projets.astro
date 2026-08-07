@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import { getTranslator } from "../libs/i18n.ts";
+import { useTranslations, type TranslationKey } from "../i18n/utils.ts";
 import { prefixWithSlash } from "../functions/string.ts";
 
 const projects = await getCollection(
@@ -8,14 +8,14 @@ const projects = await getCollection(
   ({ data }) => data.status === "en_cours",
 );
 
-const __ = await getTranslator(Astro.currentLocale);
+const t = useTranslations(Astro.currentLocale);
 ---
 
 <section
   class="projects flex flex-col gap-2 animate-blur-in animation-delay-300"
 >
   <h2 data-h3-portfolio class="projects__title font-mono tracking-tighter">
-    {prefixWithSlash(__("Projects completed"))}
+    {prefixWithSlash(t("projects.title"))}
   </h2>
   <div class="flex flex-col gap-2 text-[var(--color-secondary)]">
     {
@@ -62,7 +62,7 @@ const __ = await getTranslator(Astro.currentLocale);
               </div>
 
               <span class="framework__description flex items-center gap-1 pointer-events-none">
-                {__(project.data.description)}
+                {t(project.data.description as TranslationKey)}
               </span>
             </li>
           </ul>

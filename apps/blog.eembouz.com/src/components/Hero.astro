@@ -1,17 +1,15 @@
 ---
 import HeroComponent from "@portfolio/ui/Hero";
-import { getLink } from "../libs/i18n.ts";
-import { getTranslator } from "../libs/i18n.ts";
-const href = getLink(Astro, "/articles");
-const __ = await getTranslator(Astro.currentLocale);
+import { useTranslations } from "../i18n/utils.ts";
+const t = useTranslations(Astro.currentLocale);
 ---
 
-<HeroComponent title={__("Blog - Conseils, découvertes et inspirations ")}>
+<HeroComponent title={t("home.heroTitle")}>
   <div slot="description" class="animate-blur-in animation-delay-300">
     <p>
       {
-        __(
-          "Curieux de sciences, développeur, compositeur et amateur d'art. Je partage mes réflexions sur la programmation, la musique, la science ou parfois des analyses originales sur la littérature.",
+        t(
+          "home.heroDescription",
         )
       }
     </p>

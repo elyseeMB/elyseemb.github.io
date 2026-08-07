@@ -3,6 +3,7 @@ import sitemap from "@astrojs/sitemap";
 import preact from "@astrojs/preact";
 import markdoc from "@astrojs/markdoc";
 import mdx from "@astrojs/mdx";
+import cloudflare from "@astrojs/cloudflare";
 import { langs } from "./config.ts";
 
 import tailwindcss from "@tailwindcss/vite";
@@ -14,9 +15,7 @@ export default defineConfig({
   },
   prefetch: false,
   trailingSlash: "ignore",
-  build: {
-    format: "directory",
-  },
+  output: "static",
 
   site: "https://eembouz.com/",
   i18n: {
@@ -33,6 +32,8 @@ export default defineConfig({
 
   base: "/",
 
+  adapter: cloudflare(),
+
   integrations: [
     mdx(),
     markdoc(),
@@ -45,7 +46,7 @@ export default defineConfig({
         locales: {
           fr: "fr-CA",
           en: "en-US",
-          es: "es-ES",
+          zh: "zh-CN",
         },
       },
     }),

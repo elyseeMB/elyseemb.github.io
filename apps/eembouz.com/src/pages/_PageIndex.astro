@@ -5,7 +5,6 @@ import Projects from "../components/Projets.astro";
 import Layout from "../layouts/Layout.astro";
 import Inspiration from "../components/Inspiration.astro";
 import Hobbies from "../components/Hobbies.astro";
-import { getTranslator } from "../libs/i18n.ts";
 import Writings from "../components/Writings.astro";
 import { getCollection } from "astro:content";
 
@@ -14,7 +13,6 @@ const writings = await getCollection(
   "writings",
   ({ data }) => data.status === "online",
 );
-const __ = await getTranslator(Astro.currentLocale);
 ---
 
 <Layout>
@@ -23,7 +21,7 @@ const __ = await getTranslator(Astro.currentLocale);
     <Projects />
     {writings.length >= 1 && <Writings />}
     <Inspiration />
-    <Hobbies />
+    <!-- <Hobbies /> -->
   </div>
 </Layout>
 

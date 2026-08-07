@@ -1,0 +1,66 @@
+<script>
+  class SmoothScroll {
+    private target = 0;
+    private cur = 0;
+    private raf = 0;
+
+    constructor() {
+      if (!window.matchMedia) {
+        return;
+      }
+      if (
+        matchMedia("(hover: none)").matches ||
+        matchMedia("(pointer: coarse)").matches ||
+        matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        return;
+      }
+      this.target = window.scrollY || 0;
+      this.cur = this.target;
+
+      addEventListener(
+        "wheel",
+        (e) => {
+          if (e.ctrlKey || e.defaultPrevented) return;
+          if (!this.raf) {
+            this.cur = this.target = window.scrollY;
+          }
+          const dy =
+            e.deltaY *
+            (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? innerHeight : 1);
+          this.target = Math.max(0, Math.min(this.maxY(), this.target + dy));
+          if (!this.raf) this.raf = requestAnimationFrame(() => this.run());
+          e.preventDefault();
+        },
+        { passive: false },
+      );
+
+      addEventListener("keydown", () => {
+        if (!this.raf) {
+          this.cur = this.target = window.scrollY;
+        }
+      });
+      addEventListener("resize", () => {
+        this.cur = this.target = window.scrollY;
+      });
+    }
+
+    private maxY(): number {
+      return Math.max(0, document.documentElement.scrollHeight - innerHeight);
+    }
+
+    private run(): void {
+      const d = this.target - this.cur;
+      if (Math.abs(d) < 0.4) {
+        this.cur = this.target;
+        window.scrollTo({ top: this.cur, behavior: "instant" });
+        this.raf = 0;
+        return;
+      }
+      this.cur += d * 0.18;
+      window.scrollTo({ top: this.cur, behavior: "instant" });
+      this.raf = requestAnimationFrame(() => this.run());
+    }
+  }
+  new SmoothScroll();
+</script>
