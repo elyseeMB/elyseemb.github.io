@@ -1,6 +1,10 @@
 {
   "title": "Veille Agregator",
-  "description": "Un espace de veille pour suivre et organiser les découvertes qui comptent",
+  "description": {
+    "en": "A space to track and organize discoveries that matter",
+    "fr": "Un espace de veille pour suivre et organiser les découvertes qui comptent",
+    "zh": "追踪与整理重要发现的资讯空间"
+  },
   "link": "https://veille.safecoffi.app/",
   "pubDate": "2026-05-28"
 }

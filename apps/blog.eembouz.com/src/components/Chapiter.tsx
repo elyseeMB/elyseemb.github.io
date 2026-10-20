@@ -69,7 +69,7 @@ function ChapiterItem({
       >
         <div
           aria-current={isCurrentPage ? "page" : undefined}
-          class="block whitespace-nowrap max-w-[250px] overflow-hidden text-ellipsis transition aria-[current=page]:border-l-2 aria-[current=page]:border-l-[var(--contrast)]! aria-[current=page]:px-3 aria-[current=page]:text-[var(--color-primary)]! transition-all duration-300"
+          class="block whitespace-nowrap max-w-[250px] overflow-hidden text-ellipsis transition aria-[current=page]:border-l-2 aria-[current=page]:border-l-[var(--contrast)]! aria-[current=page]:px-3 aria-[current=page]:text-[var(--color-primary)]! duration-300"
         >
           {item.data.title}
         </div>

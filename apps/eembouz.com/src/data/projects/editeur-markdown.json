@@ -1,6 +1,10 @@
 {
   "title": "Éditeur Markdown avec Tiptap",
-  "description": "Éditeur Markdown moderne et intuitif",
+  "description": {
+    "en": "A modern and intuitive Markdown editor",
+    "fr": "Éditeur Markdown moderne et intuitif",
+    "zh": "现代直观的 Markdown 编辑器"
+  },
   "link": "https://elyseemb.github.io/editorTiptap-lazy-loading-/",
   "pubDate": "2025-11-07"
 }

@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import type { OptionsCollection } from "../../config.ts";
 import { itemNormalizer } from "../functions/article.ts";
-import { filterLang, getTranslator } from "../libs/i18n.ts";
+import { filterByLocale, useTranslations } from "../i18n/utils.ts";
 import Card from "./Card.astro";
 import { getPublishedPosts } from "../libs/pushisedPost.ts";
 
@@ -13,7 +13,7 @@ interface Props {
 
 const allPages = await getPublishedPosts(
   "blog",
-  filterLang(Astro.currentLocale),
+  filterByLocale(Astro.currentLocale),
 );
 
 const { title, limit } = Astro.props;
@@ -24,7 +24,7 @@ const options: OptionsCollection = {
   showYear: false,
   description: true,
 };
-const __ = await getTranslator(Astro.currentLocale);
+const t = useTranslations(Astro.currentLocale);
 ---
 
 <section class="blog">
@@ -37,8 +37,8 @@ const __ = await getTranslator(Astro.currentLocale);
     <div
       class="hidden pb-5 lg:bloc lg:text-sm lg:grid lg:grid-cols-5 w-full animate-fade-in animation-delay-300"
     >
-      <div>{__("/ DATE")}</div>
-      <div>{__("/ TITRE")}</div>
+      <div>{t("blog.date")}</div>
+      <div>{t("blog.title")}</div>
     </div>
     <div data-list__articles class="flex flex-1 flex-col">
       {doc.map((collection) => <Card {...collection} options={options} />)}

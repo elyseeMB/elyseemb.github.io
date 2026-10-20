@@ -1,8 +1,6 @@
-import { getTranslator } from "../libs/i18n.ts";
 import type { Skill } from "../types/skills.ts";
 
-export async function getSkills(lang: string | undefined): Promise<Skill[]> {
-  const __ = await getTranslator(lang);
+export function getSkills(): Skill[] {
   return [
     {
       name: "Frontend",
@@ -10,24 +8,22 @@ export async function getSkills(lang: string | undefined): Promise<Skill[]> {
         {
           name: "React",
           href: "https://react.dev/",
-          description: __("Molière dans toute sa compréhension et inéluctable"),
+          description: "skills.react.description",
         },
         {
           name: "Svelte",
           href: "https://svelte.dev/",
-          description: __("... le shakespeare des interfaces web"),
+          description: "skills.svelte.description",
         },
         {
           name: "Vue",
           href: "https://vuejs.org/",
-          description: __("Le couteau suisse... polyvalence et harmonie"),
+          description: "skills.vue.description",
         },
         {
           name: "Astro",
           href: "https://astro.build/",
-          description: __(
-            "... le lac silencieux qui regorge de plein de mystères"
-          ),
+          description: "skills.astro.description",
         },
       ],
     },
@@ -37,19 +33,17 @@ export async function getSkills(lang: string | undefined): Promise<Skill[]> {
         {
           name: "AdonisJS",
           href: "https://adonisjs.com/",
-          description: __(
-            "La Rolls royce des frameworks de l'écosystème Node.js"
-          ),
+          description: "skills.adonis.description",
         },
         {
           name: "Fastify",
           href: "https://fastify.dev/",
-          description: __("Rapidité et légèreté sont mes prénoms pour Node.js"),
+          description: "skills.fastify.description",
         },
         {
           name: "Golang",
           href: "https://go.dev/",
-          description: __("Le loup déguisé du troupeau des langages"),
+          description: "skills.golang.description",
         },
       ],
     },
@@ -59,19 +53,17 @@ export async function getSkills(lang: string | undefined): Promise<Skill[]> {
         {
           name: "PostgreSQL",
           href: "https://www.postgresql.org/",
-          description: __("L'usine à gaz des bases de données relationnelles"),
+          description: "skills.postgres.description",
         },
         {
           name: "MySQL",
           href: "https://www.mysql.com/",
-          description: __("... le premier de sa classe"),
+          description: "skills.mysql.description",
         },
         {
           name: "SQLite",
           href: "https://www.sqlite.org/",
-          description: __(
-            "Le portefeuille clé : léger et embarqué, sans serveur"
-          ),
+          description: "skills.sqlite.description",
         },
       ],
     },
@@ -81,24 +73,22 @@ export async function getSkills(lang: string | undefined): Promise<Skill[]> {
         {
           name: "Git",
           href: "https://git-scm.com/",
-          description: __(
-            "... je vois tout, entends tout, détecte tout : qui suis-je ?"
-          ),
+          description: "skills.git.description",
         },
         {
           name: "Docker",
           href: "https://www.docker.com/",
-          description: __("... plus d'excuses, ça marche partout"),
+          description: "skills.docker.description",
         },
         {
           name: "Linux",
           href: "https://www.linux.org/",
-          description: __("... le Dragon Ball Z des systèmes d'exploitation"),
+          description: "skills.linux.description",
         },
         {
           name: "Ansible",
           href: "https://docs.ansible.com/ansible/latest/index.html",
-          description: __("L'électricien avant l'emménagement"),
+          description: "skills.ansible.description",
         },
       ],
     },

@@ -2,6 +2,47 @@ import { config, fields, collection, singleton } from "@keystatic/core";
 import { block, wrapper, inline } from "@keystatic/core/content-components";
 import { StatusPost, StatusPostText } from "./enum/status.ts";
 
+const locales = ["en", "fr", "zh"] as const;
+
+function localizedText(label: string, multiline = false) {
+  return fields.object(
+    Object.fromEntries(
+      locales.map((locale) => [
+        locale,
+        fields.text({
+          label: `${label} (${locale.toUpperCase()})`,
+          multiline,
+        }),
+      ]),
+    ) as Record<(typeof locales)[number], ReturnType<typeof fields.text>>,
+  );
+}
+
+function writingSchema() {
+  return {
+    title: fields.slug({ name: { label: "Title" } }),
+    pubDate: fields.date({ label: "Publication Date" }),
+    status: fields.select({
+      label: "Status",
+      options: [
+        { label: "Draft", value: "draft" },
+        { label: "Online", value: "online" },
+      ],
+      defaultValue: "draft",
+    }),
+    thumbnail: fields.image({
+      label: "Thumbnail",
+      description: "Image used for OG tags",
+      directory: "apps/eembouz.com/public",
+      publicPath: "/",
+    }),
+    content: fields.mdx({
+      label: "Content",
+      description: "Main body content of the writing",
+    }),
+  };
+}
+
 export default config({
   storage: {
     kind: "github",
@@ -13,7 +54,7 @@ export default config({
       entryLayout: "content",
       label: "/fr/Post",
       slugField: "title",
-      path: "apps/blog.eembouz.com/src/data/blog/*",
+      path: "apps/blog.eembouz.com/src/data/blog/fr/*",
       format: { contentField: "content" },
       schema: {
         title: fields.slug({
@@ -132,7 +173,7 @@ export default config({
       entryLayout: "content",
       label: "/en/Post",
       slugField: "title",
-      path: "apps/blog.eembouz.com/src/data/blog/en/*",
+      path: "apps/blog.eembouz.com/src/data/blog/*",
       format: { contentField: "content" },
       schema: {
         title: fields.slug({
@@ -274,10 +315,7 @@ export default config({
       format: { data: "json" },
       schema: {
         title: fields.slug({ name: { label: "Title" } }),
-        description: fields.text({
-          label: "Description",
-          multiline: true,
-        }),
+        description: localizedText("Description", true),
         link: fields.url({ label: "URL" }),
         pubDate: fields.date({ label: "Publication Date" }),
         status: fields.select({
@@ -293,32 +331,29 @@ export default config({
 
     writings: collection({
       entryLayout: "content",
-      label: "Writings",
+      label: "/en/Writing",
       slugField: "title",
       path: "apps/eembouz.com/src/data/writings/*",
       format: { contentField: "content" },
-      schema: {
-        title: fields.slug({ name: { label: "Title" } }),
-        pubDate: fields.date({ label: "Publication Date" }),
-        status: fields.select({
-          label: "Status",
-          options: [
-            { label: "Draft", value: "draft" },
-            { label: "Online", value: "online" },
-          ],
-          defaultValue: "draft",
-        }),
-        thumbnail: fields.image({
-          label: "Thumbnail",
-          description: "Image used for OG tags",
-          directory: "apps/eembouz.com/public",
-          publicPath: "/",
-        }),
-        content: fields.mdx({
-          label: "Content",
-          description: "Main body content of the writing",
-        }),
-      },
+      schema: writingSchema(),
+    }),
+
+    writings_fr: collection({
+      entryLayout: "content",
+      label: "/fr/Writing",
+      slugField: "title",
+      path: "apps/eembouz.com/src/data/writings/fr/*",
+      format: { contentField: "content" },
+      schema: writingSchema(),
+    }),
+
+    writings_zh: collection({
+      entryLayout: "content",
+      label: "/zh/Writing",
+      slugField: "title",
+      path: "apps/eembouz.com/src/data/writings/zh/*",
+      format: { contentField: "content" },
+      schema: writingSchema(),
     }),
   },
 

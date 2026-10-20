@@ -1,0 +1,42 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { filterByLocale } from "../../i18n/utils.ts";
+import Collection from "../../components/Collection.astro";
+import { type OptionsCollection } from "../../../config.ts";
+import { itemNormalizer } from "../../functions/article.ts";
+import { getPublishedPosts } from "../../libs/pushisedPost.ts";
+
+const allPages = await getPublishedPosts(
+  "blog",
+  filterByLocale(Astro.currentLocale),
+);
+
+const doc = itemNormalizer(allPages);
+
+const options: OptionsCollection = {
+  showYear: true,
+};
+---
+
+<Layout>
+  <div>
+    <section class="blog-posts">
+      <div class="divide-y divide-[var(--border-color)]">
+        {
+          doc.map((collection) => (
+            <Collection {...collection} options={options} />
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .blog-posts {
+    padding-block: 3rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space);
+  }
+</style>

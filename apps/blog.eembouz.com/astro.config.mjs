@@ -14,9 +14,7 @@ export default defineConfig({
   prefetch: false,
   trailingSlash: "ignore",
   site: "https://blog.eembouz.com/",
-  build: {
-    format: "directory",
-  },
+  output: "static",
 
   image: {
     service: passthroughImageService(),
@@ -33,7 +31,7 @@ export default defineConfig({
   },
 
   i18n: {
-    defaultLocale: "fr",
+    defaultLocale: "en",
     locales: ["en", "fr"],
   },
   base: "/",
@@ -54,7 +52,7 @@ export default defineConfig({
   },
 
   redirects: {
-    "/en/articles/isolation-par-contrats-rendre-l-infrastructure-independante-du-metier/":
-      "/en/articles/isolation-through-contracts-making-infrastructure-independent-of-the-business-domain/",
+    "/articles/isolation-par-contrats-rendre-l-infrastructure-independante-du-metier/":
+      "/articles/isolation-through-contracts-making-infrastructure-independent-of-the-business-domain/",
   },
 });

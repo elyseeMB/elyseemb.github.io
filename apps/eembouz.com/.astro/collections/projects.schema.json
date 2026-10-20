@@ -8,7 +8,24 @@
           "type": "string"
         },
         "description": {
-          "type": "string"
+          "type": "object",
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fr": {
+              "type": "string"
+            },
+            "zh": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "en",
+            "fr",
+            "zh"
+          ],
+          "additionalProperties": false
         },
         "link": {
           "type": "string",

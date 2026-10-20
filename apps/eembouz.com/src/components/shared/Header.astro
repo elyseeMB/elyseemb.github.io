@@ -1,9 +1,9 @@
 ---
 import HeaderComponent from "@portfolio/ui/Header";
-import { getLink, getTranslator } from "../../libs/i18n.ts";
+import { getLink, useTranslations } from "../../i18n/utils.ts";
 const { pathname } = Astro.url;
-const __ = await getTranslator(Astro.currentLocale);
-const isMainPage = pathname === getLink(Astro, "/");
+const t = useTranslations(Astro.currentLocale);
+const isMainPage = pathname === getLink(Astro.currentLocale, "/");
 ---
 
 <HeaderComponent>
@@ -42,7 +42,7 @@ const isMainPage = pathname === getLink(Astro, "/");
       >
         <span class="btn-text">
           <span class="btn-text-inner">
-            {__("Blog")}
+            {t("nav.blog")}
           </span>
         </span>
       </a>
@@ -56,7 +56,7 @@ const isMainPage = pathname === getLink(Astro, "/");
         data-strength-text="10"
       >
         <span class="btn-text">
-          <span class="btn-text-inner">{__("contact")}</span>
+          <span class="btn-text-inner">{t("nav.contact")}</span>
         </span>
       </a>
     </li>

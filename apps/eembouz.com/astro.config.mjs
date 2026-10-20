@@ -14,14 +14,12 @@ export default defineConfig({
   },
   prefetch: false,
   trailingSlash: "ignore",
-  build: {
-    format: "directory",
-  },
+  output: "static",
 
   site: "https://eembouz.com/",
   i18n: {
-    locales: [...langs, "fr"],
-    defaultLocale: "fr",
+    locales: [...langs, "en"],
+    defaultLocale: "en",
     fallback: {
       zh: "en",
     },
@@ -41,11 +39,11 @@ export default defineConfig({
         page !== "https://eembouz.com/404/" &&
         page !== "https://eembouz.com/505/",
       i18n: {
-        defaultLocale: "fr",
+        defaultLocale: "en",
         locales: {
           fr: "fr-CA",
           en: "en-US",
-          es: "es-ES",
+          zh: "zh-CN",
         },
       },
     }),

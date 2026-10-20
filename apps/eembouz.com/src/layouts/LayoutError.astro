@@ -1,0 +1,53 @@
+---
+import "@portfolio/ui/GlobalCSS";
+import Scripts from "../components/Scripts.astro";
+import Seo from "../components/Seo.astro";
+import Footer from "../components/shared/Footer.astro";
+import { ClientRouter } from "astro:transitions";
+import Header from "../components/shared/Header.astro";
+import BlurEffect from "../components/BlurEffect.astro";
+import ThemeManager from "@portfolio/ui/ThemeManager";
+
+const {
+  title,
+  description,
+  image,
+  url = Astro.url.href,
+  typeContent,
+  fullWidth,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={Astro.currentLocale}>
+  <head>
+    <Seo
+      title={title}
+      description={description}
+      typeContent={typeContent}
+      image={image}
+      url={url}
+    />
+    <Scripts />
+    <ThemeManager />
+  </head>
+  <body class="font-serif text-lg lg:text-xl">
+    <div class:list={[fullWidth ? "container-full" : "container"]}>
+      <div class="page-wrapper">
+        <slot />
+      </div>
+    </div>
+    <ClientRouter />
+  </body>
+</html>
+
+<script>
+  import { onLoadClientRouter } from "@portfolio/ui/client";
+
+  onLoadClientRouter(() => {
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document.documentElement.classList.add("dark");
+      document.documentElement.style.colorScheme = "dark";
+    }
+  });
+</script>

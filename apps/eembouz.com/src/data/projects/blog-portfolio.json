@@ -1,6 +1,10 @@
 {
   "title": "Blog & Portfolio",
-  "description": "Plateforme personnelle de partage technique",
+  "description": {
+    "en": "Personal technical sharing platform",
+    "fr": "Plateforme personnelle de partage technique",
+    "zh": "个人技术分享平台"
+  },
   "link": "https://blog.eembouz.com/",
   "pubDate": "2025-05-07"
 }

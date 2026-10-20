@@ -1,5 +1,4 @@
 ---
-import { getTranslator } from "../libs/i18n.ts";
 import Button from "@portfolio/ui/Button";
 
 interface Props {
@@ -8,7 +7,6 @@ interface Props {
 }
 
 const { time, icon = false } = Astro.props;
-const __ = await getTranslator(Astro.currentLocale);
 ---
 
 <div class="flex items-center gap-2">

@@ -1,25 +1,28 @@
 ---
 import Hero from "../components/Hero.astro";
 import type { CollectionEntry } from "astro:content";
-import Skills from "../components/Skills.astro";
 import Projects from "../components/Projets.astro";
 import Layout from "../layouts/Layout.astro";
 import Inspiration from "../components/Inspiration.astro";
 import Hobbies from "../components/Hobbies.astro";
-import { getTranslator } from "../libs/i18n.ts";
 import Writings from "../components/Writings.astro";
+import { getCollection } from "astro:content";
+import { filterByLocale } from "../i18n/utils.ts";
 
 export type PropsProjet = CollectionEntry<"projects">;
-const __ = await getTranslator(Astro.currentLocale);
+const filter = filterByLocale(Astro.currentLocale ?? "en");
+const writings = await getCollection(
+  "writings",
+  (entry) => entry.data.status === "online" && filter(entry),
+);
 ---
 
 <Layout>
   <div class="home">
     <Hero />
     <Projects />
-    <Writings />
+    {writings.length >= 1 && <Writings />}
     <Inspiration />
-
     <Hobbies />
   </div>
 </Layout>

@@ -1,18 +1,14 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import LayoutError from "../layouts/LayoutError.astro";
 ---
 
-<Layout>
-  <div>
-    <div class="wrapper">Page not found | 404</div>
+<LayoutError>
+  <div class="grid place-items-center w-full h-screen">
+    <div class="flex flex-col gap-5">
+      <span>Page not found | 404</span>
+      <button>
+        <a data-link href="/">Back to home page</a>
+      </button>
+    </div>
   </div>
-</Layout>
-
-<style>
-  .wrapper {
-    display: grid;
-    place-items: center;
-    width: 100%;
-    height: 100vh;
-  }
-</style>
+</LayoutError>
