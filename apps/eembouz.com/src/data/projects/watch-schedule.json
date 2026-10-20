@@ -1,6 +1,10 @@
 {
   "title": "Watch Schedule",
-  "description": "A calendar of upcoming movie and TV show releases.",
+  "description": {
+    "en": "A calendar of upcoming movie and TV show releases.",
+    "fr": "Un calendrier des prochaines sorties de films et de séries télévisées.",
+    "zh": "即将上映的电影和电视剧发布日历。"
+  },
   "link": "https://watch.eembouz.com",
   "pubDate": "2026-10-20",
   "status": "en_cours"
