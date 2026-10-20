@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import { useTranslations, type TranslationKey } from "../i18n/utils.ts";
+import { useTranslations } from "../i18n/utils.ts";
 import { prefixWithSlash } from "../functions/string.ts";
 
 const projects = await getCollection(
@@ -9,6 +9,7 @@ const projects = await getCollection(
 );
 
 const t = useTranslations(Astro.currentLocale);
+const locale = (Astro.currentLocale ?? "en") as "en" | "fr" | "zh";
 ---
 
 <section
@@ -62,7 +63,8 @@ const t = useTranslations(Astro.currentLocale);
               </div>
 
               <span class="framework__description flex items-center gap-1 pointer-events-none">
-                {t(project.data.description as TranslationKey)}
+                {project.data.description[locale] ??
+                  project.data.description.en}
               </span>
             </li>
           </ul>

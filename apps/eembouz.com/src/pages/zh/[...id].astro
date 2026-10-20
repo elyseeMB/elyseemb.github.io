@@ -1,0 +1,21 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import { filterByLocale } from "../../i18n/utils.ts";
+import Page from "../_WritingPage.astro";
+
+export const getStaticPaths = (async () => {
+  const items = await getCollection(
+    "writings",
+    (entry) => entry.data.status === "online" && filterByLocale("zh")(entry),
+  );
+  return items.map((writing) => ({
+    params: { id: writing.id.split("/").at(-1) },
+    props: { writing },
+  }));
+}) satisfies GetStaticPaths;
+
+const { writing } = Astro.props;
+---
+
+<Page writing={writing} />

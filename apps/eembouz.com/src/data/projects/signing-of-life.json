@@ -1,6 +1,10 @@
 {
   "title": "Signing Of Life",
-  "description": "projects.signingOfLife.description",
+  "description": {
+    "en": "One quote every morning — a collection of texts from philosophers, poets, and thinkers around the world",
+    "fr": "Une citation chaque matin — un recueil de textes de philosophes, poètes et penseurs du monde entier",
+    "zh": "每日一句——汇集全球哲学家、诗人与思想家的文字精选"
+  },
   "link": "https://signin.safecoffi.app/",
   "pubDate": "2026-05-28",
   "status": "en_cours"

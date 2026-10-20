@@ -15,7 +15,11 @@ const projects = defineCollection({
   loader: glob({ pattern: "**/[^_]*.json", base: "./src/data/projects" }),
   schema: z.object({
     title: z.string(),
-    description: z.string(),
+    description: z.object({
+      en: z.string(),
+      fr: z.string(),
+      zh: z.string(),
+    }),
     link: z.string().url(),
     pubDate: z.coerce.date(),
     status: z.enum(["en_cours", "valable"]).default("en_cours"),

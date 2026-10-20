@@ -7,11 +7,13 @@ import Inspiration from "../components/Inspiration.astro";
 import Hobbies from "../components/Hobbies.astro";
 import Writings from "../components/Writings.astro";
 import { getCollection } from "astro:content";
+import { filterByLocale } from "../i18n/utils.ts";
 
 export type PropsProjet = CollectionEntry<"projects">;
+const filter = filterByLocale(Astro.currentLocale ?? "en");
 const writings = await getCollection(
   "writings",
-  ({ data }) => data.status === "online",
+  (entry) => entry.data.status === "online" && filter(entry),
 );
 ---
 

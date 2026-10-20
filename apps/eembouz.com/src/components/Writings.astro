@@ -1,11 +1,19 @@
 ---
 import { getCollection } from "astro:content";
-import { useTranslations } from "../i18n/utils.ts";
+import {
+  useTranslations,
+  filterByLocale,
+  getLink,
+  stripLocalePrefix,
+} from "../i18n/utils.ts";
 import { prefixWithSlash } from "../functions/string.ts";
+
+const locale = Astro.currentLocale ?? "en";
+const filter = filterByLocale(locale);
 
 const writings = await getCollection(
   "writings",
-  ({ data }) => data.status === "online",
+  (entry) => entry.data.status === "online" && filter(entry),
 );
 
 const t = useTranslations(Astro.currentLocale);
@@ -23,7 +31,10 @@ const t = useTranslations(Astro.currentLocale);
         <div class="frameworks">
           <ul class="list">
             <li class="framework group cursor-pointer hover:text-[var(--color-primary)] transition">
-              <a class="group block w-full" href={writing.id}>
+              <a
+                class="group block w-full"
+                href={getLink(locale, stripLocalePrefix(writing.id))}
+              >
                 <span data-link class="relative framework__name">
                   {writing.data.title}
                   <span class="absolute left-full ml-2 top-1/2 -translate-y-1/2">
