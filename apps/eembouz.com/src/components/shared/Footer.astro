@@ -17,8 +17,12 @@ const languages = Object.entries(languageNames).map(([code, label]) => ({
 
 <FooterComponent
   links={{
-    title: prefixWithSlash(t("footer.networks")),
+    title: t("footer.networks"),
     items: [
+      {
+        title: t("footer.home"),
+        href: getLink(Astro.currentLocale, "/"),
+      },
       {
         title: "Github",
         href: "https://github.com/elyseeMB",

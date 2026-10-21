@@ -36,8 +36,14 @@ const t = useTranslations(Astro.currentLocale);
                 class="group block w-full"
                 href={getLink(locale, stripLocalePrefix(writing.id))}
               >
-                <span data-link class="relative framework__name">
+                <div data-link class="relative framework__name">
                   {writing.data.title}
+                  <span>-</span>
+                  <span>
+                    {Intl.DateTimeFormat(locale, {
+                      dateStyle: "medium",
+                    }).format(writing.data.pubDate)}
+                  </span>
                   <span class="absolute left-full ml-2 top-1/2 -translate-y-1/2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +61,7 @@ const t = useTranslations(Astro.currentLocale);
                       <path d="M7 17 17 7" />
                     </svg>
                   </span>
-                </span>
+                </div>
               </a>
             </li>
           </ul>

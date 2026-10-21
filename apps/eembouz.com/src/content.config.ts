@@ -2,12 +2,13 @@ import { glob } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
 
 const writings = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.md", base: "./src/data/writings" }),
+  loader: glob({ pattern: "**/[^_]*.mdx", base: "./src/data/writings" }),
   schema: z.object({
     title: z.string(),
     pubDate: z.coerce.date(),
     status: z.enum(["draft", "online"]).default("draft"),
     thumbnail: z.string().optional(),
+    music: z.string().optional(),
   }),
 });
 
