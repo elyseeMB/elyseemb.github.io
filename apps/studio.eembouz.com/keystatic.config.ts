@@ -36,6 +36,11 @@ function writingSchema() {
       directory: "apps/eembouz.com/public",
       publicPath: "/",
     }),
+    music: fields.text({
+      label: "Music",
+      description:
+        "YouTube video ID used as background music (e.g. ZjQDpwK755U). Leave empty for no music.",
+    }),
     content: fields.mdx({
       label: "Content",
       description: "Main body content of the writing",

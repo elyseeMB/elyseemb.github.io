@@ -8,6 +8,7 @@ const writings = defineCollection({
     pubDate: z.coerce.date(),
     status: z.enum(["draft", "online"]).default("draft"),
     thumbnail: z.string().optional(),
+    music: z.string().optional(),
   }),
 });
 

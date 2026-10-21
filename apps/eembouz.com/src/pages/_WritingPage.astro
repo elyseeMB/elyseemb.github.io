@@ -2,6 +2,8 @@
 import type { CollectionEntry } from "astro:content";
 import { render } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+import MusicPlayer from "../components/MusicPlayer.tsx";
+import { useTranslations } from "../i18n/utils.ts";
 
 export type Props = {
   writing: CollectionEntry<"writings">;
@@ -10,9 +12,11 @@ export type Props = {
 const { writing } = Astro.props;
 const { Content } = await render(writing);
 
-const { title, pubDate, thumbnail } = writing.data;
+const { title, pubDate, thumbnail, music } = writing.data;
 
 const locale = Astro.currentLocale ?? "en";
+
+const t = useTranslations(locale);
 
 const seo = {
   title,
@@ -40,6 +44,17 @@ const seo = {
         }
       </span>
     </div>
+
+    {
+      music && (
+        <MusicPlayer
+          client:load
+          videoId={music}
+          playLabel={t("music.play")}
+          pauseLabel={t("music.pause")}
+        />
+      )
+    }
 
     <div class="pt-10">
       <div class="prose font-sans leading-relaxed!">
