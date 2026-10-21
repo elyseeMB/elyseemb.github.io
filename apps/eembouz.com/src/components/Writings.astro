@@ -5,11 +5,12 @@ import {
   filterByLocale,
   getLink,
   stripLocalePrefix,
+  resolveContentLocale,
 } from "../i18n/utils.ts";
 import { prefixWithSlash } from "../functions/string.ts";
 
 const locale = Astro.currentLocale ?? "en";
-const filter = filterByLocale(locale);
+const filter = filterByLocale(resolveContentLocale(locale));
 
 const writings = await getCollection(
   "writings",

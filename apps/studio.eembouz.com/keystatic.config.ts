@@ -346,15 +346,6 @@ export default config({
       format: { contentField: "content" },
       schema: writingSchema(),
     }),
-
-    writings_zh: collection({
-      entryLayout: "content",
-      label: "/zh/Writing",
-      slugField: "title",
-      path: "apps/eembouz.com/src/data/writings/zh/*",
-      format: { contentField: "content" },
-      schema: writingSchema(),
-    }),
   },
 
   singletons: {
