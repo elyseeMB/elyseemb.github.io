@@ -38,10 +38,13 @@ export function stripLocalePrefix<L extends string>(
   locales: readonly L[],
   defaultLocale: L,
 ): string {
-  const [, first] = path.split("/");
+  const hadSlash = path.startsWith("/");
+  const clean = hadSlash ? path.slice(1) : path;
+  const first = clean.split("/")[0];
   if (first && first !== defaultLocale && locales.includes(first as L)) {
-    const stripped = path.slice(first.length + 1);
-    return stripped || "/";
+    const stripped = clean.slice(first.length + 1);
+    if (!stripped) return hadSlash ? "/" : path;
+    return hadSlash ? `/${stripped}` : stripped;
   }
   return path;
 }

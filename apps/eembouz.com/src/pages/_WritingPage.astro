@@ -12,6 +12,8 @@ const { Content } = await render(writing);
 
 const { title, pubDate, thumbnail } = writing.data;
 
+const locale = Astro.currentLocale ?? "en";
+
 const seo = {
   title,
   typeContent: "article" as const,
@@ -27,7 +29,15 @@ const seo = {
     <div class="grid grid-cols-1 gap-2 font-sans">
       <h1 class="font-normal">{title}</h1>
       <span class="text-sm text-[var(--color-secondary)]">
-        {pubDate.toDateString()}
+        {
+          Intl.DateTimeFormat(locale, {
+            dayPeriod: "long",
+
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          }).format(pubDate)
+        }
       </span>
     </div>
 
