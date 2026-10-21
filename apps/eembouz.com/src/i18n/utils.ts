@@ -29,4 +29,11 @@ export function stripLocalePrefix(path: string) {
   return createStripLocalePrefix(path, langs, defaultLang);
 }
 
+const contentLocaleFallbacks: Record<string, string> = { zh: "en" };
+
+export function resolveContentLocale(locale: string | undefined) {
+  const current = locale ?? defaultLang;
+  return contentLocaleFallbacks[current] ?? current;
+}
+
 export type TranslationKey = keyof (typeof ui)[typeof defaultLang];
