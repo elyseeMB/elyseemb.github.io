@@ -19,7 +19,7 @@
     "astro": "^5.17.1",
     "gsap": "^3.14.2",
     "highlight.js": "^11.11.1",
-    "preact": "^10.28.3"
+    "preact": "^10.29.8"
   },
   "peerDependencies": {
     "@tailwindcss/typography": "^0.5.19",
@@ -27,7 +27,7 @@
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.10.3",
+    "@preact/preset-vite": "^2.10.6",
     "typescript": "~5.8.3"
   },
   "packageManager": "pnpm@9.15.2+sha1.0ffb02f94047016ec7e088030337455b4c94bb34"
