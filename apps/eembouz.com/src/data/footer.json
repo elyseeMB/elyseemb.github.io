@@ -1,0 +1,46 @@
+{
+  "networks": [
+    {
+      "label": {
+        "en": "Home",
+        "fr": "Accueil",
+        "zh": "首页"
+      },
+      "href": "/"
+    },
+    {
+      "label": {
+        "en": "Github",
+        "fr": "Github",
+        "zh": "Github"
+      },
+      "href": "https://github.com/elyseeMB"
+    },
+    {
+      "label": {
+        "en": "Linkedin",
+        "fr": "Linkedin",
+        "zh": "Linkedin"
+      },
+      "href": "https://www.linkedin.com/in/%CE%BEmmanuelito-mboussa-49099932a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+    },
+    {
+      "label": {
+        "en": "Stats",
+        "fr": "Statistiques",
+        "zh": "统计"
+      },
+      "href": "https://analytics.eembouz.com/share/UmUcMJfGKRHXxg3C"
+    }
+  ],
+  "contacts": [
+    {
+      "label": {
+        "en": "Get in touch",
+        "fr": "Entrer en contact",
+        "zh": "建立联系"
+      },
+      "href": "mailto:contact@eembouz.com"
+    }
+  ]
+}
