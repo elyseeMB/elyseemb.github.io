@@ -12,11 +12,11 @@
     "@tailwindcss/vite": "^4.1.18",
     "clsx": "^2.1.1",
     "tailwindcss": "^4.1.18",
-    "turbo": "^2.8.1"
+    "turbo": "^2.11.10"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.4",
+    "@astrojs/check": "^0.9.12",
     "@tailwindcss/typography": "^0.5.19",
-    "typescript": "~5.8.3"
+    "typescript": "~5.9.3"
   }
 }
