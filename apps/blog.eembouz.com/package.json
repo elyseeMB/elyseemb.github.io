@@ -17,10 +17,10 @@
     "@portfolio/i18n": "workspace:*",
     "@portfolio/ui": "workspace:*",
     "astro": "^5.17.1",
-    "highlight.js": "^11.11.1",
+    "highlight.js": "^11.12.0",
     "mdast-util-to-string": "^4.0.0",
-    "nanostores": "^1.1.0",
-    "node-html-parser": "^7.0.2",
+    "nanostores": "^1.5.5",
+    "node-html-parser": "^7.1.0",
     "preact": "^10.28.3",
     "reading-time": "^1.5.0"
   },
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.3",
-    "typescript": "~5.8.3"
+    "typescript": "~5.9.3"
   },
   "packageManager": "pnpm@9.15.2+sha1.0ffb02f94047016ec7e088030337455b4c94bb34"
 }

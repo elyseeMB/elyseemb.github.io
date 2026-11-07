@@ -25,6 +25,6 @@
   "devDependencies": {
     "@preact/preset-vite": "^2.10.3",
     "@tailwindcss/typography": "^0.5.19",
-    "typescript": "~5.8.3"
+    "typescript": "~5.9.3"
   }
 }
