@@ -1,8 +1,8 @@
 ---
 import FooterComponent from "@portfolio/ui/Footer";
-import { getLink, stripLocalePrefix, useTranslations, langs } from "../../i18n/utils.ts";
+import { getLink, stripLocalePrefix, useTranslations } from "../../i18n/utils.ts";
 import { defaultLang, languages as languageNames } from "../../i18n/ui.ts";
-import { prefixWithSlash } from "../../functions/string.ts";
+import footerData from "../../data/footer.json";
 
 const t = useTranslations(Astro.currentLocale);
 
@@ -13,38 +13,32 @@ const languages = Object.entries(languageNames).map(([code, label]) => ({
   href: getLink(code, currentPath),
   current: code === Astro.currentLocale,
 }));
+
+type FooterLocale = keyof (typeof footerData.networks)[number]["label"];
+const locale = (Astro.currentLocale ?? defaultLang) as FooterLocale;
+
+const resolveHref = (href: string) =>
+  href.startsWith("/") ? getLink(Astro.currentLocale, href) : href;
+
+const networks = footerData.networks.map((item) => ({
+  title: item.label[locale] ?? item.label.en,
+  href: resolveHref(item.href),
+}));
+
+const contacts = footerData.contacts.map((item) => ({
+  title: item.label[locale] ?? item.label.en,
+  href: resolveHref(item.href),
+}));
 ---
 
 <FooterComponent
   links={{
     title: t("footer.networks"),
-    items: [
-      {
-        title: t("footer.home"),
-        href: getLink(Astro.currentLocale, "/"),
-      },
-      {
-        title: "Github",
-        href: "https://github.com/elyseeMB",
-      },
-      {
-        title: "Linkedin",
-        href: "https://www.linkedin.com/in/%CE%BEmmanuelito-mboussa-49099932a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
-      },
-      {
-        title: t("footer.stats"),
-        href: "https://analytics.eembouz.com/share/UmUcMJfGKRHXxg3C",
-      },
-    ],
+    items: networks,
   }}
   contacts={{
     title: t("footer.contact"),
-    items: [
-      {
-        title: t("footer.getInTouch"),
-        href: "mailto:contact@eembouz.com",
-      },
-    ],
+    items: contacts,
   }}
   property={{
     name: "eembouz.com",

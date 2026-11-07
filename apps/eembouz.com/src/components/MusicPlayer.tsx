@@ -91,6 +91,8 @@ export default function MusicPlayer({
 
       playerRef.current = new YT.Player(mount, {
         videoId,
+        width: 1,
+        height: 1,
         playerVars: {
           autoplay: 0,
           controls: 0,
@@ -149,10 +151,10 @@ export default function MusicPlayer({
   };
 
   return (
-    <div className="flex items-center gap-4 pt-8">
+    <div className="w-full flex items-center gap-4 p-2 mt-4 bg-secondary">
       <div
         ref={boxRef}
-        className="pointer-events-none absolute h-px w-px opacity-0"
+        className="pointer-events-none fixed left-0 top-0 h-px w-px overflow-hidden opacity-0"
       />
 
       <img
@@ -160,12 +162,10 @@ export default function MusicPlayer({
         className="block h-[90px] w-[90px] object-cover"
       />
 
-      <div className="flex flex-col gap-4">
-        <div className="text-[0.9rem]">
-          <div className="truncate text-[0.9rem]">{info.title}</div>
-          <div className="text-left text-[0.85em] opacity-60">
-            {info.author}
-          </div>
+      <div className="flex flex-col gap-2 lg:gap-4">
+        <div className="text-xs lg:text-sm flex flex-col gap-1">
+          <div className="break-words">{info.title}</div>
+          <div className="text-xs lg:text-sm opacity-60">{info.author}</div>
         </div>
 
         <button
