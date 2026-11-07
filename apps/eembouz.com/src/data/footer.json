@@ -26,6 +26,14 @@
     },
     {
       "label": {
+        "en": "Blog",
+        "fr": "Blog",
+        "zh": "博客"
+      },
+      "href": "https://blog.eembouz.com"
+    },
+    {
+      "label": {
         "en": "Stats",
         "fr": "Statistiques",
         "zh": "统计"
