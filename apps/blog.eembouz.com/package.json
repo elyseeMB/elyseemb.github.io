@@ -21,7 +21,7 @@
     "mdast-util-to-string": "^4.0.0",
     "nanostores": "^1.1.0",
     "node-html-parser": "^7.0.2",
-    "preact": "^10.28.3",
+    "preact": "^10.29.8",
     "reading-time": "^1.5.0"
   },
   "peerDependencies": {
@@ -30,7 +30,7 @@
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.10.3",
+    "@preact/preset-vite": "^2.10.6",
     "typescript": "~5.8.3"
   },
   "packageManager": "pnpm@9.15.2+sha1.0ffb02f94047016ec7e088030337455b4c94bb34"
